@@ -26,16 +26,17 @@
 					<th>회원 비번</th>
 					<th>회원 이름</th>
 				</tr>
-</thead>
-<tbody id="tbody">
-				<tr th:if="${userLsit != null and not #lists.isEmpty(userLsit)}"
-					th:each="l : ${userLsit}">
+			</thead>
+
+				<tbody id="tbody">
+				<tr th:if="${userList != null and not #lists.isEmpty(userList)}"
+					th:each="l : ${userList}">
 					<td th:text="${l.memberId}"></td>
 					<td th:text="${l.memberPW}"></td>
 					<td th:text="${l.memberName}"></td>
 					</tr>
-					</tbody>
-</table>
+				</tbody>
+		</table>
 	</th:block>
 
 	<!-- Start Page Content -->
