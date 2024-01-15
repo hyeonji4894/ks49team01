@@ -19,31 +19,40 @@
 			<a th:href="@{/}" class="text-muted">회원관리</a>
 		</li>
 		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
-		<table>
-			<thead>
-				<tr>
-					<th>회원 아이디</th>
-					<th>회원 비번</th>
-					<th>회원 이름</th>
-				</tr>
-			</thead>
-
-				<tbody id="tbody">
-				<tr th:if="${userList != null and not #lists.isEmpty(userList)}"
-					th:each="l : ${userList}">
-					<td th:text="${l.memberId}"></td>
-					<td th:text="${l.memberPW}"></td>
-					<td th:text="${l.memberName}"></td>
-					</tr>
-				</tbody>
-		</table>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">/get_member.html</div>
-       		<div class="col-6">456</div>
-       	</div>
+		<div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">회원 아이디</th>
+                                            <th scope="col">회원 비번</th>
+                                            <th scope="col">회원 이름</th>
+                                            <th scope="col">회원 이메일</th>
+                                            <th scope="col">회원 성별</th>
+                                            <th scope="col">회원 전화번호</th>
+                                            <th scope="col">회원 주소</th>
+                                            <th scope="col">회원 마일리지</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                     
+                                          <tr th:if="${userList != null and not #lists.isEmpty(userList)}"
+												th:each="l : ${userList}">
+												<td th:text="${l.memberId}"></td>
+												<td th:text="${l.memberPW}"></td>
+												<td th:text="${l.memberName}"></td>
+												
+												<td th:text="${l.memberEmail}"></td>
+												<td th:text="${l.memberGender}"></td>
+												<td th:text="${l.memberPhone}"></td>
+												<td th:text="${l.memberAddr}"></td>
+												<td th:text="${l.memberMileage}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 	</th:block>
 </html>

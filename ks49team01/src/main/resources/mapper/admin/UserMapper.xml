@@ -7,14 +7,36 @@
 		<id 	column="member_id" 		property="memberId" />
 		<result column="member_pw" 		property="memberPW"/>
 		<result column="member_name" 		property="memberName"/>
+		
+		<result column="member_email" 		property="memberEmail"/>
+		<!--<result column="member_birth" 		property="memberBirth"/>-->
+		<result column="member_gender" 		property="memberGender"/>
+		<result column="member_phone" 		property="memberPhone"/>
+		<result column="member_addr" 		property="memberAddr"/>
+		<!--<result column="member_regdate" 		property="memberRegDate"/>-->
+		<result column="final_mileage" 		property="memberMileage"/>
+		
 	</resultMap>
 	<select id="getuserList" resultMap="usersResultMap">
 		SELECT
 			m.member_id,
 			m.member_pw,
-			m.member_name
+			m.member_name,
+			member_email,
+			member_birth,
+			member_gender,
+			member_phone,
+			member_addr,
+			member_regdate,
+			final_mileage
 		FROM
 			member AS m
+		<!--SELECT
+			m.member_id,
+			m.member_pw,
+			m.member_name
+		FROM
+			member AS m-->
 	</select>
 </mapper>
 	
