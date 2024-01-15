@@ -1,5 +1,5 @@
 package ks49team01.admin.dto;
 
-public class Member {
-
+public class AdminBranchApply {
+	
 }
