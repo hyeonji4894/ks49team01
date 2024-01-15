@@ -19,6 +19,23 @@
 			<a th:href="@{/}" class="text-muted">회원관리</a>
 		</li>
 		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<table>
+			<thead>
+				<tr>
+					<th>회원 아이디</th>
+					<th>회원 비번</th>
+					<th>회원 이름</th>
+				</tr>
+</thead>
+<tbody id="tbody">
+				<tr th:if="${userLsit != null and not #lists.isEmpty(userLsit)}"
+					th:each="l : ${userLsit}">
+					<td th:text="${l.memberId}"></td>
+					<td th:text="${l.memberPW}"></td>
+					<td th:text="${l.memberName}"></td>
+					</tr>
+					</tbody>
+</table>
 	</th:block>
 
 	<!-- Start Page Content -->

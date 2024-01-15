@@ -9,7 +9,7 @@ import ks49team01.admin.dto.User;
 @Mapper
 public interface UserMapper {
 	
-	List<User> getuserLsit();
+	List<User> getuserList();
 	
 
 }

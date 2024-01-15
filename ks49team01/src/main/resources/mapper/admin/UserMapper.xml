@@ -3,18 +3,18 @@
 <mapper namespace="ks49team01.admin.mapper.UserMapper">
 
 
-<resultMap type="User" id="usersResultMap">
+	<resultMap type="User" id="usersResultMap">
 		<id 	column="member_id" 		property="memberId" />
 		<result column="member_pw" 		property="memberPW"/>
 		<result column="member_name" 		property="memberName"/>
-		</resultMap>
-		<select id="getuserLsit" resultMap="usersResultMap">
+	</resultMap>
+	<select id="getuserList" resultMap="usersResultMap">
 		SELECT
 			m.member_id,
 			m.member_pw,
 			m.member_name
 		FROM
 			member AS m
-		</select>
-	</mapper>
+	</select>
+</mapper>
 	
