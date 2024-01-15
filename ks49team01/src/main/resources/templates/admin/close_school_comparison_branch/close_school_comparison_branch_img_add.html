@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{user/layout/default}">
+	  layout:decorate="~{admin/layout/default}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
@@ -18,14 +18,14 @@
 		<li class="breadcrumb-item">
 			<a th:href="@{/}" class="text-muted">회원관리</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
        	<div class="row">
-       		<div class="col-6">123</div>
-       		<div class="col-6">456</div>
+       		<div class="col-6">폐교 1</div>
+       		<div class="col-6">폐교 2</div>
        	</div>
 	</th:block>
 </html>

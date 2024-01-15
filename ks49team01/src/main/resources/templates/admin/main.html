@@ -10,7 +10,7 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">관리자 페이지</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -22,10 +22,59 @@
 	</th:block>
 
 	<!-- Start Page Content -->
+	
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">123</div>
-       		<div class="col-6">456</div>
+	<h5 th:style="'color: red; font-size: 30px;'" class="page-title text-truncate text-dark font-weight-medium mb-1"> 폐교 관리</h5>
+      
+      <div >
+       	<a th:href="@{admin/closeSchool/getCloseSchool}">폐교목록 조회</a>
+      </div>
+      <div>
+      	<a th:href="@{admin/closeSchool/modifyListCloseShool}">폐교목록 수정</a>
+      </div>
+      <div>
+      	<a th:href="@{admin/closeSchool/addCloseSchoolViewMap}">폐교 조감도 이미지 등록</a>
+      </div>
+      <div>
+      	<a th:href="@{admin/closeSchool/modifyCloseSchoolViewMap}">폐교 조감도 이미지 수정</a>
+       </div>
+       <div>
+      	<a th:href="@{admin/closeSchool/removeCloseSchoolViewMap}">폐교 조감도 이미지 삭제</a>        
+       </div>
+       <div>
+      	<a th:href="@{admin/closeSchool/addCloseSchoolImg}">폐교 이미지 등록</a> 
        	</div>
+       	<div>
+      	<a th:href="@{admin/closeSchool/modifyCloseSchoolImg}">폐교 이미지 수정</a>       	
+       	</div>
+       	<div>
+      	<a th:href="@{admin/closeSchool/getCloseSchoolImg}">폐교 이미지 조회</a>      	
+       	</div>
+      
+       	<h5 th:style="'color: red; font-size: 30px;'" class="page-title text-truncate text-dark font-weight-medium mb-1"> 폐교와 가맹점 사진 관리</h5>
+		<div>
+			<a th:href="@{admin/closeSchoolComparisonBranch/addCloseSchoolComparisonBranch}">폐교와 가맹점 사진 등록</a>
+		</div>
+		<div>
+			<a th:href="@{admin/closeSchoolComparisonBranch/getCloseSchoolComparisonBranch}">폐교와 가맹점 사진 조회</a>
+		</div>
+		<div>
+			<a th:href="@{admin/closeSchoolComparisonBranch/modifyCloseSchoolComparisonBranch}">폐교와 가맹점 사진 수정</a>
+		</div>
+		<div>
+			<a th:href="@{admin/closeSchoolComparisonBranch/removeCloseSchoolComparisonBranch}">폐교와 가맹점 사진 삭제</a>
+		</div>
+			
+		<h5 th:style="'color: red; font-size: 30px;'" class="page-title text-truncate text-dark font-weight-medium mb-1"> 결제 관리</h5>
+		<div>
+			<a th:href="@{admin/finalTotalPrice/getFinalTotalPrice}">최종 결제 금액 조회</a>
+		</div>
+		<div>
+			<a th:href="@{admin/finalTotalPrice/calcFinalTotalPriceRoyality}">건별 본사 로열티 납부금액 확인</a>
+		</div>
+		<div>
+			<a th:href="@{admin/finalTotalPrice/calcFinalTotalPriceDueTo}">최종 결제 예정 금액</a>
+		</div>
+			
 	</th:block>
 </html>
