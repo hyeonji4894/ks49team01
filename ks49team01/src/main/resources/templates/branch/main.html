@@ -10,7 +10,7 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹점 페이지</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -23,23 +23,9 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div>
-      		<a th:href="@{branch/closeSchool/getCloseSchool}">폐교목록 조회</a>
-      	</div>
-      	<div>
-      		<a th:href="@{branch/closeSchool/getCloseSchoolImg}">폐교이미지 조회</a>
-      	</div>
-      	<div>
-      		<a th:href="@{branch/closeSchoolComparisonBranch/getCloseSchoolComparisonBranch}">폐교목록 조회</a>
-      	</div>
-      	<div>
-      		<a th:href="@{branch/finalTotalPrice/getFinalTotalPrice}">최종 결제 금액 조회</a>
-      	</div>
-      	<div>
-      		<a th:href="@{branch/finalTotalPrice/calcFinalTotalPriceRoyality}">건별 본사 로열티 지급예정 금액</a>
-      	</div>
-      	<div>
-      		<a th:href="@{branch/finalTotalPrice/calcFinalTotalPriceDueTo}">최종 결제 예정 금액</a>
+       	<div class="row">
+       		<div class="col-6">123</div>
+       		<div class="col-6">456</div>
        	</div>
 	</th:block>
 </html>
