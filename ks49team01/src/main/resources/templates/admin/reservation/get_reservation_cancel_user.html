@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/default}">
+	<!-- css file import head태그 안에 추가  -->
+	<head>
+		<button type="button" class="btn waves-effect waves-light btn-dark"></button>
+	</head>
+	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{/}" class="text-muted">고객 예약</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{/admin/reservation/reservationCancelUser}" class="text-muted">객실예약취소정보조회</a>
+		</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+		<table class="table">
+	        <thead>
+	            <tr>
+	                <th scope="col">이름</th>
+	                <th scope="col">가맹점명</th>
+	                <th scope="col">객실명</th>
+	                <th scope="col">예약날짜</th>
+	                <th scope="col">선택옵션</th>
+	                <th scope="col">총가격</th>
+	                <th scope="col">취소날짜</th>
+	                <th scope="col">환불가격</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr>
+	                <td>1</td>
+	                <td>1</td>
+	                <td>1</td>
+	                <td>1</td>
+	                <td>1</td>
+	                <td>1</td>
+	                <td>1</td>
+	                <td>1</td>
+	            </tr>
+	        </tbody>
+	     </table>
+	  </th:block>
+</html>
