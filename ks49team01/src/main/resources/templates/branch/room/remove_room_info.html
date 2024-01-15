@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{branch/layout/default}">
+	  
+	<!-- css file import head태그 안에 추가  -->
+	<head>
+		<button type="button" class="btn waves-effect waves-light btn-dark"></button>
+		<select class="form-control" id="exampleFormControlSelect1"></select>
+		 <form class="mt-3"></form>
+		 <div class="custom-control custom-checkbox"></div>
+	</head>
+	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{/branch/room/roomInfoList}" class="text-muted">객실</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">객실정보수정</a>
+		</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+		<table class="table">
+	        <thead>
+	            <tr>	               
+	                <th></th>
+	                <th>객실명</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr>
+	            </tr>
+	            <tr>
+	            	<th scope="row">
+	                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+	                    <label class="custom-control-label" for="customCheck1"></label>
+                   	</th>
+	                <td>글램핑 1호</td>
+	            </tr>
+	        </tbody>
+	     </table>
+	     <div style="float: right;">
+	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/branch/room/roomInfo}">삭제</a>
+	     </div>
+	  </th:block>
+</html>
