@@ -1,26 +1,36 @@
 package ks49team01.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ks49team01.admin.dto.AdminCloseSchool;
+import ks49team01.admin.mapper.AdminCloseSchoolMapper;
+import ks49team01.admin.service.AdminCloseSchoolService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
 @RequestMapping("/admin/closeSchool")
+@AllArgsConstructor
 @Slf4j
 public class CloseSchoolController{
 
-
+	//의존성 주입 완료
+	private AdminCloseSchoolService adminCloseSchoolService;
 //	페교 목록 Controller
 	
 	@GetMapping("/getCloseSchool")
 	public String getCloseSchool(Model model) {
 		
-		log.info("getCloseSchool");
+		List<AdminCloseSchool> closeSchoolList = adminCloseSchoolService.getCloseSchool();
+		log.info("closeSchoolList");
 		model.addAttribute("page", "폐교목록 조회");
-		
+		model.addAttribute("closeSchoolList", closeSchoolList);
 		return "admin/close_school/close_school_get";
 	}	
 	
