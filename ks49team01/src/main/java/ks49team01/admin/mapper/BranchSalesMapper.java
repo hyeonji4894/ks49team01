@@ -1,5 +1,5 @@
 package ks49team01.admin.mapper;
 
-public interface BranchSalesMapper {
+public class BranchSalesMapper {
 
 }
