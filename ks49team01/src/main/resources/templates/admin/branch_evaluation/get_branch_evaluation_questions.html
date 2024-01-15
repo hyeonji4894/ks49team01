@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/default}">
+	  
+	<!-- css file import head태그 안에 추가  -->
+	<head>
+		<!-- This Page CSS -->
+	</head>
+	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">본사 1차 가맹 평가 질문 조회</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{/}" class="text-muted">본사 1차 가맹 평가 질문 조회	</a>
+		</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">본사 1차 가맹 평가 질문 조회 목록</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+       	<div class="row">
+       		<div class="col-6">본사 1차 가맹 평가 질문 조회1</div>
+       		<div class="col-6">본사 1차 가맹 평가 질문 조회2</div>
+       	</div>
+	</th:block>
+</html>
+
+
+
+
+
+
+
+
+
