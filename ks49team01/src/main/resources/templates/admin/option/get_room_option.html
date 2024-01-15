@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/default}">
+	  
+	<!-- css file import head태그 안에 추가  -->
+	<head>
+		<button type="button" class="btn waves-effect waves-light btn-dark"></button>
+		<select class="form-control" id="exampleFormControlSelect1"></select>
+	</head>
+	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">객실옵션</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{/admin/room/surchargeList}" class="text-muted">객실옵션조회</a>
+		</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+		<table class="table">
+	        <thead>
+	            <tr>
+	                <th scope="col" colspan="6" align="center">옵션 및 부가서비스</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr>
+	                <th scope="row">옵션</th>
+	                <td>인원추가(침구류포함)</td>
+	                <td>가격</td>
+	                <td>20,000</td>
+	                <td>
+	                <!-- admin화면에서는 select 필요없음으로 이 화면 그대로 유저화면에 적용할것
+	                		user화면에 적용하면 select삭제하기-->
+	    				<select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th scope="row">옵션</th>
+	                <td>바베큐</td>
+	                <td>가격</td>
+	                <td>20,000</td>
+	                <td>
+	    				<select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th scope="row">옵션</th>
+	                <td>불멍 장작세트</td>
+	                <td>가격</td>
+	                <td>15,000</td>
+	                <td>
+	    				<select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th scope="row">부가서비스</th>
+	                <td>애견 유모차</td>
+	                <td>가격</td>
+	                <td>0</td>
+	                <td>
+	    				<select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th scope="row">부가서비스</th>
+	                <td>픽업 서비스</td>
+	                <td>가격</td>
+	                <td>0</td>
+	                <td>
+	    				<select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+	                </td>
+	            </tr>
+	        </tbody>
+	     </table>
+	     <div style="float: right;">
+	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/modifyRoomOption}">수정</a>
+	     </div>
+	  </th:block>
+</html>
