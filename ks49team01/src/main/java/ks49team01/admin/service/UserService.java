@@ -13,12 +13,12 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserService {
 	
-	private UserMapper userMapper;
+	private final UserMapper userMapper;
 
-	public List<User> getuserLsit(){
-		return userMapper.getuserLsit();
+	public List<User> getuserList(){
+		return userMapper.getuserList();
 		
 	}
-	
+
 
 }
