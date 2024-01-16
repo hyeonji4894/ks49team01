@@ -10,23 +10,79 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">쿠폰 관리</h4>
 	</th:block>
 	
-	<!-- This Page breadcrumb -->
-	<th:block layout:fragment="customBreadcrumb">	
-		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
-		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
-	</th:block>
-
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">쿠폰 종류 등록</div>
-       		<div class="col-6">4564565</div>
-       	</div>
+              <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">이벤트 쿠폰 종류</h4>
+                                <h6 class="card-title mt-5"><i
+                                        class="mr-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>등록하기</h6>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">쿠폰 코드</th>
+                                                <th scope="col">등록자 아이디</th>
+                                                <th scope="col">쿠폰 이름</th>
+                                                <th scope="col">쿠폰 할인 금액</th>
+                                                <th scope="col">쿠폰 사용기한</th>
+                                                <th scope="col">쿠폰 종류 등록일자</th>
+                                                <th scope="col">수정</th>
+                                                <th scope="col">삭제</th>                                                                                                                                                        
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">coupon_code01</th>
+                                                <td>id001</td>
+                                                <td>베스트 리뷰 이벤트 쿠폰</td>                                                
+                                                <td>20000</td>
+                                                <td>60일</td>
+                                                <td>2023-08-10</td>
+                                                <td>수정</td>
+                                                <td>삭제</td>                                                
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">coupon_code02</th>
+                                                <td>id001</td>
+                                                <td>생일 쿠폰</td>                                                
+                                                <td>10000</td>
+                                                <td>30일</td>
+                                                <td>2023-08-10</td>
+                                                <td>수정</td>
+                                                <td>삭제</td>                                                
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">coupon_code03</th>
+                                                <td>id001</td>
+                                                <td>SNS 이벤트 쿠폰</td>                                                
+                                                <td>5000</td>
+                                                <td>30일</td>
+                                                <td>2023-08-10</td>
+                                                <td>수정</td>
+                                                <td>삭제</td>                                                
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">coupon_code04</th>
+                                                <td>id001</td>
+                                                <td>회원 가입 쿠폰</td>                                                
+                                                <td>5000</td>
+                                                <td>7일</td>
+                                                <td>2023-08-10</td>
+                                                <td>수정</td>
+                                                <td>삭제</td>                                                
+                                            </tr>                          
+                                        </tbody>
+                                    </table>
+								     <div style="float: right;">
+								    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/coupon/getCouponKind}">등록</a>
+								     </div>                                    
+                                </div>
 	</th:block>
 </html>
 
