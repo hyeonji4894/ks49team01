@@ -37,7 +37,7 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr th:if="adminSurchargeList != null and not #lists.isEmpty(adminSurchargeList)}"
+	            <tr th:if="${adminSurchargeList != null and not #lists.isEmpty(adminSurchargeList)}"
 	            	th:each="s : ${adminSurchargeList}">
 	                <th th:text="${s.lowseasonPeakseason}"></th>
 	                <th th:text="${s.dayOfTheWeek}"></th>
@@ -50,6 +50,9 @@
 	    				<a th:href="@{/admin/room/removeSurcharge}">삭제</a>
 	                </td>
 	            </tr>
+	            <tr th:unless="${adminSurchargeList != null and not #lists.isEmpty(adminSurchargeList)}">
+					<td colspan="9">등록된 정보가 없습니다.</td>
+				</tr>
 	        </tbody>
 	     </table>
 	     <div style="float: right;">
