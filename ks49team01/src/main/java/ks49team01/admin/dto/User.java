@@ -1,28 +1,23 @@
 package ks49team01.admin.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import lombok.Data;
+
+@Data
 public class User {
 	private String memberId;
 	private String memberPW;
 	private String memberName;
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-	public String getMemberPW() {
-		return memberPW;
-	}
-	public void setMemberPW(String memberPW) {
-		this.memberPW = memberPW;
-	}
-	public String getMemberName() {
-		return memberName;
-	}
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
+	private String memberEmail;
+	private String memberGender;
+	private String memberPhone;
+	private String memberAddr;
+	private int memberMileage;
+	private LocalDateTime memberRegDate;  // LocalDateTime 사용
+	private LocalDate memberBirth;  
 	
-	
+
 
 }
