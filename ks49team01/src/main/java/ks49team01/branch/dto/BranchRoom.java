@@ -1,5 +1,5 @@
 package ks49team01.branch.dto;
 
-public class RoomOption {
+public class BranchRoom {
 
 }
