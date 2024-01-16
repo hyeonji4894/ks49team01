@@ -159,7 +159,7 @@ public class AdminRoomController {
 		model.addAttribute("service", "시즌추가금");
 		model.addAttribute("serviceUri", "/admin/room");
 		model.addAttribute("pageTitle", "시즌추가금 목록 조회");
-		model.addAttribute("adminSurchargeList", adminSurchargeList);
+		//model.addAttribute("adminSurchargeList", adminSurchargeList);
 		
 		
 		return "admin/season_surcharge/get_season_surcharge_list";
