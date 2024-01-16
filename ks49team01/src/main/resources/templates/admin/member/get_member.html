@@ -30,11 +30,13 @@
                                             <th scope="col">회원 아이디</th>
                                             <th scope="col">회원 비번</th>
                                             <th scope="col">회원 이름</th>
+                                            <th scope="col">회원 생년월일</th>
                                             <th scope="col">회원 이메일</th>
                                             <th scope="col">회원 성별</th>
                                             <th scope="col">회원 전화번호</th>
                                             <th scope="col">회원 주소</th>
                                             <th scope="col">회원 마일리지</th>
+                                            <th scope="col">회원 등록시간</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -44,12 +46,13 @@
 												<td th:text="${l.memberId}"></td>
 												<td th:text="${l.memberPW}"></td>
 												<td th:text="${l.memberName}"></td>
-												
+												<td th:text="${l.memberBirth}"></td>
 												<td th:text="${l.memberEmail}"></td>
 												<td th:text="${l.memberGender}"></td>
 												<td th:text="${l.memberPhone}"></td>
 												<td th:text="${l.memberAddr}"></td>
 												<td th:text="${l.memberMileage}"></td>
+												<td th:text="${l.memberRegDate}"></td>
                                         </tr>
                                     </tbody>
                                 </table>

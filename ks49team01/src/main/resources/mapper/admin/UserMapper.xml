@@ -7,13 +7,12 @@
 		<id 	column="member_id" 		property="memberId" />
 		<result column="member_pw" 		property="memberPW"/>
 		<result column="member_name" 		property="memberName"/>
-		
 		<result column="member_email" 		property="memberEmail"/>
-		<!--<result column="member_birth" 		property="memberBirth"/>-->
+		<result column="member_birth" 		property="memberBirth"/>
 		<result column="member_gender" 		property="memberGender"/>
 		<result column="member_phone" 		property="memberPhone"/>
 		<result column="member_addr" 		property="memberAddr"/>
-		<!--<result column="member_regdate" 		property="memberRegDate"/>-->
+		<result column="member_regdate" 		property="memberRegDate"/>
 		<result column="final_mileage" 		property="memberMileage"/>
 		
 	</resultMap>
