@@ -28,7 +28,7 @@ public class CloseSchoolController{
 	public String getCloseSchool(Model model) {
 		
 		List<AdminCloseSchool> closeSchoolList = adminCloseSchoolService.getCloseSchool();
-		log.info("closeSchoolList");
+		log.info("closeSchoolList:{}",closeSchoolList);
 		model.addAttribute("page", "폐교목록 조회");
 		model.addAttribute("closeSchoolList", closeSchoolList);
 		return "admin/close_school/close_school_get";

@@ -31,11 +31,22 @@
 	<th:block layout:fragment="customContent">
 		<form id="getCloseSchool" method="post" th:action="@{/close_school/close_school_get}">		
 			<table class="table">
+			 <thead>
+	            <tr>
+	                <th scope="col">폐교 이미지</th>
+	                <th scope="col">폐교 면적</th>
+	                <th scope="col">위치</th>
+	                <th scope="col">가맹 계약 현황</th>
+	                <th scope="col">매입 금액</th>
+	                <th scope="col">시스템 등록 일자</th>
+	                <th scope="col">최종 수정날짜</th>
+	                <th scope="col">폐교 조감도 이미지</th>
+	                <th scope="col">등록자 아이디</th>
+	            </tr>
+	        </thead>
 				<tbody>
-					<tr th:if="${getCloseSchool != null and not #lists.isEmpty(getCloseSchool)}"
-						th:each="l : ${getCloseSchool}">
-						<td th:text="${l.closeSchoolCode}"></td>
-						<td th:text="${l.memberId}"></td>
+					<tr th:if="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}"
+						th:each="l : ${closeSchoolList}">
 						<td th:text="${l.closeSchoolImg}"></td>
 						<td th:text="${l.closeSchoolArea}"></td>
 						<td th:text="${l.coordinate}"></td>
@@ -44,7 +55,9 @@
 						<td th:text="${l.systemRegistrationDate}"></td>
 						<td th:text="${l.lastModifiedDate}"></td>
 						<td th:text="${l.viewMapImg}"></td>
-					<tr th:unless="${getCloseSchool != null and not #lists.isEmpty(getCloseSchool)}">
+						<td th:text="${l.memberId}"></td>
+					</tr>
+					<tr th:unless="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}">
 						<td colspan="9">등록된 폐교가 없습니다.</td>
 					</tr>
 				</tbody>
