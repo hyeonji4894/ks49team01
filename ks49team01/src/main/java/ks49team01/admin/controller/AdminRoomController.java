@@ -10,14 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ks49team01.admin.dto.AdminSurcharge;
 import ks49team01.admin.service.RoomService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/admin/room")
+@AllArgsConstructor
 public class AdminRoomController {
 	
-	private RoomService roomService;
+	private final RoomService roomService;
 	
 	// 객실 정보
 	
@@ -143,17 +145,21 @@ public class AdminRoomController {
 		model.addAttribute("pageTitle", "시즌추가금등록");
 		
 		return "admin/season_surcharge/add_season_surcharge_list";
+		// 나중에 추가금 리스트에 등록하면 목록으로 페이지 전환할수있게 redirect사용
 	}
 	
 	@GetMapping("/surchargeList")
 	public String getSurchargeList(Model model) {
 		
-		//List<AdminSurcharge> adminSurchargeList = roomService.getAdminSurchargeList();
-		log.info("시즌추가금리스트조회");
+	
+		
+		List<AdminSurcharge> adminSurchargeList = roomService.getAdminSurchargeList();
+		log.info("adminSurchargeList: {}", adminSurchargeList);
 		
 		model.addAttribute("service", "시즌추가금");
 		model.addAttribute("serviceUri", "/admin/room");
 		model.addAttribute("pageTitle", "시즌추가금 목록 조회");
+		model.addAttribute("adminSurchargeList", adminSurchargeList);
 		
 		
 		return "admin/season_surcharge/get_season_surcharge_list";
