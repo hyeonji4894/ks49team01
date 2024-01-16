@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/default}">
+	  
+	<!-- css file import head태그 안에 추가  -->
+	<head>
+		<!-- This Page CSS -->
+	</head>
+	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">폐교 관리</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{/}" class="text-muted">폐교</a>
+		</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록 조회</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+       	<div class="row">
+       		<div class="col-6">폐교 1</div>
+       		<div class="col-6">폐교 2</div>
+       	</div>
+	</th:block>
+	<th:block layout:fragment="customContent">
+		<form id="getCloseSchool" method="post" th:action="@{/close_school/close_school_get}">		
+			<table class="table">
+			 <thead>
+	            <tr>
+	                <th scope="col">폐교 이미지</th>
+	                <th scope="col">폐교 면적</th>
+	                <th scope="col">위치</th>
+	                <th scope="col">가맹 계약 현황</th>
+	                <th scope="col">매입 금액</th>
+	                <th scope="col">시스템 등록 일자</th>
+	                <th scope="col">최종 수정날짜</th>
+	                <th scope="col">폐교 조감도 이미지</th>
+	                <th scope="col">등록자 아이디</th>
+	            </tr>
+	        </thead>
+				<tbody>
+					<tr th:if="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}"
+						th:each="l : ${closeSchoolList}">
+						<td th:text="${l.closeSchoolImg}"></td>
+						<td th:text="${l.closeSchoolArea}"></td>
+						<td th:text="${l.coordinate}"></td>
+						<td th:text="${l.branchCurrentSituation}"></td>
+						<td th:text="${l.purchaseAmount}"></td>
+						<td th:text="${l.systemRegistrationDate}"></td>
+						<td th:text="${l.lastModifiedDate}"></td>
+						<td th:text="${l.viewMapImg}"></td>
+						<td th:text="${l.memberId}"></td>
+					</tr>
+					<tr th:unless="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}">
+						<td colspan="9">등록된 폐교가 없습니다.</td>
+					</tr>
+				</tbody>
+			</table>		
+		</form>
+	</th:block>
+</html>
+
+
+
+
+
+
+
+
+

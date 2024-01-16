@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/default}">
+	  
+	<!-- css file import head태그 안에 추가  -->
+	<head>
+		<!-- This Page CSS -->
+	</head>
+	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{/}" class="text-muted">회원관리</a>
+		</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+       <table class="table">
+			 <thead>
+	            <tr>
+	                <th scope="col">폐교 이미지</th>
+	                <th scope="col">폐교 면적</th>
+	                <th scope="col">위치</th>
+	                <th scope="col">가맹 계약 현황</th>
+	                <th scope="col">매입 금액</th>
+	                <th scope="col">시스템 등록 일자</th>
+	                <th scope="col">최종 수정날짜</th>
+	                <th scope="col">폐교 조감도 이미지</th>
+	                <th scope="col">등록자 아이디</th>
+	            </tr>
+	        </thead>
+	     </table>
+	</th:block>
+</html>
+
+
+
+
+
+
+
+
+

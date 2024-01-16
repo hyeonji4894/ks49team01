@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/default}">
+	  
+	<!-- css file import head태그 안에 추가  -->
+	<head>
+	</head>
+	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{/admin/room/roomOptionList}" class="text-muted">객실옵션</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">객실옵션수정</a>
+		</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+		<table class="table">
+	        <thead>
+	            <tr>
+	                <th scope="col" colspan="6" align="center">옵션 및 부가서비스</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr>
+	                <th scope="row">옵션</th>
+	                <td>인원추가(침구류포함)</td>
+	                <td>가격</td>
+	                <td>
+				        <input type="text" id="example-input-small" name="example-input-small"
+				             class="form-control form-control-sm" placeholder="수정금액">
+					</td>
+	            </tr>
+	            <tr>
+	                <th scope="row">옵션</th>
+	                <td>바베큐</td>
+	                <td>가격</td>
+	                <td>
+				        <input type="text" id="example-input-small" name="example-input-small"
+				             class="form-control form-control-sm" placeholder="수정금액">
+					</td>
+	            </tr>
+	            <tr>
+	                <th scope="row">옵션</th>
+	                <td>불멍 장작세트</td>
+	                <td>가격</td>
+	                <td>
+				        <input type="text" id="example-input-small" name="example-input-small"
+				             class="form-control form-control-sm" placeholder="수정금액">
+					</td>
+	            </tr>
+	            <tr>
+	                <th scope="row">부가서비스</th>
+	                <td>애견 유모차</td>
+	                <td>가격</td>
+	                <td>0</td>
+	            </tr>
+	            <tr>
+	                <th scope="row">부가서비스</th>
+	                <td>픽업 서비스</td>
+	                <td>가격</td>
+	                <td>0</td>
+	            </tr>
+	        </tbody>
+	     </table>
+	     <div style="float: right;">
+	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/modifyRoomOption}">수정</a>
+	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/modifyRoomOption}">취소</a>
+	     </div>
+	  </th:block>
+</html>
