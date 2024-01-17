@@ -43,10 +43,10 @@
 	                <th th:text="${s.systemRegisterDate}"></th>
 	                <th th:text="${s.listRegistrantId}"></th>
 	                <td class="addList">
-	    				<a th:href="@{/admin/room/removeSurcharge}">수정</a>
+	    				<a th:href="@{/admin/surcharge/modifySurchargeList}">수정</a>
 	                </td>
 	                <td class="addList">
-	    				<a th:href="@{/admin/room/removeSurcharge}">삭제</a>
+	    				<a th:href="@{/admin/surcharge/removeSurchargeList}">삭제</a>
 	                </td>
 	            </tr>
 	            <tr th:unless="${adminSurchargeList != null and not #lists.isEmpty(adminSurchargeList)}">
@@ -55,7 +55,7 @@
 	        </tbody>
 	     </table>
 	     <div style="float: right;">
-		 	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/addSurchargeList}">등록</a>
+		 	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/surcharge/addSurchargeList}">등록</a>
 	     </div>
 	  </th:block>
 </html>
