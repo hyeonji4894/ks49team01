@@ -19,7 +19,7 @@ private AdminSurchargeMapper adminSurchargeMapper;
 	
 	/**
 	 * 시즌추가금리스트조회
-	 * @return List<AdminSurchargeList>
+	 * @return List<AdminSurcharge>
 	 */
 	public List<AdminSurcharge> getAdminSurchargeList(){
 		
