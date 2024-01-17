@@ -27,7 +27,7 @@
 		<table class="table">
 	        <thead>
 	            <tr>
-	                <th scope="col">비수기/성수기/공휴일</th>
+	                <th scope="col">비수기/성수기</th>
 	                <th scope="col">요일</th>
 	                <th scope="col">등록일자</th>
 	                <th scope="col">등록자아이디</th>
@@ -40,8 +40,8 @@
 	            	th:each="s : ${adminSurchargeList}">
 	                <th th:text="${s.lowseasonPeakseason}"></th>
 	                <th th:text="${s.dayOfTheWeek}"></th>
-	                <th th:text="${s.registerDate}"></th>
-	                <th th:text="${s.registrantId}"></th>
+	                <th th:text="${s.systemRegisterDate}"></th>
+	                <th th:text="${s.listRegistrantId}"></th>
 	                <td class="addList">
 	    				<a th:href="@{/admin/room/removeSurcharge}">수정</a>
 	                </td>

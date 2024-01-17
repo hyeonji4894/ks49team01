@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import ks49team01.admin.dto.AdminSurcharge;
 
 @Mapper
-public interface RoomMapper {
-	
+public interface AdminSurchargeMapper {
+
 	// 시즌 추가금 목록 조회
-	List<AdminSurcharge> getAdminSurchargeList();
+		List<AdminSurcharge> getAdminSurchargeList();
 }

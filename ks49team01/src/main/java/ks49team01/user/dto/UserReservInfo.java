@@ -1,5 +1,5 @@
 package ks49team01.user.dto;
 
-public class ReservInfo {
+public class UserReservInfo {
 
 }
