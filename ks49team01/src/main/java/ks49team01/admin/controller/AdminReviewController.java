@@ -1,16 +1,24 @@
 package ks49team01.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ks49team01.admin.dto.AdminReview;
+import ks49team01.admin.service.AdminReviewService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/admin/review")
+@AllArgsConstructor
 @Slf4j
 public class AdminReviewController {
+	
+	private AdminReviewService adminReviewService;
 	
 	@GetMapping("/addReviewCategory")
 	public String addReviewCategory(Model model){
@@ -65,9 +73,12 @@ public class AdminReviewController {
 	@GetMapping("/getReviewList")
 	public String getReviewList(Model model){
 		
-		log.info("리뷰 조회");
+		List<AdminReview> adminReviewList = adminReviewService.getReviewList();
+		
+		log.info("adminReviewList: {}", adminReviewList);
 		
 		model.addAttribute("title", "리뷰 조회");
+		model.addAttribute("adminReviewList", adminReviewList);
 		
 	return "admin/review/get_review_list";
 	}
