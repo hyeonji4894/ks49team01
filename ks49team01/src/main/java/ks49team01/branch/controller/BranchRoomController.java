@@ -56,48 +56,6 @@ public class BranchRoomController {
 		return "branch/room/get_room_info";
 	}
 	
-	// 객실옵션
-	
-	@GetMapping("/roomOptionList")
-	public String roomOptionList(Model model) {
-	
-		log.info("객실옵션조회");
-		
-		model.addAttribute("pageTitle", "객실옵션리스트 조회");
-		
-		return "branch/option/get_room_option";
-	}
 	
 	
-	// 시즌 추가금 리스트
-	
-	@GetMapping("/modifySurchargeList")
-	public String modifySurchargeList(Model model) {
-		
-		log.info("시즌추가금리스트수정");
-		
-		model.addAttribute("pageTitle", "시즌추가금리스트수정");
-		
-		return "branch/season_surcharge/modify_season_surcharge_list";
-	}
-	
-	@GetMapping("/addSurchargeList")
-	public String addSurchargeList(Model model) {
-		
-		log.info("시즌추가금리스트등록");
-		
-		model.addAttribute("pageTitle", "시즌추가금리스트등록");
-		
-		return "branch/season_surcharge/add_season_surcharge_list";
-	}
-	
-	@GetMapping("/surchargeList")
-	public String surchargeList(Model model) {
-		
-		log.info("시즌추가금리스트");
-		
-		model.addAttribute("pageTitle", "시즌추가금리스트");
-		
-		return "branch/season_surcharge/get_season_surcharge_list";
-	}
 }
