@@ -26,22 +26,25 @@
 		<table class="table">
 	        <thead>
 	            <tr>
-	                <th scope="col">이름</th>
-	                <th scope="col">가맹점명</th>
-	                <th scope="col">객실명</th>
-	                <th scope="col">예약날짜</th>
-	                <th scope="col">선택옵션</th>
-	                <th scope="col">총가격</th>
+	                <th>예약자아이디</th>
+	                <th>가맹점</th>
+	                <th>객실</th>
+	                <th>체크인 날짜</th>
+	                <th>체크아웃 날짜</th>
+	                <th>숙박일 수</th>
+	                <th>예약등록날짜</th>
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr>
-	                <td>1</td>
-	                <td>1</td>
-	                <td>1</td>
-	                <td>1</td>
-	                <td>1</td>
-	                <td>1</td>
+	            <tr th:if="${reservationUserList != null and not #lists.isEmpty(reservationUserList)}"
+	            	th:each="r : ${reservationUserList}">
+	                <td th:text="${r.branchCode}"></td>
+	                <td th:text="${r.memberId}"></td>
+	                <td th:text="${r.branchCode}"></td>
+	                <td th:text="${r.checkIn}"></td>
+	                <td th:text="${r.checkOut}"></td>
+	                <td th:text="${r.numberOfStays}"></td>
+	                <td th:text="${r.reservRegistrationDate}"></td>
 	            </tr>
 	        </tbody>
 	     </table>

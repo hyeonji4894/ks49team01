@@ -58,6 +58,7 @@ public class AdminOptionController {
 		public String roomOptionList(Model model) {
 		
 			List<AdminOption> optionList = optionService.getOptionList();
+			log.info("객실옵션리스트 조회");
 			log.info("optionList : {}" , optionList);
 			
 			model.addAttribute("pageTitle", "객실옵션리스트 조회");
