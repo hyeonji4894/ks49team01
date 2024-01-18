@@ -29,6 +29,7 @@
 	            <tr>
 	                <th scope="col">비수기/성수기</th>
 	                <th scope="col">요일</th>
+	                <th scope="col">추가금</th>
 	                <th scope="col">등록일자</th>
 	                <th scope="col">등록자아이디</th>
 	                <th scope="col">수정</th>
@@ -36,12 +37,13 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr th:if="${adminSurchargeList != null and not #lists.isEmpty(adminSurchargeList)}"
-	            	th:each="s : ${adminSurchargeList}">
-	                <th th:text="${s.lowseasonPeakseason}"></th>
-	                <th th:text="${s.dayOfTheWeek}"></th>
-	                <th th:text="${s.systemRegisterDate}"></th>
-	                <th th:text="${s.listRegistrantId}"></th>
+	            <tr th:if="${branchBySurchargeList != null and not #lists.isEmpty(branchBySurchargeList)}"
+	            	th:each="b : ${branchBySurchargeList}">
+	                <th th:text="${b.lowseasonPeakseason}"></th>
+	                <th th:text="${b.dayOfTheWeek}"></th>
+	                <th th:text="${b.additionalAmount}"></th>
+	                <th th:text="${b.registerDate}"></th>
+	                <th th:text="${b.surchargeRegistrantId}"></th>
 	                <td class="addList">
 	    				<a th:href="@{/admin/surcharge/modifySurchargeList}">수정</a>
 	                </td>
@@ -49,13 +51,10 @@
 	    				<a th:href="@{/admin/surcharge/removeSurchargeList}">삭제</a>
 	                </td>
 	            </tr>
-	            <tr th:unless="${adminSurchargeList != null and not #lists.isEmpty(adminSurchargeList)}">
-					<td colspan="9">등록된 정보가 없습니다.</td>
+	            <tr th:unless="${branchBySurchargeList != null and not #lists.isEmpty(branchBySurchargeList)}">
+					<td colspan="12">조회된 리스트가 없습니다</td>
 				</tr>
 	        </tbody>
 	     </table>
-	     <div style="float: right;">
-		 	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/surcharge/addSurchargeList}">등록</a>
-	     </div>
 	  </th:block>
 </html>

@@ -16,14 +16,24 @@ import lombok.AllArgsConstructor;
 public class AdminSurchargeService {
 	
 private AdminSurchargeMapper adminSurchargeMapper;
+
+	/**
+	 * 가맹점이등록한추가금리스트조회
+	 * @return List<AdminSurcharge>
+	 */
+
+	public List<AdminSurcharge> getBranchBySurchargeList(){
+		
+		return adminSurchargeMapper.getBranchBySurchargeList();
+	}
 	
 	/**
 	 * 시즌추가금리스트조회
 	 * @return List<AdminSurcharge>
 	 */
-	public List<AdminSurcharge> getAdminSurchargeList(){
+	public List<AdminSurcharge> getSurchargeList(){
 		
-		return adminSurchargeMapper.getAdminSurchargeList();
+		return adminSurchargeMapper.getSurchargeList();
 	};
 
 }

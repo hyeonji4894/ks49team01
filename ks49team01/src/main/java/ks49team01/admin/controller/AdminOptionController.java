@@ -1,10 +1,15 @@
 package ks49team01.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ks49team01.admin.dto.AdminOption;
+import ks49team01.admin.mapper.AdminOptionMapper;
+import ks49team01.admin.service.AdminOptionService;
 import ks49team01.admin.service.AdminRoomService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin/option")
 @AllArgsConstructor
 public class AdminOptionController {
+	
+	private final AdminOptionService optionService; 
 
 	// 객실 옵션
 	
@@ -50,9 +57,11 @@ public class AdminOptionController {
 		@GetMapping("/roomOptionList")
 		public String roomOptionList(Model model) {
 		
-			log.info("객실옵션조회");
+			List<AdminOption> optionList = optionService.getOptionList();
+			log.info("optionList : {}" , optionList);
 			
 			model.addAttribute("pageTitle", "객실옵션리스트 조회");
+			model.addAttribute("optionList", optionList);
 			
 			return "admin/option/get_room_option";
 		}
