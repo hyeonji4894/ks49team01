@@ -11,7 +11,7 @@ public class InquiryBoardController {
 
 	private static final Logger log = LoggerFactory.getLogger(InquiryBoardController.class);
 	
-	@GetMapping("/get_inquiry_board")
+	@GetMapping("/getInquiryBoard")
 	public String getInquiryBoard(Model model) {
 		
 		model.addAttribute("title", "1 대 1 문의 게시글 조회");

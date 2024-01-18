@@ -47,7 +47,7 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/get_member")
+	@GetMapping("/getMember")
 	public String getMemberList(Model model) {
 		List<User> userList = userService.getuserList();
 		
