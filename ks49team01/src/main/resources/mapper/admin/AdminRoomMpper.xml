@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminRoomMapper">
+	
+	<resultMap type="AdminRoom" id="roomResultMap">
+		<id column="room_code" 			property="roomCode"/>
+		<result column="branch_code" 	property="branchCode"/>
+		<result column="registrant_id" 	property="registrantId"/>
+		<result column="branch_name" 	property="branchName"/>
+		<result column="room_name"		property="roomName"/>
+		<result column="room_size" 		property="roomSize"/>
+		<result column="room_basic_personnel" 	property="roomBasicPersonnel"/>
+		<result column="room_max_personnel"	 	property="roomMaxPersonnel"/>
+		<result column="available_dog_types"	property="availableDogTypes"/>
+		<result column="room_basic_price" 		property="roomBasicPrice"/>
+		<result column="room_registration_date" property="roomRegistrationDate"/>
+	</resultMap>
+	
+	<select id="getRoomInfoList" resultMap="roomResultMap">
+		SELECT
+			ri.room_code,
+			ri.branch_code,
+			ri.registrant_id,
+			ri.branch_name,
+			ri.room_name,
+			ri.room_size,
+			ri.room_basic_personnel,
+			ri.room_max_personnel,
+			ri.available_dog_types,
+			ri.room_basic_price,
+			ri.room_registration_date
+		FROM
+			room_information AS ri;
+	</select>
+</mapper>
