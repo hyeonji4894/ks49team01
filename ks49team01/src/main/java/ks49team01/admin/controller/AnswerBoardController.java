@@ -1,17 +1,18 @@
 package ks49team01.admin.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@RequestMapping("/admin/answerBoard")
 @Controller
-public class AnswerBoardController {
+@Slf4j
 
-	private static final Logger log = LoggerFactory.getLogger(AnswerBoardController.class);
-	
-	@GetMapping("/get_answer_board")
+public class AnswerBoardController {
+	@GetMapping("/getAnswerBoard")
 	public String getAnswerBoard(Model model) {
 		
 		model.addAttribute("title", "1 대 1 문의 답변 게시글 조회");

@@ -8,6 +8,7 @@
 		<!-- This Page CSS -->
 	</head>
 	
+	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
 		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
@@ -21,9 +22,23 @@
 		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
 	</th:block>
 
+	
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<div class="table-responsive">
+		<div class="search">
+			<select id="searchKey">
+				<option value="memberId">회원 아이디</option>
+				<option value="memberName">회원 이름</option>
+				<option value="memberBirth">회원 생년월일</option>
+				<option value="memberEmail">회원 이메일</option>
+			</select>
+			
+			<input type="text" id="searchValue" placeholder="검색어를 입력해주세요.">
+			<button type="button" id="searchBtn">검색</button>
+			
+		</div>
+	
+		
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -39,12 +54,13 @@
                                             <th scope="col">회원 등록시간</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                     
+                                    
+                                    
+							<tbody id="tbody">
                                           <tr th:if="${userList != null and not #lists.isEmpty(userList)}"
 												th:each="l : ${userList}">
 												<td th:text="${l.memberId}"></td>
-												<td th:text="${l.memberPW}"></td>
+												<td th:text="${l.memberPw}"></td>
 												<td th:text="${l.memberName}"></td>
 												<td th:text="${l.memberBirth}"></td>
 												<td th:text="${l.memberEmail}"></td>
@@ -54,8 +70,102 @@
 												<td th:text="${l.memberMileage}"></td>
 												<td th:text="${l.memberRegDate}"></td>
                                         </tr>
+                                        <tr th:unless="${userList != null and not #lists.isEmpty(userList)}">
+											<td colspan="10">등록된 회원의 정보가 없습니다.</td>
+										</tr>
                                     </tbody>
                                 </table>
-                            </div>
+                                	</th:block>
+                                
+                                
+                                
+                                
+        <th:block layout:fragment="customJsFile">
+		<script th:src="@{/js/jquery-3.7.1.js}"></script>
+	</th:block>
+	
+	<!-- 이 페이지에서 사용될 스크립트 작성 -->
+	<th:block layout:fragment="customJs">
+		<script th:inline="javascript">
+			// model 객체 데이터(msg) 바인딩
+			let msg = [[${msg}]];
+			if(msg) alert(msg);
+			
+			$('#searchBtn').click(function(){
+				const searchValue = $('#searchValue').val();
+				
+				if(searchValue == null || searchValue == '') return;
+				
+				// 검색 객체 생성
+				//const searchArr = [];
+				const searchObj = {};
+				// 검색 항목 객체 속성 동적 삽입
+				$('.search select, .search input').each(function(idx, item){
+					//const searchObj = {};
+					searchObj[item.id] = $(item).val();
+					//searchArr.push(searchObj);
+				});
+				
+				console.log(searchObj);
+				//console.log(searchArr);
+				
+				const request = $.ajax({
+					url : '/admin/member/searchForUserList',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(searchObj),
+					//data: JSON.stringify(searchArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+					const searchList = res;
+					$('#tbody').html(''); // tbody 초기화
+					
+					// 검색항목에 일치된 목록이 없을 경우
+					if(searchList == null || searchList.length < 1){
+						const newTr = $('<tr />');
+						const newTd = $('<td />',{'colspan': 10}).text('검색에 일치되는 내용이 없습니다.');
+						newTr.append(newTd);
+						$('#tbody').append(newTr);
+						return ;
+					}
+					
+					// 검색항목에 일치된 목록이 있을 경우
+					$(searchList).each(function(idx, item){
+						const newTr = $('<tr />');
+						const memberId = item.memberId;
+						const newTdMemberId 	 = $('<td />').text(item.memberId);
+						const newTdMemberPw 	 = $('<td />').text(item.memberPw);
+						const newTdMemberName 	 = $('<td />').text(item.memberName);
+						const newTdmemberBirth 	 = $('<td />').text(item.memberBirth);
+						const newTdMemberEmail 	 = $('<td />').text(item.memberEmail);
+						const newTdmemberGender	 = $('<td />').text(item.memberGender);
+						const newTdmemberPhone	 = $('<td />').text(item.memberPhone);
+						const newTdMemberAddr 	 = $('<td />').text(item.memberAddr);
+						const newTdmemberMileage	 = $('<td />').text(item.memberMileage);
+						const newTdMemberRegDate = $('<td />').text(item.memberRegDate);						
+						
+					
+						newTr.append(newTdMemberId,
+									 newTdMemberPw, 
+									 newTdMemberName, 
+									 newTdmemberBirth, 
+									 newTdMemberEmail, 
+									 newTdmemberGender, 
+									 newTdmemberPhone, 
+									 newTdMemberAddr, 
+									 newTdmemberMileage,  
+									 newTdMemberRegDate);
+						
+						$('#tbody').append(newTr);
+					});
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			});
+		</script>
 	</th:block>
 </html>
