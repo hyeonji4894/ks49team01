@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/admin/finalTotalPrice")
 @Slf4j
+
 public class TotalPriceController {
 
 	@GetMapping("/getFinalTotalPrice")

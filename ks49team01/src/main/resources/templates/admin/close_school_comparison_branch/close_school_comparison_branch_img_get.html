@@ -24,25 +24,25 @@
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
 		<form id="getCloseSchool" method="post" th:action="@{/close_school_comparison_branch/close_school_comparison_branch_img_get}">
-		      <table class="table">
-				 <thead>
+		    <table class="table">
+				<thead>
 		            <tr>
 		                <th scope="col">폐교 이미지</th>
 		                <th scope="col">가맹점 이미지</th>
                         <th scope="col">폐교 조감도 이미지</th>
 		            </tr>
 		        </thead>
-		        <tbody>
-						<tr th:if="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}"
-							th:each="l : ${closeSchoolComparisonBranchList}">
-							<td th:text="${l.closeSchoolImg}"></td>
-							<td th:text="${l.branchImage}"></td>
-							<td th:text="${l.viewMapImg}"></td>
-						</tr>
-						<tr th:unless="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}">
-							<td colspan="9">등록된 가맹점이 없습니다.</td>
-						</tr>
-					</tbody>
+		    	<tbody>
+					<tr th:if="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}"
+						th:each="l : ${closeSchoolComparisonBranchList}">
+						<td th:text="${l.closeSchoolImg}"></td>
+						<td th:text="${l.branchImage}"></td>
+						<td th:text="${l.viewMapImg}"></td>
+					</tr>
+					<tr th:unless="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}">
+						<td colspan="9">등록된 가맹점이 없습니다.</td>
+					</tr>
+				</tbody>
 			 </table>
 		 </form>
 	</th:block>
