@@ -1,9 +1,9 @@
-package ks49team01.user.dto;
+package ks49team01.admin.dto;
 
 import lombok.Data;
 
 @Data
-public class UserBranchManagement {
+public class AdminBranchManagement {
 	private String branch_code;
 	private String member_id;
 	private String branch_name;
