@@ -1,5 +1,5 @@
 package ks49team01.branch.dto;
 
-public class SurchargeList {
+public class BranchSurchargeList {
 
 }
