@@ -14,7 +14,7 @@ public class UserNoticeBoardController {
 
 	private static final Logger log = LoggerFactory.getLogger(UserNoticeBoardController.class);
 	
-	@GetMapping("/get_notice_board")
+	@GetMapping("/getNoticeBoard")
 	public String getNoticeBoard(Model model) {
 		
 		model.addAttribute("title", "공지사항조회");

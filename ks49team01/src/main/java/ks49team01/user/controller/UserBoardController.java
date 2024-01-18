@@ -13,7 +13,7 @@ public class UserBoardController {
 
 	private static final Logger log = LoggerFactory.getLogger(UserBoardController.class);
 	
-	@GetMapping("/get_answer_board")
+	@GetMapping("/getAnswerBoard")
 	public String getAnswerBoard(Model model) {
 		
 		model.addAttribute("title", "1 대 1 문의 답변 게시글 조회");
