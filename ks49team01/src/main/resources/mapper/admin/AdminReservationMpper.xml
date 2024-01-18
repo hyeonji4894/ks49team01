@@ -22,6 +22,6 @@
 			number_of_stays, 
 			reserv_registration_date
 		FROM 
-			set_stayset_stay_period_period;
+			set_stay_period;
 	</select>
 </mapper>
