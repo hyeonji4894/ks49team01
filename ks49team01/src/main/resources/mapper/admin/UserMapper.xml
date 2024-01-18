@@ -5,7 +5,7 @@
 
 	<resultMap type="User" id="usersResultMap">
 		<id 	column="member_id" 		property="memberId" />
-		<result column="member_pw" 		property="memberPW"/>
+		<result column="member_pw" 		property="memberPw"/>
 		<result column="member_name" 		property="memberName"/>
 		<result column="member_email" 		property="memberEmail"/>
 		<result column="member_birth" 		property="memberBirth"/>
@@ -16,6 +16,33 @@
 		<result column="final_mileage" 		property="memberMileage"/>
 		
 	</resultMap>
+	
+		<select id="getSearchForUserList" resultMap="usersResultMap">
+		SELECT
+			m.member_id,
+			m.member_pw,
+			m.member_name,
+			m.member_email,
+			m.member_birth,
+			m.member_gender,
+			m.member_phone,
+			m.member_addr,
+			m.member_regdate,
+			m.final_mileage
+		FROM
+				member AS m
+	<where>
+			<if test="searchKey != null and searchKey != ''">
+				<choose>
+					<otherwise>					
+						${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	
 	<select id="getuserList" resultMap="usersResultMap">
 		SELECT
 			m.member_id,
