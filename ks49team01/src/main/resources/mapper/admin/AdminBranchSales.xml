@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminSalesMapper">
+
+
+	<resultMap type="AdminSales" id="usersResultMap">
+		<id 	column="daily_sales" 		property="dailySales" />
+		<result column="branch_code" 		property="branchCode"/>
+		<result column="daily_sales_day" 		property="DailySalesDay"/>
+		<result column="total_price" 		property="totalPrice"/>
+		<result column="daily_sales_reg_time" 		property="dailySalesRegTime"/>
+	</resultMap>
+	
+	<select id="getBranchSalesList" resultMap="usersResultMap">
+SELECT
+	d.daily_sales,
+	d.branch_code,
+	d.daily_sales_day,
+	d.total_price,
+	d.daily_sales_reg_time
+FROM 
+	daily_sales AS d
+	</select>
+
+</mapper>

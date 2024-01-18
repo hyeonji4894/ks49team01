@@ -10,25 +10,58 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">쿠폰관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/}" class="text-muted">쿠폰종류</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">삭제하기</a>
+		</li>
 	</th:block>
-
+	
 	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">쿠폰 종류 삭제</div>
-       		<div class="col-6">4564565</div>
-       	</div>
+	<th:block layout:fragment="customContent">	
+			<table class="table">
+			 <thead>
+	            <tr>
+	                <th scope="col">쿠폰 코드</th>
+	                <th scope="col">등록자 아이디</th>
+	                <th scope="col">쿠폰 이름</th>
+	                <th scope="col">쿠폰 할인 금액</th>
+	                <th scope="col">쿠폰 사용기한</th>
+	                <th scope="col">쿠폰 종류 등록일자</th>
+	                <th scope="col">수정</th>
+	                <th scope="col">삭제</th>                                                                                                                                            
+	            </tr>
+	         </thead>
+	         <tbody>
+	            <tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
+	            	th:each="l : ${adminCouponKind}">
+	                <td th:text="${l.couponCode}"></td>
+	                <td th:text="${l.memberId}"></td>
+	                <td th:text="${l.couponName}"></td>
+	                <td th:text="${l.couponPrice}"></td>
+	                <td th:text="${l.couponDueDate}"></td>
+	                <td th:text="${l.couponKindRegisterDate}"></td>
+	                <td class="addList">
+	                	<a th:href="@{/admin/coupon/modifyCouponKind}">수정</a>
+	                </td>
+	                <td>
+	                	<a th:href="@{/admin/coupon/removeCouponKind}">삭제</a>
+	                </td>
+	            </tr>
+				<tr th:unless="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}">
+					<td colspan="9">등록된 쿠폰이 없습니다.</td>
+				</tr>                            
+              </tbody>
+            </table>
 	</th:block>
 </html>
+
 
 
 

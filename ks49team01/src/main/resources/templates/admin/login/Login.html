@@ -23,11 +23,29 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">123</div>
-       		<div class="col-6">456</div>
-       	</div>
-	</th:block>
+       	  <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">회원 로그인코드</th>
+                                            <th scope="col">회원 아이디</th>
+                                            <th scope="col">회원 로그인</th>
+                                            <th scope="col">회원 로그아웃</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                          <tr th:if="${loginList != null and not #lists.isEmpty(loginList)}"
+												th:each="l : ${loginList}">
+												<td th:text="${l.loginCode}"></td>
+												<td th:text="${l.memberId}"></td>
+												<td th:text="${l.logDate}"></td>
+												<td th:text="${l.logoutDate}"></td>
+				         </tr>
+                                        <tr th:unless="${loginList != null and not #lists.isEmpty(loginList)}">
+											<td colspan="12">등록된 회원의 정보가 없습니다.</td>
+										</tr>
+                                    </tbody>
+                                </table>
+                                	</th:block>
 </html>
 
 

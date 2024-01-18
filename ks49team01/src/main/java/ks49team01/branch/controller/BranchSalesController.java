@@ -1,4 +1,4 @@
-package ks49team01.admin.controller;
+package ks49team01.branch.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
-@RequestMapping("/admin/branchSales")
+@RequestMapping("/branch/branchSales")
 @Controller
 @Slf4j
 public class BranchSalesController {
@@ -20,6 +20,6 @@ public class BranchSalesController {
 		
 		log.info("가맹점 매출 조회");
 		
-		return "admin/branchSales/get_branch_sales";
+		return "branch/branchSales/get_branch_sales";
 	}
 }
