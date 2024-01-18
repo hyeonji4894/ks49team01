@@ -16,4 +16,4 @@ public class AdminCloseSchool {
 	private String lastModifiedDate;
 	private String viewMapImg;
 }
-// @Data를 활용해 getter, setter toString()를 작성 X
+// @Data를 활용해 getter, setter toString()을 작성 X
