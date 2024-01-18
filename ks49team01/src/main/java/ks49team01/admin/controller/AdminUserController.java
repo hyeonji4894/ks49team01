@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ks49team01.admin.dto.User;
+import ks49team01.admin.dto.AdminUser;
 import ks49team01.admin.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,13 +20,28 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin/member")
 @AllArgsConstructor
 @Slf4j
-public class UserController {
+public class AdminUserController {
 	
 	private UserService userService;
 	
+	@GetMapping("/removeMember")
+	public String removeMember(Model model) {
+		
+		return "admin/member/remove_member";
+	}
+	
+	@GetMapping("/modifyMember")
+	public String modifyMember(Model model) {
+		
+		return "admin/member/modify_member";
+	}
+	
+
+	
+	
 	@PostMapping("/searchForUserList")
 	@ResponseBody
-	public List<User> searchForUserList(@RequestBody Map<String, Object> searchMap) {
+	public List<AdminUser> searchForUserList(@RequestBody Map<String, Object> searchMap) {
 		
 		log.info("searchMap: {}", searchMap);
 		
@@ -41,7 +56,7 @@ public class UserController {
 			searchMap.put("searchKey", searchKey);
 		}
 		
-		List<User> searchList = userService.getSearchForUserList(searchMap);
+		List<AdminUser> searchList = userService.getSearchForUserList(searchMap);
 		
 		return searchList;
 	}
@@ -49,7 +64,7 @@ public class UserController {
 	
 	@GetMapping("/getMember")
 	public String getMemberList(Model model) {
-		List<User> userList = userService.getuserList();
+		List<AdminUser> userList = userService.getuserList();
 		
 		log.info("userList: {}", userList);
 		model.addAttribute("title", "회원목록조회");

@@ -6,22 +6,22 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ks49team01.admin.dto.User;
-import ks49team01.admin.mapper.UserMapper;
+import ks49team01.admin.dto.AdminUser;
+import ks49team01.admin.mapper.AdminUserMapper;
 import lombok.AllArgsConstructor;
 @Service
 @Transactional
 @AllArgsConstructor
 public class UserService {
 	
-	private final UserMapper userMapper;
+	private final AdminUserMapper userMapper;
 
-	public List<User> getuserList(){
+	public List<AdminUser> getuserList(){
 		return userMapper.getuserList();
 		
 	}
 
-	public List<User> getSearchForUserList(Map<String, Object> searchMap) {
+	public List<AdminUser> getSearchForUserList(Map<String, Object> searchMap) {
 		// TODO Auto-generated method stub
 		return userMapper.getSearchForUserList(searchMap);
 	}

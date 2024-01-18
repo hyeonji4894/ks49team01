@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class User {
+public class AdminUser {
 	private String memberId;
 	private String memberPw;
 	private String memberName;
