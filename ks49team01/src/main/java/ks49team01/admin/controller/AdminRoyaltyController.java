@@ -5,23 +5,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/admin/login")
-@AllArgsConstructor
+@RequestMapping("/admin/bracnhRoyalty")
 @Slf4j
-public class LoginController {
-	
+public class AdminRoyaltyController {
 
-	@GetMapping("/login")
-	public String getLoginList(Model model) {
+	
+	@GetMapping("/getRoyalty")
+	public String getBranchRoyalty(Model model) {
 		
-		log.info("로그인관리");
-		model.addAttribute("title", "로그인관리");
+		model.addAttribute("title", "로열티목록조회");
 		
-		return "admin/login/Login";
+		log.info("로열티목록조회");
+		
+		return "admin/bracnhRoyalty/get_royalty";
 	}
 }
 

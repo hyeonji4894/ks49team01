@@ -36,17 +36,17 @@
 	                	</a>
 	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{/admin/room/roomInfo}" class="sidebar-link">
+	                        	<a th:href="@{/branch/room/roomInfo}" class="sidebar-link">
 	                        	<span class="hide-menu"> 객실 관리 </span>
 	                            </a>
 	                        </li>
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{/admin/room/roomOptionList}" class="sidebar-link">
+	                        	<a th:href="@{/branch/room/roomOptionList}" class="sidebar-link">
 	                        		<span class="hide-menu"> 객실 옵션 목록 확인 </span>
 	                        	</a>
 	                        </li>
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{/admin/room/surchargeList}" class="sidebar-link">
+	                        	<a th:href="@{/branch/room/surchargeList}" class="sidebar-link">
 	                        		<span class="hide-menu"> 시즌 추가금 등록 </span>
 	                        	</a>
 	                        </li>
@@ -58,12 +58,12 @@
 	                	</a>
 	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
+	                        	<a th:href="@{/branch/reservation/reservationUser}" class="sidebar-link">
 	                        		<span class="hide-menu"> 객실 예약 현황 </span>
 								</a>
 	                        </li>
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
+	                        	<a th:href="@{/branch/reservation/reservationCancelUser}" class="sidebar-link">
 	                        		<span class="hide-menu"> 객실 예약 취소</span>
 	                        	</a>
 	                        </li>
@@ -79,17 +79,12 @@
 	                	</a>
 	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
-	                        	<span class="hide-menu"> 리뷰 카테고리 관리 </span>
-	                            </a>
-	                        </li>
-	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
+	                        	<a th:href="@{/branch/review/getReviewList}" class="sidebar-link">
 	                        		<span class="hide-menu"> 리뷰 관리 </span>
 	                        	</a>
 	                        </li>
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
+	                        	<a th:href="@{/branch/review/getReviewReply}" class="sidebar-link">
 	                        		<span class="hide-menu"> 리뷰 댓글 관리 </span>
 	                        	</a>
 	                        </li>
@@ -104,13 +99,18 @@
 	                	</a>
 	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
-	                        		<span class="hide-menu"> 적립금 관리 </span>
+	                        	<a th:href="@{/branch/mileage/sendMileage}" class="sidebar-link">
+	                        		<span class="hide-menu"> 적립금 지급 현황 </span>
 								</a>
 	                        </li>
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
+	                        	<a th:href="@{/branch/mileage/getCouponKind}" class="sidebar-link">
 	                        		<span class="hide-menu"> 쿠폰 관리 </span>
+								</a>
+	                        </li>
+	                        <li class="sidebar-item">
+	                        	<a th:href="@{/branch/coupon/sendCoupon}" class="sidebar-link">
+	                        		<span class="hide-menu"> 쿠폰 지급 현황 </span>
 								</a>
 	                        </li>
 	                    </ul>
@@ -171,17 +171,17 @@
 	                	</a>
 	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
+	                        	<a th:href="@{/branch/noticeBoard/getNoticeBoard}" class="sidebar-link">
 	                        		<span class="hide-menu"> 공지사항 관리 </span>
 								</a>
 	                        </li>
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
+	                        	<a th:href="@{/branch/inquiryBoard/getInquiryBoard}" class="sidebar-link">
 	                        		<span class="hide-menu"> 1:1 문의 관리 </span>
 								</a>
 	                        </li>
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
+	                        	<a th:href="@{/branch/answerBoard/getAnswerBoard}" class="sidebar-link">
 	                        		<span class="hide-menu"> 1:1 문의 답변 관리 </span>
 								</a>
 	                        </li>
@@ -196,13 +196,13 @@
 	                	</a>
 	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
-	                        		<span class="hide-menu"> 가맹점 매출 목록 </span>
+	                        	<a th:href="@{/branch/branchSales/getBranchSales}" class="sidebar-link">
+	                        		<span class="hide-menu"> 가맹점 매출 관리 </span>
 								</a>
 	                        </li>
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{#}" class="sidebar-link">
-	                        		<span class="hide-menu"> 가맹점 로열티 목록 </span>
+	                        	<a th:href="@{/branch/bracnhRoyalty/getRoyalty}" class="sidebar-link">
+	                        		<span class="hide-menu"> 가맹점 로열티 관리 </span>
 								</a>
 	                        </li>
 	                    </ul>

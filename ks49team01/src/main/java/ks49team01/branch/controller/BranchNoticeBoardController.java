@@ -1,4 +1,4 @@
-package ks49team01.admin.controller;
+package ks49team01.branch.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RequestMapping("/admin/noticeBoard")
+@RequestMapping("/branch/noticeBoard")
 @Controller
 @Slf4j
-public class NoticeBoardController {
+public class BranchNoticeBoardController {
 	
 
 	
@@ -21,6 +21,6 @@ public class NoticeBoardController {
 		
 		log.info("공지사항조회");
 		
-		return "admin/noticeBoard/get_notice_board";
+		return "branch/noticeBoard/get_notice_board";
 	}
 }

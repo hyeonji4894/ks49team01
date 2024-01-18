@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminSurchargeMapper">
+
+	<resultMap type="AdminSurcharge" id="surchargeResultMap">
+		<id 	column="season_surcharge_list_code" property="seasonSurchargeListCode"/>
+		<result column="registrant_id" 				property="listRegistrantId"/>
+		<result column="lowseason_peakseason" 		property="lowseasonPeakseason"/>
+		<result column="day_of_the_week" 			property="dayOfTheWeek"/>
+		<result column="system_register_date" 		property="systemRegisterDate"/>
+		
+		<result column="branch_season_unit_price_code" 	property="branchSeasonUnitPriceCode"/>
+		<result column="surcharge_registrant_id" 		property="surchargeRegistrantId"/>
+		<result column="branch_code" 					property="branchCode"/>
+		<result column="additional_amount" 				property="additionalAmount"/>
+		<result column="register_date" 					property="registerDate"/>
+	</resultMap>
+	
+	<select id="getSurchargeList" resultMap="surchargeResultMap">
+		SELECT
+			ss.season_surcharge_list_code,
+			ss.registrant_id,
+			ss.day_of_the_week,
+			ss.lowseason_peakseason,
+			ss.system_register_date
+		FROM
+			season_surcharge_list AS ss;
+	</select>
+	
+	<select id="getBranchBySurchargeList" resultMap="surchargeResultMap">
+		SELECT
+			bs.branch_season_unit_price_code,
+			bs.surcharge_registrant_id,
+			bs.season_surcharge_list_code,
+			bs.branch_code,
+			bs.lowseason_peakseason,
+			bs.day_of_the_week,
+			bs.additional_amount,
+			bs.register_date
+		FROM
+			branch_by_season_surcharge AS bs ;
+	</select>
+	
+	
+	
+	
+	
+	
+</mapper>

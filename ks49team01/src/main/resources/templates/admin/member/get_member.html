@@ -52,6 +52,8 @@
                                             <th scope="col">회원 주소</th>
                                             <th scope="col">회원 마일리지</th>
                                             <th scope="col">회원 등록시간</th>
+                                            <th scope="col">회원 수정</th>
+                                            <th scope="col">회원 삭제</th>
                                         </tr>
                                     </thead>
                                     
@@ -69,9 +71,16 @@
 												<td th:text="${l.memberAddr}"></td>
 												<td th:text="${l.memberMileage}"></td>
 												<td th:text="${l.memberRegDate}"></td>
+						<td>
+						<a th:href="@{/admin/member/modifyMember}">수정</a>
+					</td>
+
+						<td>
+						<a th:href="@{/admin/member/removeMember}">삭제</a>
+					</td>
                                         </tr>
                                         <tr th:unless="${userList != null and not #lists.isEmpty(userList)}">
-											<td colspan="10">등록된 회원의 정보가 없습니다.</td>
+											<td colspan="12">등록된 회원의 정보가 없습니다.</td>
 										</tr>
                                     </tbody>
                                 </table>

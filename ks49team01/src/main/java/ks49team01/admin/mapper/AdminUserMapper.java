@@ -5,15 +5,15 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import ks49team01.admin.dto.User;
+import ks49team01.admin.dto.AdminUser;
 
 @Mapper
-public interface UserMapper {
+public interface AdminUserMapper {
 	
 	// 조건별 상품목록 조회
-		List<User> getSearchForUserList(Map<String, Object> paramMap);
+		List<AdminUser> getSearchForUserList(Map<String, Object> paramMap);
 	
-	List<User> getuserList();
+	List<AdminUser> getuserList();
 	
 
 }
