@@ -4,7 +4,6 @@
 	  layout:decorate="~{admin/layout/default}">
 	<!-- css file import head태그 안에 추가  -->
 	<head>
-		<button type="button" class="btn waves-effect waves-light btn-dark"></button>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
@@ -28,7 +27,7 @@
 		<table class="table">
 	        <thead>
 	            <tr>
-	                <th scope="col">비수기/성수기/공휴일</th>
+	                <th scope="col">비수기/성수기</th>
 	                <th scope="col">요일</th>
 	                <th scope="col">등록일자</th>
 	                <th scope="col">등록자아이디</th>
@@ -37,23 +36,26 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr th:if="adminSurchargeList != null and not #lists.isEmpty(adminSurchargeList)}"
+	            <tr th:if="${adminSurchargeList != null and not #lists.isEmpty(adminSurchargeList)}"
 	            	th:each="s : ${adminSurchargeList}">
 	                <th th:text="${s.lowseasonPeakseason}"></th>
 	                <th th:text="${s.dayOfTheWeek}"></th>
-	                <th th:text="${s.registerDate}"></th>
-	                <th th:text="${s.registrantId}"></th>
+	                <th th:text="${s.systemRegisterDate}"></th>
+	                <th th:text="${s.listRegistrantId}"></th>
 	                <td class="addList">
-	    				<a th:href="@{/admin/room/removeSurcharge}">수정</a>
+	    				<a th:href="@{/admin/surcharge/modifySurchargeList}">수정</a>
 	                </td>
 	                <td class="addList">
-	    				<a th:href="@{/admin/room/removeSurcharge}">삭제</a>
+	    				<a th:href="@{/admin/surcharge/removeSurchargeList}">삭제</a>
 	                </td>
 	            </tr>
+	            <tr th:unless="${adminSurchargeList != null and not #lists.isEmpty(adminSurchargeList)}">
+					<td colspan="9">등록된 정보가 없습니다.</td>
+				</tr>
 	        </tbody>
 	     </table>
 	     <div style="float: right;">
-	    		<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/addSurcharge}">등록</a>
+		 	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/surcharge/addSurchargeList}">등록</a>
 	     </div>
 	  </th:block>
 </html>

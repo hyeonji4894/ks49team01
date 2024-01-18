@@ -9,15 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ks49team01.admin.dto.AdminSurcharge;
-import ks49team01.admin.service.RoomService;
+import ks49team01.admin.service.AdminRoomService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/admin/room")
+@AllArgsConstructor
 public class AdminRoomController {
 	
-	private RoomService roomService;
+	private final AdminRoomService roomService;
 	
 	// 객실 정보
 	
@@ -62,101 +64,4 @@ public class AdminRoomController {
 		return "admin/room/get_room_info";
 	}
 	
-	
-	
-	// 객실 옵션
-	
-	@GetMapping("/removeRoomOption")
-	public String removeRoomPorion(Model model) {
-		
-		log.info("객실옵션삭제");
-		
-		model.addAttribute("pageTitle", "객실옵션삭제");
-		
-		return "admin/option/remove_room_option";
-	}
-	
-	@GetMapping("/modifyRoomOption")
-	public String modifyRoomOption(Model model) {
-		
-		log.info("객실옵션수정");
-		
-		model.addAttribute("pageTitle", "객실옵션수정");
-		
-		return "admin/option/modify_room_option";
-	}
-	
-	@GetMapping("/addRoomOption")
-	public String addRoomOption(Model model) {
-		
-		log.info("객실옵션등록");
-		
-		model.addAttribute("pageTitle", "객실옵션등록");
-		
-		return "admin/option/add_room_option";
-	}
-	
-	@GetMapping("/roomOptionList")
-	public String roomOptionList(Model model) {
-	
-		log.info("객실옵션조회");
-		
-		model.addAttribute("pageTitle", "객실옵션리스트 조회");
-		
-		return "admin/option/get_room_option";
-	}
-	
-	
-	
-	
-	// 시즌 추가금 리스트
-	
-	@GetMapping("/removeSurchargeList")
-	public String removeSurchargeList(Model model) {
-		
-		log.info("시즌추가금리스트삭제");
-		
-		model.addAttribute("pageTitle", "시즌추가금삭제");
-		
-		return "admin/season_surcharge/remove_season_surcharge_list";
-	}
-	
-
-	
-	@GetMapping("/modifySurchargeList")
-	public String modifySurchargeList(Model model) {
-		
-		log.info("시즌추가금리스트수정");
-		
-		model.addAttribute("pageTitle", "시즌추가금리스트수정");
-		
-		return "admin/season_surcharge/modify_season_surcharge_list";
-		
-	}
-	
-	@GetMapping("/addSurchargeList")
-	public String addSeurcargeList(Model model) {
-		
-		log.info("시즌추가금리스트등록");
-		
-		model.addAttribute("service", "시즌추가금등록");
-		model.addAttribute("pageTitle", "시즌추가금등록");
-		
-		return "admin/season_surcharge/add_season_surcharge_list";
-	}
-	
-	@GetMapping("/surchargeList")
-	public String getSurchargeList(Model model) {
-		
-		//List<AdminSurcharge> adminSurchargeList = roomService.getAdminSurchargeList();
-		log.info("시즌추가금리스트조회");
-		
-		model.addAttribute("service", "시즌추가금");
-		model.addAttribute("serviceUri", "/admin/room");
-		model.addAttribute("pageTitle", "시즌추가금 목록 조회");
-		
-		
-		return "admin/season_surcharge/get_season_surcharge_list";
-	}
-
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminCloseSchoolMapper">
+
+	<resultMap type="AdminCloseSchool" id="closeSchoolResultMap">
+		<id column="close_school_code" property="closeSchoolCode"/>
+		<result column="member_id" 				property="memberId"/>
+		<result column="close_school_img" 		property="closeSchoolImg"/>
+		<result column="close_school_area" 			property="closeSchoolArea"/>
+		<result column="SD_EDU_OFFC_DIV_NM" 		property="coordinate"/>
+		<result column="branch_current_situation" 		property="branchCurrentSituation"/>
+		<result column="purchase_amount" 		property="purchaseAmount"/>
+		<result column="system_registration_date" 		property="systemRegistrationDate"/>
+		<result column="last_modified_date" 		property="lastModifiedDate"/>
+		<result column="view_map_img" 		property="viewMapImg"/>
+	</resultMap>
+	
+ 	<select id="getCloseSchool" resultMap="closeSchoolResultMap">
+ 		SELECT
+			close_school_code,
+			member_id,
+  			close_school_img,
+			close_school_area,
+			SD_EDU_OFFC_DIV_NM,
+			branch_current_situation,
+			purchase_amount,
+			system_registration_date,
+			last_modified_date,
+			view_map_img
+		FROM
+			close_school
+		WHERE
+			close_school.close_school_code = close_school_code;
+ 	</select>
+</mapper>
