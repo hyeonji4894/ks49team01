@@ -2,9 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{admin/layout/default}">
-	  
 	<!-- css file import head태그 안에 추가  -->
-	<head>		
+	<head>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
@@ -17,7 +16,10 @@
 		<li class="breadcrumb-item">
 			<a th:href="@{/}" class="text-muted">시즌추가금</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">시즌추가금리스트등록</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{/admin/room/surchargeList}" class="text-muted">시즌추가금목록조회</a>
+		</li>
+		<li class="breadcrumb-item text-muted active" aria-current="page" >가맹점명</li>
 	</th:block>
 
 	<!-- Start Page Content -->
@@ -25,35 +27,33 @@
 		<table class="table">
 	        <thead>
 	            <tr>
-	                <th scope="col">#</th>
-	                <th scope="col">비수기/성수기</th>
-	                <th scope="col">요일</th>
-	                <th scope="col">등록자아이디</th>
+	            	<th scope="col"></th>
+	                <th>비수기/성수기</th>
+	                <th>요일</th>
+	                <th>수정</th>
+	                <th>삭제</th>
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr>
-	                <th scope="row"></th>
-	                <td></td>
-	                <td></td>
-	                <td></td>
+	            <tr th:if="${surchargeList != null and not #lists.isEmpty(surchargeList)}"
+	            	th:each="s : ${surchargeList}">
+	            	<td></td>
+	                <td th:text="${s.lowseasonPeakseason}"></td>
+	                <td th:text="${s.dayOfTheWeek}"></td>
+	                <td class="addList">
+	    				<a th:href="@{/admin/surcharge/modifySurchargeList}">수정</a>
+	                </td>
+	                <td class="addList">
+	    				<a th:href="@{/admin/surcharge/removeSurchargeList}">삭제</a>
+	                </td>
 	            </tr>
-	            <tr>
-	                <th scope="row"></th>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	            </tr>
-	            <tr>
-	                <th scope="row"></th>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	            </tr>
+	            <tr th:unless="${surchargeList != null and not #lists.isEmpty(surchargeList)}">
+					<td colspan="12">조회된 리스트가 없습니다</td>
+				</tr>
 	        </tbody>
-	    </table>
-    	<div style="float: right;">
-			<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/surchargeList}">등록</a>
-    	</div>
-	</th:block>
+	     </table>
+	     <div style="float: right;">
+		 	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/surcharge/addSurchargeList}">등록</a>
+	     </div>
+	  </th:block>
 </html>

@@ -1,14 +1,14 @@
 package ks49team01.admin.controller;
 
+
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import ks49team01.admin.dto.AdminSurcharge;
+import ks49team01.admin.dto.AdminRoom;
 import ks49team01.admin.service.AdminRoomService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +26,12 @@ public class AdminRoomController {
 	@GetMapping("/removeRoomInfo")
 	public String removeRoomInfo(Model model) {
 		
-		log.info("객실삭제");
+		List<AdminRoom> roomInfoList = roomService.getRoomInfoList();
+		
+		log.info("roomInfoList: {}", roomInfoList);
 		
 		model.addAttribute("pageTitle", "객실삭제");
+		model.addAttribute("roomInfoList", roomInfoList);
 		
 		return "admin/room/remove_room_info";
 	}
@@ -57,9 +60,14 @@ public class AdminRoomController {
 	@GetMapping("/roomInfo")
 		public String roomInfo(Model model) {
 		
-		log.info("객실정보조회");
-			
+		List<AdminRoom> roomInfoList = roomService.getRoomInfoList();
+		
+		log.info("roomInfoList: {}", roomInfoList);
+		
+		model.addAttribute("service", "객실정보");
+		model.addAttribute("serviceUri", "/admin/room");
 		model.addAttribute("pageTitle", "객실정보조회");
+		model.addAttribute("roomInfoList", roomInfoList);
 		
 		return "admin/room/get_room_info";
 	}

@@ -49,10 +49,12 @@ public class AdminSurchargeController {
 		@GetMapping("/addSurchargeList")
 		public String addSeurcargeList(Model model) {
 			
-			log.info("시즌추가금리스트등록");
+			List<AdminSurcharge> surchargeList = surchargeService.getSurchargeList();
+			log.info("surchargeList: {}", surchargeList);
 			
 			model.addAttribute("service", "시즌추가금등록");
 			model.addAttribute("pageTitle", "시즌추가금등록");
+			model.addAttribute("surchargeList", surchargeList);
 			
 			return "admin/season_surcharge/add_season_surcharge_list";
 			// 나중에 추가금 리스트에 등록하면 목록으로 페이지 전환할수있게 redirect사용
@@ -62,14 +64,13 @@ public class AdminSurchargeController {
 		public String getSurchargeList(Model model) {
 			
 		
-			
-			List<AdminSurcharge> adminSurchargeList = surchargeService.getAdminSurchargeList();
-			log.info("adminSurchargeList: {}", adminSurchargeList);
+			List<AdminSurcharge> branchBySurchargeList = surchargeService.getBranchBySurchargeList();
+			log.info("branchBySurchargeList: {}", branchBySurchargeList);
 			
 			model.addAttribute("service", "시즌추가금");
-			model.addAttribute("serviceUri", "/admin/room");
+			model.addAttribute("serviceUri", "/admin/surcharge");
 			model.addAttribute("pageTitle", "시즌추가금 목록 조회");
-			model.addAttribute("adminSurchargeList", adminSurchargeList);
+			model.addAttribute("branchBySurchargeList", branchBySurchargeList);
 			
 			
 			return "admin/season_surcharge/get_season_surcharge_list";
