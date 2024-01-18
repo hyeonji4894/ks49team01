@@ -5,22 +5,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@RequestMapping("/admin/noticeBoard")
 @Controller
+@RequestMapping("/admin/login")
+@AllArgsConstructor
 @Slf4j
-public class NoticeBoardController {
+public class LoginController {
 	
 
-	
-	@GetMapping("/getNoticeBoard")
-	public String getNoticeBoard(Model model) {
+	@GetMapping("/login")
+	public String getLoginList(Model model) {
 		
-		model.addAttribute("title", "공지사항조회");
+		log.info("로그인관리");
+		model.addAttribute("title", "로그인관리");
 		
-		log.info("공지사항조회");
-		
-		return "admin/noticeBoard/get_notice_board";
+		return "admin/login/Login";
 	}
 }
+
