@@ -10,25 +10,52 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">리뷰관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/}" class="text-muted">리뷰 카테고리</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">조회하기</a>
+		</li>
 	</th:block>
-
+	
 	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">리뷰 카테고리 삭제</div>
-       		<div class="col-6">4564565</div>
-       	</div>
+	<th:block layout:fragment="customContent">	
+			<table class="table">
+			<thead>
+	            <tr>
+	                <th scope="col">카테고리 코드</th>
+	                <th scope="col">등록자 아이디</th>
+	                <th scope="col">시스템 등록일자</th>
+	                <th scope="col">카테고리 내용</th>                                                                                                                                             
+	            </tr>
+	         </thead>
+	         <tbody>
+	            <tr th:if="${reviewCategoryList != null and not #lists.isEmpty(reviewCategoryList)}"
+	            	th:each="l : ${reviewCategoryList}">
+	                <td th:text="${l.facilityCode}||${l.moodCode}"></td>
+	                <td th:text="${l.memberId}"></td>
+	                <td th:text="${l.facilityRegisterDate}||${moodRegisterDate}"></td>
+	                <td th:text="${l.facilityCategoryContext}||${l.moodCategoryContext}"></td>
+	                <td class="addList">
+	                	<a th:href="@{/admin/review/modifyReviewCategory}">수정</a>
+	                </td>
+	                <td>
+	                	<a th:href="@{/admin/coupon/removeReviewCategory}">삭제</a>
+	                </td>
+	            </tr>
+				<tr th:unless="${reviewCategoryList != null and not #lists.isEmpty(reviewCategoryList)}">
+					<td colspan="9">등록된 리뷰 카테고리가 없습니다.</td>
+				</tr>                            
+              </tbody>
+            </table>
 	</th:block>
 </html>
+
 
 
 

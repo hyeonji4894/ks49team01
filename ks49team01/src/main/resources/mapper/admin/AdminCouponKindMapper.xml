@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminCouponMapper">
+
+	<resultMap type="AdminCoupon" id="couponResultMap">
+		<id column="coupon_code" property="couponCode"/>
+		<result column="member_id" 					property="memberId"/>
+		<result column="coupon_name" 				property="couponName"/>
+		<result column="coupon_price" 				property="couponPrice"/>
+		<result column="coupon_due_date" 			property="couponDueDate"/>
+		<result column="coupon_kind_register_date" 	property="couponKindRegisterDate"/>
+	</resultMap>
+	
+ 	<select id="getCouponKind" resultMap="couponResultMap">
+		SELECT
+			eck.coupon_code,
+			eck.member_id,
+			eck.coupon_name,
+			eck.coupon_price,
+			eck.coupon_due_date,
+			eck.coupon_kind_register_date
+		FROM
+			event_coupon_kind AS eck;
+ 	</select>
+</mapper>
