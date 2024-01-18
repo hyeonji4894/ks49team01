@@ -1,4 +1,4 @@
-package ks49team01.admin.controller;
+package ks49team01.branch.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RequestMapping("/admin/answerBoard")
+@RequestMapping("/branch/answerBoard")
 @Controller
 @Slf4j
 
-public class AnswerBoardController {
+public class BranchAnswerBoardController {
 	@GetMapping("/getAnswerBoard")
 	public String getAnswerBoard(Model model) {
 		
@@ -19,6 +19,6 @@ public class AnswerBoardController {
 		
 		log.info("1 대 1 문의 답변 게시글 조회");
 		
-		return "admin/answerBoard/get_answer_board";
+		return "branch/answerBoard/get_answer_board";
 	}
 }
