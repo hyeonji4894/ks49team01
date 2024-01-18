@@ -27,31 +27,20 @@
 		      <table class="table">
 				 <thead>
 		            <tr>
-		                <th scope="col">폐교 면적</th>
-		                <th scope="col">위치</th>
-		                <th scope="col">가맹 계약 현황</th>
-		                <th scope="col">매입 금액</th>
-		                <th scope="col">시스템 등록 일자</th>
-		                <th scope="col">최종 수정날짜</th>
-		                <th scope="col">폐교 조감도 이미지</th>
-		                <th scope="col">등록자 아이디</th>
+		                <th scope="col">폐교 이미지</th>
+		                <th scope="col">가맹점 이미지</th>
+                        <th scope="col">폐교 조감도 이미지</th>
 		            </tr>
 		        </thead>
 		        <tbody>
-						<tr th:if="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}"
-							th:each="l : ${closeSchoolList}">
+						<tr th:if="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}"
+							th:each="l : ${closeSchoolComparisonBranchList}">
 							<td th:text="${l.closeSchoolImg}"></td>
-							<td th:text="${l.closeSchoolArea}"></td>
-							<td th:text="${l.coordinate}"></td>
-							<td th:text="${l.branchCurrentSituation}"></td>
-							<td th:text="|₩ ${#numbers.formatInteger(l.purchaseAmount, 3, 'COMMA')}|"></td>
-							<td th:text="${l.systemRegistrationDate}"></td>
-							<td th:text="${l.lastModifiedDate}"></td>
+							<td th:text="${l.branchImage}"></td>
 							<td th:text="${l.viewMapImg}"></td>
-							<td th:text="${l.memberId}"></td>
 						</tr>
-						<tr th:unless="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}">
-							<td colspan="9">등록된 폐교가 없습니다.</td>
+						<tr th:unless="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}">
+							<td colspan="9">등록된 가맹점이 없습니다.</td>
 						</tr>
 					</tbody>
 			 </table>

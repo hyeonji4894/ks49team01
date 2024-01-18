@@ -31,6 +31,4 @@ public class AdminCloseSchoolComparisonBranchService {
 		return adminCloseSchoolComparisonBranchMapper.getAdminCloseSchoolComparisonBranch();
 	}
 	
-	
-	
 }
