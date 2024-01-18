@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminOptionMapper">
+
+	<resultMap type="AdminOption" id="optionResultMap">
+		<id 	column="room_option_number" 			property="roomOptionNumber"/>
+		<result column="room_option_registration_id" 	property="roomOptionRegistrationId"/>
+		<result column="room_option_cate"				property="roomOptionCate"/>
+		<result column="room_option_name" 				property="roomOptionName"/>
+		<result column="room_option_price" 				property="roomOptionPrice"/>
+		<result column="room_option_registration_date" 	property="roomOptionRegistrationDate"/>
+	</resultMap>
+	
+	<select id="getOptionList" resultMap="optionResultMap">
+		SELECT
+			ol.room_option_number,
+			ol.room_option_registration_id,
+			ol.room_option_cate,
+			ol.room_option_name,
+			ol.room_option_price,
+			ol.room_option_registration_date
+		FROM
+			room_option_list AS ol;
+	</select>
+</mapper>

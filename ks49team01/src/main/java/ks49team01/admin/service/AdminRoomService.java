@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ks49team01.admin.dto.AdminRoom;
 import ks49team01.admin.dto.AdminSurcharge;
 import ks49team01.admin.mapper.AdminRoomMapper;
 import lombok.AllArgsConstructor;
@@ -14,5 +15,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AdminRoomService {
 	
+	private AdminRoomMapper adminRoomMapper;
+	
+	public List<AdminRoom> getRoomInfoList(){
+		
+		return adminRoomMapper.getRoomInfoList();
+	}
 	
 }
