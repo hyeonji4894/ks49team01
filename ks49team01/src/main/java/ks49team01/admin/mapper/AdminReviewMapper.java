@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import ks49team01.admin.dto.AdminReview;
 import ks49team01.admin.dto.AdminReviewCategory;
+import ks49team01.admin.dto.AdminReviewReply;
 
 @Mapper
 public interface AdminReviewMapper {
@@ -14,4 +15,6 @@ public interface AdminReviewMapper {
 	
 	List<AdminReviewCategory> getReviewMoodCategory();
 	List<AdminReviewCategory> getReviewFacilityCategory();
+	
+	List<AdminReviewReply> getAdminReviewReply();
 }

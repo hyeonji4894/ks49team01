@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminMileageMapper">
+
+	<resultMap type="PaymentCriteriaMileage" id="PaymentMileageResultMap">
+		<id column="roompay_mileage_rate_code" 				property="roompayMileageRateCode"/>
+		<result column="roompay_mileage_rate_code" 			property="roompayMileageRateCode"/>
+		<result column="member_id" 							property="memberId"/>
+		<result column="mileage_grade_name" 				property="mileageGradeName"/>
+		<result column="payment_criteria_mileage_percent" 	property="paymentCriteriaMileagePercent"/>
+		<result column="payment_criteria_upgrade" 			property="paymentCriteriaUpgrade"/>
+		<result column="mileage_rate_register_date" 		property="mileageRateRegisterDate"/>
+	</resultMap>
+	
+ 	<select id="getPaymentCriteriaMileage" resultMap="PaymentMileageResultMap">
+		SELECT
+			rmr.roompay_mileage_rate_code,
+			rmr.member_id,
+			rmr.mileage_grade_name,
+			rmr.payment_criteria_mileage_percent,
+			rmr.payment_criteria_upgrade,
+			rmr.mileage_rate_register_date
+		FROM
+			roompay_mileage_rate AS rmr;
+ 	</select>
+</mapper>

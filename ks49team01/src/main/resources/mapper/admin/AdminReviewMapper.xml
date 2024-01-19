@@ -4,11 +4,11 @@
 
 	<resultMap type="AdminReview" id="reviewResultMap">
 		<id column="review_num" property="reviewNum"/>
-		<result column="review_num" 				property="reviewNum"/>
-		<result column="member_id" 					property="memberId"/>
+		<result column="review_num" 			property="reviewNum"/>
+		<result column="member_id" 				property="memberId"/>
 		<result column="room_code" 				property="roomCode"/>
 		<result column="visit_date" 			property="visitDate"/>
-		<result column="review_context" 			property="reviewContext"/>
+		<result column="review_context" 		property="reviewContext"/>
 		<result column="review_date" 			property="reviewDate"/>
 		<result column="review_views" 			property="reviewViews"/>
 		

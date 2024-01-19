@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks49team01.admin.dto.AdminReview;
 import ks49team01.admin.dto.AdminReviewCategory;
+import ks49team01.admin.dto.AdminReviewReply;
 import ks49team01.admin.mapper.AdminReviewMapper;
 import lombok.AllArgsConstructor;
 
@@ -42,5 +43,11 @@ public class AdminReviewService {
 		return adminReviewMapper.getReviewFacilityCategory();
 	}
 	
-
+	/**
+	 * 리뷰 댓글 조회
+	 */
+	public List<AdminReviewReply> getAdminReviewReply(){
+		
+		return adminReviewMapper.getAdminReviewReply();
+	}
 }

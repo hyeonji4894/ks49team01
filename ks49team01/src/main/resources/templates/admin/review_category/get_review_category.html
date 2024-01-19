@@ -55,8 +55,8 @@
 	                	<a th:href="@{/admin/review/removeReviewCategory}">삭제</a>
 	                </td>
 	            </tr>
-				<tr th:unless="${AdminFacilityReviewCategory != null and not #lists.isEmpty(AdminFacilityReviewCategory)}">
-					<td colspan="9">등록된 카테고리가 없습니다.</td>
+				<tr th:unless="${AdminMoodReviewCategory != null and not #lists.isEmpty(AdminFacilityReviewCategory)}">
+					<td colspan="9">등록된 분위기 카테고리가 없습니다.</td>
 				</tr>
 	            <tr th:if="${AdminFacilityReviewCategory != null and not #lists.isEmpty(AdminFacilityReviewCategory)}"
 	            	th:each="l : ${AdminFacilityReviewCategory}">
@@ -72,7 +72,7 @@
 	                </td>
 	            </tr>
 				<tr th:unless="${AdminFacilityReviewCategory != null and not #lists.isEmpty(AdminFacilityReviewCategory)}">
-					<td colspan="9">등록된 카테고리가 없습니다.</td>
+					<td colspan="9">등록된 시설 카테고리가 없습니다.</td>
 				</tr>                            				                            
               </tbody>
             </table>

@@ -37,14 +37,13 @@
 	            </tr>
 	         </thead>
 	         <tbody>
-	            <tr th:if="${reviewMileageCriteriaList != null and not #lists.isEmpty(reviewMileageCriteriaList)}"
-	            	th:each="l : ${reviewMileageCriteriaList}">
-	                <td th:text="${l.roompayMileageRateCode}"></td>
+	            <tr th:if="${reviewMileageCriteria != null and not #lists.isEmpty(reviewMileageCriteria)}"
+	            	th:each="l : ${reviewMileageCriteria}">
+	                <td th:text="${l.mileageCriteriaCode}"></td>
 	                <td th:text="${l.memberId}"></td>
-	                <td th:text="${l.mileageGradeName}"></td>
-	                <td th:text="${l.paymentCriteriaMileagePercent}"></td>
-	                <td th:text="${l.paymentCriteriaUpgrade}"></td>
-	                <td th:text="${l.mileageRateRegisterDate}"></td>
+	                <td th:text="${l.mileageKind}"></td>
+	                <td th:text="${l.mileageAmount}"></td>
+	                <td th:text="${l.mileageCriteriaRegisterDate}"></td>
 	                <td class="addList">
 	                	<a th:href="@{/admin/mileage/modifyReviewMileageCriteria}">수정</a>
 	                </td>
@@ -52,7 +51,7 @@
 	                	<a th:href="@{/admin/mileage/removeReviewMileageCriteria}">삭제</a>
 	                </td>
 	            </tr>
-				<tr th:unless="${reviewMileageCriteriaList != null and not #lists.isEmpty(reviewMileageCriteriaList)}">
+				<tr th:unless="${reviewMileageCriteria != null and not #lists.isEmpty(reviewMileageCriteria)}">
 					<td colspan="9">등록된 적립률기준이 없습니다.</td>
 				</tr>                            
               </tbody>
