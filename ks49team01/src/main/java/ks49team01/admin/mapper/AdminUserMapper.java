@@ -10,9 +10,16 @@ import ks49team01.admin.dto.AdminUser;
 @Mapper
 public interface AdminUserMapper {
 	
-	// 조건별 상품목록 조회
+	//회원별 맴버 조회
+	
+	
+	// 조건별 맴버 조회
 		List<AdminUser> getSearchForUserList(Map<String, Object> paramMap);
 	
+		
+		int addMember(AdminUser adminUser);
+		
+		//맴버 조회
 	List<AdminUser> getuserList();
 	
 

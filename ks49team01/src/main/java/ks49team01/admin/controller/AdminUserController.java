@@ -24,19 +24,50 @@ public class AdminUserController {
 	
 	private UserService userService;
 	
+	
+	
+	
+	@GetMapping("/removeMember")
+	public String memberLevelList(Model model) {
+		
+		return "admin/member/remove_member";
+	}
+	
 	@GetMapping("/removeMember")
 	public String removeMember(Model model) {
 		
 		return "admin/member/remove_member";
 	}
 	
+	
+	
+	
 	@GetMapping("/modifyMember")
-	public String modifyMember(Model model) {
+	public String modifyMemberMemberList(Model model) {
+		
+		log.info("회원수정" );
+		model.addAttribute("title", "회원수정");
 		
 		return "admin/member/modify_member";
 	}
-	
 
+
+	
+	@PostMapping("/addMember")
+	public String addMember(AdminUser adminUser) {
+		
+		log.info("맴버등록: {}", adminUser);
+		userService.addMember(adminUser);
+		
+		return "redirect:/admin/member/getMember";
+	}
+	@GetMapping("/addMember")
+	public String addMember(Model model) {
+		
+		return "admin/member/add_member";
+	}
+
+	
 	
 	
 	@PostMapping("/searchForUserList")

@@ -23,17 +23,192 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">123</div>
-       		<div class="col-6">456</div>
-       	</div>
+		<form id="addMemberForm" method="post" th:action="@{/admin/member/addMember}">		
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<label for="memberId">memberId</label>
+						</td>
+						<td>
+							<input type="text" id="memberId" name="memberId" 
+								   placeholder=" 입력해주세요" />
+							<p id="checkAlert"></p>
+						</td>
+						<td>
+							<button type="button" id="checkIdBtn">중복아이디체크</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="mem_level_code">mem_level_code</label>
+						</td>
+						<td colspan="2">
+							<select id="mem_level_code" name="mem_level_code">
+								<option value="">===회원등급을 선택해주세요===</option>
+								<th:block th:if="${memberLevelList != null and not #lists.isEmpty(memberLevelList)}"
+										  th:each="${memberLevelList}">
+									<option th:value="${mem_level_code}" th:text="|${mem_level_code}::: ${mem_level_code}|"></option>
+							</select>
+							</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="membership_rating">membership_rating</label>
+						</td>
+						<td>
+							<input type="text" id="membership_rating" name="membership_rating" 
+								   placeholder="입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="memberPw">memberPw</label>
+						</td>
+						<td>
+							<input type="text" id="memberPw" name="memberPw" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="memberEmail">memberEmail</label>
+						</td>
+						<td>
+							<input type="text" id="memberEmail" name="memberEmail" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="memberName">memberName</label>
+						</td>
+						<td>
+							<input type="text" id="memberName" name="memberName" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="memberBirth">memberBirth</label>
+						</td>
+						<td>
+							<input type="text" id="memberBirth" name="memberBirth"
+							 placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="memberGender">memberGender</label>
+						</td>
+						<td>
+							<input type="text" id="memberGender" name="memberGender" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+					<tr>
+						<td>
+							<label for="memberPhone">memberPhone</label>
+						</td>
+						<td>
+							<input type="text" id="memberPhone" name="memberPhone" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+					<tr>
+						<td>
+							<label for="memberAddr">memberAddr</label>
+						</td>
+						<td>
+							<input type="text" id="memberAddr" name="memberAddr" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+				<!-- 	<tr>
+						<td>
+							<label for="member_regdate">member_regdate</label>
+						</td>
+						<td>
+							<input type="text" id="member_regdate" name="member_regdate" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr> -->
+					<tr>
+						<td>
+							<label for="final_mileage">final_mileage</label>
+						</td>
+						<td>
+							<input type="text" id="final_mileage" name="final_mileage" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+					<tr>
+						<td>
+							<label for="accumulated_payment_amount">accumulated_payment_amount</label>
+						</td>
+						<td>
+							<input type="text" id="accumulated_payment_amount" name="accumulated_payment_amount" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="memberState">memberState</label>
+						</td>
+						<td>
+							<input type="text" id="memberState" name="memberState" 
+								   placeholder=" 입력해주세요" />
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3">
+							<button type="button" id="addMemberBtn">회원가입</button>
+							<button type="reset"  id="resetBtn" >초기화</button>
+						</td>
+						
+					</tr>
+					
+				</tfoot>
+				
+			</table>
+					
+		</form>
+		
 	</th:block>
+	
+	<!-- 이 페이지에서 사용될 js file 경로 -->
+	<th:block layout:fragment="customJsFile">
+		<script th:src="@{/js/jquery-3.7.1.js}"></script>
+	</th:block>
+	<th:block layout:fragment="customJs">
+		<script>
+		$('#addMemberBtn').click(function(){
+			let isValid = true;
+			
+			$('#addMemberForm input, #addMemberForm select').each(function(idx, item){
+				const value = $(item).val();
+				if(value == null || value == ''){
+					isValid = false;
+					const cate = $(`label[for="${item.id}"]`).text();
+					let msg = `${cate} 필수 입력항목입니다.`;
+					alert(msg);
+					$(item).focus();
+					return false;
+				}
+			})
+			
+			if(isValid) $('#addMemberForm').submit();
+		});
+	 
+	
+</script>
 </html>
-
-
-
-
-
 
 
 

@@ -38,8 +38,8 @@
                                     </thead>
                                                 
 							<tbody id="tbody">
-                                          <tr th:if="${getNoticeBoardList != null and not #lists.isEmpty(getNoticeBoardList)}"
-												th:each="l : ${getNoticeBoardList}">
+                                          <tr th:if="${NoticeBoardList != null and not #lists.isEmpty(NoticeBoardList)}"
+												th:each="l : ${NoticeBoardList}">
 												<td th:text="${l.noticeBoardCode}"></td>
 												<td th:text="${l.branchCode}"></td>
 												<td th:text="${l.memberId}"></td>
@@ -54,7 +54,7 @@
 						<a th:href>삭제</a>
 					</td>
                                         </tr>
-                                        <tr th:unless="${getNoticeBoardList != null and not #lists.isEmpty(getNoticeBoardList)}">
+                                        <tr th:unless="${NoticeBoardList != null and not #lists.isEmpty(NoticeBoardList)}">
 											<td colspan="8">등록된 회원의 정보가 없습니다.</td>
 										</tr>
                                     </tbody>

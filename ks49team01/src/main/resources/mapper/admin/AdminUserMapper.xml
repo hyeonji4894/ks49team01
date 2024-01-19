@@ -13,7 +13,13 @@
 		<result column="member_phone" 		property="memberPhone"/>
 		<result column="member_addr" 		property="memberAddr"/>
 		<result column="member_regdate" 		property="memberRegDate"/>
-		<result column="final_mileage" 		property="memberMileage"/>
+		
+		
+		<result column="final_mileage" 		property="final_mileage"/>
+		<result column="accumulated_payment_amount" 		property="accumulated_payment_amount"/>
+		<result column="memberState" 		property="memberState"/>
+		<result column="mem_level_code" 		property="mem_level_code"/>
+		<result column="membership_rating" 		property="membership_rating"/>
 		
 	</resultMap>
 	
@@ -42,6 +48,18 @@
 		</where>
 	</select>
 	
+<insert id="addMember" parameterType="AdminUser">
+    <!-- 회원가입 -->
+    INSERT INTO member
+    (member_id, mem_level_code, membership_rating, member_pw, member_email, member_name, member_birth,
+    member_gender, member_phone, member_addr, member_regdate, final_mileage,
+    accumulated_payment_amount, memberState)
+    VALUES
+    (#{memberId}, #{mem_level_code}, #{membership_rating}, #{memberPw}, #{memberEmail}, #{memberName},
+    #{memberBirth}, #{memberGender}, #{memberPhone}, #{memberAddr}, CURDATE(), #{final_mileage},
+    #{accumulated_payment_amount}, #{memberState});
+</insert>
+
 	
 	<select id="getuserList" resultMap="usersResultMap">
 		SELECT
