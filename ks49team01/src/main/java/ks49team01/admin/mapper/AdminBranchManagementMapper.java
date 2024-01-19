@@ -9,9 +9,6 @@ import ks49team01.admin.dto.AdminBranchManagement;
 @Mapper
 public interface AdminBranchManagementMapper {
 
-	void addAdminBranchManagement(AdminBranchManagement adminBranchManagement);
-
-	List<AdminBranchManagement> getAdminBranchManagementList();
-	
+	List<AdminBranchManagement> getAdminBranchManagementList();	
 	
 }

@@ -9,8 +9,6 @@ import ks49team01.admin.dto.AdminBranchEvaluation;
 @Mapper
 public interface AdminBranchEvaluationMapper {
 
-	void addAdminBranchEvaluation(AdminBranchEvaluation adminBranchEvaluation);
-
 	List<AdminBranchEvaluation> getAdminBranchEvaluationList();
 	
 }

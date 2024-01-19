@@ -9,9 +9,6 @@ import ks49team01.user.dto.UserBranchManagement;
 @Mapper
 public interface UserBranchManagementMapper {
 
-	void addUserBranchManagement(UserBranchManagement userBranchManagement);
-
-	List<UserBranchManagement> getUserBranchManagementList();
-	
+	List<UserBranchManagement> getUserBranchManagementList();	
 
 }

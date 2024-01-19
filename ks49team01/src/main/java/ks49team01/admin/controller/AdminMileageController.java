@@ -1,16 +1,25 @@
 package ks49team01.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ks49team01.admin.dto.PaymentCriteriaMileage;
+import ks49team01.admin.dto.ReviewMileageCriteria;
+import ks49team01.admin.service.AdminMileageService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/admin/mileage")
+@AllArgsConstructor
 @Slf4j
 public class AdminMileageController {
+	
+	private AdminMileageService adminMileageService;
 	
 	@GetMapping("/addPaymentCriteriaMileage")
 	public String addPaymentCriteriaMileage(Model model){
@@ -45,9 +54,12 @@ public class AdminMileageController {
 	@GetMapping("/getPaymentCriteriaMileage")
 	public String getPaymentCriteriaMileage(Model model){
 		
-		log.info("적립금 기준 조회");
+		List<PaymentCriteriaMileage> paymentCriteriaMileage = adminMileageService.getPaymentCriteriaMileage();
+		
+		log.info("paymentCriteriaMileage: {}", paymentCriteriaMileage);
 		
 		model.addAttribute("title", "결제 기준 적립금 조회");
+		model.addAttribute("paymentCriteriaMileage", paymentCriteriaMileage);
 		
 	return "admin/pay_mileage/get_payment_criteria_mileage";
 	}
@@ -85,9 +97,12 @@ public class AdminMileageController {
 	@GetMapping("/getReviewMileageCriteria")
 	public String getReviewMileageCriteria(Model model){
 		
-		log.info("적립금 기준 조회");
+		List<ReviewMileageCriteria> reviewMileageCriteria = adminMileageService.getReviewMileageCriteria();		
+		
+		log.info("reviewMileageCriteria: {}", reviewMileageCriteria);
 		
 		model.addAttribute("title", "리뷰 적립금기준 조회");
+		model.addAttribute("reviewMileageCriteria", reviewMileageCriteria);
 		
 	return "admin/review_mileage/get_review_mileage_criteria";
 	}

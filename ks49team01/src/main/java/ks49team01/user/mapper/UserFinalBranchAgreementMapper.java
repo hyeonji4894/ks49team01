@@ -9,8 +9,6 @@ import ks49team01.user.dto.UserFinalBranchAgreement;
 @Mapper
 public interface UserFinalBranchAgreementMapper {
 
-	void addUserFinalBranchAgreement(UserFinalBranchAgreement userFinalBranchAgreement);
-
 	List<UserFinalBranchAgreement> getUserFinalBranchAgreementList();
 	
 }

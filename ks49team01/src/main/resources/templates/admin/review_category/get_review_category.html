@@ -24,7 +24,14 @@
 	</th:block>
 	
 	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">	
+	<th:block layout:fragment="customContent">
+	        <div class="form-group mb-4">
+	            <label for="exampleFormControlSelect1">카테고리 선택</label>
+	            <select class="form-control" id="exampleFormControlSelect1">
+	                <option>분위기 카테고리</option>
+	                <option>시설 카테고리</option>
+	            </select>
+    	    </div> 		
 			<table class="table">
 			<thead>
 	            <tr>
@@ -35,31 +42,42 @@
 	            </tr>
 	         </thead>
 	         <tbody>
-	            <tr th:if="${reviewCategoryList != null and not #lists.isEmpty(reviewCategoryList)}"
-	            	th:each="l : ${reviewCategoryList}">
-	                <td th:text="${l.facilityCode}||${l.moodCode}"></td>
+	            <tr th:if="${adminMoodReviewCategory != null and not #lists.isEmpty(adminMoodReviewCategory)}"
+	            	th:each="l : ${adminMoodReviewCategory}">
+	                <td th:text="${l.moodCode}"></td>
 	                <td th:text="${l.memberId}"></td>
-	                <td th:text="${l.facilityRegisterDate}||${moodRegisterDate}"></td>
-	                <td th:text="${l.facilityCategoryContext}||${l.moodCategoryContext}"></td>
+	                <td th:text="${l.moodRegisterDate}"></td>
+	                <td th:text="${l.moodCategoryContext}"></td>
 	                <td class="addList">
 	                	<a th:href="@{/admin/review/modifyReviewCategory}">수정</a>
 	                </td>
 	                <td>
-	                	<a th:href="@{/admin/coupon/removeReviewCategory}">삭제</a>
+	                	<a th:href="@{/admin/review/removeReviewCategory}">삭제</a>
 	                </td>
 	            </tr>
-				<tr th:unless="${reviewCategoryList != null and not #lists.isEmpty(reviewCategoryList)}">
-					<td colspan="9">등록된 리뷰 카테고리가 없습니다.</td>
-				</tr>                            
+				<tr th:unless="${adminMoodReviewCategory != null and not #lists.isEmpty(adminMoodReviewCategory)}">
+					<td colspan="9">등록된 분위기 카테고리가 없습니다.</td>
+				</tr>
+	            <tr th:if="${adminFacilityReviewCategory != null and not #lists.isEmpty(adminFacilityReviewCategory)}"
+	            	th:each="l : ${adminFacilityReviewCategory}">
+	                <td th:text="${l.facilityCode}"></td>
+	                <td th:text="${l.memberId}"></td>
+	                <td th:text="${l.facilityRegisterDate}"></td>
+	                <td th:text="${l.facilityCategoryContext}"></td>
+	                <td class="addList">
+	                	<a th:href="@{/admin/review/modifyReviewCategory}">수정</a>
+	                </td>
+	                <td>
+	                	<a th:href="@{/admin/review/removeReviewCategory}">삭제</a>
+	                </td>
+	            </tr>
+				<tr th:unless="${adminFacilityReviewCategory != null and not #lists.isEmpty(adminFacilityReviewCategory)}">
+					<td colspan="9">등록된 시설 카테고리가 없습니다.</td>
+				</tr>                            				                            
               </tbody>
             </table>
 	</th:block>
-</html>
-
-
-
-
-
+</html>	         
 
 
 

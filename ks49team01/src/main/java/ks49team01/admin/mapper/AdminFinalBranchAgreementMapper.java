@@ -8,8 +8,6 @@ import ks49team01.admin.dto.AdminFinalBranchAgreement;
 @Mapper
 public interface AdminFinalBranchAgreementMapper {
 
-	void addAdminFinalBranchAgreement(AdminFinalBranchAgreement adminFinalBranchAgreement);
-
 	List<AdminFinalBranchAgreement> getAdminFinalBranchAgreementList();
 	
 }
