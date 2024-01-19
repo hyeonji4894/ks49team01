@@ -13,19 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 @AllArgsConstructor
-@Slf4j
 public class AdminBranchEvaluationService {
 
 	private AdminBranchEvaluationMapper adminBranchEvaluationMapper;
 	
-	public void addAdminBranchEvaluation(AdminBranchEvaluation adminBranchEvaluation) {
-		log.info("가맹 평가 전 adminBranchEvaluation: {}", adminBranchEvaluation);
-		adminBranchEvaluationMapper.addAdminBranchEvaluation(adminBranchEvaluation);
-		log.info("가맹 평가 후 adminBranchEvaluation: {}", adminBranchEvaluation);
-	}
-	/**
-	 * 가맹 신청 조회
-	 */
 	public List<AdminBranchEvaluation> getAdminBranchEvaluationList(){
 		return adminBranchEvaluationMapper.getAdminBranchEvaluationList();
 	}

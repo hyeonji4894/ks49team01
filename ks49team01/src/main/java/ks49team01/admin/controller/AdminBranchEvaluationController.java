@@ -1,17 +1,33 @@
 package ks49team01.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ks49team01.admin.dto.AdminBranchEvaluation;
+import ks49team01.admin.service.AdminBranchEvaluationService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-	// 파일경로
 @RequestMapping("/admin/branchEvaluation")
 public class AdminBranchEvaluationController {
 	// 메소드 명
+	private AdminBranchEvaluationService adminBranchEvaluationService;
+	
+	@GetMapping("/getbranchevaluationquestions")
+	public String getbranchevaluationquestions(Model model) {
+		List<AdminBranchEvaluation> adminEvaluationList = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		log.info("본사 1차 가맹 평가 질문 조회");
+		
+		model.addAttribute("title", "본사 1차 가맹 평가 질문 조회");
+		model.addAttribute("adminEvaluationList : {}", adminEvaluationList);
+		return "admin/branch_evaluation/get_branch_evaluation_questions";
+	}
+	
 	@GetMapping("/addbranchevaluationquestions")
 	public String addbranchevaluationquestions(Model model) {
 		
@@ -45,16 +61,6 @@ public class AdminBranchEvaluationController {
 		return "admin/branch_evaluation/remove_branch_evaluation_questions";
 	}
 	
-	
-	@GetMapping("/getbranchevaluationquestions")
-	public String getbranchevaluationquestions(Model model) {
-		
-		log.info("본사 1차 가맹 평가 질문 조회");
-		
-		model.addAttribute("title", "본사 1차 가맹 평가 질문 조회");
-		
-		return "admin/branch_evaluation/get_branch_evaluation_questions";
-	}
 	
 	@GetMapping("/addbranchevaluationscoringcriteria")
 	public String addbranchevaluationscoringcriteria(Model model) {
