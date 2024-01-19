@@ -26,4 +26,41 @@
 		FROM
 			review AS r;
  	</select>
+ 	
+ 		<resultMap type="AdminReviewCategory" id="moodCategoryResultMap">
+		<id column="mood_code" property="moodCode"/>
+		<result column="mood_code" 					property="moodCode"/>
+		<result column="member_id" 				property="memberId"/>
+		<result column="mood_register_date" 				property="moodRegisterDate"/>
+		<result column="mood_category_context" 			property="moodCategoryContext"/>
+		
+	</resultMap>
+	
+ 	<select id="getReviewMoodCategory" resultMap="moodCategoryResultMap">
+		SELECT
+			rmc.mood_code,
+			rmc.member_id,
+			rmc.mood_register_date,
+			rmc.mood_category_context
+		FROM
+			review_mood_category AS rmc;
+ 	</select>
+ 	
+ 		<resultMap type="AdminReviewCategory" id="facilityCategoryResultMap">
+		<id column="facility_code" property="facilityCode"/>
+		<result column="facility_code" 					property="facilityCode"/>
+		<result column="member_id" 				property="memberId"/>
+		<result column="facility_register_date" 				property="facilityRegisterDate"/>
+		<result column="facility_category_context" 			property="facilityCategoryContext"/>
+	</resultMap>
+	
+ 	<select id="getReviewFacilityCategory" resultMap="facilityCategoryResultMap">
+		SELECT
+			rfc.facility_code,
+			rfc.member_id,
+			rfc.facility_register_date,
+			rfc.facility_category_context
+		FROM
+			review_facility_category AS rfc;
+ 	</select>
 </mapper>

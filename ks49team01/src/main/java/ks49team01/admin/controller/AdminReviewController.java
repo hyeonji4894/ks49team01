@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks49team01.admin.dto.AdminReview;
+import ks49team01.admin.dto.AdminReviewCategory;
 import ks49team01.admin.service.AdminReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,9 +54,15 @@ public class AdminReviewController {
 	@GetMapping("/getReviewCategory")
 	public String getReviewCategory(Model model){
 		
-		log.info("리뷰 카테고리 조회");
+		List<AdminReviewCategory> AdminMoodReviewCategory = adminReviewService.getReviewMoodCategory();
+		List<AdminReviewCategory> AdminFacilityReviewCategory = adminReviewService.getReviewFacilityCategory();
+		
+		log.info("AdminMoodReviewCategory: {}", AdminMoodReviewCategory);
+		log.info("AdminFacilityReviewCategory: {}", AdminFacilityReviewCategory);
 		
 		model.addAttribute("title", "리뷰 카테고리 조회");
+		model.addAttribute("AdminMoodReviewCategory", AdminMoodReviewCategory);
+		model.addAttribute("AdminFacilityReviewCategory", AdminFacilityReviewCategory);
 		
 	return "admin/review_category/get_review_category";
 	}
