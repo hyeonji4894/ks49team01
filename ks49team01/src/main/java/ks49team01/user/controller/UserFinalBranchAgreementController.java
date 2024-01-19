@@ -1,22 +1,30 @@
 package ks49team01.user.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ks49team01.user.dto.UserFinalBranchAgreement;
+import ks49team01.user.service.UserFinalBranchAgreementService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/user/FinalBranchAgreement")
 public class UserFinalBranchAgreementController {
-	// 메소드 명
+	//의존성 주입
+	private UserFinalBranchAgreementService userFinalBranchAgreementService;
+	
 	@GetMapping("/addfinalbranchagreement")
 	public String addfinalbranchagreement(Model model) {
-		
+		List<UserFinalBranchAgreement> userFinalAgreementList = userFinalBranchAgreementService.getUserFinalBranchAgreementList();
 		log.info("최종 가맹점 계약 등록");
 		
 		model.addAttribute("title", "최종 가맹점 계약 등록");
+		model.addAttribute("userFinalAgreementList : {}", userFinalAgreementList);
 		
 		// 연결 클래스 파일/경로
 		return "user/final_branch_agreement/add_final_branch_agreement";

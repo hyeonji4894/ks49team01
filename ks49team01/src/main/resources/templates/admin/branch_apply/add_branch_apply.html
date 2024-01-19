@@ -10,39 +10,92 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청등록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">가맹신청관리</a>
+			<a th:href="@{/}" class="text-muted">가맹신청등록</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">가맹신청목록</li>
+		<li class="breadcrumb-item text-muted active" aria-current="page">가맹신청등록</li>
 		<table>
 			<thead>
 				<tr>
-					<th>가맹신청 아이디</th>
-					<th>가맹신청 비번</th>
-					<th>가맹신청 이름</th>
+					<th>가맹신청 코드</th>
+					<th>가맹모집 코드</th>
+					<th>폐교 코드</th>
+					<th>가맹신청자 아이디</th>
+					<th>가맹신청 일자</th>
 				</tr>
 </thead>
 <tbody id="tbody">
-				<tr th:if="${userLsit != null and not #lists.isEmpty(userLsit)}"
-					th:each="l : ${userLsit}">
-					<td th:text="${l.memberId}"></td>
-					<td th:text="${l.memberPW}"></td>
-					<td th:text="${l.memberName}"></td>
+				<tr th:if="${adminList != null and not #lists.isEmpty(adminList)}"
+					th:each="l : ${adminList}">
+					<td th:text="${l.branch_apply_code}"></td>
+					<td th:text="${l.branch_recruit_code}"></td>
+					<td th:text="${l.close_school_code}"></td>
+					<td th:text="${l.member_id}"></td>
+					<td th:text="${l.branch_apply_date}"></td>
 					</tr>
-					</tbody>
-</table>
-	</th:block>
+			</tbody>
+	</table>
+</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">/get_member.html</div>
-       		<div class="col-6">456</div>
+       	<div class="col-12">
+       		<div class="table-responsive">
+       			<table class="table">
+       				<thead>
+	       				<tr>
+	       					<th scope="col">가맹신청 코드</th>
+	       					<th scope="col">가맹모집 코드</th>
+	       					<th scope="col">폐교 코드</th>
+	       					<th scope="col">가맹신청자 아이디</th>
+	       					<th scope="col">가맹신청 일자</th>
+	       				</tr>
+       				</thead>
+       				<tbody>
+       					<tr>
+       						<td>branch_apply_001</td>
+       						<td>branch_recruit_001</td>
+       						<td>close_school_code_011</td>
+       						<td>id008</td>
+       						<td>2023-08-17</td>
+       					</tr>
+       					<tr>
+       						<td>branch_apply_002</td>
+       						<td>branch_recruit_002</td>
+       						<td>close_school_code_012</td>
+       						<td>id009</td>
+       						<td>2023-08-18</td>
+       					</tr>
+       					<tr>
+       						<td>branch_apply_003</td>
+       						<td>branch_recruit_003</td>
+       						<td>close_school_code_013</td>
+       						<td>id016</td>
+       						<td>2023-08-25</td>
+       					</tr>
+       					<tr>
+       						<td>branch_apply_004</td>
+       						<td>branch_recruit_004</td>
+       						<td>close_school_code_014</td>
+       						<td>id017</td>
+       						<td>2023-08-26</td>
+       					</tr>
+       				</tbody>
+       			</table>
        	</div>
 	</th:block>
 </html>
+
+
+
+
+
+
+
+
+

@@ -10,31 +10,241 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청시 1차 평가 답변 및 채점 등록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">가맹신청추가관리</a>
+			<a th:href="@{/}" class="text-muted">가맹신청시 1차 평가 답변 및 채점 등록</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청목록</li>
+		<li class="breadcrumb-item text-muted active" aria-current="page">가맹신청시 1차 평가 답변 및 채점 등록</li>
+		<table>
+			<thead>
+				<tr>
+					<th>채점 코드</th>
+					<th>가맹 모집 코드</th>
+					<th>질문 코드</th>
+					<th>가맹 신청자 아이디</th>
+					<th>가맹평가 질문 리스트</th>
+					<th>가맹 신청자 답변</th>
+					<th>채점 후 점수</th>
+				</tr>
+</thead>
+<tbody id="tbody">
+				<tr th:if="${adminList != null and not #lists.isEmpty(adminList)}"
+					th:each="l : ${adminList}">
+					<td th:text="${l.grading_code}"></td>
+					<td th:text="${l.branch_recruit_code}"></td>
+					<td th:text="${l.question_code}"></td>
+					<td th:text="${l.member_id}"></td>
+					<td th:text="${l.list_of_branch_evaluation_questions}"></td>
+					<td th:text="${l.applicant_response}"></td>
+					<td th:text="${l.score_after_grading}"></td>
+				</tr>
+			</tbody>
+</table>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">가맹신청추가1</div>
-       		<div class="col-6">가맹신청추가2</div>
+       	<div class="col-12">
+       		<div class="table-responsive">
+       			<table class="table">
+       				<thead>
+	       				<tr>
+	       					<th scope="col">채점 코드</th>
+	       					<th scope="col">가맹 모집 코드</th>
+	       					<th scope="col">질문 코드</th>
+	       					<th scope="col">가맹 신청자 아이디</th>
+	       					<th scope="col">가맹평가 질문 리스트</th>
+	       					<th scope="col">가맹 신청자 답변</th>
+	       					<th scope="col">채점 후 점수</th>
+	       				</tr>
+       				</thead>
+       				<tbody>
+       					<tr>
+       						<td>grading_code_01</td>
+       						<td>branch_recruit_001</td>
+       						<td>evaluation_questions_1</td>
+       						<td>id008</td>
+       						<td>자영업자 경험?</td>
+       						<td>3</td>
+       						<td>10</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_02</td>
+       						<td>branch_recruit_001</td>
+       						<td>evaluation_questions_2</td>
+       						<td>id008</td>
+       						<td>숙박업 근무 경험?</td>
+       						<td>2</td>
+       						<td>10</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_03</td>
+       						<td>branch_recruit_001</td>
+       						<td>evaluation_questions_3</td>
+       						<td>id008</td>
+       						<td>본인의 부채?</td>
+       						<td>2</td>
+       						<td>10</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_04</td>
+       						<td>branch_recruit_001</td>
+       						<td>evaluation_questions_4</td>
+       						<td>id008</td>
+       						<td>투자 가능 금액</td>
+       						<td>1</td>
+       						<td>20</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_05</td>
+       						<td>branch_recruit_001</td>
+       						<td>evaluation_questions_5</td>
+       						<td>id008</td>
+       						<td>반려견 키운 개월 수?</td>
+       						<td>2</td>
+       						<td>5</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_06</td>
+       						<td>branch_recruit_002</td>
+       						<td>evaluation_questions_1</td>
+       						<td>id009</td>
+       						<td>자영업자 경험?</td>
+       						<td>1</td>
+       						<td>30</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_07</td>
+       						<td>branch_recruit_002</td>
+       						<td>evaluation_questions_2</td>
+       						<td>id009</td>
+       						<td>숙박업 근무 경험?</td>
+       						<td>2</td>
+       						<td>0</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_08</td>
+       						<td>branch_recruit_002</td>
+       						<td>evaluation_questions_3</td>
+       						<td>id009</td>
+       						<td>본인의 부채?</td>
+       						<td>1</td>
+       						<td>20</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_09</td>
+       						<td>branch_recruit_002</td>
+       						<td>evaluation_questions_4</td>
+       						<td>id009</td>
+       						<td>투자 가능 금액</td>
+       						<td>2</td>
+       						<td>10</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_10</td>
+       						<td>branch_recruit_002</td>
+       						<td>evaluation_questions_5</td>
+       						<td>id009</td>
+       						<td>반려견 키운 개월 수?</td>
+       						<td>2</td>
+       						<td>5</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_11</td>
+       						<td>branch_recruit_003</td>
+       						<td>evaluation_questions_1</td>
+       						<td>id016</td>
+       						<td>자영업자 경험?</td>
+       						<td>3</td>
+       						<td>10</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_12</td>
+       						<td>branch_recruit_003</td>
+       						<td>evaluation_questions_2</td>
+       						<td>id016</td>
+       						<td>숙박업 근무 경험?</td>
+       						<td>2</td>
+       						<td>10</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_13</td>
+       						<td>branch_recruit_003</td>
+       						<td>evaluation_questions_3</td>
+       						<td>id016</td>
+       						<td>본인의 부채?</td>
+       						<td>2</td>
+       						<td>10</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_14</td>
+       						<td>branch_recruit_003</td>
+       						<td>evaluation_questions_4</td>
+       						<td>id016</td>
+       						<td>투자 가능 금액</td>
+       						<td>1</td>
+       						<td>20</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_15</td>
+       						<td>branch_recruit_003</td>
+       						<td>evaluation_questions_5</td>
+       						<td>id016</td>
+       						<td>반려견 키운 개월 수?</td>
+       						<td>2</td>
+       						<td>5</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_16</td>
+       						<td>branch_recruit_004</td>
+       						<td>evaluation_questions_1</td>
+       						<td>id017</td>
+       						<td>자영업자 경험?</td>
+       						<td>1</td>
+       						<td>30</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_17</td>
+       						<td>branch_recruit_004</td>
+       						<td>evaluation_questions_2</td>
+       						<td>id017</td>
+       						<td>숙박업 근무 경험?</td>
+       						<td>2</td>
+       						<td>0</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_18</td>
+       						<td>branch_recruit_004</td>
+       						<td>evaluation_questions_3</td>
+       						<td>id017</td>
+       						<td>본인의 부채?</td>
+       						<td>1</td>
+       						<td>20</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_19</td>
+       						<td>branch_recruit_004</td>
+       						<td>evaluation_questions_4</td>
+       						<td>id017</td>
+       						<td>투자 가능 금액</td>
+       						<td>2</td>
+       						<td>10</td>
+       					</tr>
+       					<tr>
+       						<td>grading_code_20</td>
+       						<td>branch_recruit_004</td>
+       						<td>evaluation_questions_5</td>
+       						<td>id017</td>
+       						<td>반려견 키운 개월 수?</td>
+       						<td>2</td>
+       						<td>5</td>
+       					</tr>
+       				</tbody>
+       			</table>
        	</div>
 	</th:block>
 </html>
-
-
-
-
-
-
-
-
-

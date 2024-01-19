@@ -1,9 +1,9 @@
-package ks49team01.user.dto;
+package ks49team01.admin.dto;
 
 import lombok.Data;
 
 @Data
-public class UserBranchRecruitAnnouncement {
+public class AdminBranchRecruitAnnouncement {
 	private String branch_recruit_code;
 	private String close_school_code;
 	private String member_id;

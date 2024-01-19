@@ -1,9 +1,14 @@
 package ks49team01.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ks49team01.admin.dto.AdminFinalBranchAgreement;
+import ks49team01.admin.service.AdminFinalBranchAgreementService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -11,14 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 	// 파일경로
 @RequestMapping("/admin/FinalBranchAgreement")
 public class AdminFinalBranchAgreementController {
-	// 메소드 명
+	//의존성 주입
+	private AdminFinalBranchAgreementService adminFinalBranchAgreementService;
+	
 	@GetMapping("/addfinalbranchagreement")
 	public String addfinalbranchagreement(Model model) {
-		
+		List<AdminFinalBranchAgreement> adminFinalAgreementList = adminFinalBranchAgreementService.getAdminFinalBranchAgreementList();
 		log.info("최종 가맹점 계약 등록");
 		
 		model.addAttribute("title", "최종 가맹점 계약 등록");
-		
+		model.addAttribute("adminFinalAgreementList : {}", adminFinalAgreementList);		
 		// 연결 클래스 파일/경로
 		return "admin/final_branch_agreement/add_final_branch_agreement";
 	}

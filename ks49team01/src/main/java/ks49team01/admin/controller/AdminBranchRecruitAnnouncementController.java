@@ -1,9 +1,14 @@
 package ks49team01.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ks49team01.admin.dto.AdminBranchRecruitAnnouncement;
+import ks49team01.admin.service.AdminBranchRecruitAnnouncementService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -11,14 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 	// 파일경로
 @RequestMapping("/admin/BranchRecruitAnnouncement")
 public class AdminBranchRecruitAnnouncementController {
-	// 메소드 명
+	//의존성 주입
+	private AdminBranchRecruitAnnouncementService adminBranchRecruitAnnouncementService;
+	
 	@GetMapping("/addbranchrecruitannouncement")
 	public String addbranchrecruitannouncement(Model model) {
-		
+		List<AdminBranchRecruitAnnouncement> adminRecruitAnnouncementList = adminBranchRecruitAnnouncementService.getAdminBranchRecruitAnnouncementList();
 		log.info("가맹 신청 모집 공고 등록");
 		
 		model.addAttribute("title", "가맹 신청 모집 공고 등록");
-		
+		model.addAttribute("adminRecruitAnnouncementList", adminRecruitAnnouncementList);		
 		// 연결 클래스 파일/경로
 		return "admin/branch_recruit_announcement/add_branch_recruit_announcement";
 	}

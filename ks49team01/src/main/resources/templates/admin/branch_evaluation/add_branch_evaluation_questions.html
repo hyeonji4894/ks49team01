@@ -16,19 +16,86 @@
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">본사 1차 가맹 평가 질문 등록	</a>
+			<a th:href="@{/}" class="text-muted">본사 1차 가맹 평가 질문 등록</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">본사 1차 가맹 평가 질문 목록</li>
+		<li class="breadcrumb-item text-muted active" aria-current="page">본사 1차 가맹 평가 질문 등록</li>
+		<table>
+			<thead>
+				<tr>
+					<th>질문 코드</th>
+					<th>본사아이디</th>
+					<th>평가 질문 등록 일자</th>
+					<th>가맹평가 질문 리스트</th>
+				</tr>
+</thead>
+<tbody id="tbody">
+				<tr th:if="${adminList != null and not #lists.isEmpty(adminList)}"
+					th:each="l : ${adminList}">
+					<td th:text="${l.grading_code}"></td>
+					<td th:text="${l.branch_recruit_code}"></td>
+					<td th:text="${l.question_code}"></td>
+					<td th:text="${l.member_id}"></td>
+					<td th:text="${l.list_of_branch_evaluation_questions}"></td>
+					<td th:text="${l.applicant_response}"></td>
+					<td th:text="${l.score_after_grading}"></td>
+				</tr>
+			</tbody>
+</table>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">본사 1차 가맹 평가 질문 등록1</div>
-       		<div class="col-6">본사 1차 가맹 평가 질문 등록2</div>
+       	<div class="col-12">
+       		<div class="table-responsive">
+       			<table class="table">
+       				<thead>
+	       				<tr>
+	       					<th scope="col">질문 코드</th>
+	       					<th scope="col">본사 아이디</th>
+	       					<th scope="col">평가 질문 등록 일자</th>
+	       					<th scope="col">가맹평가 질문 리스트</th>
+	       				</tr>
+       				</thead>
+       				<tbody>
+       					<tr>
+       						<td>evaluation_questions_1</td>
+       						<td>id001</td>
+       						<td>2023-08-10</td>
+       						<td>자영업자 경험</td>
+       					</tr>
+       					<tr>
+       						<td>evaluation_questions_2</td>
+       						<td>id001</td>
+       						<td>2023-08-10</td>
+       						<td>숙박업 근무 경험</td>
+       					</tr>
+       					<tr>
+       						<td>evaluation_questions_3</td>
+       						<td>id001</td>
+       						<td>2023-08-10</td>
+       						<td>본인의 부채</td>
+       					</tr>
+       					<tr>
+       						<td>evaluation_questions_4</td>
+       						<td>id001</td>
+       						<td>2023-08-10</td>
+       						<td>투자 가능 금액</td>
+       					</tr>
+       					<tr>
+       						<td>evaluation_questions_5</td>
+       						<td>id001</td>
+       						<td>2023-08-10</td>
+       						<td>반려견 키운 개월 수</td>
+       					</tr>
+       				</tbody>
+       			</table>
        	</div>
 	</th:block>
 </html>
+
+
+
+
 
 
 
