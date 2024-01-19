@@ -17,6 +17,10 @@ public class AdminOptionService {
 	
 	private AdminOptionMapper adminOptionMapper;
 	
+	/**
+	 * 객실옵션 목록
+	 * @return List<AdminOption>
+	 */
 	public List<AdminOption> getOptionList(){
 		
 		return adminOptionMapper.getOptionList();

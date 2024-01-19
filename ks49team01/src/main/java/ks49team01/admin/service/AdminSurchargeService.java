@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks49team01.admin.dto.AdminSurcharge;
-import ks49team01.admin.mapper.AdminRoomMapper;
 import ks49team01.admin.mapper.AdminSurchargeMapper;
 import lombok.AllArgsConstructor;
 
@@ -15,7 +14,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AdminSurchargeService {
 	
-private AdminSurchargeMapper adminSurchargeMapper;
+	private AdminSurchargeMapper adminSurchargeMapper;
 
 	/**
 	 * 가맹점이등록한추가금리스트조회

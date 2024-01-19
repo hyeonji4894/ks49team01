@@ -10,16 +10,16 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실정보</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">시즌추가금</a>
+			<a th:href="@{#}" class="text-muted">객실</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">시즌추가금목록</a>
+			<a th:href="@{#}" class="text-muted">객실정보</a>
 		</li>
 	</th:block>
 
@@ -55,10 +55,10 @@
 	                <td th:text="${r.roomRegistrationDate}"></td>
 	                <td th:text="${r.registrantId}"></td>
 	                <td>
-	    				<a th:href="@{/admin/room/addRoomInfo}">수정</a>
+	    				<a th:href="@{/admin/room/modifyRoomInfo}">수정</a>
 	                </td>
 	                <td>
-	    				<a th:href="@{/admin/room/removeSurchargeList}">삭제</a>
+	    				<a th:href="@{/admin/room/roomInfo}">삭제</a>
 	                </td>
 	            </tr>
 	            <tr th:unless="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}">
