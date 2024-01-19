@@ -28,11 +28,15 @@ public class AdminOptionController {
 		public String removeRoomPorion(Model model) {
 			
 			log.info("객실옵션삭제");
+			List<AdminOption> optionList = optionService.getOptionList();	
+			log.info("optionList : {}" , optionList);
 			
 			model.addAttribute("pageTitle", "객실옵션삭제");
+			model.addAttribute("optionList", optionList);
 			
 			return "admin/option/remove_room_option";
 		}
+		
 		
 		@GetMapping("/modifyRoomOption")
 		public String modifyRoomOption(Model model) {
@@ -57,8 +61,8 @@ public class AdminOptionController {
 		@GetMapping("/roomOptionList")
 		public String roomOptionList(Model model) {
 		
-			List<AdminOption> optionList = optionService.getOptionList();
 			log.info("객실옵션리스트 조회");
+			List<AdminOption> optionList = optionService.getOptionList();
 			log.info("optionList : {}" , optionList);
 			
 			model.addAttribute("pageTitle", "객실옵션리스트 조회");

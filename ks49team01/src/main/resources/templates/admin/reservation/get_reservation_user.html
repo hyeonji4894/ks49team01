@@ -8,16 +8,16 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실예약고객</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">고객 예약</a>
+			<a th:href="@{/}" class="text-muted">고객예약</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{/admin/reservation/reservationUser}" class="text-muted">객실예약정보조회</a>
+			<a th:href="@{/admin/reservation/reservationUser}" class="text-muted">객실예약고객</a>
 		</li>
 	</th:block>
 
@@ -28,7 +28,6 @@
 	            <tr>
 	                <th>예약자아이디</th>
 	                <th>가맹점</th>
-	                <th>객실</th>
 	                <th>체크인 날짜</th>
 	                <th>체크아웃 날짜</th>
 	                <th>숙박일 수</th>
@@ -38,7 +37,6 @@
 	        <tbody>
 	            <tr th:if="${reservationUserList != null and not #lists.isEmpty(reservationUserList)}"
 	            	th:each="r : ${reservationUserList}">
-	                <td th:text="${r.branchCode}"></td>
 	                <td th:text="${r.memberId}"></td>
 	                <td th:text="${r.branchCode}"></td>
 	                <td th:text="${r.checkIn}"></td>

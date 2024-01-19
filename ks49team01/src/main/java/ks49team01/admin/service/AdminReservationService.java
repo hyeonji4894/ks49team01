@@ -16,7 +16,12 @@ public class AdminReservationService {
 	
 	private AdminReservationMapper adminReservationMapper;
 	
-	List<AdminReservationUser> getReservationUserList(){
+	
+	/**
+	 * 객실예약고객조회
+	 * @return List<AdminReservationUser>
+	 */
+	public List<AdminReservationUser> getReservationUserList(){
 		
 		return adminReservationMapper.getReservationUserList();
 	}

@@ -25,9 +25,13 @@ public class AdminReservationController {
 	@GetMapping("/reservationUser")
 	public String reservationUser(Model model) {
 		
+		
+		List<AdminReservationUser> reservationUserList = reservationService.getReservationUserList();
 		log.info("객실예약고객조회");
+		log.info("reservationUserList: {}", reservationUserList);
 		
 		model.addAttribute("Title", "객실예약고객조회");
+		model.addAttribute("reservationUserList", reservationUserList);
 		
 		return "admin/reservation/get_reservation_user";
 	}
@@ -36,7 +40,7 @@ public class AdminReservationController {
 	@GetMapping("/reservationCancelUser")
 	public String reservationCancelUser(Model model) {
 		
-		//List<AdminReservationUser> reservationUserList = reservationService.
+		
 		
 		log.info("객실예약취소고객조회");
 		
