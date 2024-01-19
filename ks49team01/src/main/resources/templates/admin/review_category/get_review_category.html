@@ -42,8 +42,8 @@
 	            </tr>
 	         </thead>
 	         <tbody>
-	            <tr th:if="${AdminMoodReviewCategory != null and not #lists.isEmpty(AdminMoodReviewCategory)}"
-	            	th:each="l : ${AdminMoodReviewCategory}">
+	            <tr th:if="${adminMoodReviewCategory != null and not #lists.isEmpty(adminMoodReviewCategory)}"
+	            	th:each="l : ${adminMoodReviewCategory}">
 	                <td th:text="${l.moodCode}"></td>
 	                <td th:text="${l.memberId}"></td>
 	                <td th:text="${l.moodRegisterDate}"></td>
@@ -55,11 +55,11 @@
 	                	<a th:href="@{/admin/review/removeReviewCategory}">삭제</a>
 	                </td>
 	            </tr>
-				<tr th:unless="${AdminMoodReviewCategory != null and not #lists.isEmpty(AdminFacilityReviewCategory)}">
+				<tr th:unless="${adminMoodReviewCategory != null and not #lists.isEmpty(adminMoodReviewCategory)}">
 					<td colspan="9">등록된 분위기 카테고리가 없습니다.</td>
 				</tr>
-	            <tr th:if="${AdminFacilityReviewCategory != null and not #lists.isEmpty(AdminFacilityReviewCategory)}"
-	            	th:each="l : ${AdminFacilityReviewCategory}">
+	            <tr th:if="${adminFacilityReviewCategory != null and not #lists.isEmpty(adminFacilityReviewCategory)}"
+	            	th:each="l : ${adminFacilityReviewCategory}">
 	                <td th:text="${l.facilityCode}"></td>
 	                <td th:text="${l.memberId}"></td>
 	                <td th:text="${l.facilityRegisterDate}"></td>
@@ -71,7 +71,7 @@
 	                	<a th:href="@{/admin/review/removeReviewCategory}">삭제</a>
 	                </td>
 	            </tr>
-				<tr th:unless="${AdminFacilityReviewCategory != null and not #lists.isEmpty(AdminFacilityReviewCategory)}">
+				<tr th:unless="${adminFacilityReviewCategory != null and not #lists.isEmpty(adminFacilityReviewCategory)}">
 					<td colspan="9">등록된 시설 카테고리가 없습니다.</td>
 				</tr>                            				                            
               </tbody>

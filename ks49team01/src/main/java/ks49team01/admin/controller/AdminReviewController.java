@@ -55,15 +55,15 @@ public class AdminReviewController {
 	@GetMapping("/getReviewCategory")
 	public String getReviewCategory(Model model){
 		
-		List<AdminReviewCategory> AdminMoodReviewCategory = adminReviewService.getReviewMoodCategory();
-		List<AdminReviewCategory> AdminFacilityReviewCategory = adminReviewService.getReviewFacilityCategory();
+		List<AdminReviewCategory> adminMoodReviewCategory = adminReviewService.getReviewMoodCategory();
+		List<AdminReviewCategory> adminFacilityReviewCategory = adminReviewService.getReviewFacilityCategory();
 		
-		log.info("AdminMoodReviewCategory: {}", AdminMoodReviewCategory);
-		log.info("AdminFacilityReviewCategory: {}", AdminFacilityReviewCategory);
+		log.info("adminMoodReviewCategory: {}", adminMoodReviewCategory);
+		log.info("adminFacilityReviewCategory: {}", adminFacilityReviewCategory);
 		
 		model.addAttribute("title", "리뷰 카테고리 조회");
-		model.addAttribute("AdminMoodReviewCategory", AdminMoodReviewCategory);
-		model.addAttribute("AdminFacilityReviewCategory", AdminFacilityReviewCategory);
+		model.addAttribute("adminMoodReviewCategory", adminMoodReviewCategory);
+		model.addAttribute("adminFacilityReviewCategory", adminFacilityReviewCategory);
 		
 	return "admin/review_category/get_review_category";
 	}
