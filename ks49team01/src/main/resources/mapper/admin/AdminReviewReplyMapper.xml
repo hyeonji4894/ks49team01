@@ -4,7 +4,6 @@
 
 	<resultMap type="AdminReviewReply" id="adminReviewReplyResultMap">
 		<id column="reply_code" 						property="replyCode"/>
-		<result column="reply_code" 					property="replyCode"/>
 		<result column="member_id" 						property="memberId"/>
 		<result column="review_num" 					property="reviewNum"/>
 		<result column="review_reply_num" 				property="reviewReplyNum"/>

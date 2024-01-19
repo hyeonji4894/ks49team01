@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.branch.mapper.BranchCouponMapper">
+
+	<resultMap type="BranchCoupon" id="couponResultMap">
+		<id column="coupon_code" 					property="couponCode"/>
+		<result column="member_id" 					property="memberId"/>
+		<result column="coupon_name" 				property="couponName"/>
+		<result column="coupon_price" 				property="couponPrice"/>
+		<result column="coupon_due_date" 			property="couponDueDate"/>
+		<result column="coupon_kind_register_date" 	property="couponKindRegisterDate"/>
+	</resultMap>
+	
+ 	<select id="getCouponList" resultMap="couponResultMap">
+		SELECT
+			eck.coupon_code,
+			eck.member_id,
+			eck.coupon_name,
+			eck.coupon_price,
+			eck.coupon_due_date,
+			eck.coupon_kind_register_date
+		FROM
+			event_coupon_kind AS eck;
+ 	</select>
+ 	
+ 		<resultMap type="BranchCoupon" id="sendCouponResultMap">
+		<id column="coupon_print_code" 				property="couponPrintCode"/>
+		<result column="member_id" 					property="memberId"/>
+		<result column="branch_code" 				property="branchCode"/>
+		<result column="coupon_code" 				property="couponCode"/>
+		<result column="coupon_member_id" 			property="couponMemberId"/>
+		<result column="coupon_name" 				property="couponName"/>
+		<result column="coupon_price" 				property="couponPrice"/>
+		<result column="coupon_issue_date" 			property="couponIssueDate"/>
+		<result column="coupon_expire_date" 		property="couponExpireDate"/>
+		<result column="coupon_state" 				property="couponState"/>
+		<result column="cooupon_register_date" 		property="couponRegisterDate"/>
+	</resultMap>
+	
+ 	<select id="getSendCouponList" resultMap="sendCouponResultMap">
+		SELECT
+			bcp.coupon_print_code,
+			bcp.member_id,
+			bcp.branch_code,
+			bcp.coupon_code,
+			bcp.coupon_member_id,
+			bcp.coupon_name,
+			bcp.coupon_price,
+			bcp.coupon_issue_date,
+			bcp.coupon_expire_date,
+			bcp.coupon_state,
+			bcp.cooupon_register_date
+		FROM
+			branch_coupon_print AS bcp;
+ 	</select>
+</mapper>
