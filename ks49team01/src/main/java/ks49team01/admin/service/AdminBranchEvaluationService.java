@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ks49team01.admin.dto.AdminBranchEvaluation;
 import ks49team01.admin.mapper.AdminBranchEvaluationMapper;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
