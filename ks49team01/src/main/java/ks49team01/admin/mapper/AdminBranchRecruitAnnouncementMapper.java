@@ -9,8 +9,6 @@ import ks49team01.admin.dto.AdminBranchRecruitAnnouncement;
 @Mapper
 public interface AdminBranchRecruitAnnouncementMapper {
 
-	void addAdminBranchRecruitAnnouncement(AdminBranchRecruitAnnouncement adminBranchRecruitAnnouncement);
-
 	List<AdminBranchRecruitAnnouncement> getAdminBranchRecruitAnnouncementList();
 	
 }

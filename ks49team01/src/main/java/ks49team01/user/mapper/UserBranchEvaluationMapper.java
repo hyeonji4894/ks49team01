@@ -9,8 +9,6 @@ import ks49team01.user.dto.UserBranchEvaluation;
 @Mapper
 public interface UserBranchEvaluationMapper {
 
-	void addUserBranchEvaluation(UserBranchEvaluation userBranchEvaluation);
-
 	List<UserBranchEvaluation> getUserBranchEvaluationList();
 	
 }

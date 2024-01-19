@@ -9,9 +9,6 @@ import ks49team01.user.dto.UserBranchApply;
 @Mapper
 public interface UserBranchApplyMapper {
 
-	void addUserBranchApply(UserBranchApply userBranchApply);
-
-	List<UserBranchApply> getUserBranchApplyList();
-	
+	List<UserBranchApply> getUserBranchApplyList();	
 	
 }

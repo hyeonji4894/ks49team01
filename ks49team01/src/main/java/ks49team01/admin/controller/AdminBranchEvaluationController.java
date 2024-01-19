@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/admin/branchEvaluation")
 public class AdminBranchEvaluationController {
-	// 메소드 명
+	//의존성 주입
 	private AdminBranchEvaluationService adminBranchEvaluationService;
 	
 	@GetMapping("/getbranchevaluationquestions")
