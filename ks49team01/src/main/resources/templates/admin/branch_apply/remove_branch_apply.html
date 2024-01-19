@@ -10,7 +10,7 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청삭제목록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -18,14 +18,70 @@
 		<li class="breadcrumb-item">
 			<a th:href="@{/}" class="text-muted">가맹신청삭제관리</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청목록</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청삭제목록</li>
+		<table>
+			<thead>
+				<tr>
+					<th>가맹신청 코드</th>
+	       			<th>가맹모집 코드</th>
+	       			<th>폐교 코드</th>
+	       			<th>가맹신청자 아이디</th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+				<tr th:if="${adminList != null and not #lists.isEmpty(adminList)}"
+					th:each="l : ${adminList}">
+					<td th:text="${l.branch_apply_code}"></td>
+					<td th:text="${l.branch_recruit_code}"></td>
+					<td th:text="${l.close_school_code}"></td>
+					<td th:text="${l.member_id}"></td>
+					<td th:text="${l.branch_apply_date}"></td>
+					</tr>
+			</tbody>
+			</tbody>
+		</table>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">가맹신청삭제1</div>
-       		<div class="col-6">가맹신청삭제2</div>
+       	<div class="col-12">
+       		<div class="table-responsive">
+       			<table class="table">
+       				<thead>
+	       				<tr>
+	       					<th scope="col">가맹신청 코드</th>
+	       					<th scope="col">가맹모집 코드</th>
+	       					<th scope="col">폐교 코드</th>
+	       					<th scope="col">가맹신청자 아이디</th>
+	       				</tr>
+       				</thead>
+       				<tbody>
+       					<tr>
+       						<td>branch_apply_001</td>
+       						<td>branch_recruit_001</td>
+       						<td>close_school_code_011</td>
+       						<td>id008</td>
+       					</tr>
+       					<tr>
+       						<td>branch_apply_002</td>
+       						<td>branch_recruit_002</td>
+       						<td>close_school_code_012</td>
+       						<td>id009</td>
+       					</tr>
+       					<tr>
+       						<td>branch_apply_003</td>
+       						<td>branch_recruit_003</td>
+       						<td>close_school_code_013</td>
+       						<td>id016</td>
+       					</tr>
+       					<tr>
+       						<td>branch_apply_004</td>
+       						<td>branch_recruit_004</td>
+       						<td>close_school_code_014</td>
+       						<td>id017</td>
+       					</tr>
+       				</tbody>
+       			</table>
        	</div>
 	</th:block>
 </html>
