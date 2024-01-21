@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks49team01.admin.dto.AdminReview;
+import ks49team01.admin.dto.AdminReviewCategory;
+import ks49team01.admin.dto.AdminReviewReply;
 import ks49team01.admin.service.AdminReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,9 +55,15 @@ public class AdminReviewController {
 	@GetMapping("/getReviewCategory")
 	public String getReviewCategory(Model model){
 		
-		log.info("리뷰 카테고리 조회");
+		List<AdminReviewCategory> adminMoodReviewCategory = adminReviewService.getReviewMoodCategory();
+		List<AdminReviewCategory> adminFacilityReviewCategory = adminReviewService.getReviewFacilityCategory();
+		
+		log.info("adminMoodReviewCategory: {}", adminMoodReviewCategory);
+		log.info("adminFacilityReviewCategory: {}", adminFacilityReviewCategory);
 		
 		model.addAttribute("title", "리뷰 카테고리 조회");
+		model.addAttribute("adminMoodReviewCategory", adminMoodReviewCategory);
+		model.addAttribute("adminFacilityReviewCategory", adminFacilityReviewCategory);
 		
 	return "admin/review_category/get_review_category";
 	}
@@ -116,9 +124,12 @@ public class AdminReviewController {
 	@GetMapping("/getReviewReply")
 	public String getReviewReply(Model model){
 		
-		log.info("리뷰 댓글 조회");
+		List<AdminReviewReply> adminReviewReply = adminReviewService.getAdminReviewReply();
+		
+		log.info("adminReviewReply: {}", adminReviewReply);
 		
 		model.addAttribute("title", "리뷰 댓글 조회");
+		model.addAttribute("adminReviewReply", adminReviewReply);
 		
 	return "admin/review_reply/get_review_reply";
 	}

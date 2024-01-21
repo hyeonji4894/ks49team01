@@ -29,18 +29,14 @@
 	
  	<select id="getAdminCloseSchoolComparisonBranch" resultMap="closeSchoolComparisonBranchMap">
  		SELECT
-			cs.close_school_img,
-			bm.branch_image,
-			cs.view_map_img
+			berag.grading_code,
+			berag.branch_recruit_code,
+			berag.question_code,
+			berag.member_id,
+			berag.list_of_branch_evaluation_questions,
+			berag.applicant_response,
+			berag.score_after_grading
 		FROM
-			close_school_comparison_branch AS cscb
-		 	INNER JOIN
-			close_school AS cs
-			ON
-			cscb.close_school_code = cs.close_school_code
-			INNER JOIN
-			branch_management AS bm
-			ON
-			cscb.branch_code = bm.branch_code;	
+			branch_evaluation_response_and_grade AS berag;	
  	</select>
 </mapper>

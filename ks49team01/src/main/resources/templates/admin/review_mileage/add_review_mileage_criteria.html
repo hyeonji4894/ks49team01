@@ -10,31 +10,49 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">적립금 관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/}" class="text-muted">리뷰기준 적립률</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">등록하기</a>
+		</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">리뷰 적립금 추가</div>
-       		<div class="col-6">4564565</div>
-       	</div>
+	    <table class="table table-bordered">
+	        <thead>
+	            <tr>
+	                <th scope="col">적립 종류</th>
+	                <th scope="col">적립 금액</th>
+	                <th scope="col">등록자 아이디</th>	                
+	                <th scope="col">적립금 기준 등록일자</th>                                                                                                                                                
+	            </tr>
+            </thead>
+            <tbody>
+	            <tr>
+	            	<td>
+	            		<input type="text" id="mileageKind" name="mileageKind" />
+	            	</td>	            	
+	            	<td>
+	            		<input type="text" id="mileageAmount" name="mileageAmount" />
+	            	</td>
+	            	<td>
+	            		<input type="text" id="memberId" name="memberId" readonly="readonly" />
+	            	</td>	            	
+	            	<td>
+	            		<input type="text" id="mileageCriteriaRegisterDate" name="mileageCriteriaRegisterDate"  readonly="readonly" />
+	            	</td>
+	            </tr>
+	        </tbody>
+	    </table>
+		<div style="float: right;">
+			<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/mileage/getReviewMileageCriteria}">적립률 등록</a>
+		</div>                  
 	</th:block>
 </html>
-
-
-
-
-
-
-
-
-

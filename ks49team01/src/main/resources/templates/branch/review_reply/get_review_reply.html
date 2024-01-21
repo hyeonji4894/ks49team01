@@ -10,25 +10,60 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">리뷰댓글관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/}" class="text-muted">리뷰댓글</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">조회하기</a>
+		</li>
 	</th:block>
-
+	
 	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">리뷰 댓글 조회</div>
-       		<div class="col-6">4564565</div>
-       	</div>
+	<th:block layout:fragment="customContent">	
+			<table class="table">
+			 <thead>
+	            <tr>
+	                <th scope="col">댓글코드</th>
+	                <th scope="col">회원 아이디</th>
+	                <th scope="col">리뷰 (글 순서 번호)</th>
+	                <th scope="col">댓글번호</th>
+	                <th scope="col">내용</th>
+	                <th scope="col">작성자 이름</th>
+	                <th scope="col">리뷰 댓글 작성 시간</th>
+	                <th scope="col">수정</th>
+	                <th scope="col">삭제</th>                                                                                                                                            
+	            </tr>
+	         </thead>
+	         <tbody>
+	            <tr th:if="${branchReviewReply != null and not #lists.isEmpty(branchReviewReply)}"
+	            	th:each="l : ${branchReviewReply}">
+	                <td th:text="${l.replyCode}"></td>
+	                <td th:text="${l.memberId}"></td>
+	                <td th:text="${l.reviewNum}"></td>
+	                <td th:text="${l.reviewReplyNum}"></td>
+	                <td th:text="${l.reviewReplyContext}"></td>
+	                <td th:text="${l.reviewReplyName}"></td>
+	                <td th:text="${l.reviewReplyRegisterTime}"></td>
+	                <td class="addList">
+	                	<a th:href="@{/branch/review/modifyReviewReply}">수정</a>
+	                </td>
+	                <td>
+	                	<a th:href="@{/branch/review/removeReviewReply}">삭제</a>
+	                </td>
+	            </tr>
+				<tr th:unless="${branchReviewReply != null and not #lists.isEmpty(branchReviewReply)}">
+					<td colspan="9">등록된 리뷰댓글이 없습니다.</td>
+				</tr>                            
+              </tbody>
+            </table>
 	</th:block>
 </html>
+
 
 
 

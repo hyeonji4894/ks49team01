@@ -19,7 +19,7 @@
 			<a th:href="@{/}" class="text-muted">결제금액기준 적립률</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">수정하기</a>
+			<a th:href="@{#}" class="text-muted">조회하기</a>
 		</li>
 	</th:block>
 	
@@ -39,8 +39,8 @@
 	            </tr>
 	         </thead>
 	         <tbody>
-	            <tr th:if="${paymentCriteriaMileageList != null and not #lists.isEmpty(paymentCriteriaMileageList)}"
-	            	th:each="l : ${paymentCriteriaMileageList}">
+	            <tr th:if="${paymentCriteriaMileage != null and not #lists.isEmpty(paymentCriteriaMileage)}"
+	            	th:each="l : ${paymentCriteriaMileage}">
 	                <td th:text="${l.roompayMileageRateCode}"></td>
 	                <td th:text="${l.memberId}"></td>
 	                <td th:text="${l.mileageGradeName}"></td>
@@ -54,15 +54,13 @@
 	                	<a th:href="@{/admin/mileage/removePaymentCriteriaMileage}">삭제</a>
 	                </td>
 	            </tr>
-				<tr th:unless="${paymentCriteriaMileageList != null and not #lists.isEmpty(paymentCriteriaMileageList)}">
+				<tr th:unless="${paymentCriteriaMileage != null and not #lists.isEmpty(paymentCriteriaMileage)}">
 					<td colspan="9">등록된 적립률기준이 없습니다.</td>
 				</tr>                            
               </tbody>
             </table>   
 	</th:block>
 </html>
-
-
 
 
 
