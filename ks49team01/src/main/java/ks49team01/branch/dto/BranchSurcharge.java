@@ -3,7 +3,7 @@ package ks49team01.branch.dto;
 import lombok.Data;
 
 @Data
-public class BranchSurchargeList {
+public class BranchSurcharge {
 	// 리스트 등록에 필요
 	private String seasonSurchargeListCode;
 	private String listRegistrantId;

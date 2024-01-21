@@ -38,11 +38,11 @@
 	        <tbody>
 	            <tr th:if="${branchBySurchargeList != null and not #lists.isEmpty(branchBySurchargeList)}"
 	            	th:each="b : ${branchBySurchargeList}">
-	                <th th:text="${b.lowseasonPeakseason}"></th>
-	                <th th:text="${b.dayOfTheWeek}"></th>
-	                <th th:text="${b.additionalAmount}"></th>
-	                <th th:text="${b.registerDate}"></th>
-	                <th th:text="${b.surchargeRegistrantId}"></th>
+	                <td th:text="${b.lowseasonPeakseason}"></td>
+	                <td th:text="${b.dayOfTheWeek}"></td>
+	                <td th:text="${b.additionalAmount}"></td>
+	                <td th:text="${b.registerDate}"></td>
+	                <td th:text="${b.surchargeRegistrantId}"></td>
 	                <td class="addList">
 	    				<a th:href="@{/admin/surcharge/modifySurchargeList}">수정</a>
 	                </td>
