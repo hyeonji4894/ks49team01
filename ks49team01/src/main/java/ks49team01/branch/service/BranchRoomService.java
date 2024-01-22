@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @Service
 public class BranchRoomService {
 	
-	private BranchRoomMapper branchRoomMapper;
+	private final BranchRoomMapper branchRoomMapper;
 	
 	public List<BranchRoom> getRoomInfoList(){
 		

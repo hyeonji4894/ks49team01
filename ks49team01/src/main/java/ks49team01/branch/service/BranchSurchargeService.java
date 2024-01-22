@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class BranchSurchargeService {
 	
-	private BranchSurchargeMapper branchSurchargeMapper;
+	private final BranchSurchargeMapper branchSurchargeMapper;
 	
 	/**
 	 * 가맹별 추가금 등록
