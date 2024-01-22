@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AdminReviewService {
 
-	private AdminReviewMapper adminReviewMapper;
+	private final AdminReviewMapper adminReviewMapper;
 	
 	/**
 	 * 리뷰 목록 조회

@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminMileageController {
 	
-	private AdminMileageService adminMileageService;
+	private final AdminMileageService adminMileageService;
 	
 	@GetMapping("/addPaymentCriteriaMileage")
 	public String addPaymentCriteriaMileage(Model model){
