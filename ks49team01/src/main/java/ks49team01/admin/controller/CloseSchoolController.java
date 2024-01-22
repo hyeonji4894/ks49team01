@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/admin/closeSchool")
-@AllArgsConstructor
 @Slf4j
 public class CloseSchoolController{
 

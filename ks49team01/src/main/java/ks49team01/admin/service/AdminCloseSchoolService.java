@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
-@AllArgsConstructor
 @Slf4j
 public class AdminCloseSchoolService {
 

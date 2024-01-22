@@ -33,13 +33,13 @@
 		            </tr>
 		        </thead>
 		    	<tbody>
-					<tr th:if="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}"
-						th:each="l : ${closeSchoolComparisonBranchList}">
+					<tr th:if="${getCloseSchoolComparisonBranch != null and not #lists.isEmpty(getCloseSchoolComparisonBranch)}"
+						th:each="l : ${getCloseSchoolComparisonBranch}">
 						<td th:text="${l.closeSchoolImg}"></td>
 						<td th:text="${l.branchImage}"></td>
 						<td th:text="${l.viewMapImg}"></td>
 					</tr>
-					<tr th:unless="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}">
+					<tr th:unless="${getCloseSchoolComparisonBranch != null and not #lists.isEmpty(getCloseSchoolComparisonBranch)}">
 						<td colspan="9">등록된 가맹점이 없습니다.</td>
 					</tr>
 				</tbody>

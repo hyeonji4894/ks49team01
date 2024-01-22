@@ -10,20 +10,27 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">폐교 관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/}" class="text-muted">폐교</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록 조회</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<table class="table">
+       	<div class="row">
+       		<div class="col-6">폐교 1</div>
+       		<div class="col-6">폐교 2</div>
+       	</div>
+	</th:block>
+	<th:block layout:fragment="customContent">
+		<form id="getBranchCloseSchool" method="post" th:action="@{/close_school/close_school_get}">		
+			<table class="table">
 			 <thead>
 	            <tr>
 	                <th scope="col">폐교 이미지</th>
@@ -37,7 +44,25 @@
 	                <th scope="col">등록자 아이디</th>
 	            </tr>
 	        </thead>
-	     </table>
+				<tbody>
+					<tr th:if="${branchCloseSchoolList != null and not #lists.isEmpty(branchCloseSchoolList)}"
+						th:each="l : ${branchCloseSchoolList}">
+						<td th:text="${l.closeSchoolImg}"></td>
+						<td th:text="${l.closeSchoolArea}"></td>
+						<td th:text="${l.coordinate}"></td>
+						<td th:text="${l.branchCurrentSituation}"></td>
+						<td th:text="|₩ ${#numbers.formatInteger(l.purchaseAmount, 3, 'COMMA')}|"></td>
+						<td th:text="${l.systemRegistrationDate}"></td>
+						<td th:text="${l.lastModifiedDate}"></td>
+						<td th:text="${l.viewMapImg}"></td>
+						<td th:text="${l.memberId}"></td>
+					</tr>
+					<tr th:unless="${branchCloseSchoolList != null and not #lists.isEmpty(branchCloseSchoolList)}">
+						<td colspan="9">등록된 폐교가 없습니다.</td>
+					</tr>
+				</tbody>
+			</table>		
+		</form>
 	</th:block>
 </html>
 
