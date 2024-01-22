@@ -1,17 +1,25 @@
 package ks49team01.user.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import groovy.lang.GrabExclude;
+import ks49team01.user.dto.UserRoom;
+import ks49team01.user.service.UserRoomService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/user/room")
+@AllArgsConstructor
 public class UserRoomController {
+	
+	private final UserRoomService roomService;
 
 	// 객실 예약 확인
 	
@@ -74,9 +82,11 @@ public class UserRoomController {
 	@GetMapping("/selectReservRoom")
 	public String selectReservRoom(Model model) {
 		
-		model.addAttribute("title", "예약객실선택");
+		
+		List<UserRoom> roomList = roomService.getRoomList();
 		
 		model.addAttribute("title", "예약객실선택");
+		model.addAttribute("roomList", roomList);
 		
 		return "user/room/room_reserv_select";
 	}

@@ -8,16 +8,16 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">시즌추가금목록조회</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">시즌추가금</a>
+			<a th:href="@{/admin/surcharge/surchargeList}" class="text-muted">시즌추가금</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{/admin/room/surchargeList}" class="text-muted">시즌추가금목록조회</a>
+			<a th:href="@{/admin/surcharge/surchargeList}" class="text-muted">시즌추가금목록조회</a>
 		</li>
 		<li class="breadcrumb-item text-muted active" aria-current="page" >가맹점명</li>
 	</th:block>
@@ -33,22 +33,18 @@
 	                <th scope="col">등록일자</th>
 	                <th scope="col">등록자아이디</th>
 	                <th scope="col">수정</th>
-	                <th scope="col">삭제</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	            <tr th:if="${branchBySurchargeList != null and not #lists.isEmpty(branchBySurchargeList)}"
 	            	th:each="b : ${branchBySurchargeList}">
-	                <th th:text="${b.lowseasonPeakseason}"></th>
-	                <th th:text="${b.dayOfTheWeek}"></th>
-	                <th th:text="${b.additionalAmount}"></th>
-	                <th th:text="${b.registerDate}"></th>
-	                <th th:text="${b.surchargeRegistrantId}"></th>
+	                <td th:text="${b.lowseasonPeakseason}"></td>
+	                <td th:text="${b.dayOfTheWeek}"></td>
+	                <td th:text="${b.additionalAmount}"></td>
+	                <td th:text="${b.registerDate}"></td>
+	                <td th:text="${b.surchargeRegistrantId}"></td>
 	                <td class="addList">
 	    				<a th:href="@{/admin/surcharge/modifySurchargeList}">수정</a>
-	                </td>
-	                <td class="addList">
-	    				<a th:href="@{/admin/surcharge/removeSurchargeList}">삭제</a>
 	                </td>
 	            </tr>
 	            <tr th:unless="${branchBySurchargeList != null and not #lists.isEmpty(branchBySurchargeList)}">
@@ -56,5 +52,8 @@
 				</tr>
 	        </tbody>
 	     </table>
+		 <div style="float: right;">
+		 	<a id="addBtn" class="btn waves-effect waves-light btn-dark" th:href="@{/admin/surcharge/addSurchargeList}">등록</a>
+	     </div>
 	  </th:block>
 </html>
