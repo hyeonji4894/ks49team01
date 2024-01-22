@@ -10,12 +10,23 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class branchSurchargeService {
+public class BranchSurchargeService {
 	
 	private BranchSurchargeMapper branchSurchargeMapper;
 	
+	/**
+	 * 가맹별 추가금 등록
+	 * @return
+	 */
+	public List<BranchSurcharge> getAddSurchargeList(){
+		return branchSurchargeMapper.getAddSurchargeList();
+	}
 	
 	
+	/**
+	 * 본사가 정한 리스트 목록확인
+	 * @return
+	 */
 	public List<BranchSurcharge> getSurchargeList(){
 		
 		return branchSurchargeMapper.getSurchargeList();

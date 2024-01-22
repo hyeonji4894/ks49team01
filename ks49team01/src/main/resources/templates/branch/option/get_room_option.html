@@ -9,7 +9,7 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실옵션조회</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -18,7 +18,7 @@
 			<a th:href="@{#}" class="text-muted">객실옵션</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{/branch/room/surchargeList}" class="text-muted">객실옵션조회</a>
+			<a th:href="@{/branch/room/roomOptionList}" class="text-muted">객실옵션조회</a>
 		</li>
 	</th:block>
 
@@ -27,44 +27,22 @@
 		<table class="table">
 	        <thead>
 	            <tr>
-	                <th scope="col" colspan="6" align="center">옵션 및 부가서비스</th>
+	                <th>옵션 및 부가서비스</th>
+	                <th>옵션 및 부가서비스 명</th>
+	                <th>가격</th>          
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr>
-	                <th scope="row">옵션</th>
-	                <td>인원추가(침구류포함)</td>
-	                <td>가격</td>
-	                <td>20,000</td>
+	            <tr th:if="${roomOptionList != null and not #lists.isEmpty(roomOptionList)}"
+	            	th:each="o : ${roomOptionList}">
+	                <td th:text="${o.roomOptionCate}"></td>
+	                <td th:text="${o.roomOptionName}"></td>
+	                <td th:text="${o.roomOptionPrice}"></td>
 	            </tr>
-	            <tr>
-	                <th scope="row">옵션</th>
-	                <td>바베큐</td>
-	                <td>가격</td>
-	                <td>20,000</td>
-	            </tr>
-	            <tr>
-	                <th scope="row">옵션</th>
-	                <td>불멍 장작세트</td>
-	                <td>가격</td>
-	                <td>15,000</td>
-	            </tr>
-	            <tr>
-	                <th scope="row">부가서비스</th>
-	                <td>애견 유모차</td>
-	                <td>가격</td>
-	                <td>0</td>
-	            </tr>
-	            <tr>
-	                <th scope="row">부가서비스</th>
-	                <td>픽업 서비스</td>
-	                <td>가격</td>
-	                <td>0</td>
-	            </tr>
+	            <tr th:unless="${roomOptionList != null and not #lists.isEmpty(roomOptionList)}">
+					<td colspan="5">조회된 리스트가 없습니다</td>
+				</tr>
 	        </tbody>
 	     </table>
-	     <div style="float: right;">
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/branch/room/modifyRoomOption}">수정</a>
-	     </div>
 	  </th:block>
 </html>

@@ -29,5 +29,16 @@
 			branch_by_season_surcharge AS bs ;
 	</select>
 	
+	<select id="getAddSurchargeList" resultMap="surchargeResultMap">
+		SELECT
+			ss.season_surcharge_list_code,
+			ss.registrant_id,
+			ss.day_of_the_week,
+			ss.lowseason_peakseason,
+			ss.system_register_date
+		FROM
+			season_surcharge_list AS ss;
+	</select>
+	
 	
 </mapper>

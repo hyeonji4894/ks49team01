@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks49team01.branch.dto.BranchSurcharge;
-import ks49team01.branch.service.branchSurchargeService;
+import ks49team01.branch.service.BranchSurchargeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class BranchSurchargeController {
 	
-	private final branchSurchargeService surchargeService;
+	private final BranchSurchargeService surchargeService;
 	
 	// 시즌 추가금 리스트
 	
@@ -37,7 +37,11 @@ public class BranchSurchargeController {
 			
 			log.info("시즌추가금리스트등록");
 			
+			List<BranchSurcharge> addSurchargeList = surchargeService.getAddSurchargeList();
+						
+			
 			model.addAttribute("pageTitle", "시즌추가금리스트등록");
+			model.addAttribute("addSurchargeList", addSurchargeList);
 			
 			return "branch/season_surcharge/add_season_surcharge_list";
 		}
@@ -45,9 +49,9 @@ public class BranchSurchargeController {
 		@GetMapping("/surchargeList")
 		public String surchargeList(Model model) {
 			
+			log.info("시즌추가금리스트");
 			List<BranchSurcharge> surchargeList = surchargeService.getSurchargeList();
 			
-			log.info("시즌추가금리스트");
 			
 			model.addAttribute("pageTitle", "시즌추가금리스트");
 			model.addAttribute("surchargeList", surchargeList);

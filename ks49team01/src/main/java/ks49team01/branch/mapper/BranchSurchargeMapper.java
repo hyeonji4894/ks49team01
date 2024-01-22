@@ -9,7 +9,10 @@ import ks49team01.branch.dto.BranchSurcharge;
 @Mapper
 public interface BranchSurchargeMapper {
 	
-	//  시즌 추가금 등록
+	// 시즌 추가금 등록
+	List<BranchSurcharge> getAddSurchargeList();
+	
+	//  시즌 추가금 목록
 	List<BranchSurcharge> getSurchargeList();
 
 }
