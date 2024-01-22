@@ -1,9 +1,9 @@
-package ks49team01.branch.dto;
+package ks49team01.user.dto;
 
 import lombok.Data;
 
 @Data
-public class BranchRoom {
+public class UserRoom {
 	
 	private String roomCode;
 	private String branchCode;
@@ -16,4 +16,5 @@ public class BranchRoom {
 	private String availableDogTypes;
 	private int roomBasicPrice;
 	private String roomRegistrationDate;
+	
 }

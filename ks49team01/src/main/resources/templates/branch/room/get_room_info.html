@@ -9,16 +9,16 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실목록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">시즌추가금</a>
+			<a th:href="@{#}" class="text-muted">객실</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">시즌추가금목록</a>
+			<a th:href="@{#}" class="text-muted">객실목록</a>
 		</li>
 	</th:block>
 
@@ -38,28 +38,30 @@
 	                <th>등록인ID</th>
 	                <th>수정</th>
 	                <th>삭제</th>
-	                
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
+				<tr  th:if="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}"
+	            	 th:each="r : ${roomInfoList}">
+	                <td th:text="${r.branchName}"></td>
+	                <td th:text="${r.roomName}"></td>
+	                <td th:text="${r.roomSize}"></td>
+	                <td th:text="${r.roomBasicPersonnel}"></td>
+	                <td th:text="${r.roomMaxPersonnel}"></td>
+	                <td th:text="${r.availableDogTypes}"></td>
+	                <td th:text="|₩ ${#numbers.formatInteger(r.roomBasicPrice, 3, 'COMMA')}|"></td>
+	                <td th:text="${r.roomRegistrationDate}"></td>
+	                <td th:text="${r.registrantId}"></td>
 	                <td>
-	                	<!-- 수정,삭제 버튼 비동기처리  -->
-	    				<a th:href="@{/branch/room/addRoomInfo}">수정</a>
+	    				<a th:href="@{/branch/room/modifyRoomInfo}">수정</a>
 	                </td>
 	                <td>
-	    				<a th:href="@{/branch/room/removeSurchargeList}">삭제</a>
+	    				<a th:href="@{/branch/room/roomInfo}">삭제</a>
 	                </td>
 	            </tr>
+	            <tr th:unless="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}">
+					<td colspan="12">등록된 객실이 없습니다</td>
+				</tr>
 	        </tbody>
 	     </table>
 	     <div style="float: right;">

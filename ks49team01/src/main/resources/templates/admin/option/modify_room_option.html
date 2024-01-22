@@ -9,7 +9,7 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">옵션수정</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -18,7 +18,7 @@
 			<a th:href="@{/admin/room/roomOptionList}" class="text-muted">객실옵션</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">객실옵션수정</a>
+			<a th:href="@{#}" class="text-muted">옵션수정</a>
 		</li>
 	</th:block>
 
@@ -73,8 +73,8 @@
 	        </tbody>
 	     </table>
 	     <div style="float: right;">
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/modifyRoomOption}">수정</a>
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/modifyRoomOption}">취소</a>
+	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/option/roomOptionList}">수정</a>
+	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/option/roomOptionList}">취소</a>
 	     </div>
 	  </th:block>
 </html>

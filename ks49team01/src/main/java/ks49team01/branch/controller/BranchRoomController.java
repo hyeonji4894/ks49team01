@@ -1,17 +1,24 @@
 package ks49team01.branch.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ks49team01.branch.dto.BranchRoom;
+import ks49team01.branch.service.BranchRoomService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@AllArgsConstructor
 @RequestMapping("/branch/room")
 public class BranchRoomController {
 
+	private final BranchRoomService roomService;
 	
 	// 객실 정보
 	
@@ -50,8 +57,10 @@ public class BranchRoomController {
 		public String roomInfo(Model model) {
 		
 		log.info("객실정보조회");
-			
+		List<BranchRoom> roomInfoList = roomService.getRoomInfoList();
+		
 		model.addAttribute("pageTitle", "객실정보조회");
+		model.addAttribute("roomInfoList", roomInfoList);
 		
 		return "branch/room/get_room_info";
 	}

@@ -9,7 +9,7 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실옵션조회</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -18,7 +18,7 @@
 			<a th:href="@{#}" class="text-muted">객실옵션</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{/admin/room/surchargeList}" class="text-muted">객실옵션조회</a>
+			<a th:href="@{/admin/option/roomOptionList}" class="text-muted">객실옵션조회</a>
 		</li>
 	</th:block>
 
@@ -31,8 +31,9 @@
 	                <th>옵션 및 부가서비스 명</th>
 	                <th>가격</th>
 	                <th>등록날짜</th>
-	                <th>등록인아이디</th>
-	                
+	                <th>등록인아이디</th>              
+	                <th>수정</th>           
+	                <th>삭제</th>           
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -43,6 +44,12 @@
 	                <td th:text="${o.roomOptionPrice}"></td>
 	                <td th:text="${o.roomOptionRegistrationId}"></td>
 	                <td th:text="${o.roomOptionRegistrationDate}"></td>
+	                <td>
+	    				<a th:href="@{/admin/option/modifyRoomOption}">수정</a>
+	                </td>
+	                <td>
+	    				<a th:href="@{/admin/option/removeRoomOption}">삭제</a>
+	                </td>
 	            </tr>
 	            <tr th:unless="${optionList != null and not #lists.isEmpty(optionList)}">
 					<td colspan="5">조회된 리스트가 없습니다</td>
@@ -50,7 +57,7 @@
 	        </tbody>
 	     </table>
 	     <div style="float: right;">
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/modifyRoomOption}">수정</a>
+	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/option/addRoomOption}">추가</a>
 	     </div>
 	  </th:block>
 </html>
