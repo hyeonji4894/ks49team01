@@ -26,35 +26,30 @@
 		<table class="table">
 	        <thead>
 	            <tr>
-	                <th scope="col">#</th>
-	                <th scope="col">비수기/성수기</th>
-	                <th scope="col">요일</th>
-	                <th scope="col">등록자아이디</th>
+	                <th scope="col"></th>
+		                <th>비수기/성수기</th>
+		                <th>요일</th>
+		                <th>금액</th>
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr>
-	                <th scope="row"></th>
-	                <td></td>
-	                <td></td>
-	                <td></td>
+	            <tr th:if="${addSurchargeList != null and not #lists.isEmpty(addSurchargeList)}"
+		            	th:each="s : ${addSurchargeList}">
+	            	<td></td>
+	                <td th:text="${s.lowseasonPeakseason}"></td>
+	                <td th:text="${s.dayOfTheWeek}"></td>
+	                <td>
+				        <input type="text" id="example-input-small" name="example-input-small"
+				             class="form-control form-control-sm">
+					</td>
 	            </tr>
-	            <tr>
-	                <th scope="row"></th>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	            </tr>
-	            <tr>
-	                <th scope="row"></th>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	            </tr>
+	            <tr th:unless="${addSurchargeList != null and not #lists.isEmpty(addSurchargeList)}">
+					<td colspan="12">조회된 리스트가 없습니다</td>
+				</tr>
 	        </tbody>
 	    </table>
     	<div style="float: right;">
-			<a class="btn waves-effect waves-light btn-dark" th:href="@{/branch/room/surchargeList}">등록</a>
+			<a class="btn waves-effect waves-light btn-dark" th:href="@{/branch/surcharge/surchargeList}">등록</a>
     	</div>
 	</th:block>
 </html>
