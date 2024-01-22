@@ -10,7 +10,7 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">공지사항</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -23,11 +23,43 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">123</div>
-       		<div class="col-6">456</div>
-       	</div>
-	</th:block>
+      <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">공지사항코드</th>
+                                            <th scope="col">가맹점 코드</th>
+                                            <th scope="col">등록자 아이디</th>
+                                            <th scope="col">공지사항 제목</th>
+                                            <th scope="col">공지사항 내용</th>
+                                            <th scope="col">공지사항 작성일자</th>
+                                            <th scope="col">수정</th>
+                                            <th scope="col">삭제</th>
+                                        </tr>
+                                    </thead>
+                                                
+							<tbody id="tbody">
+                                          <tr th:if="${NoticeBoardList != null and not #lists.isEmpty(NoticeBoardList)}"
+												th:each="l : ${NoticeBoardList}">
+												<td th:text="${l.noticeBoardCode}"></td>
+												<td th:text="${l.branchCode}"></td>
+												<td th:text="${l.memberId}"></td>
+												<td th:text="${l.noticeBoardTitle}"></td>
+												<td th:text="${l.noticeBoardContent}"></td>
+												<td th:text="${l.noticeBoardRegDate}"></td>
+						<td>
+						<a th:href>수정</a>
+					</td>
+
+						<td>
+						<a th:href>삭제</a>
+					</td>
+                                        </tr>
+                                        <tr th:unless="${NoticeBoardList != null and not #lists.isEmpty(NoticeBoardList)}">
+											<td colspan="8">등록된 회원의 정보가 없습니다.</td>
+										</tr>
+                                    </tbody>
+                                    </table>
+</th:block>
 </html>
 
 
