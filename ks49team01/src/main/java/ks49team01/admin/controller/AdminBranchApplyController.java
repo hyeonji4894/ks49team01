@@ -1,9 +1,14 @@
 package ks49team01.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ks49team01.admin.dto.AdminBranchApply;
+import ks49team01.admin.service.AdminBranchApplyService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -11,14 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 	// 파일경로
 @RequestMapping("/admin/branchApply")
 public class AdminBranchApplyController {
-	// 메소드 명
+	//의존성 주입
+	private AdminBranchApplyService adminBranchApplyService;
+	
 	@GetMapping("/addbranchapply")
 	public String addbranchapply(Model model) {
-		
+		List<AdminBranchApply> adminApplyList = adminBranchApplyService.getAdminBranchApplyList();
 		log.info("가맹신청등록");
 		
 		model.addAttribute("title", "가맹신청등록");
-		
+		model.addAttribute("adminApplyList: {}", adminApplyList);		
 		// 연결 클래스 파일/경로
 		return "admin/branch_apply/add_branch_apply";
 	}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminReviewMapper">
+
+	<resultMap type="AdminReviewReply" id="adminReviewReplyResultMap">
+		<id column="reply_code" 						property="replyCode"/>
+		<result column="reply_code" 					property="replyCode"/>
+		<result column="member_id" 						property="memberId"/>
+		<result column="review_num" 					property="reviewNum"/>
+		<result column="review_reply_num" 				property="reviewReplyNum"/>
+		<result column="review_reply_context" 			property="reviewReplyContext"/>
+		<result column="review_reply_name" 				property="reviewReplyName"/>
+		<result column="review_reply_register_time" 	property="reviewReplyRegisterTime"/>
+	</resultMap>
+	
+ 	<select id="getAdminReviewReply" resultMap="adminReviewReplyResultMap">
+		SELECT
+			rr.reply_code,
+			rr.member_id,
+			rr.review_num,
+			rr.review_reply_num,
+			rr.review_reply_context,
+			rr.review_reply_name,
+			rr.review_reply_register_time
+		FROM
+			review_reply AS rr;
+ 	</select>
+</mapper>

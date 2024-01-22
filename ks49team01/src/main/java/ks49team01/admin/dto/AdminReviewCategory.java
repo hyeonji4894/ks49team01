@@ -12,7 +12,7 @@ public class AdminReviewCategory {
 	
 	private String moodCode;
 	private String moodRegisterDate;
-	private String moodCategoroyContext;
+	private String moodCategoryContext;
 	
 	private String facilityMoodChoiceCode;
 	private String chosenCategory;
