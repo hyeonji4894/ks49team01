@@ -3,16 +3,19 @@ package ks49team01.admin.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks49team01.admin.dto.AdminUser;
-import ks49team01.admin.service.UserService;
+import ks49team01.admin.dto.AdminUserLevel;
+import ks49team01.admin.service.AdminUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,15 +25,32 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminUserController {
 	
-	private UserService userService;
+	private final AdminUserService userService;
 	
 	
+	/*
+	 * @PostMapping("/checkId") public ResponseEntity<Boolean> checkId(@RequestParam
+	 * String memberId) { boolean isDuplicate = userService.checkId(memberId);
+	 * return ResponseEntity.ok(isDuplicate); }
+	 */
 	
 	
-	@GetMapping("/removeMember")
+
+	    @PostMapping("/checkId")
+	    @ResponseBody
+	    public ResponseEntity <Boolean> checkId(@RequestParam String memberId) {
+	        boolean isDuplicate = userService.checkId(memberId);
+	        return ResponseEntity.ok(isDuplicate);
+	    }
+
+	
+
+	
+	
+	@GetMapping("/memberLevelList")
 	public String memberLevelList(Model model) {
-		
-		return "admin/member/remove_member";
+		log.info("맴버레벨조회");
+		return "admin/member/member_level_list";
 	}
 	
 	@GetMapping("/removeMember")
@@ -42,11 +62,30 @@ public class AdminUserController {
 	
 	
 	
-	@GetMapping("/modifyMember")
-	public String modifyMemberMemberList(Model model) {
+	@PostMapping("/modifyMember")
+	public String modifyMember(AdminUser adminUser) {
 		
 		log.info("회원수정" );
+		userService.modifyMember(adminUser);
+		return "redirect:/admin/member/getMember";
+	}
+	
+	
+	@GetMapping("/modifyMember")
+	public String modifyMember(@RequestParam(value="memberId") String memberId
+			  ,Model model) {
+		
+		log.info("회원수정" );
+		
+		// 특정회원 조회
+		AdminUser memberInfo = userService.getMemberInfoById(memberId);
+		
+		// 회원등급 목록 조회
+		List<AdminUserLevel> memberLevelList = userService.memberLevelList();
+		
 		model.addAttribute("title", "회원수정");
+		model.addAttribute("memberInfo", memberInfo);
+		model.addAttribute("memberLevelList", memberLevelList);
 		
 		return "admin/member/modify_member";
 	}
@@ -61,8 +100,13 @@ public class AdminUserController {
 		
 		return "redirect:/admin/member/getMember";
 	}
+	
 	@GetMapping("/addMember")
 	public String addMember(Model model) {
+		
+		List<AdminUserLevel> addMember = userService.memberLevelList();
+		model.addAttribute("addMember", addMember);
+
 		
 		return "admin/member/add_member";
 	}

@@ -26,5 +26,6 @@ public class AdminUser {
 	private String mem_level_code;  
 	private String membership_rating;  
 
+	private AdminUserLevel adminUserLevel;
 
 }

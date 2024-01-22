@@ -28,7 +28,7 @@
 				<tbody>
 					<tr>
 						<td>
-							<label for="memberId">memberId</label>
+							<label for="memberId">아이디</label>
 						</td>
 						<td>
 							<input type="text" id="memberId" name="memberId" 
@@ -41,18 +41,32 @@
 					</tr>
 					<tr>
 						<td>
-							<label for="mem_level_code">mem_level_code</label>
+							<label for="mem_level_code">회원등급</label>
 						</td>
 						<td colspan="2">
-							<select id="mem_level_code" name="mem_level_code">
+							<select disabled="disabled" id="mem_level_code" name="mem_level_code">
 								<option value="">===회원등급을 선택해주세요===</option>
-								<th:block th:if="${memberLevelList != null and not #lists.isEmpty(memberLevelList)}"
-										  th:each="${memberLevelList}">
-									<option th:value="${mem_level_code}" th:text="|${mem_level_code}::: ${mem_level_code}|"></option>
+								<th:block th:if="${addMember != null and not #lists.isEmpty(addMember)}"
+										  th:each="l : ${addMember}">
+									<option th:value="${l.mem_level_code}" th:text="${l.membership_rating}"></option>
 							</select>
 							</td>
 					</tr>
+				<!-- 	<tr>
 					<tr>
+						<td>
+							<label for="membership_rating">회원등급</label>
+						</td>
+						<td colspan="2">
+							<select id="membership_rating" name="membership_rating">
+								<option value="">===회원등급을 선택해주세요===</option>
+								<th:block th:if="${addMember != null and not #lists.isEmpty(addMember)}"
+										  th:each="l : ${addMember}">
+									<option th:value="${l.membership_rating}" th:text="${l.membership_rating}"></option>
+							</select>
+							</td>
+					</tr> -->
+		<!-- 			<tr>
 						<td>
 							<label for="membership_rating">membership_rating</label>
 						</td>
@@ -60,70 +74,70 @@
 							<input type="text" id="membership_rating" name="membership_rating" 
 								   placeholder="입력해주세요" />
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>
-							<label for="memberPw">memberPw</label>
+							<label for="memberPw">비밀번호</label>
 						</td>
 						<td>
-							<input type="text" id="memberPw" name="memberPw" 
-								   placeholder=" 입력해주세요" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="memberEmail">memberEmail</label>
-						</td>
-						<td>
-							<input type="text" id="memberEmail" name="memberEmail" 
-								   placeholder=" 입력해주세요" />
+							<input type="password" id="memberPw" name="memberPw" disabled="disabled"
+								   placeholder=" 비밀번호를 입력해주세요" />
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="memberName">memberName</label>
+							<label for="memberEmail">이메일</label>
 						</td>
 						<td>
-							<input type="text" id="memberName" name="memberName" 
-								   placeholder=" 입력해주세요" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="memberBirth">memberBirth</label>
-						</td>
-						<td>
-							<input type="text" id="memberBirth" name="memberBirth"
-							 placeholder=" 입력해주세요" />
+							<input type="email" id="memberEmail" name="memberEmail" disabled="disabled"
+								   placeholder="예시: example@email.com " />
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="memberGender">memberGender</label>
+							<label for="memberName">이름</label>
 						</td>
 						<td>
-							<input type="text" id="memberGender" name="memberGender" 
-								   placeholder=" 입력해주세요" />
+							<input type="text" id="memberName" name="memberName"  disabled="disabled"
+								   placeholder=" 이름을 입력해주세요" />
 						</td>
 					</tr>
 					<tr>
-					<tr>
 						<td>
-							<label for="memberPhone">memberPhone</label>
+							<label for="memberBirth">생년월일</label>
 						</td>
 						<td>
-							<input type="text" id="memberPhone" name="memberPhone" 
-								   placeholder=" 입력해주세요" />
+							<input type="date" id="memberBirth" name="memberBirth" disabled="disabled"
+							 placeholder="예시: 2000-01-01" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="memberGender">성별</label>
+						</td>
+						<td>
+						<input type=radio id="memberGender" name="memberGender" value="남자" checked="checked" disabled="disabled">남자
+          			 <input type=radio id="memberGender" name="memberGender" value="여자" disabled="disabled">여자
 						</td>
 					</tr>
 					<tr>
 					<tr>
 						<td>
-							<label for="memberAddr">memberAddr</label>
+							<label for="memberPhone">전화번호</label>
 						</td>
 						<td>
-							<input type="text" id="memberAddr" name="memberAddr" 
-								   placeholder=" 입력해주세요" />
+							<input type="text" id="memberPhone" name="memberPhone" disabled="disabled"
+								   placeholder="예시: 010-1234-5678" />
+						</td>
+					</tr>
+					<tr>
+					<tr>
+						<td>
+							<label for="memberAddr">주소</label>
+						</td>
+						<td>
+							<input type="text" id="memberAddr" name="memberAddr" disabled="disabled"
+								   placeholder=" 주소를 입력해주세요" />
 						</td>
 					</tr>
 					<tr>
@@ -136,7 +150,7 @@
 								   placeholder=" 입력해주세요" />
 						</td>
 					</tr> -->
-					<tr>
+					<!-- <tr>
 						<td>
 							<label for="final_mileage">final_mileage</label>
 						</td>
@@ -145,8 +159,8 @@
 								   placeholder=" 입력해주세요" />
 						</td>
 					</tr>
-					<tr>
-					<tr>
+					<tr> -->
+				<!-- 	<tr>
 						<td>
 							<label for="accumulated_payment_amount">accumulated_payment_amount</label>
 						</td>
@@ -155,21 +169,21 @@
 								   placeholder=" 입력해주세요" />
 						</td>
 					</tr>
-					<tr>
-						<td>
+					<tr> -->
+				<!-- 		<td>
 							<label for="memberState">memberState</label>
 						</td>
 						<td>
 							<input type="text" id="memberState" name="memberState" 
 								   placeholder=" 입력해주세요" />
 						</td>
-					</tr>
+					</tr> -->
 				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="3">
-							<button type="button" id="addMemberBtn">회원가입</button>
-							<button type="reset"  id="resetBtn" >초기화</button>
+							<button type="button" id="addMemberBtn" disabled="disabled">회원가입</button>
+							<button type="reset"  id="resetBtn" disabled="disabled" >초기화</button>
 						</td>
 						
 					</tr>
@@ -184,10 +198,72 @@
 	
 	<!-- 이 페이지에서 사용될 js file 경로 -->
 	<th:block layout:fragment="customJsFile">
-		<script th:src="@{/js/jquery-3.7.1.js}"></script>
 	</th:block>
 	<th:block layout:fragment="customJs">
 		<script>
+		
+		
+		$(document).ready(function () {
+		    // HTML 문서가 완전히 로드되면 실행되는 함수
+
+		    // 아이디 중복 체크 버튼이 클릭되면 실행되는 함수
+		    $('#checkIdBtn').click(function () {
+		        // 입력된 회원 아이디를 가져옴
+		        const memberId = $('#memberId').val();
+		        if (memberId == null || memberId === '') {
+		            // 회원 아이디가 비어있으면 경고 메시지 출력
+		            alert('회원 아이디를 입력해주세요');
+		            $('#memberId').focus();
+		            return;
+		        }
+
+		        // 중복 아이디 체크를 위한 AJAX 요청
+		        const request = $.ajax({
+		            url: '/admin/member/checkId',
+		            method: 'POST',
+		            data: {'memberId': memberId},
+		            dataType: 'JSON'
+		        });
+
+		        // AJAX 요청이 성공했을 때 실행되는 함수
+		        request.done(function (res) {
+		            // 서버에서 받은 응답 데이터를 isDuplicate 변수에 저장
+		            const isDuplicate = res;
+		            console.log(isDuplicate);
+
+		            // 중복된 아이디가 존재하는 경우
+		            if (isDuplicate) {
+		                // 경고 메시지 출력 및 포커스 설정
+		                $('#checkAlert').text('입력하신 아이디로 회원가입이 불가합니다.').css('color', 'red');
+		                $('#memberId').focus();
+		            } else {
+		                // 중복이 아닌 경우
+		                // 폼 요소들을 활성화하고 안내 메시지 출력
+		                $('#addMemberForm input').prop('disabled', false);
+		                $('#addMemberForm button').prop('disabled', false);
+		                $('#addMemberForm select').prop('disabled', false);
+		                $('#checkAlert').text('사용 가능한 아이디입니다.').css('color', 'green');
+		            }
+		        });
+
+		        // AJAX 요청이 실패했을 때 실행되는 함수
+		        request.fail(function (jQXHR, textStatus, error) {
+		            console.log(error);
+		        });
+		    });
+		});
+
+			// 초기화버튼 이벤트
+			$('#resetBtn').click(function(e){
+				e.preventDefault();
+				$('#addMemberForm input').not('#memberId').prop('disabled', true);
+				$('#addMemberForm button').not('#checkIdBtn').prop('disabled', true);
+				$('#addMemberForm select').prop('disabled', true);
+				$('#checkAlert').text('');
+				$('#addMemberForm input').val('');
+			});
+			
+			// 유효성검사
 		$('#addMemberBtn').click(function(){
 			let isValid = true;
 			
