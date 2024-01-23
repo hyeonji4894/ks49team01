@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class AdminCloseSchool {
 	private String closeSchoolCode;
+	private String closeSchoolName;
 	private String memberId;
 	private String closeSchoolImg;
 	private String closeSchoolArea;

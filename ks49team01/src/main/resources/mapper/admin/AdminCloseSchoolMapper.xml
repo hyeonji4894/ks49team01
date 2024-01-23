@@ -4,6 +4,7 @@
 
 	<resultMap type="AdminCloseSchool" id="closeSchoolResultMap">
 		<id column="close_school_code" property="closeSchoolCode"/>
+		<result column="close_school_name" 				property="closeSchoolName"/>
 		<result column="member_id" 				property="memberId"/>
 		<result column="close_school_img" 		property="closeSchoolImg"/>
 		<result column="close_school_area" 			property="closeSchoolArea"/>
@@ -15,9 +16,26 @@
 		<result column="view_map_img" 		property="viewMapImg"/>
 	</resultMap>
 	
+	<select id="getCloseSchoolSearch" resultMap="closeSchoolResultMap" parameterType="String">
+		/* 폐교 검색 */
+		SELECT
+			cs.close_school_code,
+			cs.close_school_name,
+			cs.branch_current_situation,
+			cs.member_id
+		FROM
+			close_school AS cs
+		<where>
+			<if test="searchValue != null and searchValue != ''">
+				cs.close_school_name LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+		</where>
+	</select>
+	
  	<select id="getCloseSchool" resultMap="closeSchoolResultMap">
  		SELECT
 			close_school_code,
+			close_school_name,
 			member_id,
   			close_school_img,
 			close_school_area,
@@ -31,5 +49,30 @@
 			close_school
 		WHERE
 			close_school.close_school_code = close_school_code;
+ 	</select>
+ 	
+ 	<select id="getCloseSchoolSearchTotal" resultMap="closeSchoolResultMap" parameterType="list">
+ 		/* 폐교 조건별 전체 검색 */
+ 		SELECT
+			close_school_code,
+			close_school_name,
+			member_id,
+  			close_school_img,
+			close_school_area,
+			SD_EDU_OFFC_DIV_NM,
+			branch_current_situation,
+			purchase_amount,
+			system_registration_date,
+			last_modified_date,
+			view_map_img
+		FROM
+			close_school
+		<where>
+			<foreach collection="paramList" item="item">
+				<if test="item.searchKey != null and item.searchKey != ''">
+					AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue} ,'%')		
+				</if>
+			</foreach>
+		</where>
  	</select>
 </mapper>

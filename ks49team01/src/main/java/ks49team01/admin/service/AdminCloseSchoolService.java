@@ -13,9 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 @Slf4j
+@AllArgsConstructor
 public class AdminCloseSchoolService {
 
-	private AdminCloseSchoolMapper adminCloseSchoolMapper;
+	private final AdminCloseSchoolMapper adminCloseSchoolMapper;
 	
 	public void addCloseSchool(AdminCloseSchool adminCloseSchool) {
 		log.info("폐교 목록 전 adminCloseSchool : {}", adminCloseSchool);
