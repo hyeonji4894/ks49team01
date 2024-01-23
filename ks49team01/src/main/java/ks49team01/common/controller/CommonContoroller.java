@@ -14,5 +14,20 @@ public class CommonContoroller {
 		return "common/index";
 	}
 	
-
+	/**
+	 * 템플릿 경로 PAGE1
+	 * @return
+	 */
+	@GetMapping("/common/page1")
+	public String page1() {
+		return "admin/refer_page/page1";
+	}
+	/**
+	 * 템플릿 경로 PAGE2
+	 * @return
+	 */
+	@GetMapping("/common/page2")
+	public String page2() {
+		return "admin/refer_page/page2";
+	}
 }

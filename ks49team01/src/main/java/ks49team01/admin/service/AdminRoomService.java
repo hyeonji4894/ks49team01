@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AdminRoomService {
 	
-	private AdminRoomMapper adminRoomMapper;
+	private final AdminRoomMapper adminRoomMapper;
 	
 	public List<AdminRoom> getRoomInfoList(){
 		

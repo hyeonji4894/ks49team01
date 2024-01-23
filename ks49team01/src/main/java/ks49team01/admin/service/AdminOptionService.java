@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AdminOptionService {
 	
-	private AdminOptionMapper adminOptionMapper;
+	private final AdminOptionMapper adminOptionMapper;
 	
 	/**
 	 * 객실옵션 목록

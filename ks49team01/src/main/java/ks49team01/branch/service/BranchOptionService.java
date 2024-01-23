@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class BranchOptionService {
 
-	private BranchOptionMapper branchOptionMapper;
+	private final BranchOptionMapper branchOptionMapper;
 	
 	
 	public List<BranchRoomOption> getOptionList(){
