@@ -24,18 +24,18 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<table class="table">
-	        <thead>
+		<table class="table table-bordered table-hover text-center search-result">
+	        <thead class="h5 text-dark">
 	            <tr>
-	                <th scope="col">비수기/성수기</th>
-	                <th scope="col">요일</th>
-	                <th scope="col">추가금</th>
-	                <th scope="col">등록일자</th>
-	                <th scope="col">등록자아이디</th>
-	                <th scope="col">수정</th>
+	                <th class="font-weight-bolder">비수기/성수기</th>
+	                <th class="font-weight-bolder">요일</th>
+	                <th class="font-weight-bolder">추가금</th>
+	                <th class="font-weight-bolder">등록일자</th>
+	                <th class="font-weight-bolder">등록자아이디</th>
+	                <th class="font-weight-bolder">수정</th>
 	            </tr>
 	        </thead>
-	        <tbody>
+	        <tbody class="border text-dark">
 	            <tr th:if="${branchBySurchargeList != null and not #lists.isEmpty(branchBySurchargeList)}"
 	            	th:each="b : ${branchBySurchargeList}">
 	                <td th:text="${b.lowseasonPeakseason}"></td>
