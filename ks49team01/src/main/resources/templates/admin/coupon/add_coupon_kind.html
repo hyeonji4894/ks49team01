@@ -1,66 +1,133 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/default}">
+	  layout:decorate="~{admin/layout/default2}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">쿠폰관리</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">쿠폰관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">쿠폰종류</a>
+			<a th:href="@{/admin/coupon/addCouponKind}" class="text-muted h4">쿠폰종류</a>
 		</li>
-		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">등록하기</a>
-		</li>
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">등록하기</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-	    <table class="table table-bordered">
-	        <thead>
-	            <tr>
-	                <th scope="col">쿠폰 코드</th>
-	                <th scope="col">등록자 아이디</th>
-	                <th scope="col">쿠폰 이름</th>
-	                <th scope="col">쿠폰 할인 금액</th>
-	                <th scope="col">쿠폰 사용기한</th>
-	                <th scope="col">쿠폰 종류 등록일자</th>                                                                                                                                                   
-	            </tr>
-            </thead>
-            <tbody>
-	            <tr>
-	            	<td>
-	            		<input type="text" id="couponCode" name="couponCode" readonly="readonly" />
-	            	</td>
-	            	<td>
-	            		<input type="text" id="memberId" name="memberId" readonly="readonly" />
-	            	</td>
-	            	<td>
-	            		<input type="text" id="couponName" name="couponName" />
-	            	</td>
-	            	<td>
-	            		<input type="text" id="couponPrice" name="couponPrice" />
-	            	</td>
-	            	<td>
-	            		<input type="text" id="couponDueDate" name="couponDueDate" />
-	            	</td>
-	            	<td>
-	            		<input type="text" id="couponKindRegisterDAte" name="couponKindRegisterDAte" readonly="readonly" />
-	            	</td>
-	            </tr>
-	        </tbody>
-	    </table>
-		<div style="float: right;">
-			<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/coupon/getCouponKind}">쿠폰등록</a>
-		</div>                  
+		
+		<div class="card mb-4">
+			<div class="card-body ml-4 mr-4">
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">쿠폰 코드</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponCode" id="couponCode">
+					</div>
+				</div>
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">쿠폰 이름</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponName" id="couponName">
+					</div>
+				</div>				
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">쿠폰 할인금액</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponPrice" id="couponPrice">
+					</div>
+				</div>					
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">쿠폰 사용기한</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponName" id="couponName">
+					</div>
+				</div>				
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">쿠폰종류 등록일자</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponName" id="couponName">
+					</div>
+				</div>				
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">등록자 아이디</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponName" id="couponName">
+					</div>
+				</div>													
+			</div>
+				<div class="row mb-3">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/coupon/getCouponKind}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="button" class="btn btn-outline-success" id="addBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        등록</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>&emsp;
+		                </div>
+				   	</div>
+				</div>
+		</div>    	
 	</th:block>
+	
+	
+	<th:block layout:fragment="customJs">
+		<script>
+
+		
+		
+		</script>
+	</th:block>
+	
 </html>
+

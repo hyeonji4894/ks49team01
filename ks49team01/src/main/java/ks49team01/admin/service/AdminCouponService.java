@@ -1,7 +1,6 @@
 package ks49team01.admin.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,16 +26,25 @@ public class AdminCouponService {
 		return adminCouponMapper.getCouponKind();
 	}
 	
+
 	/**
-	 * 쿠폰 종류 검색
-	 * @param searchMap
+	 * 쿠폰 이름 검색
 	 * @return
 	 */
-	
-	public List<AdminCoupon> getSearchForCouponList(Map<String, Object> searchMap) {
+
+
+	public List<AdminCoupon> getSearchCouponName(String couponName) {
 		
-		return adminCouponMapper.getSearchForCouponList(searchMap);
+		return adminCouponMapper.getSearchCouponName(couponName);
 	}
 	
-	
+	/**
+	 * 쿠폰 가격 검색
+	 * @param couponPrice
+	 * @return
+	 */
+	public List<AdminCoupon> getSearchCouponPrice(int couponPrice){
+		
+		return adminCouponMapper.getSearchCouponPrice(couponPrice);
+	}
 }

@@ -1,14 +1,13 @@
 package ks49team01.admin.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks49team01.admin.dto.AdminCoupon;
@@ -54,25 +53,26 @@ public class AdminCouponController {
 	return "admin/coupon/remove_coupon_kind";
 	}
 	
-	@PostMapping("/searchForCouponList")
+	@PostMapping("/searchForCouponName")
 	@ResponseBody
-	public List<AdminCoupon> searchForCouponList(@RequestBody Map<String, Object> searchMap) {
+	public List<AdminCoupon> searchForCouponList(@RequestParam(value="searchCouponName") String couponName) {
 		
-		log.info("searchMap: {}", searchMap);
+		log.info("couponName: {}", couponName);
 		
-		String searchKey = (String) searchMap.get("searchKey");
-		if(searchKey != null) {
-			switch (searchKey) {
-				case "couponCode" -> searchKey = "eck.coupon_code";
-				case "memberId" -> searchKey = "eck.member_id";
-				case "couponName" -> searchKey = "eck.coupon_name";
-			}
-			searchMap.put("searchKey", searchKey);
-		}
+		 List<AdminCoupon> searchCouponNameList = adminCouponService.getSearchCouponName(couponName);
 		
-		List<AdminCoupon> couponList = adminCouponService.getSearchForCouponList(searchMap);
+		return searchCouponNameList;
+	}	
+	
+	@PostMapping("/searchForCouponPrice")
+	@ResponseBody
+	public List<AdminCoupon> searchForCouponPrice(@RequestParam(value="searchCouponPrice") int couponPrice) {
 		
-		return couponList;
+		log.info("couponPrice: {}", couponPrice);
+		
+		 List<AdminCoupon> searchCouponPriceList = adminCouponService.getSearchCouponPrice(couponPrice);
+		
+		return searchCouponPriceList;
 	}	
 	
 	@GetMapping("/getCouponKind")
