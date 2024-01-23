@@ -25,6 +25,17 @@
 	
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">	
+		<div class="search">
+			<select id="searchKey">
+				<option value="couponCode">쿠폰 코드</option>
+				<option value="memberId">등록자 아이디</option>
+				<option value="couponName">쿠폰 이름</option>
+			</select>
+			
+			<input type="text" id="searchValue" placeholder="검색어를 입력해주세요.">
+			<button type="button" id="searchBtn">검색</button>
+			
+		</div>
 			<table class="table">
 			 <thead>
 	            <tr>
@@ -38,7 +49,7 @@
 	                <th scope="col">삭제</th>                                                                                                                                            
 	            </tr>
 	         </thead>
-	         <tbody>
+	         <tbody id="tbody">
 	            <tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
 	            	th:each="l : ${adminCouponKind}">
 	                <td th:text="${l.couponCode}"></td>
@@ -55,10 +66,87 @@
 	                </td>
 	            </tr>
 				<tr th:unless="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}">
-					<td colspan="9">등록된 쿠폰이 없습니다.</td>
+					<td colspan="8">등록된 쿠폰이 없습니다.</td>
 				</tr>                            
               </tbody>
             </table>
+	</th:block>
+	
+
+	<th:block layout:fragment="customJs">
+		<script th:inline="javascript">
+			// model 객체 데이터(msg) 바인딩
+			let msg = [[${msg}]];
+			if(msg) alert(msg);
+			
+			$('#searchBtn').click(function(){
+				const searchValue = $('#searchValue').val();
+				
+				if(searchValue == null || searchValue == '') return;
+				
+				// 검색 객체 생성
+				//const searchArr = [];
+				const searchObj = {};
+				// 검색 항목 객체 속성 동적 삽입
+				$('.search select, .search input').each(function(idx, item){
+					//const searchObj = {};
+					searchObj[item.id] = $(item).val();
+					//searchArr.push(searchObj);
+				});
+				
+				console.log(searchObj);
+				//console.log(searchArr);
+				
+				const request = $.ajax({
+					url : '/admin/coupon/searchForCouponList',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(searchObj),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+					const couponList = res;
+					$('#tbody').html(''); // tbody 초기화
+					
+					// 검색항목에 일치된 목록이 없을 경우
+					if(couponList == null || couponList.length < 1){
+						const newTr = $('<tr />');
+						const newTd = $('<td />',{'colspan': 6}).text('검색에 일치되는 내용이 없습니다.');
+						newTr.append(newTd);
+						$('#tbody').append(newTr);
+						return ;
+					}
+					
+					// 검색항목에 일치된 목록이 있을 경우
+					$(couponList).each(function(idx, item){
+						const newTr = $('<tr />');
+						const couponCode = item.couponCode;
+						const newTdCouponCode 	 			= $('<td />').text(item.couponCode);
+						const newTdMemberId	 	 			= $('<td />').text(item.memberId);
+						const newTdCouponName 				= $('<td />').text(item.couponName);
+						const newTdCouponPrice 	 			= $('<td />').text(item.couponPrice);
+						const newTdCouponDueDate 	 		= $('<td />').text(item.couponDueDate);
+						const newTdCouponKindRegisterDate	= $('<td />').text(item.couponKindRegisterDate);
+
+					
+						newTr.append(newTdCouponCode,
+									 newTdMemberId, 
+									 newTdCouponName, 
+									 newTdCouponPrice, 
+									 newTdCouponDueDate, 
+									 newTdCouponKindRegisterDate);
+		
+						
+						$('#tbody').append(newTr);
+					});
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			});
+		</script>
 	</th:block>
 </html>
 

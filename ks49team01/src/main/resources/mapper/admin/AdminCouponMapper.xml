@@ -11,6 +11,30 @@
 		<result column="coupon_kind_register_date" 	property="couponKindRegisterDate"/>
 	</resultMap>
 	
+	
+		<select id="getSearchForCouponList" resultMap="couponResultMap">
+			SELECT
+				eck.coupon_code,
+				eck.member_id,
+				eck.coupon_name,
+				eck.coupon_price,
+				eck.coupon_due_date,
+				eck.coupon_kind_register_date
+			FROM
+				event_coupon_kind AS eck
+		<where>
+			<if test="searchKey != null and searchKey != ''">
+				<choose>
+					<otherwise>					
+						${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		</select>
+		
+	
+	
  	<select id="getCouponKind" resultMap="couponResultMap">
 		SELECT
 			eck.coupon_code,
@@ -21,5 +45,7 @@
 			eck.coupon_kind_register_date
 		FROM
 			event_coupon_kind AS eck;
+			
+			
  	</select>
 </mapper>

@@ -1,11 +1,15 @@
 package ks49team01.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks49team01.admin.dto.AdminCoupon;
 import ks49team01.admin.service.AdminCouponService;
@@ -18,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminCouponController {
 	
-	private AdminCouponService adminCouponService;
+	private final AdminCouponService adminCouponService;
 	
 	@GetMapping("/addCouponKind")
 	public String addCouponKind(Model model){
@@ -49,6 +53,27 @@ public class AdminCouponController {
 		
 	return "admin/coupon/remove_coupon_kind";
 	}
+	
+	@PostMapping("/searchForCouponList")
+	@ResponseBody
+	public List<AdminCoupon> searchForCouponList(@RequestBody Map<String, Object> searchMap) {
+		
+		log.info("searchMap: {}", searchMap);
+		
+		String searchKey = (String) searchMap.get("searchKey");
+		if(searchKey != null) {
+			switch (searchKey) {
+				case "couponCode" -> searchKey = "eck.coupon_code";
+				case "memberId" -> searchKey = "eck.member_id";
+				case "couponName" -> searchKey = "eck.coupon_name";
+			}
+			searchMap.put("searchKey", searchKey);
+		}
+		
+		List<AdminCoupon> couponList = adminCouponService.getSearchForCouponList(searchMap);
+		
+		return couponList;
+	}	
 	
 	@GetMapping("/getCouponKind")
 	public String getCouponKind(Model model){

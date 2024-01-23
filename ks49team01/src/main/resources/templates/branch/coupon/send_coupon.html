@@ -10,25 +10,68 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">쿠폰관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/}" class="text-muted">쿠폰종류</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">조회하기</a>
+		</li>
 	</th:block>
-
+	
 	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">쿠폰 지급</div>
-       		<div class="col-6">4564565/div>
-       	</div>
+	<th:block layout:fragment="customContent">	
+			<table class="table">
+			 <thead>
+	            <tr>
+	                <th scope="col">쿠폰 발행 코드</th>
+	                <th scope="col">쿠폰 발행 가맹점 아이디</th>
+	                <th scope="col">가맹점코드</th>
+	                <th scope="col">쿠폰 코드</th>
+	                <th scope="col">쿠폰 지급받은 회원 아이디</th>
+	                <th scope="col">쿠폰 이름</th>
+	                <th scope="col">할인 금액</th>
+	                <th scope="col">쿠폰 발급일자</th>
+	                <th scope="col">쿠폰 만료일자</th>
+	                <th scope="col">쿠폰 상태</th>	                
+	                <th scope="col">쿠폰 발행 시간</th>	                
+	                <th scope="col">수정</th>
+	                <th scope="col">삭제</th>                                                                                                                                            
+	            </tr>
+	         </thead>
+	         <tbody>
+	            <tr th:if="${branchSendCouponList != null and not #lists.isEmpty(branchSendCouponList)}"
+	            	th:each="l : ${branchSendCouponList}">
+	                <td th:text="${l.couponPrintCode}"></td>
+	                <td th:text="${l.memberId}"></td>
+	                <td th:text="${l.branchCode}"></td>
+	                <td th:text="${l.couponCode}"></td>
+	                <td th:text="${l.couponMemberId}"></td>
+	                <td th:text="${l.couponName}"></td>
+	                <td th:text="${l.couponPrice}"></td>
+	                <td th:text="${l.couponIssueDate}"></td>
+	                <td th:text="${l.couponExpireDate}"></td>
+	                <td th:text="${l.couponState}"></td>
+	                <td th:text="${l.couponRegisterDate}"></td>
+	                <td class="addList">
+	                	<a th:href="@{/branch/coupon/modifyCoupon}">수정</a>
+	                </td>
+	                <td>
+	                	<a th:href="@{/branch/coupon/removeCoupon}">삭제</a>
+	                </td>
+	            </tr>
+				<tr th:unless="${branchSendCouponList != null and not #lists.isEmpty(branchSendCouponList)}">
+					<td colspan="13">지급한 쿠폰이 없습니다.</td>
+				</tr>                            
+              </tbody>
+            </table>
 	</th:block>
 </html>
+
 
 
 
