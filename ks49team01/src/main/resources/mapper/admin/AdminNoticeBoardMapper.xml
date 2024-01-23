@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminNoticeBoardMapper">
+
+<resultMap type="AdminNoticeBoard" id="usersResultMap">
+		<id 	column="notice_board_code" 		property="noticeBoardCode" />
+		<result column="branch_code" 		property="branchCode"/>
+		<result column="member_id" 		property="memberId"/>
+		<result column="notice_board_title" 		property="noticeBoardTitle"/>
+		<result column="notice_board_content" 		property="noticeBoardContent"/>
+		<result column="notice_board_reg_date" 		property="noticeBoardRegDate"/>
+	</resultMap>
+	<select id="getNoticeBoardList" resultMap="usersResultMap">
+	select
+notice_board_code,
+branch_code,
+member_id,
+notice_board_title,
+notice_board_content,
+notice_board_reg_date
+FROM
+notice_board
+	</select>
+</mapper>

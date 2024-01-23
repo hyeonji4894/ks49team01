@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserRoomService {
 	
-	private UserRoomMapper userRoomMapper;
+	private final UserRoomMapper userRoomMapper;
 	
 	public List<UserRoom> getRoomList(){
 		
