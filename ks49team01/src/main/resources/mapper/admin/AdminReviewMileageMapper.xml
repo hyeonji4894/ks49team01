@@ -4,7 +4,6 @@
 
 	<resultMap type="ReviewMileageCriteria" id="ReviewMileageResultMap">
 		<id column="mileage_criteria_code" 					property="mileageCriteriaCode"/>
-		<result column="mileage_criteria_code" 				property="mileageCriteriaCode"/>
 		<result column="member_id" 							property="memberId"/>
 		<result column="mileage_kind" 						property="mileageKind"/>
 		<result column="mileage_amount" 					property="mileageAmount"/>

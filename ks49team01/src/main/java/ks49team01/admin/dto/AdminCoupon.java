@@ -1,5 +1,7 @@
 package ks49team01.admin.dto;
 
+import java.time.LocalDate;
+
 import lombok.Data;
 
 @Data
@@ -8,7 +10,7 @@ public class AdminCoupon {
 	private String couponCode;
 	private String memberId;
 	private String couponName;
-	private String couponPrice;
+	private int couponPrice;
 	private String couponDueDate;
-	private String couponKindRegisterDate;
+	private LocalDate couponKindRegisterDate;
 }

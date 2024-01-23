@@ -4,7 +4,6 @@
 
 	<resultMap type="PaymentCriteriaMileage" id="PaymentMileageResultMap">
 		<id column="roompay_mileage_rate_code" 				property="roompayMileageRateCode"/>
-		<result column="roompay_mileage_rate_code" 			property="roompayMileageRateCode"/>
 		<result column="member_id" 							property="memberId"/>
 		<result column="mileage_grade_name" 				property="mileageGradeName"/>
 		<result column="payment_criteria_mileage_percent" 	property="paymentCriteriaMileagePercent"/>

@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminReviewController {
 	
-	private AdminReviewService adminReviewService;
+	private final AdminReviewService adminReviewService;
 	
 	@GetMapping("/addReviewCategory")
 	public String addReviewCategory(Model model){
