@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import ks49team01.admin.dto.AdminSales;
 
+
 @Mapper
 public interface AdminSalesMapper {
 	List<AdminSales> getBranchSalesList();

@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AdminReservationService {
 	
-	private AdminReservationMapper adminReservationMapper;
+	private final AdminReservationMapper adminReservationMapper;
 	
 	
 	/**

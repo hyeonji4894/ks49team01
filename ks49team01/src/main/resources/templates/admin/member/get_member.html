@@ -72,7 +72,7 @@
 												<td th:text="${l.memberMileage}"></td>
 												<td th:text="${l.memberRegDate}"></td>
 						<td>
-						<a th:href="@{/admin/member/modifyMember}">수정</a>
+						<a th:href="@{/admin/member/modifyMember(memberId=${l.memberId})}">수정</a>
 					</td>
 
 						<td>
