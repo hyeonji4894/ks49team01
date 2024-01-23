@@ -61,9 +61,12 @@ public class UserRoomController {
 	@GetMapping("/roomDetailView")
 	public String roomDetailView(Model model) {
 		
-		model.addAttribute("title", "객실보기");
+		log.info("객실보기");
+		List<UserRoom> roomList = roomService.getRoomList();
+		log.info("roomList: {}" ,roomList);
 		
-		model.addAttribute("title", "객실보기");
+		model.addAttribute("title", "객실보기");		
+		model.addAttribute("roomList", roomList);
 		
 		return "user/room/room_Detail_veiw";
 	}
