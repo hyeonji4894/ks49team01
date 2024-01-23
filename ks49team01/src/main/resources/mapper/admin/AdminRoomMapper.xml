@@ -62,6 +62,10 @@
 			ri.room_registration_date
 		FROM
 			room_information AS ri
+			INNER JOIN
+			branch_management AS bm
+			ON 
+			ri.branch_code = bm.branch_code;
 		<where>
 			<if test="searchBranchName != null and searchBranchName != ''">
 				ri.branch_name LIKE CONCAT('%',  #{searchBranchName}, '%')
