@@ -1,11 +1,13 @@
 package ks49team01.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,11 +28,20 @@ public class AdminCouponController {
 	@GetMapping("/addCouponKind")
 	public String addCouponKind(Model model){
 		
-		log.info("쿠폰 종류 등록");
 		
-		model.addAttribute("title", "쿠폰 종류 등록");
+		return "/admin/coupon/add_coupon_kind";
+	}
+	
+	@PostMapping("/addCouponKind")
+	public String addCouponKind(AdminCoupon adminCoupon){
 		
-	return "admin/coupon/add_coupon_kind";
+		log.info("쿠폰 종류 등록 adminCoupon: {}", adminCoupon);
+		
+		adminCoupon.setMemberId("id001");
+		
+		adminCouponService.addCouponKind(adminCoupon);
+		
+		return "redirect:/admin/coupon/getCouponKind";
 	}
 	
 	@GetMapping("/modifyCouponKind")
@@ -66,14 +77,31 @@ public class AdminCouponController {
 	
 	@PostMapping("/searchForCouponPrice")
 	@ResponseBody
-	public List<AdminCoupon> searchForCouponPrice(@RequestParam(value="searchCouponPrice") int couponPrice) {
+	public List<AdminCoupon> searchCouponPrice(@RequestBody List<Map<String, Object>> paramList){
 		
-		log.info("couponPrice: {}", couponPrice);
+		log.info("paramList:{}" , paramList);
+		paramList.forEach(searchMap -> {
+			String searchKey = (String) searchMap.get("searchKey");
+			switch (searchKey) {
+				case "couponName" -> searchKey = "eck.coupon_name";
+				case "couponMinPrice" -> {
+					searchKey = "eck.coupon_price";
+					searchMap.put("gubun", "min");
+				}
+				case "couponMaxPrice" -> {
+					searchKey = "eck.coupon_price";
+					searchMap.put("gubun", "max");
+				}
+			}
+			searchMap.put("searchKey", searchKey);
+		});
+		log.info("paramList:{}" , paramList);
 		
-		 List<AdminCoupon> searchCouponPriceList = adminCouponService.getSearchCouponPrice(couponPrice);
+		List<AdminCoupon> searchCouponPrice = adminCouponService.getSearchCouponPrice(paramList);
+		log.info("paramList:{}" , searchCouponPrice);
+		return searchCouponPrice;
 		
-		return searchCouponPriceList;
-	}	
+	}
 	
 	@GetMapping("/getCouponKind")
 	public String getCouponKind(Model model){

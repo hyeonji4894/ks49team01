@@ -41,4 +41,52 @@
 			
 			
  	</select>
+ 	
+	<select id="getSearchCouponPrice" resultMap="couponResultMap" parameterType="list"> 
+		SELECT
+			eck.coupon_code,
+			eck.member_id,
+			eck.coupon_name,
+			eck.coupon_price,
+			eck.coupon_due_date,
+			eck.coupon_kind_register_date
+		FROM
+			event_coupon_kind AS eck
+		<where>
+			<foreach collection="paramList" item="item">
+				<choose>
+					<when test="item.searchKey != null and item.searchKey == 'eck.coupon_price' and item.gubun == 'min' and item.searchValue != ''">
+						<![CDATA[AND ${item.searchKey} >= #{item.searchValue}]]>
+					</when>
+					<when test="item.searchKey != null and item.searchKey == 'eck.coupon_price' and item.gubun == 'max' and item.searchValue != ''">
+						<![CDATA[AND ${item.searchKey} <= #{item.searchValue}]]>
+					</when>
+					<otherwise>
+						<if test="item.searchKey != null and item.searchValue != ''">						
+							AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue},'%')										
+						</if>
+					</otherwise>
+				</choose>
+			</foreach>
+		</where>
+	</select>
+	
+	<insert id="addCouponKind" parameterType="AdminCoupon">
+		<selectKey keyProperty="couponCode" resultType="String" order="BEFORE">
+			/* coupon code 자동증가 */
+			SELECT
+				CASE
+				WHEN COUNT(eck.coupon_code) = 0 THEN 'coupon_code_1' 
+				ELSE
+					CONCAT('coupon_code_',(MAX(CAST(SUBSTRING_INDEX(eck.coupon_code,'coupon_code_', -1) AS UNSIGNED))+1))
+				END AS couponCode
+			FROM
+				event_coupon_kind AS eck
+		</selectKey>
+			/* 객실등록 */
+			INSERT INTO event_coupon_kind
+			(coupon_code, coupon_name, coupon_price, coupon_due_date, coupon_kind_register_date, member_id)
+			VALUES
+			(#{coupon_code}, #{coupon_name}, #{coupon_price}, #{coupon_due_date}, CURDATE(), #{member_id})
+	</insert>	
 </mapper>

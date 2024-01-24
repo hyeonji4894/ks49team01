@@ -1,5 +1,7 @@
 package ks49team01.admin.dto;
 
+import java.time.LocalDate;
+
 import lombok.Data;
 
 @Data
@@ -7,11 +9,11 @@ public class AdminReviewCategory {
 
 	private String facilityCode;
 	private String memberId;
-	private String facilityRegisterDate;
+	private LocalDate facilityRegisterDate;
 	private String facilityCategoryContext;
 	
 	private String moodCode;
-	private String moodRegisterDate;
+	private LocalDate moodRegisterDate;
 	private String moodCategoryContext;
 	
 	private String facilityMoodChoiceCode;

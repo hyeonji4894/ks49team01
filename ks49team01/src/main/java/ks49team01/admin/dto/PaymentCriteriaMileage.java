@@ -1,5 +1,7 @@
 package ks49team01.admin.dto;
 
+import java.time.LocalDate;
+
 import lombok.Data;
 
 @Data
@@ -9,7 +11,7 @@ public class PaymentCriteriaMileage {
 	private String memberId;
 	private String mileageGradeName;
 	private String paymentCriteriaMileagePercent;
-	private String paymentCriteriaUpgrade;
-	private String mileageRateRegisterDate;
+	private int paymentCriteriaUpgrade;
+	private LocalDate mileageRateRegisterDate;
 	
 }

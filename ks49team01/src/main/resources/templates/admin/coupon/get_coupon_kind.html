@@ -44,23 +44,23 @@
 		            <div class="col-lg-4">
 		                <label class="form-label card-title font-weight-bolder">쿠폰이름</label>
 		                <div class="input-group">
-		                  <input type="text" class="form-control" readonly="readonly" id="search1Name" name="search1Name">
-		                  <input type="hidden" class="form-control" readonly="readonly" id="search1Code" name="search1Code">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="couponName" name="couponName">
 		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
 		                </div>
 		            </div>&emsp;&emsp;&emsp;
-		            <div class="col-lg-4">
+		            <div class="col-lg-5">
 		                <label class="form-label card-title font-weight-bolder">쿠폰가격</label>
 		                <div class="input-group">
-		                  <input placeholder="$" type="text" class="form-control"><label>&emsp;이하</label>
-		                </div>
+		                  <input placeholder="$" type="text" class="form-control search-items" name="couponMinPrice" id="couponMinPrice"><label>&emsp;이상</label>&emsp;&emsp;
+		                  <input placeholder="$" type="text" class="form-control search-items" name="couponMaxPrice" id="couponMaxPrice"><label>&emsp;이하</label>
+		                </div>		                
 		            </div>
 		          </div>
 		        </div>
 		        <div class="col-lg-2 align-self-center">
 		          <div class="row justify-content-center">
 		            <div class="col-8">
-		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;">
+		              <button id="searchBtn2" class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;">
 		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
 		              </button>
 		            </div>
@@ -107,7 +107,7 @@
                           <th class="font-weight-bolder">등록자 아이디</th>
                       </tr>
                   </thead>
-                  <tbody class="border text-dark">
+                  <tbody class="border text-dark" id="searchCouponTbodys">
 		              <tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
 		            	  th:each="l : ${adminCouponKind}">
 	                 	<td style="width: 5%;">
@@ -190,52 +190,11 @@
                   </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
           </div><!-- /.modal -->
-		  <!-- search modal content -->
-          <div id="search2-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                  	  <div class="modal-header">
-                          <h4 class="modal-title" id="modalTitle2">쿠폰코드검색</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      </div>
-                      <div class="modal-body">
-                         <div class="form-group row justify-content-center">                         	 
-                            <label for="searchItem1" class="col-sm-3 col-form-label card-title font-weight-bolder">쿠폰코드</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="searchItem1" placeholder="검색어를 입력해주세요">
-                            </div>
-                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button">
-                            	<i class="fas fa-search">&ensp;검색</i>
-                            </button>
-                         </div>
-                      </div>
-                      <div class="modal-footer">
-                      	 <div class="table-responsive">
-                             <table class="table table-bordered table-hover text-center">
-                                <thead class="text-dark font-weight-bolder">
-                                    <tr>
-                                        <th>쿠폰코드</th>
-                                        <th>쿠폰이름</th>
-                                        <th>등록자아이디</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="border border-primary searchTb2">
- 	          		 	 			<tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
-			            	 			th:each="l : ${adminCouponKind}">
-                                        <td th:text="${l.couponCode}"></td>
-						                <td th:text="${l.couponName}"></td>
-						                <td th:text="${l.memberId}"></td>
-                                    </tr>
-                                </tbody>
-                              </table>
-                          </div>
-                      </div>
-                  </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
 	</th:block>
 	<th:block layout:fragment="customJs">
 		<script th:inline="javascript">		
+		
+			//couponSearchBtn click
 			$(document).on('click', '#couponSearchBtn', function(){
 				let searchCouponName = $('#searchCouponName').val();
 				searchCouponName??'';
@@ -266,21 +225,72 @@
 		
 			// modal searchTb1 처리
 			$(document).on('click', '.searchTb1 tr', function(){
-				const code = $(this).children().eq(0).text();
-				const name = $(this).children().eq(1).text();
-				$('#search1Name').val(name);
-				$('#search1Code').val(code);
+				
+				const couponName = $(this).children().eq(1).text();
+				$('#couponName').val(couponName);
 				$('#search1-modal').modal('hide');
 			});
 			
-			// modal searchTb2 처리
-			$(document).on('click', '.searchTb2 tr', function(){
-				const code = $(this).children().eq(0).text();
-				const name = $(this).children().eq(1).text();
-				$('#goodsName').val(name);
-				$('#goodsCode').val(code);
-				$('#search2-modal').modal('hide');
+			// 최종 검색 버튼
+			$(document).on('click','#searchBtn2', function(){
+				//const searchValue = $('#searchValue').val();
+				const searchArr = [];
+				$('.search-items').each(function(idx, item){
+					const searchObj = {};
+					searchObj.searchKey = item.id;
+					searchObj.searchValue = item.value;
+					searchArr.push(searchObj);
+				});
+				console.log(searchArr);
+				
+				const request = $.ajax({
+					url : '/admin/coupon/searchForCouponPrice',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(searchArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+					const searchList = res;
+					$('#searchCouponTbodys').html('');
+					if(searchList == null || searchList.length < 1){
+						const newTr = $('<tr />');
+						const newTd = $('<td />',{'colspan': 7}).text('검색에 일치되는 내용이 없습니다.');
+						newTr.append(newTd);
+						$('#searchCouponTbodys').append(newTr);
+						return;
+					}
+					$(searchList).each(function(idx, item){
+						const newTr = $('<tr />');
+						const checkBox = $('<input />', { type:'checkbox', class:'check'});
+						const newTdCheckBox = 					$('<td />').html(checkBox);
+						const newTdcouponCode = 				$('<td />').text(item.couponCode);
+						const newTdcouponName = 				$('<td />').text(item.couponName);
+						const newTdcouponPrice = 				$('<td />').text(item.couponPrice);
+						const newTdcouponDueDate = 				$('<td />').text(item.couponDueDate);
+						const newTdcouponKindRegisterDate = 	$('<td />').text(item.couponKindRegisterDate);
+						const newTdmemberId = 					$('<td />').text(item.memberId);
+						
+						newTr.append(newTdCheckBox,
+									 newTdcouponCode,
+									 newTdcouponName,
+									 newTdcouponPrice,
+									 newTdcouponDueDate,
+									 newTdcouponKindRegisterDate,
+									 newTdmemberId);
+						
+						$('#searchCouponTbodys').append(newTr);
+					});					
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			
 			});
+			
+			
 			
 			// 검색결과 tbody 이벤트
 			$(document).on('click', '.search-result tbody tr', function(e){
