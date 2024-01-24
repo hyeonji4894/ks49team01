@@ -5,6 +5,7 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
+		 <title th:text="${title}">페이지 타이틀</title>
 		<!-- This Page CSS -->
 		<style>
 			.table-bordered, .table-bordered td, .table-bordered th {
@@ -23,13 +24,13 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">회원검색</h4>
+		  <h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2" th:text="${title}">Default Title</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">
 		<li class="breadcrumb-item">
-			<a th:href="@{/default/page1}" class="text-muted h4">회원정보관리</a>
+			<a th:href="@{http://localhost/admin/member/getMember}" class="text-muted h4">회원목록</a>
 		</li>
 		<li class="breadcrumb-item text-muted active h4" aria-current="page">회원검색</li>
 	</th:block>
@@ -49,10 +50,11 @@
                                         <label class="form-label card-title font-weight-bolder">회원구분</label>
                                         <div class="input-group">
                                             <select id="searchKey" class="form-control text-center">
-                                                <option value="memberId">회원 아이디</option>
-                                                <option value="memberName">회원 이름</option>
-                                                <option value="memberBirth">회원 생년월일</option>
-                                                <option value="memberEmail">회원 이메일</option>
+                                                <option value="memberId">아이디</option>
+                                                <option value="memberName">이름</option>
+                                                <option value="memberPhone">전화번호</option>
+                                                <option value="memberEmail">이메일</option>
+                                                <option value="memberBirth">생년월일</option>
                                             </select>
                                         </div>
                                     </div>
@@ -118,8 +120,7 @@
 							<th class="font-weight-bolder">주소</th>
 							<th class="font-weight-bolder">마일리지</th>
 							<th class="font-weight-bolder">회원 등록시간</th>
-							<th class="font-weight-bolder">수정</th>
-							<th class="font-weight-bolder">삭제</th>
+							
                       </tr>
                   </thead>
                   <tbody id="tbody" class="border text-dark">
@@ -138,16 +139,7 @@
 												<td th:text="${l.memberAddr}"></td>
 												<td th:text="${l.memberMileage}"></td>
 												<td th:text="${l.memberRegDate}"></td>
-						<td>
-							<button class="btn waves-effect waves-light btn-outline-primary">
-						<a th:href="@{/admin/member/modifyMember(memberId=${l.memberId})}">수정</a>
-							</button>
-						</td>
-						<td>
-						<button class="btn waves-effect waves-light btn-outline-danger" >
-						<a style="color: red;" th:href="@{/admin/member/removeMember}">삭제</a>
-						</button>
-						</td>
+						
                                         </tr>
                                         <tr th:unless="${userList != null and not #lists.isEmpty(userList)}">
 											<td colspan="12">등록된 회원의 정보가 없습니다.</td>
@@ -268,15 +260,19 @@
 				$('.check').prop('checked', isChecked);
 			});	
 			
-			// 수정버튼
-			$(document).on('click', '#modifyBtn', function(){
-				const checkLength = $('.check:checked').length;
-				if(checkLength > 1) {
-					alert('한개만 선택해주세요.')
-					return;
-				}
-				
-			});
+			 // 수정버튼
+        $(document).on('click', '#modifyBtn', function(){
+            const checkedCheckboxes = $('.check:checked');
+
+            // 체크된 체크박스가 하나인 경우에만 실행
+            if (checkedCheckboxes.length === 1) {
+                const memberId = checkedCheckboxes.closest('tr').find('td:eq(1)').text();
+                window.location.href = '/admin/member/modifyMember?memberId=' + memberId;
+            } else {
+                alert('한 개의 회원만 선택해주세요.');
+            }
+        });
+			
 			
 		</script>
 	</th:block>

@@ -106,6 +106,7 @@ public class AdminUserController {
 		
 		List<AdminUserLevel> addMember = userService.memberLevelList();
 		model.addAttribute("addMember", addMember);
+		model.addAttribute("title", "회원등록");
 
 		
 		return "admin/member/add_member";
@@ -127,6 +128,7 @@ public class AdminUserController {
 				case "memberName" -> searchKey = "m.member_name";
 				case "memberBirth" -> searchKey = "m.member_birth";
 				case "memberEmail" -> searchKey = "m.member_email";
+				case "memberPhone" -> searchKey = "m.member_phone";
 			}
 			searchMap.put("searchKey", searchKey);
 		}
@@ -142,7 +144,7 @@ public class AdminUserController {
 		List<AdminUser> userList = userService.getuserList();
 		
 		log.info("userList: {}", userList);
-		model.addAttribute("title", "회원목록조회");
+		model.addAttribute("title", "회원목록");
 		model.addAttribute("userList", userList);
 		
 		return "admin/member/get_member";
