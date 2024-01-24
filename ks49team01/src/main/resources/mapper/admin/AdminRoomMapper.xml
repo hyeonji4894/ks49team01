@@ -52,7 +52,7 @@
 			ri.room_code,
 			ri.branch_code,
 			ri.registrant_id,
-			ri.branch_name,
+			bm.branch_name,
 			ri.room_name,
 			ri.room_size,
 			ri.room_basic_personnel,
@@ -65,10 +65,10 @@
 			INNER JOIN
 			branch_management AS bm
 			ON 
-			ri.branch_code = bm.branch_code;
+			ri.branch_code = bm.branch_code
 		<where>
 			<if test="searchBranchName != null and searchBranchName != ''">
-				ri.branch_name LIKE CONCAT('%',  #{searchBranchName}, '%')
+				bm.branch_name LIKE CONCAT('%',  #{searchBranchName}, '%')
 			</if>
 		</where>
 	</select>
@@ -126,4 +126,59 @@
 			</foreach>
 		</where>
 	</select>
+	<delete id="removeRoomInfo" parameterType="String">
+		/* 객실 삭제 */
+		DELETE 
+		FROM 
+			room_information 
+		WHERE 
+			room_code=#{roomCode};
+	</delete>
+	
+	<select id="getRoomInfoByCode" parameterType="String" resultMap="roomResultMap">
+	
+		/* 특정 코드로 객실 조회*/
+		SELECT
+			ri.room_code,
+			ri.registrant_id,
+			ri.branch_name,
+			ri.room_name,
+			ri.room_size,
+			ri.room_basic_personnel,
+			ri.room_max_personnel,
+			ri.available_dog_types,
+			ri.room_basic_price,
+			ri.room_registration_date	
+		FROM
+			room_information AS ri
+		WHERE	
+			ri.room_code = #{roomCode};
+	</select>
+	
+	<update id="modifyRoomInfo" parameterType="AdminRoom">
+		/* 특정코드로 객실 수정*/
+		UPDATE room_information
+		<set>
+			<if test="roomName != null and roomName != ''">	
+				room_name=#{roomName},
+			</if>
+			<if test="roomSize != null and roomSize != ''">
+				room_size=#{roomSize},
+			</if>
+			<if test="roomBasicPersonnel != null and roomBasicPersonnel != ''">	
+				room_basic_personnel=#{roomBasicPersonnel},
+			</if>
+			<if test="roomMaxPersonnel != null and roomMaxPersonnel != ''">	
+				room_max_personnel=#{roomMaxPersonnel},
+			</if>
+			<if test="availableDogTypes != null and availableDogTypes != ''">	
+				available_dog_types=#{availableDogTypes},
+			</if>
+			<if test="roomBasicPrice != null and roomBasicPrice != ''">	
+				room_basic_price=#{roomBasicPrice},
+			</if>
+		</set>
+			WHERE
+				room_code=#{roomCode};
+	</update>
 </mapper>

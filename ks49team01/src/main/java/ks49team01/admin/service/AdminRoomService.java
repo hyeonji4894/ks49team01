@@ -36,4 +36,19 @@ public class AdminRoomService {
 		return adminRoomMapper.getRoomInfoList();
 	}
 	
+	// 특정 코드로 객실 조회
+	public AdminRoom getRoomInfoByCode(String roomCode) {
+		
+		AdminRoom roomInfo = adminRoomMapper.getRoomInfoByCode(roomCode);
+		return roomInfo;
+	}
+	
+	// 특정코드로 객실 수정
+	public void modifyroomInfo(AdminRoom adminRoom) {
+		int result = adminRoomMapper.modifyRoomInfo(adminRoom);
+		if(result > 0) log.info("객실 수정 완료");
+	}
+	
+
+	
 }

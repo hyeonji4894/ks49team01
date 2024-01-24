@@ -9,6 +9,16 @@ import ks49team01.admin.dto.AdminRoom;
 
 @Mapper
 public interface AdminRoomMapper {
+	
+	// 객실삭제
+	public int removeRoomInfo(String roomCode);
+	
+	// 특정 코드로 객실 수정
+	public int modifyRoomInfo(AdminRoom adminRoom);
+	
+	// 특정 코드 조회
+	public AdminRoom getRoomInfoByCode(String roomCode);
+	
 	// 가맹점 목록
 	List<Map<String, Object>>getBranchList();
 	

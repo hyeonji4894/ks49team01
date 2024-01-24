@@ -31,7 +31,6 @@ public class AdminRoomController {
 	
 	
 	
-	// 객실 정보
 	
 	@GetMapping("/removeRoomInfo")
 	public String removeRoomInfo(Model model) {
@@ -42,12 +41,28 @@ public class AdminRoomController {
 		return "admin/room/remove_room_info";
 	}
 	
+	
+	
+	@PostMapping("/modifyRoomInfo")
+	public String modifyRoomInfo(AdminRoom adminRoom, HttpSession session ) {
+		log.info("객실수정 : {}" , adminRoom);
+		
+		// 특정코드로 수정
+		roomService.modifyroomInfo(adminRoom);
+		
+		return "redirect:/admin/room/roomInfo";
+	}
+	
 	@GetMapping("/modifyRoomInfo")
-	public String modifyRoomInfo(Model model) {
+	public String modifyRoomInfo(@RequestParam(value = "roomCode")String roomCode
+								,Model model) {
 		
-		log.info("객실정보수정");
+		log.info("수정화면 roomCode : {}", roomCode);
 		
-		model.addAttribute("pageTitle", "객실정보수정");
+		//  특정코드 조회
+		AdminRoom roomInfo = roomService.getRoomInfoByCode(roomCode);
+		
+		model.addAttribute("roomInfo", roomInfo);
 		
 		return "admin/room/modify_room_info";
 	}
