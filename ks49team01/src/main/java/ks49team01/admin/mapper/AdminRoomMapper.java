@@ -9,9 +9,17 @@ import ks49team01.admin.dto.AdminRoom;
 
 @Mapper
 public interface AdminRoomMapper {
+	//객실 예약 삭제
+	public int removeRoomReservation(List<String> paramList);
+	
+	// 객실 이미지 삭제
+	public int removeRoomImg(List<String> paramList);
+	
+	// 객실 리뷰 삭제
+	public int removeRoomReview(List<String> paramList);
 	
 	// 객실삭제
-	public int removeRoomInfo(String roomCode);
+	public int removeRoomInfo(List<String> paramList);
 	
 	// 특정 코드로 객실 수정
 	public int modifyRoomInfo(AdminRoom adminRoom);

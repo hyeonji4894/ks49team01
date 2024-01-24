@@ -31,14 +31,14 @@ public class AdminRoomController {
 	
 	
 	
-	
-	@GetMapping("/removeRoomInfo")
-	public String removeRoomInfo(Model model) {
+	@PostMapping("/removeRoomInfo")
+	@ResponseBody
+	public String removeRoomInfo(@RequestBody List<String> paramList){
 		
-		
-		model.addAttribute("pageTitle", "객실삭제");
-		
+		log.info("객실삭제 : {}" , paramList);
+		roomService.removeRoomInfo(paramList);
 		return "admin/room/remove_room_info";
+		
 	}
 	
 	

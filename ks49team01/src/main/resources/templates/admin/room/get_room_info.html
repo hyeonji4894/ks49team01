@@ -353,7 +353,7 @@
 				
 			});
 			
-			// 삭제 버튼
+			// 삭제 버튼			
 			$(document).on('click', '#delBtn', function(){
 				const checkLength = $('.check:checked').length;
 				
@@ -363,15 +363,49 @@
 				}
 				var chkArr = $('input:checkbox[name="check"]'); 
 				var newChkArr=[];
+				
 				for(var i=0; chkArr.length > i; i++){
 					if($(chkArr[i]).is(":checked")){
 						newChkArr.push($(chkArr[i]).data('roomCode'));
 					}
 				}
-				console.log(newChkArr);
-				
-				
+				console.log(newChkArr);	
+				const request = $.ajax({
+					url : '/admin/room/removeRoomInfo',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(newChkArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+								
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
 			})
+			
+			
+			
+/* 			// 삭제 
+			$('#delBtn').click(function(){
+				if($('#searchRoomTbody tr').length == 0){
+					return ;
+				}
+					let isInclude = false;
+					const checkedEle = $('.check:checked');
+					const lastCheckEle = $('#searchRoomTbody tr').last().find('.check')[0];
+					console.log(lastCheckEle);
+					checkedEle.each(function(idx, item){
+							if(item == lastCheckEle){
+									isInclude = true;
+									console.log(item);
+									return false;
+							}
+					});
+				}); */
 			
 			
 		</script>
