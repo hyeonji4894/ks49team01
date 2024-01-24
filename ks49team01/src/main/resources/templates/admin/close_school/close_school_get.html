@@ -28,7 +28,7 @@
 		            </div>
 		            <div class="modal-body">
 		                <!-- 결과를 표시할 요소 추가 -->
-		                <div id="searchResult">
+		                <div>
 		                    <!-- 결과가 여기에 표시됩니다. -->
 		                </div>
 		            </div>
@@ -82,7 +82,7 @@
 			            			</td>
 									<td th:text="${l.closeSchoolName}"></td>
 									<td th:text="${l.closeSchoolImg}"></td>
-									<td th:text="${l.closeSchoolArea}"></td>
+									<td th:text="|${#numbers.formatInteger(l.closeSchoolArea, 3, 'COMMA')}㎡|"></td>
 									<td th:text="${l.coordinate}"></td>
 									<td th:text="${l.branchCurrentSituation}"></td>
 									<td th:text="|₩ ${#numbers.formatInteger(l.purchaseAmount, 3, 'COMMA')}|"></td>
@@ -179,11 +179,11 @@
 		    		</div>	    	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{modifyListCloseShool}"><i class="fas fas fa-pencil-alt"></i>
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/closeSchool/addCloseSchool}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
                            <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
                                수정</button>
-                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>	
                                삭제</button>
                        </div>
 			    	</div>
@@ -207,7 +207,7 @@
 	                		<th scope="col">등록자 아이디</th>
                      	</tr>
                   </thead>
-                  <tbody class="border text-dark">
+                  <tbody class="border text-dark" id="searchResult">
                      <tr th:if="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}"
 						th:each="l : ${closeSchoolList}">
 						<td>
@@ -215,7 +215,7 @@
             			</td>
 						<td th:text="${l.closeSchoolName}"></td>
 						<td th:text="${l.closeSchoolImg}"></td>
-						<td th:text="${l.closeSchoolArea}"></td>
+						<td th:text="|${#numbers.formatInteger(l.closeSchoolArea, 3, 'COMMA')}㎡|"></td>
 						<td th:text="${l.coordinate}"></td>
 						<td th:text="${l.branchCurrentSituation}"></td>
 						<td th:text="|₩ ${#numbers.formatInteger(l.purchaseAmount, 3, 'COMMA')}|"></td>
@@ -420,35 +420,74 @@
 			});
 			
 			// 전체검색
-			$(document).on('click','#totalCloseChoolSearchBtn', function(){
-				const searchArr = [];
-				
-				$('.search-items').each(function(idx, item){
-					const searchObj = {};
-					searchObj.searchKey = item.id;
-					searchObj.searchValue = item.value;
-					searchArr.push(searchObj);
-				});
-				
-				console.log(searchArr);
-				
-				const request = $.ajax({
-					url: '/admin/closeSchool/getCloseSchoolSearchTotal',
-					method:'POST',
-					contentType : 'application/json; charset=utf-8',
-				    data: JSON.stringify(searchArr),
-				    dataType:'json',
-				});
-				request.done(function(res){
-					console.log(res)
+			$(document).on('click', '#totalCloseChoolSearchBtn', function () {
+		    const searchArr = [];
+		
+		    $('.search-items').each(function (idx, item) {
+		        const searchObj = {};
+		        searchObj.searchKey = item.id;
+		        searchObj.searchValue = item.value;
+		        searchArr.push(searchObj);
+		    });
+		    console.log("searchArr 확인 용입니다.", searchArr);
+		
+		    const request = $.ajax({
+		        url: '/admin/closeSchool/getCloseSchoolSearchTotal',
+		        method: 'POST',
+		        contentType: 'application/json; charset=utf-8',
+		        data: JSON.stringify(searchArr),
+		        dataType: 'json',
+		    });
+		
+		    request.done(function (res) {
+		        console.log("res 확인용입니다.", res);
+		       
+		        const  searchTotal = res;
+				$('#searchResult').html('');
+				if(searchTotal == null || searchTotal.length < 1){
+					const newTr = $('<tr />');
+					const newTd = $('<td />',{'colspan': 11}).text('검색에 일치되는 내용이 없습니다.');
+					newTr.append(newTd);
+					$('#searchResult').append(newTr);
+					return;
+				}
+				$(searchTotal).each(function(idx, item){
+					const newTr = $('<tr />');
+					const checkBox = $('<input />', { type:'checkbox', class:'check'});
+					const newTdCheckBox = 					$('<td />').html(checkBox);
+					const newTdcloseSchoolName = 				$('<td />').text(item.closeSchoolName);
+					const newTdcloseSchoolImg = 				$('<td />').text(item.closeSchoolImg);
+					const newTdcloseSchoolArea = 				$('<td />').text(item.closeSchoolArea);
+					const newTdcoordinate = 				$('<td />').text(item.coordinate);
+					const newTdbranchCurrentSituation = 	$('<td />').text(item.branchCurrentSituation);
+					const newTdpurchaseAmount = 					$('<td />').text(item.purchaseAmount);
+					const newTdsystemRegistrationDate = 					$('<td />').text(item.systemRegistrationDate);
+					const newTdlastModifiedDate = 					$('<td />').text(item.lastModifiedDate);
+					const newTdviewMapImg = 					$('<td />').text(item.viewMapImg);
+					const newTdmemberId = 					$('<td />').text(item.memberId);
 					
-				});
-				request.fail(function(jQXHR, textStatus, err){
-					console.log(err);
-				});
-			   
-			});
-			
+					
+					newTr.append(newTdCheckBox,
+							newTdcloseSchoolName,
+							newTdcloseSchoolImg,
+							newTdcloseSchoolArea,
+							newTdcoordinate,
+							newTdbranchCurrentSituation,
+							newTdpurchaseAmount,
+							newTdsystemRegistrationDate,
+							newTdlastModifiedDate,
+							newTdviewMapImg,
+							newTdmemberId);
+					$('#searchResult').append(newTr);
+				});					
+		        
+		    });
+		
+		    request.fail(function (jQXHR, textStatus, err) {
+		        console.log(err);
+		    });
+		});
+					
 			
 			
 		</script>

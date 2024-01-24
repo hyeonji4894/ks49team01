@@ -42,13 +42,13 @@ public class CloseSchoolController{
 		return "admin/close_school/close_school_get";
 	}	
 	
-	@GetMapping("/modifyListCloseShool")
-	public String modifyListCloseShool(Model model) {
+	@GetMapping("/addCloseSchool")
+	public String addCloseShool(Model model) {
 		
-		log.info("modifyListCloseShool");
-		model.addAttribute("page", "폐교목록 수정");
+		log.info("addCloseSchool");
+		model.addAttribute("page", "폐교 등록");
 		
-		return "admin/close_school/close_school_modify";
+		return "admin/close_school/close_school_add";
 	}
 	
 // 폐교 조감도 이미지 Controller	
