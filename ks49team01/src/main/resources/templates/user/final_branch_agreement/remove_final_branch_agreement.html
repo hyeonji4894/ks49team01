@@ -16,17 +16,57 @@
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">가맹신청추가관리</a>
+			<a th:href="@{/}" class="text-muted">가맹신청조회</a>
 		</li>
 		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청목록</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">가맹신청추가1</div>
-       		<div class="col-6">가맹신청추가2</div>
-       	</div>
+	       <table class="table">
+	            <thead>
+	                <tr>
+	                    <th scope="col">최종 계약 코드</th>
+	                    <th scope="col">합격여부 코드</th>
+	                    <th scope="col">신청 폐교</th>
+	                    <th scope="col">가맹 신청자 아이디</th>	                
+	                    <th scope="col">운영 시작일</th>
+	                    <th scope="col">운영 종료일</th>
+	                    <th scope="col">운영 교육 기간</th>
+	                    <th scope="col">입금일 지정</th>	                
+	                    <th scope="col">로열티 지급 기준 %</th>
+	                    <th scope="col">계약금</th>
+	                    <th scope="col">보증금</th>
+	                    <th scope="col">계약금 지불 상태</th>	                
+	                    <th scope="col">최종 가맹점 계약 현황</th>
+	                    <th scope="col">본사 승인자id</th>
+	                    <th scope="col">본사 승인일자</th>	                
+	                </tr>
+	            </thead>
+	            <tbody id="tbody">
+<tr th:if="${userFinalBranchAgreement != null and not #lists.isEmpty(userFinalBranchAgreement)}"
+th:each="e : ${userFinalBranchAgreement}">
+<td th:text="${e.finalContractCode}"></td>
+<td th:text="${e.passOrNotCode}"></td>
+<td th:text="${e.closeSchoolCode}"></td>
+<td th:text="${e.memberId}"></td>
+<td th:text="${e.operationStartDate}"></td>
+<td th:text="${e.operationEndDate}"></td>
+<td th:text="${e.operationEducationPeriod}"></td>
+<td th:text="${e.depositDat}"></td>
+<td th:text="${e.royaltyPaymentCriteria}"></td>
+<td th:text="${e.contractPayment}"></td>
+<td th:text="${e.assurancePayment}"></td>
+<td th:text="${e.depositPaymentStatus}"></td>
+<td th:text="${e.ContractStatus}"></td>
+<td th:text="${e.operationApproveId}"></td>
+<td th:text="${e.operationApproveDate}"></td>
+</tr>
+<tr th:unless="${userFinalBranchAgreement != null and not #lists.isEmpty(userFinalBranchAgreement)}">
+<td colspan="12">조회된 리스트가 없습니다</td>
+</tr>
+</tbody>
+	     </table>
 	</th:block>
 </html>
 

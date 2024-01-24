@@ -23,125 +23,50 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-      <div class="col-12">
-                        <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">가맹점 아이디</th>
-                                                <th scope="col">매장명</th>
-                                                <th scope="col">주소</th>
-                                                <th scope="col">전화번호</th>
-                                                <th scope="col">가맹점대표</th>
-                                                <th scope="col">영업시작일</th>
-                                                <th scope="col">영업종료일</th>
-                                                <th scope="col">영업 시작 후 실사 이미지</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                            <tr>
-                                                <td>id002</td>
-                                                <td>가맹점2호</td>
-                                                <td>부산광역시 부산진구 부전동</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                            <tr>
-                                                <td>id003</td>
-                                                <td>가맹점3호</td>
-                                                <td>울산광역시 남구 신정동</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                            <tr>
-                                                <td>id004</td>
-                                                <td>가맹점4호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                            <tr>
-                                                <td>id018</td>
-                                                <td>가맹점5호</td>
-                                                <td>@fat</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                            <tr>
-                                                <td>id019</td>
-                                                <td>가맹점6호</td>
-                                                <td>@twitter</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                            <tr>
-                                                <td>id020</td>
-                                                <td>가맹점7호</td>
-                                                <td>@twitter</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                            <tr>
-                                                <td>id021</td>
-                                                <td>가맹점8호</td>
-                                                <td>@twitter</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                            <tr>
-                                                <td>id022</td>
-                                                <td>가맹점9호</td>
-                                                <td>@twitter</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                            <tr>
-                                                <td>id023</td>
-                                                <td>가맹점10호</td>
-                                                <td>@twitter</td>
-                                                <td>id001</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                                <td>본사 = 가맹점1호</td>
-                                                <td>서울특별시 강남구 대치동</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+	       <table class="table">
+	            <thead>
+	                <tr>
+	                    <th scope="col">최종 계약 코드</th>
+	                    <th scope="col">합격여부 코드</th>
+	                    <th scope="col">신청 폐교</th>
+	                    <th scope="col">가맹 신청자 아이디</th>	                
+	                    <th scope="col">운영 시작일</th>
+	                    <th scope="col">운영 종료일</th>
+	                    <th scope="col">운영 교육 기간</th>
+	                    <th scope="col">입금일 지정</th>	                
+	                    <th scope="col">로열티 지급 기준 %</th>
+	                    <th scope="col">계약금</th>
+	                    <th scope="col">보증금</th>
+	                    <th scope="col">계약금 지불 상태</th>	                
+	                    <th scope="col">최종 가맹점 계약 현황</th>
+	                    <th scope="col">본사 승인자id</th>
+	                    <th scope="col">본사 승인일자</th>	                
+	                </tr>
+	            </thead>
+	            <tbody id="tbody">
+<tr th:if="${adminFinalBranchAgreement != null and not #lists.isEmpty(adminFinalBranchAgreement)}"
+th:each="e : ${adminFinalBranchAgreement}">
+<td th:text="${e.finalContractCode}"></td>
+<td th:text="${e.passOrNotCode}"></td>
+<td th:text="${e.closeSchoolCode}"></td>
+<td th:text="${e.memberId}"></td>
+<td th:text="${e.operationStartDate}"></td>
+<td th:text="${e.operationEndDate}"></td>
+<td th:text="${e.operationEducationPeriod}"></td>
+<td th:text="${e.depositDat}"></td>
+<td th:text="${e.royaltyPaymentCriteria}"></td>
+<td th:text="${e.contractPayment}"></td>
+<td th:text="${e.assurancePayment}"></td>
+<td th:text="${e.depositPaymentStatus}"></td>
+<td th:text="${e.ContractStatus}"></td>
+<td th:text="${e.operationApproveId}"></td>
+<td th:text="${e.operationApproveDate}"></td>
+</tr>
+<tr th:unless="${adminFinalBranchAgreement != null and not #lists.isEmpty(adminFinalBranchAgreement)}">
+<td colspan="12">조회된 리스트가 없습니다</td>
+</tr>
+</tbody>
+	     </table>
 	</th:block>
 </html>
 

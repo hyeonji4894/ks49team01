@@ -10,39 +10,59 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청목록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/}" class="text-muted">가맹신청조회</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
-		<table>
-			<thead>
-				<tr>
-					<th>회원 아이디</th>
-					<th>회원 비번</th>
-					<th>회원 이름</th>
-				</tr>
-</thead>
-<tbody id="tbody">
-				<tr th:if="${userLsit != null and not #lists.isEmpty(userLsit)}"
-					th:each="l : ${userLsit}">
-					<td th:text="${l.memberId}"></td>
-					<td th:text="${l.memberPW}"></td>
-					<td th:text="${l.memberName}"></td>
-					</tr>
-					</tbody>
-</table>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청목록</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">/get_member.html</div>
-       		<div class="col-6">456</div>
-       	</div>
+	       <table class="table">
+	            <thead>
+	                <tr>
+	                    <th scope="col">가맹 모집 코드</th>
+	                    <th scope="col">폐교 코드</th>
+	                    <th scope="col">본사 아이디</th>
+	                    <th scope="col">지역</th>	                
+	                    <th scope="col">년도</th>
+	                    <th scope="col">모집 회차</th>
+	                    <th scope="col">모집공고 등록 일자</th>
+	                    <th scope="col">모집기한</th>	                
+	                    <th scope="col">모집 진행 상황</th>	                
+	                </tr>
+	            </thead>
+	            <tbody id="tbody">
+<tr th:if="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}"
+th:each="e : ${adminBranchRecruitAnnouncement}">
+<td th:text="${e.branchRecruitCode}"></td>
+<td th:text="${e.closeSchoolCode}"></td>
+<td th:text="${e.memberId}"></td>
+<td th:text="${e.branchRecruitReligion}"></td>
+<td th:text="${e.branchRecruitYear}"></td>
+<td th:text="${e.branchRecruitmentRound}"></td>
+<td th:text="${e.branchRegistrationDate}"></td>
+<td th:text="${e.branchRecruitmentPeriod}"></td>
+<td th:text="${e.recruitmentProgressStatus}"></td>
+</tr>
+<tr th:unless="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}">
+<td colspan="12">조회된 리스트가 없습니다</td>
+</tr>
+</tbody>
+	     </table>
 	</th:block>
 </html>
+
+
+
+
+
+
+
+
+

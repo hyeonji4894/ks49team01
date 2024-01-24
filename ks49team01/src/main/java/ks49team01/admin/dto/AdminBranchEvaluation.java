@@ -5,28 +5,29 @@ import lombok.Data;
 @Data
 public class AdminBranchEvaluation {
 
-	private String gradingCode;
-	private String branchRecruitCode;
 	private String questionCode;
 	private String memberId;
+	private String branchEvaluationRegisterDate;
 	private String listOfBranchEvaluationQuestions;
-	private int applicantResponse;
-	private int scoreAfterGrading;
-	private int branchEvaluationRegisterDate;
-	private String gradingCriteriaCode;
+	private String grading_code;
+	private String branch_recruit_code;
+	private int applicant_response;
+	private int score_after_grading;
+	private String grading_criteria_code;
 	private String standard;
 	private String more;
 	private String under;
-	private int scoreNum;
+	private int score_num;
 	private int score;
-	private int evaluationCriteriaDate;
-	private String passOrNotCode;
-	private int evaluationTotalScore;
-	private int passOrNot;
-	private String totalEvaluationCode;
-	private String closeSchoolCode;
+	private String evaluation_criteria_date;
+	private String pass_or_not_code;
+	private int evaluation_total_score;
+	private String pass_or_not;
+	private String total_evaluation_code;
+	private String close_school_code;
 	private int total;
-	private String registrantId;
-	private String systemRegistrationTime;
-}	
+	private String registrant_id;
+	private String system_registration_time;
 	
+}	
+

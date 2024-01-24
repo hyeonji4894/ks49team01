@@ -10,23 +10,79 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">본사 1차 가맹 평가 질문 삭제</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청목록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">본사 1차 가맹 평가 질문 등록	</a>
+			<a th:href="@{/}" class="text-muted">가맹신청조회</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">본사 1차 가맹 평가 질문 목록</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청목록</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">본사 1차 가맹 평가 질문 등록1</div>
-       		<div class="col-6">본사 1차 가맹 평가 질문 등록2</div>
-       	</div>
+	       <table class="table">
+	            <thead>
+	                <tr>
+	                    <th scope="col">질문 코드</th>
+	                    <th scope="col">본사 아이디</th>
+	                    <th scope="col">평가 질문 등록 일자</th>
+	                    <th scope="col">가맹평가 질문 리스트</th>	                
+	                    <th scope="col">채점 코드</th>
+	                    <th scope="col">가맹 모집 코드</th>
+	                    <th scope="col">가맹 신청자 답변</th>
+	                    <th scope="col">채점 후 점수</th>	                
+	                    <th scope="col">1차 채점 기준 코드</th>
+	                    <th scope="col">기준</th>
+	                    <th scope="col">이상</th>
+	                    <th scope="col">미만</th>	                
+	                    <th scope="col">점수 번호</th>
+	                    <th scope="col">점수</th>
+	                    <th scope="col">가맹 평가 기준 등록 일자</th>
+	                    <th scope="col">합격여부 코드</th>	                
+	                    <th scope="col">1차 평가 합계 점수</th>
+	                    <th scope="col">합격여부</th>
+	                    <th scope="col">평가 총합계 코드</th>
+	                    <th scope="col">신청 폐교</th>	                
+	                    <th scope="col">항목 총 합계</th>
+	                    <th scope="col">등록자아이디</th>
+	                    <th scope="col">가맹신청 총합계 등록 시간</th>	                
+	                </tr>
+	            </thead>
+	            <tbody id="tbody">
+<tr th:if="${adminBranchEvaluation != null and not #lists.isEmpty(adminBranchEvaluation)}"
+th:each="e : ${adminBranchEvaluation}">
+<td th:text="${e.questionCode}"></td>
+<td th:text="${e.memberId}"></td>
+<td th:text="${e.branchEvaluationRegisterDate}"></td>
+<td th:text="${e.listOfBranchEvaluationQuestions}"></td>
+<td th:text="${e.grading_code}"></td>
+<td th:text="${e.branch_recruit_code}"></td>
+<td th:text="${e.applicant_response}"></td>
+<td th:text="${e.score_after_grading}"></td>
+<td th:text="${e.grading_criteria_code}"></td>
+<td th:text="${e.standard}"></td>
+<td th:text="${e.more}"></td>
+<td th:text="${e.under}"></td>
+<td th:text="${e.score_num}"></td>
+<td th:text="${e.score}"></td>
+<td th:text="${e.evaluation_criteria_date}"></td>
+<td th:text="${e.pass_or_not_code}"></td>
+<td th:text="${e.evaluation_total_score}"></td>
+<td th:text="${e.pass_or_not}"></td>
+<td th:text="${e.total_evaluation_code}"></td>
+<td th:text="${e.close_school_code}"></td>
+<td th:text="${e.total}"></td>
+<td th:text="${e.registrant_id}"></td>
+<td th:text="${e.system_registration_time}"></td>
+</tr>
+<tr th:unless="${adminBranchEvaluation != null and not #lists.isEmpty(adminBranchEvaluation)}">
+<td colspan="12">조회된 리스트가 없습니다</td>
+</tr>
+</tbody>
+	     </table>
 	</th:block>
 </html>
 
