@@ -162,7 +162,7 @@ FROM
     accumulated_payment_amount, memberState)
     VALUES
     (#{memberId}, #{mem_level_code}, #{memberPw}, #{memberEmail}, #{memberName},
-    #{memberBirth}, #{memberGender}, #{memberPhone}, #{memberAddr}, CURDATE(), <!-- #{final_mileage} -->0,
+    #{memberBirth}, #{memberGender}, #{memberPhone}, #{memberAddr}, NOW(), <!-- #{final_mileage} -->0,
     <!-- #{accumulated_payment_amount} -->0,<!--  #{memberState} -->'정상회원');
 </insert>
 

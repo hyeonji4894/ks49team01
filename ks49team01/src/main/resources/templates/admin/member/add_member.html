@@ -64,40 +64,42 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<form id="modifyMemberForm" method="post" th:action="@{/admin/member/modifyMember}">
+		<form id="addMemberForm" method="post" th:action="@{/admin/member/addMember}">
 			<div class="card mb-4">
 				<div class="card-body ml-4 mr-4">
 					
 					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">아이디</div>
-						<div class="col-2">
+						<div class="col-4">
 							<input type="text" class="form-control" id="memberId" name="memberId"  >
 						</div>
 						<div>
-							<button type="button" id="checkIdBtn">중복아이디체크</button>
+							<button class="btn waves-effect waves-light btn-success" type="button" id="checkIdBtn">중복아이디체크</button>
 						</div>
+					</div>
+					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">비밀번호</div>
 						<div class="col-4">
-							<input type="text" class="form-control" id="memberPw" name="memberPw">
+							<input disabled="disabled" type="text" class="form-control" id="memberPw" name="memberPw">
 						</div>
 					</div>
 					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">이름</div>
 						<div class="col-4">
-							<input type="text" class="form-control" id="memberName" name="memberName"   >
+							<input disabled="disabled" type="text" class="form-control" id="memberName" name="memberName"   >
 						</div>
 						<div class="col-2 add-form-label border-end">성별</div>
 						<div class="col-4">
 							<div class="form-check form-check-inline">
 		                        <div class="custom-control custom-radio">
-		                            <input type="radio" class="custom-control-input" id="memberMale" name="memberGender" value="남자" checked />
+		                            <input disabled="disabled" type="radio" class="custom-control-input" id="memberMale" name="memberGender" value="남자" checked />
 		                            <label class="custom-control-label" for="memberMale">남자</label>
 		                            
 		                        </div>
 		                    </div>
 		                    <div class="form-check form-check-inline">
 		                        <div class="custom-control custom-radio">
-		                        	<input type="radio" class="custom-control-input" id="memberFemale" name="memberGender" value="여자">
+		                        	<input disabled="disabled" type="radio" class="custom-control-input" id="memberFemale" name="memberGender" value="여자">
 		                            <label class="custom-control-label" for="memberFemale">여자</label>
 		                        </div>
 	                        </div>
@@ -106,10 +108,10 @@
 					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">회원등급</div>
 						<div class="col-5">
-							<select  id="mem_level_code" name="mem_level_code" class="form-control text-center">
-								<option value="">==회원등급을 선택해주세요==</option>
-								<th:block th:if="${memberLevelList != null and not #lists.isEmpty(memberLevelList)}"
-										  th:each="l : ${memberLevelList}" >
+							<select disabled="disabled" id="mem_level_code" name="mem_level_code">
+								<option value="">===회원등급을 선택해주세요===</option>
+								<th:block th:if="${addMember != null and not #lists.isEmpty(addMember)}"
+										  th:each="l : ${addMember}">
 									<option th:value="${l.mem_level_code}" th:text="${l.membership_rating}"></option>
 							</select>
 						</div>
@@ -117,25 +119,25 @@
 					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">이메일</div>
 						<div class="col-4">
-							<input type="email" id="memberEmail" name="memberEmail"  class="form-control"
+							<input  disabled="disabled" type="email" id="memberEmail" name="memberEmail"  class="form-control"
 									   placeholder="예시: example@email.com " />
 						</div>
 						<div class="col-2 add-form-label border-end">전화번호</div>
 						<div class="col-4">
-							<input type="text" id="memberPhone" name="memberPhone"   class="form-control"
+							<input disabled="disabled" type="text" id="memberPhone" name="memberPhone"   class="form-control"
 									   placeholder="예시: 010-1234-5678" />
 						</div>
 					</div>
 					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">생년월일</div>
 						<div class="col-5">
-							<input type="date" class="form-control" placeholder="예시: 2000-01-01"  id="memberBirth" name="memberBirth">
+							<input disabled="disabled" type="date" class="form-control" placeholder="예시: 2000-01-01"  id="memberBirth" name="memberBirth">
 						</div>
 					</div>
 					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">주소</div>
 						<div class="col-10 ">
-							<input type="text" id="memberAddr" name="memberAddr" class="form-control" placeholder=" 주소를 입력해주세요" />
+							<input disabled="disabled" type="text" id="memberAddr" name="memberAddr" class="form-control" placeholder=" 주소를 입력해주세요" />
 						</div>
 					</div>
 					<div class="row mt-4">
@@ -144,7 +146,7 @@
 					   		<div class="btn-list text-right">
 			                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/member/getMember}"><i class=" fas fa-clipboard-list"></i>
 			                        목록</a>
-			                    <button type="button" class="btn btn-outline-success" id="addMemberBtn"><i class="fas fas fa-pencil-alt"></i>
+			                    <button disabled="disabled" type="button" class="btn btn-outline-success" id="addMemberBtn"><i class="fas fas fa-pencil-alt"></i>
 			                        등록</button>
 			                    <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
 			                        재설정</button>
@@ -155,6 +157,8 @@
 			</div>
 		</form>
 	</th:block>
+	
+	
 	<!-- 이 페이지에서 사용될 js file 경로 -->
 	<th:block layout:fragment="customJsFile">
 	</th:block>
@@ -192,17 +196,15 @@
 		            // 중복된 아이디가 존재하는 경우
 		            if (isDuplicate) {
 		                // 경고 메시지 출력 및 포커스 설정
-		                $('#checkAlert').text('입력하신 아이디로 회원가입이 불가합니다.').css('color', 'red');
-		                $('#memberId').focus();
-		            } else {
-		                // 중복이 아닌 경우
-		                // 폼 요소들을 활성화하고 안내 메시지 출력
-		                $('#addMemberForm input').prop('disabled', false);
-		                $('#addMemberForm button').prop('disabled', false);
-		                $('#addMemberForm select').prop('disabled', false);
-		                $('#checkAlert').text('사용 가능한 아이디입니다.').css('color', 'green');
-		            }
-		        });
+		                alert('입력하신 아이디로 회원가입이 불가합니다.');
+						$('#memberId').focus();
+						return;
+					}
+					$('#addMemberForm input').prop('disabled', false);
+					$('#addMemberForm button').prop('disabled', false);
+					$('#addMemberForm select').prop('disabled', false);
+					$('#checkAlert').text('');
+				});
 
 		        // AJAX 요청이 실패했을 때 실행되는 함수
 		        request.fail(function (jQXHR, textStatus, error) {
@@ -239,8 +241,6 @@
 			
 			if(isValid) $('#addMemberForm').submit();
 		});
-	 
-	
 </script>
 </html>
 
