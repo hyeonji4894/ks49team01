@@ -12,7 +12,6 @@ public class AdminReviewReply {
 	private String reviewNum;
 	private int reviewReplyNum;
 	private String reviewReplyContext;
-	private String reviewReplyName;
 	private LocalDateTime reviewReplyRegisterTime;
 	
 }

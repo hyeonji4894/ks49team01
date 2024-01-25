@@ -28,20 +28,14 @@ public class AdminReviewService {
 	}
 	
 	/**
-	 * 리뷰 분위기 카테고리 조회
+	 * 리뷰 카테고리 조회
 	 */
-	public List<AdminReviewCategory> getReviewMoodCategory(){
+	public List<AdminReviewCategory> getReviewCategory(){
 		
-		return adminReviewMapper.getReviewMoodCategory();
+		return adminReviewMapper.getReviewCategory();
 	}
 	
-	/**
-	 * 리뷰 시설 카테고리 조회
-	 */
-	public List<AdminReviewCategory> getReviewFacilityCategory(){
-		
-		return adminReviewMapper.getReviewFacilityCategory();
-	}
+
 	
 	/**
 	 * 리뷰 댓글 조회
@@ -49,5 +43,13 @@ public class AdminReviewService {
 	public List<AdminReviewReply> getAdminReviewReply(){
 		
 		return adminReviewMapper.getAdminReviewReply();
+	}
+	
+	/**
+	 * 리뷰 카테고리 내용 검색
+	 */
+	public List<AdminReviewCategory> getSearchCategoryContext(String reviewCategoryContext){
+		
+		return adminReviewMapper.getSearchCategoryContext(reviewCategoryContext);
 	}
 }

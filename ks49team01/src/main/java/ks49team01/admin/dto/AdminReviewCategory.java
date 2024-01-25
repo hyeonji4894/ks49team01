@@ -7,15 +7,11 @@ import lombok.Data;
 @Data
 public class AdminReviewCategory {
 
-	private String facilityCode;
+	private String categoryCode;
 	private String memberId;
-	private LocalDate facilityRegisterDate;
-	private String facilityCategoryContext;
+	private String reviewCategoryKind;
+	private String reviewCategoryContext;
+	private LocalDate reviewCategoryRegisterDate;
+
 	
-	private String moodCode;
-	private LocalDate moodRegisterDate;
-	private String moodCategoryContext;
-	
-	private String facilityMoodChoiceCode;
-	private String chosenCategory;
 }

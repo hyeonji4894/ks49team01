@@ -19,11 +19,11 @@
 				eck.member_id
 			FROM
 				event_coupon_kind AS eck
-		<where>
-			<if test="couponName != null and couponName != ''">
-				eck.coupon_name LIKE CONCAT('%', #{couponName}, '%')
-			</if>
-		</where>
+			<where>
+				<if test="couponName != null and couponName != ''">
+					eck.coupon_name LIKE CONCAT('%', #{couponName}, '%')
+				</if>
+			</where>
 		</select>
 		
 	
@@ -85,8 +85,8 @@
 		</selectKey>
 			/* 객실등록 */
 			INSERT INTO event_coupon_kind
-			(coupon_code, coupon_name, coupon_price, coupon_due_date, coupon_kind_register_date, member_id)
+			(coupon_code, member_id, coupon_name, coupon_price, coupon_due_date, coupon_kind_register_date)
 			VALUES
-			(#{coupon_code}, #{coupon_name}, #{coupon_price}, #{coupon_due_date}, CURDATE(), #{member_id})
+			(#{couponCode}, #{memberId}, #{couponName}, #{couponPrice}, #{couponDueDate}, CURDATE())
 	</insert>	
 </mapper>

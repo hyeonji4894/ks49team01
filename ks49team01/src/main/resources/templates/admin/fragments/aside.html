@@ -96,30 +96,50 @@
 	                    </ul>
 	                </li>
 	                <li class="nav-small-cap">
-	                	<span class="hide-menu">MILEAGE/COUPON (김다운)</span>
+	                	<span class="hide-menu">MILEAGE (김다운)</span>
 	                </li>
 	                <li class="sidebar-item"> 
 	                	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-	                		<span class="hide-menu"> 적립금/쿠폰 </span>
+	                		<span class="hide-menu"> 적립금 </span>
 	                	</a>
 	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
 	                        	<a th:href="@{/admin/mileage/getPaymentCriteriaMileage}" class="sidebar-link">
-	                        		<span class="hide-menu"> 적립률 관리(결제기준) </span>
+	                        		<span class="hide-menu"> 결제기준 적립률 관리 </span>
 								</a>
 	                        </li>
 	                        <li class="sidebar-item">
 	                        	<a th:href="@{/admin/mileage/getReviewMileageCriteria}" class="sidebar-link">
-	                        		<span class="hide-menu"> 적립률 관리(리뷰기준) </span>
+	                        		<span class="hide-menu"> 리뷰기준 적립률 관리 </span>
 								</a>
 	                        </li>
+	                        <li class="sidebar-item">
+	                        	<a th:href="@{/admin/mileage/getMileageList}" class="sidebar-link">
+	                        		<span class="hide-menu"> 적립금 지급내역 </span>
+								</a>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <li class="nav-small-cap">
+	                	<span class="hide-menu">COUPON (김다운)</span>
+	                </li>
+	                <li class="sidebar-item"> 
+	                	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+	                		<span class="hide-menu"> 쿠폰 </span>
+	                	</a>
+	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
 	                        	<a th:href="@{/admin/coupon/getCouponKind}" class="sidebar-link">
 	                        		<span class="hide-menu"> 쿠폰 관리 </span>
 								</a>
 	                        </li>
+	                        <li class="sidebar-item">
+	                        	<a th:href="@{/admin/coupon/getCouponList}" class="sidebar-link">
+	                        		<span class="hide-menu"> 쿠폰 지급내역 </span>
+								</a>
+	                        </li>
 	                    </ul>
-	                </li>
+	                </li>	                
 	                <li class="list-divider"></li>
 	                <li class="nav-small-cap">
 	                	<span class="hide-menu">CLOSE SCHOOL (박시우)</span>

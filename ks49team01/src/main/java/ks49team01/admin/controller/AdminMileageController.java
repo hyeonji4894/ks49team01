@@ -106,4 +106,10 @@ public class AdminMileageController {
 		
 	return "admin/review_mileage/get_review_mileage_criteria";
 	}
+	
+	@GetMapping("/getMileageList")
+	public String getMileageList(Model model) {
+		
+		return "admin/mileage/get_mileage_list";
+	}
 }

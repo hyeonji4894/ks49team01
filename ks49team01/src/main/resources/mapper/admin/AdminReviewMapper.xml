@@ -5,11 +5,13 @@
 	<resultMap type="AdminReview" id="reviewResultMap">
 		<id column="review_num" 				property="reviewNum"/>
 		<result column="member_id" 				property="memberId"/>
+		<result column="branchCode" 			property="branchCode"/>
+		<result column="stay_period_code" 		property="stayPeriodCode"/>
 		<result column="room_code" 				property="roomCode"/>
-		<result column="visit_date" 			property="visitDate"/>
 		<result column="review_context" 		property="reviewContext"/>
 		<result column="review_date" 			property="reviewDate"/>
 		<result column="review_views" 			property="reviewViews"/>
+		<result column="review_file_code" 		property="reviewFileCode"/>
 		
 	</resultMap>
 	
@@ -17,47 +19,52 @@
 		SELECT
 			r.review_num,
 			r.member_id,
+			r.branch_code,
+			r.payments_due_code,
+			r.stay_period_code,
 			r.room_code,
-			r.visit_date,
 			r.review_context,
 			r.review_date,
-			r.review_views
+			r.review_views,
+			r.review_file_code
 		FROM
 			review AS r;
  	</select>
  	
- 		<resultMap type="AdminReviewCategory" id="moodCategoryResultMap">
-		<id column="mood_code" 						property="moodCode"/>
-		<result column="member_id" 					property="memberId"/>
-		<result column="mood_register_date" 		property="moodRegisterDate"/>
-		<result column="mood_category_context" 		property="moodCategoryContext"/>
-		
+ 		<resultMap type="AdminReviewCategory" id="CategoryResultMap">
+		<id column="category_code" 						property="categoryCode"/>
+		<result column="member_id" 						property="memberId"/>
+		<result column="review_category_kind" 			property="reviewCategoryKind"/>
+		<result column="review_category_context" 		property="reviewCategoryContext"/>
+		<result column="review_category_register_date" 	property="reviewCategoryRegisterDate"/>	
 	</resultMap>
 	
- 	<select id="getReviewMoodCategory" resultMap="moodCategoryResultMap">
+ 	<select id="getReviewCategory" resultMap="CategoryResultMap">
 		SELECT
-			rmc.mood_code,
-			rmc.member_id,
-			rmc.mood_register_date,
-			rmc.mood_category_context
+			rc.category_code,
+			rc.member_id,
+			rc.review_category_kind,
+			rc.review_category_context,
+			rc.review_category_register_date
 		FROM
-			review_mood_category AS rmc;
+			review_category AS rc;		
  	</select>
  	
- 		<resultMap type="AdminReviewCategory" id="facilityCategoryResultMap">
-		<id column="facility_code" 					property="facilityCode"/>
-		<result column="member_id" 					property="memberId"/>
-		<result column="facility_register_date" 	property="facilityRegisterDate"/>
-		<result column="facility_category_context" 	property="facilityCategoryContext"/>
-	</resultMap>
-	
- 	<select id="getReviewFacilityCategory" resultMap="facilityCategoryResultMap">
+ 	 	<select id="getReviewCategoryContext" resultMap="CategoryResultMap">
 		SELECT
-			rfc.facility_code,
-			rfc.member_id,
-			rfc.facility_register_date,
-			rfc.facility_category_context
+			rc.category_code,
+			rc.member_id,
+			rc.review_category_kind,
+			rc.review_category_context,
+			rc.review_category_register_date
 		FROM
-			review_facility_category AS rfc;
+			review_category AS rc
+		<where>
+			<if test="reviewCategoryContext != null and reviewCategoryContext != ''">
+				rc.review_category_context LIKE CONCAT('%', #{reviewCategoryContext}, '%')
+			</if>
+		</where>				
  	</select>
+ 	
+
 </mapper>

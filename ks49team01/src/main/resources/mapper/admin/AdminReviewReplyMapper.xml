@@ -8,7 +8,6 @@
 		<result column="review_num" 					property="reviewNum"/>
 		<result column="review_reply_num" 				property="reviewReplyNum"/>
 		<result column="review_reply_context" 			property="reviewReplyContext"/>
-		<result column="review_reply_name" 				property="reviewReplyName"/>
 		<result column="review_reply_register_time" 	property="reviewReplyRegisterTime"/>
 	</resultMap>
 	
@@ -19,7 +18,6 @@
 			rr.review_num,
 			rr.review_reply_num,
 			rr.review_reply_context,
-			rr.review_reply_name,
 			rr.review_reply_register_time
 		FROM
 			review_reply AS rr;

@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks49team01.admin.dto.AdminReview;
 import ks49team01.admin.dto.AdminReviewCategory;
@@ -52,18 +55,29 @@ public class AdminReviewController {
 	return "admin/review_category/remove_review_category";
 	}
 	
+	
+	@PostMapping("/searchForCategoryContext")
+	@ResponseBody
+	public List<AdminReviewCategory> searchForCategoryContext(@RequestParam(value="searchCategoryContext") String reviewCategoryContext) {
+		
+		log.info("reviewCategoryContext: {}" ,reviewCategoryContext);
+		
+		List<AdminReviewCategory> searchCategoryContext = adminReviewService.getSearchCategoryContext(reviewCategoryContext);
+
+		return searchCategoryContext;
+	}
+	
+	
+	
 	@GetMapping("/getReviewCategory")
 	public String getReviewCategory(Model model){
 		
-		List<AdminReviewCategory> adminMoodReviewCategory = adminReviewService.getReviewMoodCategory();
-		List<AdminReviewCategory> adminFacilityReviewCategory = adminReviewService.getReviewFacilityCategory();
+		List<AdminReviewCategory> adminReviewCategory = adminReviewService.getReviewCategory();
 		
-		log.info("adminMoodReviewCategory: {}", adminMoodReviewCategory);
-		log.info("adminFacilityReviewCategory: {}", adminFacilityReviewCategory);
+		log.info("adminReviewCategory: {}", adminReviewCategory);
 		
 		model.addAttribute("title", "리뷰 카테고리 조회");
-		model.addAttribute("adminMoodReviewCategory", adminMoodReviewCategory);
-		model.addAttribute("adminFacilityReviewCategory", adminFacilityReviewCategory);
+		model.addAttribute("adminReviewCategory", adminReviewCategory);
 		
 	return "admin/review_category/get_review_category";
 	}

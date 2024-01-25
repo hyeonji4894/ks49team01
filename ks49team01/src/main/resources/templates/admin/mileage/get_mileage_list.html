@@ -23,13 +23,13 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">리뷰 카테고리 관리</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">적립금관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted h4">카테고리 종류</a>
+			<a th:href="@{#}" class="text-muted h4">적립금지급내역</a>
 		</li>
 		<li class="breadcrumb-item text-muted active h4" aria-current="page">조회하기</li>
 	</th:block>
@@ -42,25 +42,12 @@
 		        <div class="col-lg-10">
 		          <div class="row mb-3">
 		            <div class="col-lg-4">
-		                <label class="form-label card-title font-weight-bolder">카테고리 내용</label>
+		                <label class="form-label card-title font-weight-bolder">회원아이디</label>
 		                <div class="input-group">
-		                  <input type="text" class="form-control search-items" readonly="readonly" id="reviewCategoryContext" name="reviewCategoryContext">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="couponName" name="couponName">
 		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
 		                </div>
 		            </div>&emsp;&emsp;&emsp;
-		            <div class="col-lg-4">
-		              <label class="form-label card-title font-weight-bolder">카테고리 종류</label>
-		              <div class="row">
-		                <div class="col-12">
-		                  <div class="input-group">
-		                    <select class="form-control text-center">
-		                      <option value="">시설</option>
-		                      <option value="">분위기</option>
-		                    </select>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
 		          </div>
 		        </div>
 		        <div class="col-lg-2 align-self-center">
@@ -81,15 +68,15 @@
 		    		<div class="col-sm-3 d-flex align-items-end">		    		
 				    	<h5 class="card-title">
 					    	[ 전체 &nbsp;
-					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(adminReviewCategory)}"></label> 건
+					    	<label id="listCnt" class="text-info mb-0">100</label> 건
 					    	&nbsp;|&nbsp;  
-					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(adminReviewCategory)}"></label> 건
+					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
 					    	]
 				    	</h5>
 		    		</div>	    	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/review/addReviewCategory}"><i class="fas fas fa-pencil-alt"></i>
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{#}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
                            <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
                                수정</button>
@@ -105,26 +92,28 @@
                       	  <th style="width: 5%;">
                             <input type="checkbox" id="allCheck">
                       	  </th>
-                          <th class="font-weight-bolder">카테고리 코드</th>
-                          <th class="font-weight-bolder">카테고리 종류</th>
-                          <th class="font-weight-bolder">카테고리 내용</th>
+                          <th class="font-weight-bolder">쿠폰 코드</th>
+                          <th class="font-weight-bolder">쿠폰 이름</th>
+                          <th class="font-weight-bolder">쿠폰 할인금액</th>
+                          <th class="font-weight-bolder">쿠폰 사용기한</th>
+                          <th class="font-weight-bolder">쿠폰종류 등록일자</th>
                           <th class="font-weight-bolder">등록자 아이디</th>
-                          <th class="font-weight-bolder">카테고리 등록일자</th>
                       </tr>
                   </thead>
-                  <tbody class="border text-dark" id="searchCategoryTbodys">
-		              <tr th:if="${adminReviewCategory != null and not #lists.isEmpty(adminReviewCategory)}"
-		            	  th:each="l : ${adminReviewCategory}">
+                  <tbody class="border text-dark" id="searchCouponTbodys">
+		              <tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
+		            	  th:each="l : ${adminCouponKind}">
 	                 	<td style="width: 5%;">
 	                    	<input type="checkbox" class="check">
 	                  	</td>			              
-		                <td th:text="${l.categoryCode}"></td>
-		                <td th:text="${l.reviewCategoryKind}"></td>
-		                <td th:text="${l.reviewCategoryContext}"></td>
+		                <td th:text="${l.couponCode}"></td>
+		                <td th:text="${l.couponName}"></td>
+		                <td th:text="${l.couponPrice}"></td>
+		                <td th:text="${l.couponDueDate}"></td>
+		                <td th:text="${l.couponKindRegisterDate}"></td>
 		                <td th:text="${l.memberId}"></td>
-		                <td th:text="${l.reviewCategoryRegisterDate}"></td>
                       </tr>
-                  </tbody>                  
+                  </tbody>
                 </table>
 			    <div class="row justify-content-center mt-5">
 			    	<div class="col-10">			    	
@@ -156,16 +145,16 @@
               <div class="modal-dialog">
                   <div class="modal-content">
                   	  <div class="modal-header">
-                          <h4 class="modal-title" id="modalTitle1">카테고리 검색</h4>
+                          <h4 class="modal-title" id="modalTitle1">쿠폰이름검색</h4>
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                       </div>
                       <div class="modal-body">
                          <div class="form-group row justify-content-center">                         	 
-                            <label for="searchItem1" class="col-sm-3 col-form-label card-title font-weight-bolder">내용</label>
+                            <label for="searchItem1" class="col-sm-3 col-form-label card-title font-weight-bolder">쿠폰이름</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="searchCategoryContext" placeholder="검색어를 입력해주세요">
+                                <input type="text" class="form-control" id="searchCouponName" placeholder="검색어를 입력해주세요">
                             </div>
-                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button" id="categorySearchBtn">
+                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button" id="couponSearchBtn">
                             	<i class="fas fa-search">&ensp;검색</i>
                             </button>
                          </div>
@@ -175,20 +164,19 @@
                              <table class="table table-bordered table-hover text-center">
                                 <thead class="text-dark font-weight-bolder">
                                     <tr>
-                                        <th>카테고리코드</th>
-                                        <th>카테고리내용</th>
+                                        <th>쿠폰코드</th>
+                                        <th>쿠폰이름</th>
                                         <th>등록자아이디</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border border-dark searchTb1">
-	          		 	 			<tr th:if="${adminReviewCategory != null and not #lists.isEmpty(adminReviewCategory)}"
-			            	 			th:each="l : ${adminReviewCategory}">
-                                        <td th:text="${l.categoryCode}"></td>
-						                <td th:text="${l.reviewCategoryContext}"></td>
+	          		 	 			<tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
+			            	 			th:each="l : ${adminCouponKind}">
+                                        <td th:text="${l.couponCode}"></td>
+						                <td th:text="${l.couponName}"></td>
 						                <td th:text="${l.memberId}"></td>
-                                    </tr>                                   
+                                    </tr>
                                 </tbody>
-                            
                               </table>
                           </div>
                       </div>
@@ -199,14 +187,14 @@
 	<th:block layout:fragment="customJs">
 		<script th:inline="javascript">		
 		
-			//categorySearchBtn click
-			$(document).on('click', '#categorySearchBtn', function(){
-				let searchCategoryContext = $('#searchCategoryContext').val();
-				searchCategoryContext??'';
+			//couponSearchBtn click
+			$(document).on('click', '#couponSearchBtn', function(){
+				let searchCouponName = $('#searchCouponName').val();
+				searchCouponName??'';
 				const request = $.ajax({
-					url:'/admin/review/searchForCategoryContext',
+					url:'/admin/coupon/searchForCouponName',
 					method:'POST',
-					data:{'searchCategoryContext' : searchCategoryContext},
+					data:{'searchCouponName' : searchCouponName},
 					dataType:'json',
 				});
 				request.done(function(res){
@@ -215,8 +203,8 @@
 					let content = '';
 					$(res).each(function(idx, item){						
 						content += `<tr>`;
-						content += `	<td>${item.categoryCode}</td>`;
-						content += `	<td>${item.reviewCategoryContext}</td>`;
+						content += `	<td>${item.couponCode}</td>`;
+						content += `	<td>${item.couponName}</td>`;
 						content += `	<td>${item.memberId}</td>`;
 						content += `</tr>`;						
 					});
@@ -231,11 +219,70 @@
 			// modal searchTb1 처리
 			$(document).on('click', '.searchTb1 tr', function(){
 				
-				const reviewCategoryContext = $(this).children().eq(1).text();
-				$('#reviewCategoryContext').val(reviewCategoryContext);
+				const couponName = $(this).children().eq(1).text();
+				$('#couponName').val(couponName);
 				$('#search1-modal').modal('hide');
-				
 			});
+			
+			// 최종 검색 버튼
+			$(document).on('click','#searchBtn2', function(){
+				//const searchValue = $('#searchValue').val();
+				const searchArr = [];
+				$('.search-items').each(function(idx, item){
+					const searchObj = {};
+					searchObj.searchKey = item.id;
+					searchObj.searchValue = item.value;
+					searchArr.push(searchObj);
+				});
+				console.log(searchArr);
+				
+				const request = $.ajax({
+					url : '/admin/coupon/searchForCouponPrice',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(searchArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+					const searchList = res;
+					$('#searchCouponTbodys').html('');
+					if(searchList == null || searchList.length < 1){
+						const newTr = $('<tr />');
+						const newTd = $('<td />',{'colspan': 7}).text('검색에 일치되는 내용이 없습니다.');
+						newTr.append(newTd);
+						$('#searchCouponTbodys').append(newTr);
+						return;
+					}
+					$(searchList).each(function(idx, item){
+						const newTr = $('<tr />');
+						const checkBox = $('<input />', { type:'checkbox', class:'check'});
+						const newTdCheckBox = 					$('<td />').html(checkBox);
+						const newTdcouponCode = 				$('<td />').text(item.couponCode);
+						const newTdcouponName = 				$('<td />').text(item.couponName);
+						const newTdcouponPrice = 				$('<td />').text(item.couponPrice);
+						const newTdcouponDueDate = 				$('<td />').text(item.couponDueDate);
+						const newTdcouponKindRegisterDate = 	$('<td />').text(item.couponKindRegisterDate);
+						const newTdmemberId = 					$('<td />').text(item.memberId);
+						
+						newTr.append(newTdCheckBox,
+									 newTdcouponCode,
+									 newTdcouponName,
+									 newTdcouponPrice,
+									 newTdcouponDueDate,
+									 newTdcouponKindRegisterDate,
+									 newTdmemberId);
+						
+						$('#searchCouponTbodys').append(newTr);
+					});					
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			
+			});
+			
 			
 			
 			// 검색결과 tbody 이벤트

@@ -10,11 +10,15 @@ import ks49team01.admin.dto.AdminReviewReply;
 
 @Mapper
 public interface AdminReviewMapper {
-
+	//리뷰 목록 검색
 	List<AdminReview> getReviewList();
 	
-	List<AdminReviewCategory> getReviewMoodCategory();
-	List<AdminReviewCategory> getReviewFacilityCategory();
+	//리뷰 카테고리 조회
+	List<AdminReviewCategory> getReviewCategory();
 	
+	//리뷰 댓글 조회
 	List<AdminReviewReply> getAdminReviewReply();
+
+	//리뷰 카테고리 내용 검색
+	List<AdminReviewCategory> getSearchCategoryContext(String reviewCategoryContext);
 }

@@ -115,4 +115,11 @@ public class AdminCouponController {
 		
 	return "admin/coupon/get_coupon_kind";
 	}
+	
+	@GetMapping("/getCouponList")
+	public String getCouponList(Model model) {
+		
+		
+		return "admin/coupon/get_coupon_list";
+	}
 }
