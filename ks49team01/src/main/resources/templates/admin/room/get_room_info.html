@@ -77,9 +77,9 @@
 		    		<div class="col-sm-3 d-flex align-items-end">		    		
 				    	<h5 class="card-title">
 					    	[ 전체 &nbsp;
-					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(roomInfoList)}"></label> 건
 					    	&nbsp;|&nbsp;  
-					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
+					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(roomInfoList)}"></label> 건
 					    	]
 				    	</h5>
 		    		</div>	    	
@@ -387,25 +387,6 @@
 				});
 			})
 			
-			
-			
-/* 			// 삭제 
-			$('#delBtn').click(function(){
-				if($('#searchRoomTbody tr').length == 0){
-					return ;
-				}
-					let isInclude = false;
-					const checkedEle = $('.check:checked');
-					const lastCheckEle = $('#searchRoomTbody tr').last().find('.check')[0];
-					console.log(lastCheckEle);
-					checkedEle.each(function(idx, item){
-							if(item == lastCheckEle){
-									isInclude = true;
-									console.log(item);
-									return false;
-							}
-					});
-				}); */
 			
 			
 		</script>

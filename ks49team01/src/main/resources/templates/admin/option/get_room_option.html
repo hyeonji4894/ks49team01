@@ -37,48 +37,15 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	  <div class="card mb-4">
-		    <div class="card-body">
-		      <div class="row">
-		        <div class="col-lg-8">
-		          <div class="row mb-3">
-		            <div class="col-lg-10">
-		              <label class="form-label card-title font-weight-bolder" >카테고리</label>
-		              <div class="row">
-		                <div class="col-12">
-		                  <div class="input-group">
-		                    <select class="form-control text-center search-items" id="roomOptionCate">
-		                      <option value="">전체</option>
-		                      <option value="옵션">옵션</option>
-		                      <option value="부가서비스">부가서비스</option>
-		                    </select>		                    
-					        <div class="col-lg-4 align-self-center">
-					          <div class="row justify-content-center">
-					            <div class="col-10">
-					              <button id="searchBtn" class="btn btn-primary bg col-10 justify-content-center font-weight-bold display-2" type="button" style="height: 35px;">
-					                <i class="fas fa-search mr-10" style="font-size: 20px;">&ensp;검색</i>
-					              </button>
-					            </div>
-					          </div>
-					        </div>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
 		  <div class="card mb-4">
 		    <div class="card-body">
 		    	<div class="row mb-3">
 		    		<div class="col-sm-3 d-flex align-items-end">		    		
 				    	<h5 class="card-title">
 					    	[ 전체 &nbsp;
-					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(optionList)}"></label> 건
 					    	&nbsp;|&nbsp;  
-					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
+					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(optionList)}"></label> 건
 					    	]
 				    	</h5>
 		    		</div>	    	
@@ -99,7 +66,6 @@
                       <tr>
                       	  <th style="width: 5%;">
                             <input type="checkbox" id="allCheck">
-                      	  </th>
                           <th class="font-weight-bolder">옵션번호</th>
                           <th class="font-weight-bolder">카테고리</th>
                           <th class="font-weight-bolder">옵션 명</th>
@@ -112,7 +78,7 @@
                   	<tr th:if="${optionList != null and not #lists.isEmpty(optionList)}"
                          th:each="o : ${optionList}">
                   		<td style="width: 5%;">
-                        	<input type="checkbox" class="check">
+                        	<input type="checkbox" name="check" class="check" th:data-room-option-number="${o.roomOptionNumber}">
                       	</td>
                         <td th:text="${o.roomOptionNumber}"></td>
                         <td th:text="${o.roomOptionCate}"></td>
@@ -185,7 +151,7 @@
 						return;
 					}
 					$(searchList).each(function(idx, item){
-						const newTr = $('<tr />');
+						const newTr = $('<tr />'); 
 						const roomOptionNumber = item.roomOptionNumber;
 						const checkBox = 						$('<input />', { type:'checkbox', class:'check'});
 						const newTdCheckBox = 					$('<td />').html(checkBox);
@@ -245,10 +211,13 @@
 			// 수정버튼
 			$(document).on('click', '#modifyBtn', function(){
 				const checkLength = $('.check:checked').length;
-				if(checkLength > 1) {
+				
+				if(checkLength != 1) {
 					alert('한개만 선택해주세요.')
 					return;
 				}
+				const roomOptionNumber = $('.check:checked').data('roomOptionNumber')
+				location.href = `/admin/option/modifyRoomOption?roomOptionNumber=${roomOptionNumber}`;
 				
 			});
 			

@@ -44,7 +44,7 @@ public class AdminRoomService {
 	}
 	
 	// 특정코드로 객실 수정
-	public void modifyroomInfo(AdminRoom adminRoom) {
+	public void modifyRoomInfo(AdminRoom adminRoom) {
 		int result = adminRoomMapper.modifyRoomInfo(adminRoom);
 		if(result > 0) log.info("객실 수정 완료");
 	}

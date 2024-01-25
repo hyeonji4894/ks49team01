@@ -11,6 +11,27 @@
 		<result column="room_option_registration_date" 	property="roomOptionRegistrationDate"/>
 	</resultMap>
 	
+	<insert id="addOption" parameterType="AdminOption">
+		<selectKey keyProperty="roomOptionNumber" resultType="String" order="BEFORE">
+			/* 옵션넘버 자동증가*/
+			SELECT
+				CASE
+				WHEN COUNT(ol.room_option_number) = 0 THEN 'option_01' 
+				ELSE
+					CONCAT('option_0',(MAX(CAST(SUBSTRING_INDEX(ol.room_option_number,'option_0', -1) AS UNSIGNED))+1))
+				END AS roomOptionNumber
+			FROM
+				room_option_list AS ol
+		</selectKey>
+			/* 옵션등록 */
+			INSERT INTO room_option_list
+			(room_option_number, room_option_registration_id, room_option_cate, 
+			 room_option_name, room_option_price, room_option_registration_date)
+			VALUES 
+			(#{roomOptionNumber}, #{roomOptionRegistrationId}, #{roomOptionCate},
+			 #{roomOptionName}, #{roomOptionPrice}, CURDATE())
+	</insert>
+	
 	<select id="getOptionList" resultMap="optionResultMap">
 		SELECT
 			ol.room_option_number,
@@ -39,4 +60,39 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="getNumberByOption" parameterType="String" resultMap="optionResultMap">
+		/*옵션 넘버로 옵션 조회*/
+		SELECT
+			ol.room_option_number,
+			ol.room_option_registration_id,
+			ol.room_option_cate,
+			ol.room_option_name,
+			ol.room_option_price,
+			ol.room_option_registration_date
+		FROM
+			room_option_list AS ol
+		WHERE	
+			ol.room_option_number = #{roomOptionNumber};
+	</select>
+	
+	<update id="modifyRoomOption" parameterType="AdminOption">
+		/*옵션넘버로 옵션 수정*/
+		UPDATE room_option_list
+		<set>
+			<if test="roomOptionCate != null and roomOptionCate != ''">	
+				room_option_cate=#{roomOptionCate},
+			</if>
+			<if test="roomOptionName != null and roomOptionName != ''">	
+				room_option_name=#{roomOptionName},
+			</if>
+			<if test="roomOptionPrice != null and roomOptionPrice != ''">	
+				room_option_price=#{roomOptionPrice},
+			</if>
+		</set>
+		WHERE
+			room_option_number=#{roomOptionNumber};
+	</update>
+	
+	
 </mapper>
