@@ -7,7 +7,9 @@
 		<result column="member_id" 				property="memberId"/>
 		<result column="close_school_img" 		property="closeSchoolImg"/>
 		<result column="close_school_area" 			property="closeSchoolArea"/>
-		<result column="SD_EDU_OFFC_DIV_NM" 		property="coordinate"/>
+		<result column="roadAddress" 			property="roadAddress"/>
+		<result column="roadAddressDetail" 			property="roadAddressDetail"/>
+		<result column="change_date" 		property="changeDate"/>
 		<result column="branch_current_situation" 		property="branchCurrentSituation"/>
 		<result column="purchase_amount" 		property="purchaseAmount"/>
 		<result column="system_registration_date" 		property="systemRegistrationDate"/>
@@ -21,7 +23,8 @@
 			member_id,
   			close_school_img,
 			close_school_area,
-			SD_EDU_OFFC_DIV_NM,
+			roadAddress,
+			roadAddressDetail,
 			branch_current_situation,
 			purchase_amount,
 			system_registration_date,

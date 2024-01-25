@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpSession;
 import ks49team01.admin.dto.AdminCloseSchool;
 import ks49team01.admin.mapper.AdminCloseSchoolMapper;
 import ks49team01.admin.service.AdminCloseSchoolService;
@@ -42,13 +43,28 @@ public class CloseSchoolController{
 		return "admin/close_school/close_school_get";
 	}	
 	
+ //폐교 등록 Controller
+	
 	@GetMapping("/addCloseSchool")
-	public String addCloseShool(Model model) {
+	public String addCloseSchool(Model model) {
 		
-		log.info("addCloseSchool");
 		model.addAttribute("page", "폐교 등록");
+		log.info("addCloseSchoolv");
 		
-		return "admin/close_school/close_school_add";
+		return "admin/close_school/close_school_add";	
+	}
+	
+	@PostMapping("/addCloseSchool")
+	public String addCloseSchool(AdminCloseSchool closeSchoolList, HttpSession session) {
+		
+		
+		log.info("closeSchoolList : {}, session : {}", closeSchoolList, session);
+		
+		adminCloseSchoolService.addCloseSchool(closeSchoolList);
+		
+		return "redirect:/admin/closeSchool/getCloseSchool";
+	 
+		
 	}
 	
 // 폐교 조감도 이미지 Controller	

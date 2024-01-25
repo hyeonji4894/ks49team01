@@ -8,7 +8,8 @@ public class BranchCloseSchool {
 	private String memberId;
 	private String closeSchoolImg;
 	private String closeSchoolArea;
-	private String coordinate;
+	private String roadAddress;
+	private String roadAddressDetail;
 	private String branchCurrentSituation;
 	private long purchaseAmount;
 	private String systemRegistrationDate;

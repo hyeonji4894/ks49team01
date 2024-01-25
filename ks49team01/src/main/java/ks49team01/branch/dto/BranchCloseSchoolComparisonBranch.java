@@ -8,7 +8,8 @@ public class BranchCloseSchoolComparisonBranch {
 	private String totalMap;
 	private String closeSchoolCode;
 	private String memberId;
-	private String coordinate;
+	private String roadAddress;
+	private String roadAddressDetail;
 	private String changeDate;
 	private String firstDate;
 	private String currentStatus;

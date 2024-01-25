@@ -19,22 +19,6 @@
 			}
 		</style>
 	</head>
-		<div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-		    <div class="modal-dialog modal-lg">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <h4 class="modal-title" id="myLargeModalLabel">검색 결과</h4>
-		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		            </div>
-		            <div class="modal-body">
-		                <!-- 결과를 표시할 요소 추가 -->
-		                <div>
-		                    <!-- 결과가 여기에 표시됩니다. -->
-		                </div>
-		            </div>
-		        </div><!-- /.modal-content -->
-		    </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
 		
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
@@ -51,7 +35,7 @@
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
 		<div class="modal fade" id="centermodal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered" style="width: 80%;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myCenterModalLabel">Center modal</h4>
@@ -66,6 +50,7 @@
 		                      	  	<th scope="col">폐교 이미지</th>
 			               		    <th scope="col">폐교 면적</th>
 			                		<th scope="col">위치</th>
+			                		<th scope="col">상세위치</th>
 			              		    <th scope="col">가맹 계약 현황</th>
 			                		<th scope="col">매입 금액</th>
 			                		<th scope="col">시스템 등록 일자</th>
@@ -83,7 +68,8 @@
 									<td th:text="${l.closeSchoolName}"></td>
 									<td th:text="${l.closeSchoolImg}"></td>
 									<td th:text="|${#numbers.formatInteger(l.closeSchoolArea, 3, 'COMMA')}㎡|"></td>
-									<td th:text="${l.coordinate}"></td>
+									<td th:text="${l.roadAddress}"></td>
+									<td th:text="${l.roadAddressDetail}"></td>
 									<td th:text="${l.branchCurrentSituation}"></td>
 									<td th:text="|₩ ${#numbers.formatInteger(l.purchaseAmount, 3, 'COMMA')}|"></td>
 									<td th:text="${l.systemRegistrationDate}"></td>
@@ -199,6 +185,7 @@
                       	  	<th scope="col">폐교 이미지</th>
 	               		    <th scope="col">폐교 면적</th>
 	                		<th scope="col">위치</th>
+	                		<th scope="col">상세위치</th>
 	              		    <th scope="col">가맹 계약 현황</th>
 	                		<th scope="col">매입 금액</th>
 	                		<th scope="col">시스템 등록 일자</th>
@@ -216,7 +203,8 @@
 						<td th:text="${l.closeSchoolName}"></td>
 						<td th:text="${l.closeSchoolImg}"></td>
 						<td th:text="|${#numbers.formatInteger(l.closeSchoolArea, 3, 'COMMA')}㎡|"></td>
-						<td th:text="${l.coordinate}"></td>
+						<td th:text="${l.roadAddress}"></td>
+						<td th:text="${l.roadAddressDetail}"></td>
 						<td th:text="${l.branchCurrentSituation}"></td>
 						<td th:text="|₩ ${#numbers.formatInteger(l.purchaseAmount, 3, 'COMMA')}|"></td>
 						<td th:text="${l.systemRegistrationDate}"></td>
@@ -387,7 +375,11 @@
 				if(checkLength > 1) {
 					alert('한개만 선택해주세요.')
 					return;
-				}
+				} else if(checkLength == 0){
+					alert('한 개 이상의 목록을 선택해주세요')
+					return;
+				};
+				
 				$('#centermodal').modal('show');
 			});
 			// searchItem1 검색한 값이 있는지 확인하고 표시
@@ -454,30 +446,31 @@
 				$(searchTotal).each(function(idx, item){
 					const newTr = $('<tr />');
 					const checkBox = $('<input />', { type:'checkbox', class:'check'});
-					const newTdCheckBox = 					$('<td />').html(checkBox);
+					const newTdCheckBox = 						$('<td />').html(checkBox);
 					const newTdcloseSchoolName = 				$('<td />').text(item.closeSchoolName);
 					const newTdcloseSchoolImg = 				$('<td />').text(item.closeSchoolImg);
 					const newTdcloseSchoolArea = 				$('<td />').text(item.closeSchoolArea);
-					const newTdcoordinate = 				$('<td />').text(item.coordinate);
-					const newTdbranchCurrentSituation = 	$('<td />').text(item.branchCurrentSituation);
-					const newTdpurchaseAmount = 					$('<td />').text(item.purchaseAmount);
-					const newTdsystemRegistrationDate = 					$('<td />').text(item.systemRegistrationDate);
-					const newTdlastModifiedDate = 					$('<td />').text(item.lastModifiedDate);
+					const newTdroadAddress = 					$('<td />').text(item.roadAddress);
+					const newTdroadAddressDetail = 				$('<td />').text(item.roadAddressDetail);
+					const newTdbranchCurrentSituation = 		$('<td />').text(item.branchCurrentSituation);
+					const newTdpurchaseAmount = 				$('<td />').text(item.purchaseAmount);
+					const newTdsystemRegistrationDate = 		$('<td />').text(item.systemRegistrationDate);
+					const newTdlastModifiedDate = 				$('<td />').text(item.lastModifiedDate);
 					const newTdviewMapImg = 					$('<td />').text(item.viewMapImg);
-					const newTdmemberId = 					$('<td />').text(item.memberId);
-					
+					const newTdmemberId = 						$('<td />').text(item.memberId);
 					
 					newTr.append(newTdCheckBox,
 							newTdcloseSchoolName,
 							newTdcloseSchoolImg,
 							newTdcloseSchoolArea,
-							newTdcoordinate,
+							newTdroadAddress,
+							newTdroadAddressDetail, 
 							newTdbranchCurrentSituation,
 							newTdpurchaseAmount,
 							newTdsystemRegistrationDate,
 							newTdlastModifiedDate,
 							newTdviewMapImg,
-							newTdmemberId);
+							newTdmemberId); 
 					$('#searchResult').append(newTr);
 				});					
 		        
