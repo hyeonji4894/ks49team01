@@ -29,7 +29,6 @@ public class AdminUserService {
 	 */
 	public int modifyMember(AdminUser adminUser) {
 		return userMapper.modifyMember(adminUser);
-	
 	}
 	
 	

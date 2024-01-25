@@ -96,6 +96,10 @@ public class AdminUserController {
 	public String addMember(AdminUser adminUser) {
 		
 		log.info("맴버등록: {}", adminUser);
+		
+		//2개의 주소 필드에 저장되어 있는 값을 가져와서
+		//하나의 주소 필드에 셋팅한다.
+		//adminUser.se
 		userService.addMember(adminUser);
 		
 		return "redirect:/admin/member/getMember";
@@ -105,6 +109,7 @@ public class AdminUserController {
 	public String addMember(Model model) {
 		
 		List<AdminUserLevel> addMember = userService.memberLevelList();
+		
 		model.addAttribute("addMember", addMember);
 		model.addAttribute("title", "회원등록");
 

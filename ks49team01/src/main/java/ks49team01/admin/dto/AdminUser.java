@@ -17,6 +17,9 @@ public class AdminUser {
 	private LocalDateTime memberRegDate;  // LocalDateTime 사용
 	private LocalDate memberBirth;  
 	
+	private String member_addr_detail;
+
+	
 	
 	private int memberMileage;
 	
