@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import ks49team01.admin.dto.AdminUser;
 import ks49team01.admin.dto.AdminUserLevel;
@@ -11,6 +12,8 @@ import ks49team01.admin.dto.AdminUserLevel;
 @Mapper
 public interface AdminUserMapper {
 	
+    AdminUser findByUsernameAndPassword(@Param("memberId") String memberId, @Param("memberPw") String memberPw);
+
 		// 특정회원 조회
 		public AdminUser getMemberInfoById(String memberId);
 	

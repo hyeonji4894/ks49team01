@@ -34,7 +34,9 @@
 </association>
 
 	</resultMap>
-	
+	<select id="findByUsernameAndPassword" resultType="AdminUser">
+        SELECT * FROM member WHERE member_id = #{memberId} AND member_pw = #{memberPw}
+    </select>
 	<update id="modifyMember" parameterType="AdminUser">
 		/* 특정회원 수정 */
 		UPDATE member

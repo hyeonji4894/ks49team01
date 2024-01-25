@@ -36,6 +36,8 @@ public class AdminUserController {
 	
 	
 
+	
+	
 	    @PostMapping("/checkId")
 	    @ResponseBody
 	    public ResponseEntity <Boolean> checkId(@RequestParam String memberId) {
