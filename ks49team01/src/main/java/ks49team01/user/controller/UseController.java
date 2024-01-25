@@ -24,9 +24,6 @@ public class UseController {
 	
 	@PostMapping("/addMember")
 	public String addMember(AdminUser adminUser) {
-		
-		
-		
 		log.info("맴버등록: {}", adminUser);
 		
 		//2개의 주소 필드에 저장되어 있는 값을 가져와서
@@ -34,7 +31,7 @@ public class UseController {
 		//adminUser.se
 		userService.addMember(adminUser);
 		
-		return "redirect:/user/member/getMember";
+		return "redirect:/user/member/login";
 	}
 	
 	@GetMapping("/addMember")
@@ -45,7 +42,6 @@ public class UseController {
 		model.addAttribute("addMember", addMember);
 		model.addAttribute("title", "회원등록");
 
-		
 		return "user/member/add_member";
 	}
 
