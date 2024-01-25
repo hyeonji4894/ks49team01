@@ -5,48 +5,113 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
-		
+		<style>
+			table{
+				border : 1px solid black;
+				width : 700px;
+				table-layout : auto;
+				text-align : center;
+			}
+			th {
+				border : 1px solid black;
+				background-color: cornflowerblue;
+				color : azure;
+				height: 30px;
+			}
+			td {
+				border: 1px solid black;
+				height: 30px;
+			}
+			.search {
+				margin-bottom: 15px;
+			}
+			#minPrice, #maxPrice{
+				text-align: right;
+			}
+			input::-webkit-inner-spin-button {
+				margin-left: 8px;
+			}
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청등록목록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">가맹신청조회</a>
+			<a th:href="@{/}" class="text-muted">가맹신청등록조회</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청목록</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청등록목록</li>
 	</th:block>
-
-	<!-- Start Page Content -->
+	
+	<!-- content html 태그 -->
 	<th:block layout:fragment="customContent">
-       <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">가맹 신청 코드</th>
-                    <th scope="col">가맹 모집 코드</th>
-                    <th scope="col">폐교 코드</th>
-                    <th scope="col">가맹신청자 아이디</th>	                
-                    <th scope="col">가맹 신청 일자</th>	                
-                </tr>
-            </thead>
-            <tbody id="tbody">
-				<tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
-				th:each="e : ${adminBranchApply}">
-					<td th:text="${e.branchApplyCode}"></td>
-					<td th:text="${e.branchRecruitCode}"></td>
-					<td th:text="${e.closeSchoolCode}"></td>
-					<td th:text="${e.memberId}"></td>
-					<td th:text="${e.branchApplyDate}"></td>
-				</tr>
-				<tr th:unless="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}">
-					<td colspan="12">조회된 리스트가 없습니다</td>
-				</tr>
-			</tbody>
-		</table>
+		<form id="addBranchApplyForm" method="post" th:action="@{/branch_apply/add_branch_apply}">
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<label for="branchApplyCode" >가맹 신청 코드</label>
+						</td>
+						<td>
+							<input type="text" id="branchApplyCode" name="branchApplyCode"
+									placeholder="가맹 신청 코드를 입력해주세요" />
+							<p id="checkAlert"></p>		
+						</td>
+						<td>
+							<button type="button" id="checkCodeBtn">중복코드체크</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="branchRecruitCode">가맹 모집 코드</label>
+						</td>
+						<td colspan="2">
+							<input type="text" id="branchRecruitCode" name="branchRecruitCode"
+									placeholder="가맹 모집 코드를 입력해주세요"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="closeSchoolCode">폐교 코드</label>
+						</td>
+						<td colspan="2">
+							<input type="text" id="closeSchoolCode" name="closeSchoolCode"
+									placeholder="폐교 코드를 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="memberId">가맹신청자 아이디</label>
+						</td>
+						<td colspan="2">
+							<input type="text" id="memberId" name="memberId"
+									placeholder="가맹신청자 아이디를 입력해주세요"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="branchApplyDate">가맹 신청 일자</label>
+						</td>
+						<td colspan="2">
+							<input type="text" id="branchApplyDate" name="branchApplyDate"
+									placeholder="가맹 신청 일자를 입력해주세요"/>
+						</td>			
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3">
+							<button type="button" id="addBranchApplyBtn">가맹신청</button>
+							<button type="reset" id="resetBtn">초기화</button>
+						</td>	
+					</tr>
+				</tfoot>
+			</table>
+		</form>
 	</th:block>
 	
 	<!-- 이 페이지에서 사용될 js file 경로 -->
@@ -56,119 +121,80 @@
 	
 	<!-- 이 페이지에서 사용될 스크립트 작성 -->
 	<th:block layout:fragment="customJs">
-		<script th:inline="javascript">
-			// 검색 항목 이벤트
-			$('#searchKey').change(function(){
-				const value = $(this).val();
-				$('.search input').remove();
-				$('.search label').remove();
-				if(value == 'goodsPrice'){
-					const $labelMin = $('<label />', {'for' : 'minPrice'}).text('최소금액: ');
-					const $labelMax = $('<label />', {'for' : 'maxPrice'}).text('최대금액: ');
-					const $delim = $('<label />').text('  ~  ');
-					const $minPrice = $('<input />', {'type': 'number', 'id': 'minPrice', 'min' : 0, value : 0});
-					const $maxPrice = $('<input />', {'type': 'number', 'id': 'maxPrice', 'min' : 0, value : 0});
-					$maxPrice.css('margin-right', '4px');
-					$('#searchBtn').before($labelMin, $minPrice, $delim, $labelMax, $maxPrice);
-				}else{
-					const $searchValue = $('<input />', {'type': 'text', 'id': 'searchValue', 'placeholder' : '검색어를 입력해주세요.'});
-					$searchValue.css('margin-right', '4px');
-					$('#searchBtn').before($searchValue);
+		<script>
+			// 아이디 중복체크
+			$('#checkIdBtn').click(function(){
+				const memberId = $('#memberId').val();
+				if(memberId == null || memberId == ''){
+					alert('회원아이디를 입력해주세요');
+					$('#memberId').focus();
+					return;
 				}
-			});
-			$('#searchBtn').click(function(){
-				let isBreak = false;
-				$('.search input').each((idx, item) => {
-					const elementId = item.id;
-					const value = $(item).val();
-					if(elementId != 'searchValue'){
-						if(elementId == 'minPrice' && Number(value) < 0){
-							alert('0보다 작은 금액은 검색할 수 없습니다.');
-							$(item).val(0);
-							isBreak = true;
-						}else if(elementId == 'maxPrice' && Number($('#minPrice').val()) >= Number(value)){
-							alert('최소금액보다 작을 수 없습니다.');
-							$(item).val(0);
-							$(item).focus();
-							isBreak = true;
-						}
-					}else{
-						if(value == '') isBreak = true;						
-					}
-					return !isBreak;
-				});
-				
-				if(isBreak) return;
-				
-				const searchObj = {};
-				// 검색 항목 객체 속성 동적 삽입
-				$('.search select, .search input').each(function(idx, item){
-					searchObj[item.id] = $(item).val();
-				});
-				
-				console.log(searchObj);
-				
+				// 중복아이디 체크
 				const request = $.ajax({
-					url : '/goods/searchForGoodsList',
+					url : '/branch_apply/checkId',
 					method : 'POST',
-					contentType : 'application/json; charset=UTF-8',
-					data: JSON.stringify(searchObj),
-					dataType: 'JSON'
+					data : {'memberId' : memberId},
+					dataType : 'JSON'
 				});
 				request.done(function(res){
-					console.log(res)
-					const searchList = res;
-					$('#tbody').html(''); // tbody 초기화
-					
-					// 검색항목에 일치된 목록이 없을 경우
-					if(searchList == null || searchList.length < 1){
-						const newTr = $('<tr />');
-						const newTd = $('<td />',{'colspan': 9}).text('검색에 일치되는 내용이 없습니다.');
-						newTr.append(newTd);
-						$('#tbody').append(newTr);
-						return ;
+					const isDuplicate = res;
+					console.log(isDuplicate);
+				
+					if(isDuplicate){
+						alert('입력하신 아이디로 회원가입이 불가합니다.');
+						$('#memberId').focus();
+						return;
 					}
-					
-					// 검색항목에 일치된 목록이 있을 경우
-					$(searchList).each(function(idx, item){
-						const newTr = $('<tr />');
-						
-						const goodsCode = item.goodsCode;
-						const newTdGoodsCode 	 = $('<td />').text(item.goodsCode);
-						const newTdGoodsName 	 = $('<td />').text(item.goodsName);
-						const newTdGoodsPrice 	 = $('<td />').text(`${Number(item.goodsPrice).toLocaleString("ko-KR", { style: "currency", currency : "KRW" })}`);
-						const newTdGoodsSellerId = $('<td />').text(item.goodsSellerId);
-						const newTdMemberName 	 = $('<td />').text(item.member.memberName);
-						const newTdMemberEmail 	 = $('<td />').text(item.member.memberEmail);
-						const newTdGoodsRegDate = $('<td />').text(item.goodsRegDate);						
-						const newModifyTd = $('<td />');
-						const modifyATag = $('<a />', { 'href' : `/goods/modifyGoods?goodsCode=${goodsCode}`})
-												.text('수정');
-						newModifyTd.append(modifyATag);
-						const newDeleteTd = $('<td />');
-						const deleteATag = $('<a />', { 'href' : `/goods/deleteGoods?goodsCode=${goodsCode}`})
-												.text('삭제');
-						newDeleteTd.append(deleteATag);
-						
-						newTr.append(newTdGoodsCode,
-									 newTdGoodsName, 
-									 newTdGoodsPrice, 
-									 newTdGoodsSellerId, 
-									 newTdMemberName, 
-									 newTdMemberEmail, 
-									 newTdGoodsRegDate,  
-									 newModifyTd, 
-									 newDeleteTd);
-						
-						$('#tbody').append(newTr);
-					
-					});
-					
+					$('#addBranchApplyForm input').prop('disabled', false);
+					$('#addBranchApplyForm button').prop('disabled', false);
+					$('#addBranchApplyForm select').prop('disabled', false);
+					$('#checkAlert').text('');
 				});
 				request.fail(function(jQXHR, textStatus, error){
 					console.log(error);
 				});
+				
 			});
+			
+			//아이디 변경 이벤트
+			$('#memberId').change(function(){
+				$('#addBranchApplyForm input').not('#memberId').prop('disabled', true);
+				$('#addBranchApplyForm button').not('#checkIdBtn').prop('disabled', true);
+				$('#addBranchApplyForm select').prop('disabled', true);
+				$('#checkAlert').text('중복아이디체크를 클릭해주세요');	
+			});
+			
+			//초기화버튼 이벤트
+			$('#resetBtn').click(function(e){
+				e.preventDefault();
+				$('#addBranchApplyForm input').not('#memberId').prop('disabled', true);
+				$('#addBranchApplyForm button').not('#checkIdBtn').prop('disabled', true);
+				$('#addBranchApplyForm select').prop('disabled', true);
+				$('#checkAlert').text('');	
+				$('#addBranchApplyForm input').val('');
+			});
+			
+			//유효성검사
+			$('#addBranchApplyBtn').click(function(){
+				let isValid = true;
+			
+				$('#addBranchApplyForm input, #addBranchApply select').each(function(idx, item){
+					const value = $(item).val();
+					if(value == null || value == ''){
+						isValid = false;
+						const cate = $(`label[for="${item.id}"]`).text();
+						let msg = `${cate} 필수 입력항목입니다.`;
+						alert(msg);
+						$(item).focus();
+						return false;
+					}
+				})
+			
+				if(isValid) $('#addBranchApplyForm').submit();
+			});
+			
+			
 		</script>
 	</th:block>
 	

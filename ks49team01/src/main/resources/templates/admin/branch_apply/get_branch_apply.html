@@ -5,7 +5,33 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
-		
+		<style>
+			table{
+				border : 1px solid black;
+				width : 700px;
+				table-layout : auto;
+				text-align : center;
+			}
+			th {
+				border : 1px solid black;
+				background-color: cornflowerblue;
+				color : azure;
+				height: 30px;
+			}
+			td {
+				border: 1px solid black;
+				height: 30px;
+			}
+			.search {
+				margin-bottom: 15px;
+			}
+			#minPrice, #maxPrice{
+				text-align: right;
+			}
+			input::-webkit-inner-spin-button {
+				margin-left: 8px;
+			}
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
@@ -23,31 +49,42 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-	       <table class="table">
-	            <thead>
-	                <tr>
-	                    <th scope="col">가맹 신청 코드</th>
-	                    <th scope="col">가맹 모집 코드</th>
-	                    <th scope="col">폐교 코드</th>
-	                    <th scope="col">가맹신청자 아이디</th>	                
-	                    <th scope="col">가맹 신청 일자</th>	                
-	                </tr>
-	            </thead>
-	            <tbody id="tbody">
-<tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
-th:each="e : ${adminBranchApply}">
-<td th:text="${e.branchApplyCode}"></td>
-<td th:text="${e.branchRecruitCode}"></td>
-<td th:text="${e.closeSchoolCode}"></td>
-<td th:text="${e.memberId}"></td>
-<td th:text="${e.branchApplyDate}"></td>
-</tr>
-<tr th:unless="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}">
-<td colspan="12">조회된 리스트가 없습니다</td>
-</tr>
-</tbody>
-</table>
-</th:block>
+       <div class="search">
+            <select id="searchKey">
+                   <option value="branchApplyCode">가맹 신청 코드</option>
+                   <option value="branchRecruitCode">가맹 모집 코드</option>
+                   <option value="closeSchoolCode">폐교 코드</option>
+                   <option value="memberId">가맹신청자 아이디</option>
+                   <option value="branchApplyDate">가맹 신청 일자</option>                   	                
+       		</select>
+       		<input type="text" id="searchValue" placeholder="검색어를 입력해주세요.">
+       		<button type="button" id="searchBtn">검색</button>
+            </div>
+            <table>
+            	<thead>
+            		<tr>
+            			<th>가맹 신청 코드</th>
+            			<th>가맹 모집 코드</th>
+            			<th>폐교 코드</th>
+            			<th>가맹신청자 아이디</th>
+            			<th>가맹 신청 일자</th>
+            		</tr>
+            </thead>
+            <tbody id="tbody">
+				<tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
+				th:each="e : ${adminBranchApply}">
+					<td th:text="${e.branchApplyCode}"></td>
+					<td th:text="${e.branchRecruitCode}"></td>
+					<td th:text="${e.closeSchoolCode}"></td>
+					<td th:text="${e.memberId}"></td>
+					<td th:text="${e.branchApplyDate}"></td>
+				</tr>
+				<tr th:unless="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}">
+					<td colspan="12">조회된 리스트가 없습니다</td>
+				</tr>
+			</tbody>
+		</table>
+	</th:block>
 	
 	<!-- 이 페이지에서 사용될 js file 경로 -->
 	<th:block layout:fragment="customJsFile">
@@ -169,6 +206,9 @@ th:each="e : ${adminBranchApply}">
 					console.log(error);
 				});
 			});
+			
+			
+			
 		</script>
 	</th:block>
 	
