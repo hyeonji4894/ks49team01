@@ -10,25 +10,75 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">최종 결재금액</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/}" class="text-muted">폐교</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">-</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<table class="table">
+       	<div class="row">
+       		<div class="col-6">폐교 1</div>
+       		<div class="col-6">폐교 2</div>
+       	</div>
+	</th:block>
+	<th:block layout:fragment="customContent">
+		<form id="getCloseSchool" method="post" th:action="@{/close_school/close_school_get}">		
+			<table class="table">
 			 <thead>
 	            <tr>
+	                <th scope="col">결제 코드</th>
+	                <th scope="col">회원 아이디</th>
+	                <th scope="col">숙박 기간 코드</th>
+	                <th scope="col">결제 예약 코드</th>
+	                <th scope="col">가맹점 코드</th>
+	                <th scope="col">쿠폰 발행 코드</th>
+	                <th scope="col">결제 예정 금액 합계</th>
+	                <th scope="col">적립금 사용</th>
+	                <th scope="col">쿠폰 사용</th>
 	                <th scope="col">최종 결제 금액</th>
+	                <th scope="col">적립금 적립</th>
+	                <th scope="col">최종 결제 상태</th>
+	                <th scope="col">건별 본사 로열티 지급 예정 금액</th>
 	            </tr>
 	        </thead>
-	     </table>
+				<tbody>
+					<tr th:if="${getTotalPriceList != null and not #lists.isEmpty(getTotalPriceList)}"
+						th:each="l : ${getTotalPriceList}">
+						<td th:text="${l.paymentsDueCode}"></td>
+						<td th:text="${l.memberId}"></td>
+						<td th:text="${l.stayPeriodCode}"></td>
+						<td th:text="${l.reservationCode}"></td>
+						<td th:text="${l.branchCode}"></td>
+						<td th:text="${l.couponPrintCode}"></td>
+						<td th:text="${l.dueToPayPriceTotal}"></td>
+						<td th:text="${l.useMilage}"></td>
+						<td th:text="${l.useCoupon}"></td>
+						<td th:text="${l.finalPayment}"></td>
+						<td th:text="${l.mileageSave}"></td>
+						<td th:text="${l.finalPaymentState}"></td>
+						<td th:text="${l.royaltyPaymentAmountForEachCase}"></td>
+					</tr>
+					<tr th:unless="${getTotalPriceList != null and not #lists.isEmpty(getTotalPriceList)}">
+						<td colspan="9">등록된 폐교가 없습니다.</td>
+					</tr>
+				</tbody>
+			</table>		
+		</form>
 	</th:block>
 </html>
+
+
+
+
+
+
+
+
+
