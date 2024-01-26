@@ -24,7 +24,7 @@ public interface AdminRoomMapper {
 	// 특정 코드로 객실 수정
 	public int modifyRoomInfo(AdminRoom adminRoom);
 	
-	// 특정 코드 조회
+	// 수정 할 특정 코드 조회
 	public AdminRoom getRoomInfoByCode(String roomCode);
 	
 	// 가맹점 목록 (객실 등록시 가맹점 가져올때 사용)
