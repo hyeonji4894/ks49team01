@@ -31,23 +31,38 @@ public class AdminRoomController {
 	
 	
 	
-	// 객실 정보
-	
-	@GetMapping("/removeRoomInfo")
-	public String removeRoomInfo(Model model) {
+	@PostMapping("/removeRoomInfo")
+	@ResponseBody
+	public String removeRoomInfo(@RequestBody List<String> paramList){
 		
-		
-		model.addAttribute("pageTitle", "객실삭제");
-		
+		log.info("객실삭제 : {}" , paramList);
+		roomService.removeRoomInfo(paramList);
 		return "admin/room/remove_room_info";
+		
+	}
+	
+	
+	
+	@PostMapping("/modifyRoomInfo")
+	public String modifyRoomInfo(AdminRoom adminRoom, HttpSession session ) {
+		log.info("객실수정 : {}" , adminRoom);
+		
+		// 특정코드로 수정
+		roomService.modifyRoomInfo(adminRoom);
+		
+		return "redirect:/admin/room/roomInfo";
 	}
 	
 	@GetMapping("/modifyRoomInfo")
-	public String modifyRoomInfo(Model model) {
+	public String modifyRoomInfo(@RequestParam(value = "roomCode")String roomCode
+								,Model model) {
 		
-		log.info("객실정보수정");
+		log.info("수정화면 roomCode : {}", roomCode);
 		
-		model.addAttribute("pageTitle", "객실정보수정");
+		//  특정코드 조회
+		AdminRoom roomInfo = roomService.getRoomInfoByCode(roomCode);
+		
+		model.addAttribute("roomInfo", roomInfo);
 		
 		return "admin/room/modify_room_info";
 	}
@@ -80,7 +95,7 @@ public class AdminRoomController {
 	@ResponseBody
 	public List<AdminRoom> searchRoomInfo(@RequestBody List<Map<String, Object>> paramList){
 		
-		log.info("paramList:{}" , paramList);
+		log.info("검색 조건 선택:{}" , paramList);
 		paramList.forEach(searchMap -> {
 			String searchKey = (String) searchMap.get("searchKey");
 			switch (searchKey) {
@@ -89,7 +104,7 @@ public class AdminRoomController {
 			}
 			searchMap.put("searchKey", searchKey);
 		});
-		log.info("paramList:{}" , paramList);
+		log.info("선택 조건 검색:{}" , paramList);
 		
 		List<AdminRoom> searchByRoom = roomService.getSearchByRoom(paramList);
 		return searchByRoom;
@@ -101,7 +116,7 @@ public class AdminRoomController {
 		
 		List<AdminRoom> roomInfoList = roomService.getRoomInfoList();
 		
-		log.info("roomInfoList: {}", roomInfoList);
+		log.info("객실목록: {}", roomInfoList);
 		
 		model.addAttribute("service", "객실정보");
 		model.addAttribute("serviceUri", "/admin/room");
@@ -116,7 +131,7 @@ public class AdminRoomController {
 	@ResponseBody
 	public List<AdminRoom> searchRoomName(@RequestParam(value="searchBranchName") String searchBranchName){
 		
-		log.info("searchBranchName:{}" , searchBranchName);
+		log.info("검색 매장명:{}" , searchBranchName);
 		List<AdminRoom> roomSearchList = roomMapper.getRoomInfoSearch(searchBranchName);
 		
 		return roomSearchList;
