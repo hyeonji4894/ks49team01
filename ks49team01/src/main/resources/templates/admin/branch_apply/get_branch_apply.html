@@ -83,38 +83,10 @@
 		                </div>
 		              </div>
 		            </div>
-		            <div class="col-lg-3">
-		              <label class="form-label card-title font-weight-bolder">가맹 신청 일자</label>
-		              <div class="row">
-		                <div class="col-12">
-		                	<div class="form-group">
-								<input type="datetime-local" class="form-control" value="2024-01-21T00:00:00">
-							</div>
-		                </div>
-		              </div>
-		            </div>
-		            <div class="col-lg-3">
-		              <label class="form-label card-title font-weight-bolder">시작일</label>
-		              <div class="row">
-		                <div class="col-12">
-		                	<div class="form-group">
-								<input type="datetime-local" class="form-control" value="2024-01-21T00:00:00">
-							</div>
-		                </div>
-		              </div>
-		            </div>
-		            <div class="col-lg-3">
-		              <label class="form-label card-title font-weight-bolder">종료일</label>
-		              <div class="row">
-		                <div class="col-12">
-		                	<div class="form-group">
-								<input type="datetime-local" class="form-control" value="2024-01-22T22:33:00">
-							</div>
-		                </div>
-		              </div>
-		            </div>
 		          </div>
 		        </div>
+		            
+		           
 		        <div class="col-lg-2 align-self-center">
 		          <div class="row justify-content-center">
 		            <div class="col-8">
@@ -162,7 +134,7 @@
 	              	</tr>
                   </thead>
                   <tbody class="border text-dark">
-                      <tr tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
+                      <tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
 	            		  th:each="b : ${adminBranchApply}">
                           <td th:text="${b.branchApplyCode}"></td>
                           <td th:text="${b.branchRecruitCode}"></td>

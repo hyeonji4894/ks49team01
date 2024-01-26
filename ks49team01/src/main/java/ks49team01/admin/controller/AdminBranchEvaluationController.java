@@ -23,7 +23,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/getbranchevaluationquestions")
 	public String getbranchevaluationquestions(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationQuestionsList();
 		log.info("본사 1차 가맹 평가 질문 조회");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -36,7 +36,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/addbranchevaluationquestions")
 	public String addbranchevaluationquestions(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationQuestionsList();
 		log.info("본사 1차 가맹 평가 질문 등록");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -51,7 +51,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/modifybranchevaluationquestions")
 	public String modifybranchevaluationquestions(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationQuestionsList();
 		log.info("본사 1차 가맹 평가 질문 수정");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -65,7 +65,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/removebranchevaluationquestions")
 	public String removebranchevaluationquestions(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationQuestionsList();
 		log.info("본사 1차 가맹 평가 질문 삭제");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -79,7 +79,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/addbranchevaluationscoringcriteria")
 	public String addbranchevaluationscoringcriteria(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationScoringCriteriaList();
 		log.info("본사 1차 가맹 평가 채점 기준 등록");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -93,7 +93,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/modifybranchevaluationscoringcriteria")
 	public String modifybranchevaluationscoringcriteria(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationScoringCriteriaList();
 		log.info("본사 1차 가맹 평가 채점 기준 수정");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -107,7 +107,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/removebranchevaluationscoringcriteria")
 	public String removebranchevaluationscoringcriteria(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationScoringCriteriaList();
 		log.info("본사 1차 가맹 평가 채점 기준 삭제");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -121,7 +121,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/getbranchevaluationscoringcriteria")
 	public String getbranchevaluationscoringcriteria(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationScoringCriteriaList();
 		log.info("본사 1차 가맹 평가 채점 기준 조회");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -134,7 +134,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/addbranchevaluationresponseandgrade")
 	public String addbranchevaluationresponseandgrade(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationResponseAndGradeList();
 		log.info("가맹신청시 1차 평가 답변 및 채점 등록");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -148,7 +148,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/modifybranchevaluationresponseandgrade")
 	public String modifybranchevaluationresponseandgrade(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationResponseAndGradeList();
 		log.info("가맹신청시 1차 평가 답변 및 채점 수정");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -162,7 +162,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/removebranchevaluationresponseandgrade")
 	public String removebranchevaluationresponseandgrade(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationResponseAndGradeList();
 		log.info("가맹신청시 1차 평가 답변 및 채점 삭제");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -176,7 +176,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/getbranchevaluationresponseandgrade")
 	public String getbranchevaluationresponseandgrade(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationResponseAndGradeList();
 		log.info("가맹신청시 1차 평가 답변 및 채점 조회");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -188,7 +188,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/addtotalbranchapplyevaluation")
 	public String addtotalbranchapplyevaluation(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminTotalBranchApplyEvaluationList();
 		log.info("1차 가맹 신청 평가 총합계 등록");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -202,7 +202,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/modifytotalbranchapplyevaluation")
 	public String modifytotalbranchapplyevaluation(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminTotalBranchApplyEvaluationList();
 		log.info("1차 가맹 신청 평가 총합계 수정");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -216,7 +216,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/removetotalbranchapplyevaluation")
 	public String removetotalbranchapplyevaluation(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminTotalBranchApplyEvaluationList();
 		log.info("1차 가맹 신청 평가 총합계 삭제");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -230,7 +230,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/gettotalbranchapplyevaluation")
 	public String gettotalbranchapplyevaluation(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminTotalBranchApplyEvaluationList();
 		log.info("1차 가맹 신청 평가 총합계 조회");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -242,7 +242,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/addbranchfinaldecisiontotalsumevaluation")
 	public String addbranchfinaldecisiontotalsumevaluation(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchFinalDecisionTotalSumEvaluationList();
 		log.info("1차 평가 총합계 기준으로최종 합격여부 결정 등록");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -256,7 +256,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/modifybranchfinaldecisiontotalsumevaluation")
 	public String modifybranchfinaldecisiontotalsumevaluation(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchFinalDecisionTotalSumEvaluationList();
 		log.info("1차 평가 총합계 기준으로최종 합격여부 결정 수정");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -270,7 +270,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/removebranchfinaldecisiontotalsumevaluation")
 	public String removebranchfinaldecisiontotalsumevaluation(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchFinalDecisionTotalSumEvaluationList();
 		log.info("1차 평가 총합계 기준으로최종 합격여부 결정 삭제");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		
@@ -284,7 +284,7 @@ public class AdminBranchEvaluationController {
 	@GetMapping("/getbranchfinaldecisiontotalsumevaluation")
 	public String getbranchfinaldecisiontotalsumevaluation(Model model) {
 		
-		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchEvaluationList();
+		List<AdminBranchEvaluation> adminBranchEvaluation = adminBranchEvaluationService.getAdminBranchFinalDecisionTotalSumEvaluationList();
 		log.info("1차 평가 총합계 기준으로최종 합격여부 결정 조회");
 		log.info("adminBranchEvaluation",adminBranchEvaluation);
 		

@@ -8,5 +8,5 @@ public class AdminBranchApply {
 	private String branchRecruitCode;
 	private String closeSchoolCode;
 	private String memberId;
-	private int branchApplyDate;
+	private String branchApplyDate;
 }
