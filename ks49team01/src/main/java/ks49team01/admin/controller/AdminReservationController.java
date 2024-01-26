@@ -19,8 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class AdminReservationController {
 	
-	private final AdminReservationService reservationService; 
-
+	private final AdminReservationService reservationService;
+	
+	
+	
 	// 객실예약 고객 조회
 	@GetMapping("/reservationUser")
 	public String reservationUser(Model model) {
