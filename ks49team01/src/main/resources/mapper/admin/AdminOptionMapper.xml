@@ -44,7 +44,7 @@
 			room_option_list AS ol;
 	</select>
 	
-	<select id="getSearchOption" resultMap="optionResultMap" parameterType="map">
+	<select id="getSearchOption" resultMap="optionResultMap" parameterType="List">
 		SELECT
 			ol.room_option_number,
 			ol.room_option_registration_id,
@@ -55,9 +55,11 @@
 		FROM
 			room_option_list AS ol
 		<where>
-			<if test="searchKey != null and searchKey != ''">
-				${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
-			</if>
+			<foreach collection="paramList" item="item">
+				<if test="item.searchKey != null and item.searchKey != ''">
+					AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue}, '%')
+				</if>
+			</foreach>
 		</where>
 	</select>
 	

@@ -1,16 +1,20 @@
 package ks49team01.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
 import ks49team01.admin.dto.AdminOption;
+import ks49team01.admin.mapper.AdminOptionMapper;
 import ks49team01.admin.service.AdminOptionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminOptionController {
 	
 	private final AdminOptionService optionService;
+	private final AdminOptionMapper optionMapper;
+	
 	
 
 	// 객실 옵션
@@ -86,6 +92,25 @@ public class AdminOptionController {
 			return "redirect:/admin/option/roomOptionList";
 		}
 		
+		// 조건 검색
+		@PostMapping("/getSearchOption")
+		@ResponseBody
+		public List<AdminOption> getSearchOption(@RequestBody List<Map<String, Object>> paramList){
+			log.info("검색조건 : {}" , paramList);
+			if(paramList != null) {
+				paramList.forEach(paramMap -> {
+					String searchKey = (String) paramMap.get("searchKey");
+					switch (searchKey) {
+						case "roomOptionCate" -> searchKey = "room_option_cate";
+					}
+					paramMap.put("searchKey", searchKey);
+				});
+			}
+			log.info("검색조건 : {}" , paramList);
+			List<AdminOption> searchRoomOption = optionMapper.getSearchOption(paramList);
+			return searchRoomOption;
+		}
+		
 		
 		@GetMapping("/roomOptionList")
 		public String roomOptionList(Model model) {
@@ -100,34 +125,5 @@ public class AdminOptionController {
 			return "admin/option/get_room_option";
 		}
 		
-		/*
-		@PostMapping("/searchOption")
-		@ResponseBody
-		public List<AdminOption> searchOption(@RequestBody List<Map<String, Object>> paramList){
-			
-			log.info("paramList:{}" , paramList);
-			paramList.forEach(searchMap -> {
-				String searchKey = (String) searchMap.get("searchKey");
-				switch(searchKey) {
-					case "roomOptionCate" -> searchKey = "room_option_cate";
-				}
-				searchMap.put("searchKey", searchKey);
-			});
-			log.info("paramList:{}" , paramList);
-			
-			List<AdminOption> optionList = optionService.getSearchOption(paramList);
-			return optionList;
-		}
-		*/
 }
-
-
-
-
-
-
-
-
-
-
 

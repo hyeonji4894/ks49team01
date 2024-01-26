@@ -37,6 +37,38 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
+	 	<div class="card mb-4">
+		    <div class="card-body">
+		      <div class="row">
+		        <div class="col-lg-10">
+		          <div class="row mb-3">
+		            <div class="col-lg-6">
+		              <label class="form-label card-title font-weight-bolder">카테고리</label>
+		              <div class="row">
+		                <div class="col-12">
+		                  <div class="input-group">
+		                    <select class="form-control text-center search-items" id="roomOptionCate">
+		                      <option value="옵션">옵션</option>
+		                      <option value="부가 서비스">부가 서비스</option>
+		                    </select>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-lg-2 align-self-center">
+		          <div class="row justify-content-center">
+		            <div class="col-8">
+		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;" id="totalSearchBtn">
+		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
+		              </button>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
 		  <div class="card mb-4">
 		    <div class="card-body">
 		    	<div class="row mb-3">
@@ -113,73 +145,72 @@
 		               </ul>
 			    	</div>
 			    </div>
-		    </div>
-		  </div>		                        		  
+		     </div>
+		  </div>	                        		  
 	</th:block>
 	<th:block layout:fragment="customJs">
-		<script>
+		<script>			
 			
+			// 전체검색
+			$(document).on('click', '#totalSearchBtn', function () {
+		    const searchArr = [];
 		
-			//searchBtn click
-			/*
-			$(document).on('click', '#searchBtn', function(){
-				const searchArr = [];
-				$('.search-items').each(function(idx, item){
-					const searchObj = {};
-					searchObj.searchKey = item.id;
-					searchObj.searchValue = item.value;
-					searchArr.push(searchObj);
-				});
-				console.log(searchArr);
-				
-				const request = $.ajax({
-					url : '/admin/room/searchOption',
-					method : 'POST',
-					contentType : 'application/json; charset=UTF-8',
-					data : JSON.stringify(searchArr),
-					dataType : 'JSON'					
-				});
-				request.done(function(res){
-					console.log(res)
-					const searchList = res;
-					$('searchOptionTbody').html('');
-					if(searchList == null || searchList.length < 1){
-						const newTr = $('<tr />');
-						const newTd = $('<td />',{'colspan': 7}).text('검색에 일치되는 내용이 없습니다.');
-						newTr.append(newTd);
-						$('#searchOptionTbody').append(newTr);
-						return;
-					}
-					$(searchList).each(function(idx, item){
-						const newTr = $('<tr />'); 
-						const roomOptionNumber = item.roomOptionNumber;
-						const checkBox = 						$('<input />', { type:'checkbox', class:'check'});
-						const newTdCheckBox = 					$('<td />').html(checkBox);
-						const newTdroomOptionNumber = 			$('<td />').text(item.roomOptionNumber);
-						const newTdroomOptionCate = 			$('<td />').text(item.roomOptionCate);
-						const newTdroomOptionName = 			$('<td />').text(item.roomOptionName);
-						const newTdroomOptionPrice = 			$('<td />').text(item.Number(item.roomOptionPrice).toLocaleString("ko-KR", { style: "currency", currency: "KRW" }),);
-						const newTdroomOptionRegistrationDate = $('<td />').text(item.roomOptionRegistrationDate);
-						const newTdroomOptionRegistrationId = 	$('<td />').text(item.roomOptionRegistrationId);
-						
-						newTr.append(newTdCheckBox,
-									 newTdroomOptionNumber,
-									 newTdroomOptionCate,
-									 newTdroomOptionName,
-									 newTdroomOptionPrice,
-									 newTdroomOptionRegistrationDate,
-									 newTdroomOptionRegistrationId)
-									 
-						$('#searchOptionTbody').append(newTr);
-					});
+		    $('.search-items').each(function (idx, item) {
+		        const searchObj = {};
+		        searchObj.searchKey = item.id;
+		        searchObj.searchValue = item.value;
+		        searchArr.push(searchObj);
+		    });
+		    console.log("searchArr 확인.", searchArr);
+		
+		    const request = $.ajax({
+		        url: '/admin/option/getSearchOption',
+		        method: 'POST',
+		        contentType: 'application/json; charset=utf-8',
+		        data: JSON.stringify(searchArr),
+		        dataType: 'json',
+		    });
+		
+		    request.done(function (res) {
+		        console.log("res 확인.", res);
+		       
+		        const  searchTotal = res;
+				$('#searchOptionTbody').html('');
+				if(searchTotal == null || searchTotal.length < 1){
+					const newTr = $('<tr />');
+					const newTd = $('<td />',{'colspan': 7}).text('검색에 일치되는 내용이 없습니다.');
+					newTr.append(newTd);
+					$('#searchOptionTbody').append(newTr);
+					return;
+				}
+				$(searchTotal).each(function(idx, item){
+					const newTr = $('<tr />');
+					const checkBox = $('<input />', { type:'checkbox', class:'check'});
+					const newTdCheckBox = 						$('<td />').html(checkBox);
+					const newTdroomOptionNumber = 				$('<td />').text(item.roomOptionNumber);
+					const newTdroomOptionCate = 				$('<td />').text(item.roomOptionCate);
+					const newTdroomOptionName = 				$('<td />').text(item.roomOptionName);
+					const newTdroomOptionPrice = 				$('<td />').text(item.roomOptionPrice);
+					const newTdroomOptionRegistrationDate = 	$('<td />').text(item.roomOptionRegistrationDate);
+					const newTdroomOptionRegistrationId = 		$('<td />').text(item.roomOptionRegistrationId);
 					
-				});
-				request.fail(function(jQXHR, textStatus, error){
-					console.log(error);
-				});
-			});
-			*/
-			
+					newTr.append(newTdCheckBox,
+							newTdroomOptionNumber,
+							newTdroomOptionCate,
+							newTdroomOptionName,
+							newTdroomOptionPrice,
+							newTdroomOptionRegistrationDate, 
+							newTdroomOptionRegistrationId); 
+					$('#searchOptionTbody').append(newTr);
+				});					
+		        
+		    });
+		
+		    request.fail(function (jQXHR, textStatus, err) {
+		        console.log(err);
+		    });
+		});
+						
 			// 검색결과 tbody 이벤트
 			$(document).on('click', '.search-result tbody tr', function(e){
 				e.stopPropagation();
