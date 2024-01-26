@@ -9,6 +9,8 @@
 		<result column="notice_board_title" 		property="noticeBoardTitle"/>
 		<result column="notice_board_content" 		property="noticeBoardContent"/>
 		<result column="notice_board_reg_date" 		property="noticeBoardRegDate"/>
+		
+		
 		<association property="adminUserLevel" javaType="AdminUserLevel">
     <!-- id: 테이블의 PK컬럼 -->
     <id column="mem_level_code" property="mem_level_code"/>
@@ -17,14 +19,40 @@
     <result column="membership_rating" property="membership_rating"/>
     <result column="System_registration_time" property="System_registration_time"/>
 </association>
+
+		<association property="userBranchManagement" javaType="UserBranchManagement">
+    <!-- id: 테이블의 PK컬럼 -->
+    <id column="branch_code" property="branch_code"/>
+    <!-- result: 테이블의 PK컬럼을 제외한 컬럼 -->
+    <result column="branch_code" property="branch_code"/>
+    <result column="branch_name" property="branch_name"/>
+</association>
 		
 	</resultMap>
 	
+	
 	<insert id="addNoticeBoardList" parameterType="AdminNoticeBoard" useGeneratedKeys="true" keyProperty="noticeBoardCode">
-    INSERT INTO notice_board
-        (branch_code, member_id, notice_board_title, notice_board_content, notice_board_reg_date)
-    VALUES
-        (#{branchCode}, #{memberId}, #{noticeBoardTitle}, #{noticeBoardContent}, NOW())
+	<selectKey keyProperty="noticeBoardCode" resultType="String" order="BEFORE">
+SELECT
+
+CASE
+
+WHEN COUNT(nb.notice_board_code) = 0 THEN 'notice_board_code_1' 
+
+ELSE
+
+CONCAT('notice_board_code_',(MAX(CAST(SUBSTRING_INDEX(nb.notice_board_code,'notice_board_code_', -1) AS UNSIGNED))+1))
+
+END AS notice_board_code
+
+FROM
+notice_board AS nb
+</selectKey>
+    
+
+INSERT INTO notice_board
+	(notice_board_code, branch_code, member_id, notice_board_title, notice_board_content, notice_board_reg_date)
+	VALUES (#{noticeBoardCode}, #{branchCode}, #{memberId}, #{noticeBoardTitle}, #{noticeBoardContent}, NOW())
 </insert>
 	
 	
@@ -59,14 +87,23 @@ notice_board
 	
 	
 <select id="getNoticeBoardList" resultMap="usersNotice">
-select
-	notice_board_code,
-	branch_code,
-	member_id,
-	notice_board_title,
-	notice_board_content,
-	notice_board_reg_date
+SELECT
+nb.notice_board_code,
+nb.member_id,
+nb.branch_code,
+bm.branch_name,
+nb.notice_board_title,
+nb.notice_board_content,
+nb.notice_board_reg_date
 FROM
-	notice_board
+notice_board AS nb
+INNER join
+branch_management AS bm
+ON
+nb.branch_code = bm.branch_code
+ORDER BY 
+  SUBSTRING_INDEX(notice_board_code, '_', -1) + 0 ASC,
+  SUBSTRING_INDEX(notice_board_code, '_', 1) ASC;
+
 </select>
 </mapper>

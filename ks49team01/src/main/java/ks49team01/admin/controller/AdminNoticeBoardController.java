@@ -15,6 +15,8 @@ import ks49team01.admin.dto.AdminNoticeBoard;
 import ks49team01.admin.dto.AdminUserLevel;
 import ks49team01.admin.service.AdminNoticeBoardService;
 import ks49team01.admin.service.AdminUserService;
+import ks49team01.user.dto.UserBranchManagement;
+import ks49team01.user.service.UserBranchManagementService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
@@ -23,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminNoticeBoardController {
 	
+	private UserBranchManagementService userBranchManagementService;
+
 	private AdminNoticeBoardService adminNoticeBoardService;
 	private final AdminUserService userService;
 	
@@ -32,7 +36,7 @@ public class AdminNoticeBoardController {
 		adminNoticeBoardService.addNoticeBoardList(adminNoticeBoard);
 		
 
-		return "Redirect:admin/noticeBoard/getNoticeBoard";
+		return "redirect:/admin/noticeBoard/getNoticeBoard";
 		
 	}
 	
@@ -41,9 +45,11 @@ public class AdminNoticeBoardController {
 	@GetMapping("/addNoticeBoard")
 	public String addNoticeBoardList(Model model) {
 		
+		List<UserBranchManagement> branchName = userBranchManagementService.getUserBranchManagementList();
 		List<AdminUserLevel> memberLevel = userService.memberLevelList();
-		model.addAttribute("title", "공지사항추가");
+		model.addAttribute("title", "공지사항 작성");
 		model.addAttribute("memberLevel", memberLevel);
+		model.addAttribute("branchName", branchName);
 		
 		return "admin/noticeBoard/add_notice_board";
 	}

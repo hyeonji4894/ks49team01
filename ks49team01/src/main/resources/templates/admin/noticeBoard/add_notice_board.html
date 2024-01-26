@@ -59,9 +59,9 @@
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/admin/member/getMember}" class="text-muted h4">회원목록</a>
+			<a th:href="@{/admin/noticeBoard/getNoticeBoard}" class="text-muted h4">공지사항</a>
 		</li>
-		<li class="breadcrumb-item text-muted active h4" aria-current="page">회원등록</li>
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">공지사항작성</li>
 	</th:block>
 
 	<!-- Start Page Content -->
@@ -77,27 +77,25 @@
 						</div>
 					</div> -->
 					<div class="row border add-form">
-						<div class="col-2 add-form-label border-end">branchCode</div>
+						<div class="col-2 add-form-label border-end">가맹점코드</div>
 						<div class="col-10">
-						
-					<!-- 	<select class="form-control text-center" id="branchCode" name="branchCode" >
-								<option value="">회원등급을 선택해주세요</option>
-								<th:block th:if="${memberLevel != null and not #lists.isEmpty(memberLevel)}"
-										  th:each="l : ${memberLevel}">
-									<option th:value="${l.mem_level_code}" th:text="${l.membership_rating}"></option>
-							</select> -->
-							<input type="text" class="form-control" id="branchCode" name="branchCode"  >
+					 	<select class="form-control text-center" id="branchCode" name="branchCode" >
+								<option value="">가맹점을 선택해주세요</option>
+								<th:block th:if="${branchName != null and not #lists.isEmpty(branchName)}"
+										  th:each="l : ${branchName}">
+									<option th:value="${l.branch_code}" th:text="${l.branch_name}"></option>
+							</select> 
 						</div>
 					</div>
 					<div class="row border add-form">
-						<div class="col-2 add-form-label border-end">아memberId이디</div>
+						<div class="col-2 add-form-label border-end">아이디</div>
 						<div class="col-10">
 							<input type="text" class="form-control" id="memberId" name="memberId"  >
 						</div>
 					</div>
 					
 					<div class="row border add-form">
-						<div class="col-2 add-form-label border-end">noticeBoardTitle</div>
+						<div class="col-2 add-form-label border-end">제목</div>
 						<div class="col-10">
 							<input type="text" class="form-control" id="noticeBoardTitle" name="noticeBoardTitle"  >
 						</div>
@@ -105,7 +103,7 @@
 				
 					
 					<div class="row border add-form">
-					<div class="col-2 add-form-label border-end textarea-form">noticeBoardContent</div>
+					<div class="col-2 add-form-label border-end textarea-form">내용</div>
 					<div class="col-10">
 						<textarea class="form-control" rows="3" id="noticeBoardContent" name="noticeBoardContent"></textarea>
 					</div>
