@@ -1,9 +1,9 @@
-package ks49team01.admin.dto;
+package ks49team01.branch.dto;
 
 import lombok.Data;
 
 @Data
-public class AdminCloseSchoolComparisonBranch {
+public class BranchCloseSchoolComparisonBranch {
 	
 	private String totalMap;
 	private String closeSchoolCode;
@@ -13,7 +13,6 @@ public class AdminCloseSchoolComparisonBranch {
 	private String changeDate;
 	private String firstDate;
 	private String currentStatus;
-// 폐교 dto
 	private String closeSchoolImg;
 	private String closeSchoolArea;
 	private String branchCurrentSituation;
@@ -21,7 +20,6 @@ public class AdminCloseSchoolComparisonBranch {
 	private String systemRegistrationDate;
 	private String lastModifiedDate;
 	private String viewMapImg;
-//가맹점 dto
 	private String branchCode;
 	private String branchName;
 	private String branchAddr;
@@ -31,5 +29,3 @@ public class AdminCloseSchoolComparisonBranch {
 	private String branchEndDate;
 	private String branchImage;
 }
-
-// @Data를 활용해 getter, setter toString()을 작성 X
