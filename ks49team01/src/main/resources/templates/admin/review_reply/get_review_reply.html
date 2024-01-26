@@ -23,13 +23,13 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">쿠폰관리</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">리뷰관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/admin/coupon/getCouponKind}" class="text-muted h4">쿠폰종류</a>
+			<a th:href="@{#}" class="text-muted h4">리뷰댓글</a>
 		</li>
 		<li class="breadcrumb-item text-muted active h4" aria-current="page">조회하기</li>
 	</th:block>
@@ -42,18 +42,11 @@
 		        <div class="col-lg-10">
 		          <div class="row mb-3">
 		            <div class="col-lg-4">
-		                <label class="form-label card-title font-weight-bolder">쿠폰이름</label>
+		                <label class="form-label card-title font-weight-bolder">댓글검색</label>
 		                <div class="input-group">
 		                  <input type="text" class="form-control search-items" readonly="readonly" id="couponName" name="couponName">
 		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
 		                </div>
-		            </div>&emsp;&emsp;&emsp;
-		            <div class="col-lg-5">
-		                <label class="form-label card-title font-weight-bolder">쿠폰가격</label>
-		                <div class="input-group">
-		                  <input placeholder="$" type="text" class="form-control search-items" name="couponMinPrice" id="couponMinPrice"><label>&emsp;이상</label>&emsp;&emsp;
-		                  <input placeholder="$" type="text" class="form-control search-items" name="couponMaxPrice" id="couponMaxPrice"><label>&emsp;이하</label>
-		                </div>		                
 		            </div>
 		          </div>
 		        </div>
@@ -75,7 +68,7 @@
 		    		<div class="col-sm-3 d-flex align-items-end">		    		
 				    	<h5 class="card-title">
 					    	[ 전체 &nbsp;
-					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	<label id="listCnt" class="text-info mb-0"></label> 건
 					    	&nbsp;|&nbsp;  
 					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
 					    	]

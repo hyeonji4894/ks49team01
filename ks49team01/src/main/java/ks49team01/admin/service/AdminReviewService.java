@@ -1,6 +1,7 @@
 package ks49team01.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,4 +53,25 @@ public class AdminReviewService {
 		
 		return adminReviewMapper.getReviewCategoryContext(reviewCategoryContext);
 	}
+	
+	/**
+	 * 리뷰 카테고리 조건 검색 
+	 */
+	public List<AdminReviewCategory> getSearchCategory(List<Map<String, Object>> paramList){
+		
+		return adminReviewMapper.getSearchCategory(paramList);
+	}
+	
+	
+	/**
+	 * 리뷰 내용 검색
+	 * @param reviewContext
+	 * @return
+	 */
+	public List<AdminReview> getSearchReviewContext(String reviewContext){
+		
+		return adminReviewMapper.getReviewContext(reviewContext);
+	}
+	
+
 }

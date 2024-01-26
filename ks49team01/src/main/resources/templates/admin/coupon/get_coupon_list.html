@@ -29,7 +29,7 @@
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/admin/coupon/getCouponKind}" class="text-muted h4">쿠폰지급내역</a>
+			<a th:href="@{#}" class="text-muted h4">쿠폰지급내역</a>
 		</li>
 		<li class="breadcrumb-item text-muted active h4" aria-current="page">조회하기</li>
 	</th:block>
@@ -42,9 +42,9 @@
 		        <div class="col-lg-10">
 		          <div class="row mb-3">
 		            <div class="col-lg-4">
-		                <label class="form-label card-title font-weight-bolder">쿠폰이름</label>
+		                <label class="form-label card-title font-weight-bolder">회원아이디</label>
 		                <div class="input-group">
-		                  <input type="text" class="form-control search-items" readonly="readonly" id="couponName" name="couponName">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="memberId" name="memberId">
 		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
 		                </div>
 		            </div>&emsp;&emsp;&emsp;
@@ -75,15 +75,15 @@
 		    		<div class="col-sm-3 d-flex align-items-end">		    		
 				    	<h5 class="card-title">
 					    	[ 전체 &nbsp;
-					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	<label id="listCnt" class="text-info mb-0"></label> 건
 					    	&nbsp;|&nbsp;  
-					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
+					    	<label id="pageCnt" class="text-info mb-0"></label> 건
 					    	]
 				    	</h5>
 		    		</div>	    	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/coupon/addCouponKind}"><i class="fas fas fa-pencil-alt"></i>
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{#}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
                            <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
                                수정</button>
@@ -152,7 +152,7 @@
               <div class="modal-dialog">
                   <div class="modal-content">
                   	  <div class="modal-header">
-                          <h4 class="modal-title" id="modalTitle1">쿠폰이름검색</h4>
+                          <h4 class="modal-title" id="modalTitle1">쿠폰이름 검색</h4>
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                       </div>
                       <div class="modal-body">
@@ -173,7 +173,7 @@
                                     <tr>
                                         <th>쿠폰코드</th>
                                         <th>쿠폰이름</th>
-                                        <th>등록자아이디</th>
+                                        <th>아이디</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border border-dark searchTb1">

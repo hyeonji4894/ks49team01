@@ -83,7 +83,7 @@
 			FROM
 				event_coupon_kind AS eck
 		</selectKey>
-			/* 객실등록 */
+			/* 쿠폰등록 */
 			INSERT INTO event_coupon_kind
 			(coupon_code, member_id, coupon_name, coupon_price, coupon_due_date, coupon_kind_register_date)
 			VALUES

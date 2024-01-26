@@ -1,11 +1,13 @@
 package ks49team01.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ks49team01.admin.dto.AdminReview;
 import ks49team01.admin.dto.AdminReviewCategory;
 import ks49team01.admin.dto.AdminReviewReply;
+import ks49team01.admin.mapper.AdminReviewMapper;
 import ks49team01.admin.service.AdminReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminReviewController {
 	
 	private final AdminReviewService adminReviewService;
+	private final AdminReviewMapper adminReviewMapper;
 	
 	@GetMapping("/addReviewCategory")
 	public String addReviewCategory(Model model){
@@ -55,7 +59,7 @@ public class AdminReviewController {
 	return "admin/review_category/remove_review_category";
 	}
 	
-	
+	// 리뷰 카테고리 모달 검색
 	@PostMapping("/searchForCategoryContext")
 	@ResponseBody
 	public List<AdminReviewCategory> searchForCategoryContext(@RequestParam(value="searchCategoryContext") String reviewCategoryContext) {
@@ -65,6 +69,30 @@ public class AdminReviewController {
 		List<AdminReviewCategory> searchCategoryContext = adminReviewService.getSearchCategoryContext(reviewCategoryContext);
 
 		return searchCategoryContext;
+	}
+	
+	// 리뷰 카테고리 최종 검색
+	@PostMapping("/getSearchCategory")
+	@ResponseBody
+	public List<AdminReviewCategory> getSearchCategory(@RequestBody List<Map<String, Object>> paramList) {
+		log.info("검색 내용 선택 : {}", paramList);
+		if(paramList != null) {
+			paramList.forEach(paramMap -> {
+				String searchKey = (String) paramMap.get("searchKey");
+				switch (searchKey) {
+					case "reviewCategoryContext" -> searchKey = "review_category_context"; 
+					case "reviewCategoryKind" -> searchKey = "review_category_kind"; 
+				}
+				paramMap.put("searchKey",searchKey);
+			});
+		}
+		log.info("선택 내용 검색 : {}", paramList);
+		
+		
+		List<AdminReviewCategory> searchReviewCategory = adminReviewMapper.getSearchCategory(paramList);
+		
+		
+		return searchReviewCategory;
 	}
 	
 	
@@ -81,6 +109,8 @@ public class AdminReviewController {
 		
 	return "admin/review_category/get_review_category";
 	}
+	
+	
 	
 	@GetMapping("/removeReview")
 	public String removeReview(Model model){
@@ -105,6 +135,7 @@ public class AdminReviewController {
 	return "admin/review/get_review_list";
 	}
 	
+	
 	@GetMapping("/addReviewReply")
 	public String addReviewReply(Model model){
 		
@@ -125,6 +156,19 @@ public class AdminReviewController {
 	return "admin/review_reply/modify_review_reply";
 	}
 	
+	@PostMapping("/searchForReviewContext")
+	@ResponseBody
+	public List<AdminReview> searchForReviewContext(@RequestParam(value="searchReviewContext") String reviewContext){
+		
+		log.info("reviewContext: {}", reviewContext);
+		
+		List<AdminReview> searchReviewContext = adminReviewService.getSearchReviewContext(reviewContext);
+		
+		return searchReviewContext;
+		
+	}
+		
+		
 	@GetMapping("/removeReviewReply")
 	public String removeReviewReply(Model model){
 		

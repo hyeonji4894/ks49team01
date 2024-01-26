@@ -42,20 +42,13 @@
 		        <div class="col-lg-10">
 		          <div class="row mb-3">
 		            <div class="col-lg-4">
-		                <label class="form-label card-title font-weight-bolder">카테고리 내용</label>
-		                <div class="input-group">
-		                  <input type="text" class="form-control search-items" readonly="readonly" id="reviewCategoryContext" name="reviewCategoryContext">
-		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
-		                </div>
-		            </div>&emsp;&emsp;&emsp;
-		            <div class="col-lg-4">
-		              <label class="form-label card-title font-weight-bolder">카테고리 종류</label>
+		              <label class="form-label card-title font-weight-bolder ">카테고리 종류</label>
 		              <div class="row">
 		                <div class="col-12">
 		                  <div class="input-group">
-		                    <select class="form-control text-center">
-		                      <option value="시설">시설</option>
+		                    <select class="form-control text-center search-items" id="reviewCategoryKind">
 		                      <option value="분위기">분위기</option>
+		                      <option value="시설">시설</option>
 		                    </select>
 		                  </div>
 		                </div>
@@ -151,91 +144,10 @@
 		    </div>
 		  </div>
 		  
-		  <!-- search1 modal content -->
-          <div id="search1-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                  	  <div class="modal-header">
-                          <h4 class="modal-title" id="modalTitle1">카테고리 검색</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      </div>
-                      <div class="modal-body">
-                         <div class="form-group row justify-content-center">                         	 
-                            <label for="searchItem1" class="col-sm-3 col-form-label card-title font-weight-bolder">내용</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="searchCategoryContext" placeholder="검색어를 입력해주세요">
-                            </div>
-                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button" id="categorySearchBtn">
-                            	<i class="fas fa-search">&ensp;검색</i>
-                            </button>
-                         </div>
-                      </div>
-                      <div class="modal-footer">
-                      	 <div class="table-responsive">
-                             <table class="table table-bordered table-hover text-center">
-                                <thead class="text-dark font-weight-bolder">
-                                    <tr>
-                                        <th>카테고리코드</th>
-                                        <th>카테고리내용</th>
-                                        <th>등록자아이디</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="border border-dark searchTb1">
-	          		 	 			<tr th:if="${adminReviewCategory != null and not #lists.isEmpty(adminReviewCategory)}"
-			            	 			th:each="l : ${adminReviewCategory}">
-                                        <td th:text="${l.categoryCode}"></td>
-						                <td th:text="${l.reviewCategoryContext}"></td>
-						                <td th:text="${l.memberId}"></td>
-                                    </tr>                                   
-                                </tbody>
-                            
-                              </table>
-                          </div>
-                      </div>
-                  </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
+		  
 	</th:block>
 	<th:block layout:fragment="customJs">
 		<script th:inline="javascript">		
-		
-			//categorySearchBtn click
-			$(document).on('click', '#categorySearchBtn', function(){
-				let searchCategoryContext = $('#searchCategoryContext').val();
-				searchCategoryContext??'';
-				const request = $.ajax({
-					url:'/admin/review/searchForCategoryContext',
-					method:'POST',
-					data:{'searchCategoryContext' : searchCategoryContext},
-					dataType:'json',
-				});
-				request.done(function(res){
-					console.log(res);
-					$('.searchTb1').html('');
-					let content = '';
-					$(res).each(function(idx, item){						
-						content += `<tr>`;
-						content += `	<td>${item.categoryCode}</td>`;
-						content += `	<td>${item.reviewCategoryContext}</td>`;
-						content += `	<td>${item.memberId}</td>`;
-						content += `</tr>`;						
-					});
-					$('.searchTb1').html(content);
-					
-				});
-				request.fail(function( jQXHR, textStatus, err){
-					console.log(err);
-				})
-			});
-		
-			// modal searchTb1 처리
-			$(document).on('click', '.searchTb1 tr', function(){
-				
-				const reviewCategoryContext = $(this).children().eq(1).text();
-				$('#reviewCategoryContext').val(reviewCategoryContext);
-				$('#search1-modal').modal('hide');
-				
-			});
 			
 			
 			// 검색결과 tbody 이벤트
@@ -280,7 +192,6 @@
 			
 			// 최종 검색 버튼
 			$(document).on('click','#searchBtn2', function(){
-				//const searchValue = $('#searchValue').val();
 				const searchArr = [];
 				$('.search-items').each(function(idx, item){
 					const searchObj = {};
@@ -291,7 +202,7 @@
 				console.log(searchArr);
 				
 				const request = $.ajax({
-					url : '/admin/review/searchForCategoryContext',
+					url : '/admin/review/getSearchCategory',
 					method : 'POST',
 					contentType : 'application/json; charset=UTF-8',
 					data: JSON.stringify(searchArr),
@@ -303,7 +214,7 @@
 					$('#searchCategoryTbodys').html('');
 					if(searchList == null || searchList.length < 1){
 						const newTr = $('<tr />');
-						const newTd = $('<td />',{'colspan': 5}).text('검색에 일치되는 내용이 없습니다.');
+						const newTd = $('<td />',{'colspan': 6}).text('검색에 일치되는 내용이 없습니다.');
 						newTr.append(newTd);
 						$('#searchCategoryTbodys').append(newTr);
 						return;
@@ -313,11 +224,13 @@
 						const checkBox = $('<input />', { type:'checkbox', class:'check'});
 						const newTdCheckBox = 						$('<td />').html(checkBox);
 						const newTdcategoryCode = 					$('<td />').text(item.categoryCode);
+						const newTdreviewCategoryKind = 			$('<td />').text(item.reviewCategoryKind);
 						const newTdreviewCategoryContext = 			$('<td />').text(item.reviewCategoryContext);
 						const newTdmemberId = 						$('<td />').text(item.memberId);
 						const newTdreviewCategoryRegisterDate = 	$('<td />').text(item.reviewCategoryRegisterDate);
 						newTr.append(newTdCheckBox,
 									 newTdcategoryCode,
+									 newTdreviewCategoryKind,
 									 newTdreviewCategoryContext,
 									 newTdmemberId,
 									 newTdreviewCategoryRegisterDate);

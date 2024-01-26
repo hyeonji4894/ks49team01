@@ -17,4 +17,5 @@ public class AdminReview {
 	private LocalDate reviewDate;
 	private int reviewViews;
 	private String reviewFileCode;
+	private String FileAttribute;
 }

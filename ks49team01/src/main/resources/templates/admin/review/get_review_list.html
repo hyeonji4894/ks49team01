@@ -44,23 +44,10 @@
 		            <div class="col-lg-4">
 		                <label class="form-label card-title font-weight-bolder">리뷰내용 키워드 검색</label>
 		                <div class="input-group">
-		                  <input type="text" class="form-control search-items" readonly="readonly" id="categoryName" name="couponName">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="reviewContext" name="reviewContext">
 		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
 		                </div>
 		            </div>&emsp;&emsp;&emsp;
-		            <div class="col-lg-4">
-		              <label class="form-label card-title font-weight-bolder">카테고리 종류</label>
-		              <div class="row">
-		                <div class="col-12">
-		                  <div class="input-group">
-		                    <select class="form-control text-center">
-		                      <option value="">시설</option>
-		                      <option value="">분위기</option>
-		                    </select>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
 		          </div>
 		        </div>
 		        <div class="col-lg-2 align-self-center">
@@ -89,10 +76,6 @@
 		    		</div>	    	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/coupon/addCouponKind}"><i class="fas fas fa-pencil-alt"></i>
-                               등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
-                               수정</button>
                            <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
                                삭제</button>
                        </div>
@@ -105,34 +88,26 @@
                       	  <th style="width: 5%;">
                             <input type="checkbox" id="allCheck">
                       	  </th>
-                          <th class="font-weight-bolder">카테고리 코드</th>
-                          <th class="font-weight-bolder">카테고리 내용</th>
+                          <th class="font-weight-bolder">리뷰 번호</th>
                           <th class="font-weight-bolder">등록자 아이디</th>
-                          <th class="font-weight-bolder">카테고리 등록일자</th>
+                          <th class="font-weight-bolder">리뷰 내용</th>
+                          <th class="font-weight-bolder">리뷰 첨부파일</th>
+                          <th class="font-weight-bolder">리뷰 작성일자</th>
+                          <th class="font-weight-bolder">조회수</th>
                       </tr>
                   </thead>
-                  <tbody class="border text-dark" id="searchCategoryTbodys">
-		              <tr th:if="${adminMoodReviewCategory != null and not #lists.isEmpty(adminMoodReviewCategory)}"
-		            	  th:each="l : ${adminMoodReviewCategory}">
+                  <tbody class="border text-dark" id="searchReviewTbodys">
+		              <tr th:if="${adminReviewList != null and not #lists.isEmpty(adminReviewList)}"
+		            	  th:each="l : ${adminReviewList}">
 	                 	<td style="width: 5%;">
 	                    	<input type="checkbox" class="check">
 	                  	</td>			              
-		                <td th:text="${l.moodCode}"></td>
-		                <td th:text="${l.moodCategoryContext}"></td>
+		                <td th:text="${l.reviewNum}"></td>
 		                <td th:text="${l.memberId}"></td>
-		                <td th:text="${l.moodRegisterDate}"></td>
-                      </tr>
-                  </tbody>
-                  <tbody class="border text-dark" id="searchCategoryTbodys">
-		              <tr th:if="${adminFacilityReviewCategory != null and not #lists.isEmpty(adminFacilityReviewCategory)}"
-		            	  th:each="l : ${adminFacilityReviewCategory}">
-	                 	<td style="width: 5%;">
-	                    	<input type="checkbox" class="check">
-	                  	</td>			              
-		                <td th:text="${l.facilityCode}"></td>
-		                <td th:text="${l.facilityCategoryContext}"></td>
-		                <td th:text="${l.memberId}"></td>
-		                <td th:text="${l.facilityRegisterDate}"></td>
+		                <td th:text="${l.reviewContext}"></td>
+		                <td th:text="${l.fileAttribute}"></td>
+		                <td th:text="${l.reviewDate}"></td>
+		                <td th:text="${l.reviewViews}"></td>
                       </tr>
                   </tbody>                  
                 </table>
@@ -166,16 +141,16 @@
               <div class="modal-dialog">
                   <div class="modal-content">
                   	  <div class="modal-header">
-                          <h4 class="modal-title" id="modalTitle1">쿠폰이름검색</h4>
+                          <h4 class="modal-title" id="modalTitle1">리뷰키워드 검색</h4>
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                       </div>
                       <div class="modal-body">
                          <div class="form-group row justify-content-center">                         	 
-                            <label for="searchItem1" class="col-sm-3 col-form-label card-title font-weight-bolder">쿠폰이름</label>
+                            <label for="searchItem1" class="col-sm-3 col-form-label card-title font-weight-bolder">리뷰키워드</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="searchCouponName" placeholder="검색어를 입력해주세요">
+                                <input type="text" class="form-control" id="searchReviewContext" placeholder="검색어를 입력해주세요">
                             </div>
-                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button" id="couponSearchBtn">
+                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button" id="reviewSearchBtn">
                             	<i class="fas fa-search">&ensp;검색</i>
                             </button>
                          </div>
@@ -185,16 +160,16 @@
                              <table class="table table-bordered table-hover text-center">
                                 <thead class="text-dark font-weight-bolder">
                                     <tr>
-                                        <th>쿠폰코드</th>
-                                        <th>쿠폰이름</th>
+                                        <th>리뷰번호</th>
+                                        <th>리뷰내용</th>
                                         <th>등록자아이디</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border border-dark searchTb1">
-	          		 	 			<tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
-			            	 			th:each="l : ${adminCouponKind}">
-                                        <td th:text="${l.couponCode}"></td>
-						                <td th:text="${l.couponName}"></td>
+	          		 	 			<tr th:if="${adminReviewList != null and not #lists.isEmpty(adminReviewList)}"
+			            	 			th:each="l : ${adminReviewList}">
+                                        <td th:text="${l.reviewNum}"></td>
+						                <td th:text="${l.reviewContext}"></td>
 						                <td th:text="${l.memberId}"></td>
                                     </tr>
                                 </tbody>
@@ -208,14 +183,14 @@
 	<th:block layout:fragment="customJs">
 		<script th:inline="javascript">		
 		
-			//couponSearchBtn click
-			$(document).on('click', '#couponSearchBtn', function(){
-				let searchCouponName = $('#searchCouponName').val();
-				searchCouponName??'';
+			//reviewSearchBtn click
+			$(document).on('click', '#reviewSearchBtn', function(){
+				let searchReviewContext = $('#searchReviewContext').val();
+				searchReviewContext??'';
 				const request = $.ajax({
-					url:'/admin/coupon/searchForCouponName',
+					url:'/admin/review/searchForReviewContext',
 					method:'POST',
-					data:{'searchCouponName' : searchCouponName},
+					data:{'searchReviewContext' : searchReviewContext},
 					dataType:'json',
 				});
 				request.done(function(res){
@@ -224,8 +199,8 @@
 					let content = '';
 					$(res).each(function(idx, item){						
 						content += `<tr>`;
-						content += `	<td>${item.couponCode}</td>`;
-						content += `	<td>${item.couponName}</td>`;
+						content += `	<td>${item.reviewNum}</td>`;
+						content += `	<td>${item.reviewContext}</td>`;
 						content += `	<td>${item.memberId}</td>`;
 						content += `</tr>`;						
 					});
@@ -240,8 +215,8 @@
 			// modal searchTb1 처리
 			$(document).on('click', '.searchTb1 tr', function(){
 				
-				const couponName = $(this).children().eq(1).text();
-				$('#couponName').val(couponName);
+				const reviewContext = $(this).children().eq(1).text();
+				$('#reviewContext').val(reviewContext);
 				$('#search1-modal').modal('hide');
 			});
 			
@@ -258,7 +233,7 @@
 				console.log(searchArr);
 				
 				const request = $.ajax({
-					url : '/admin/coupon/searchForCouponPrice',
+					url : '/admin/coupon/searchForReviewContext',
 					method : 'POST',
 					contentType : 'application/json; charset=UTF-8',
 					data: JSON.stringify(searchArr),
@@ -266,35 +241,35 @@
 				});
 				request.done(function(res){
 					console.log(res)
-					const searchList = res;
-					$('#searchCouponTbodys').html('');
-					if(searchList == null || searchList.length < 1){
+					const adminReviewList = res;
+					$('#searchReviewTbodys').html('');
+					if(adminReviewList == null || adminReviewList.length < 1){
 						const newTr = $('<tr />');
 						const newTd = $('<td />',{'colspan': 7}).text('검색에 일치되는 내용이 없습니다.');
 						newTr.append(newTd);
-						$('#searchCouponTbodys').append(newTr);
+						$('#searchReviewTbodys').append(newTr);
 						return;
 					}
-					$(searchList).each(function(idx, item){
+					$(adminReviewList).each(function(idx, item){
 						const newTr = $('<tr />');
 						const checkBox = $('<input />', { type:'checkbox', class:'check'});
 						const newTdCheckBox = 					$('<td />').html(checkBox);
-						const newTdcouponCode = 				$('<td />').text(item.couponCode);
-						const newTdcouponName = 				$('<td />').text(item.couponName);
-						const newTdcouponPrice = 				$('<td />').text(item.couponPrice);
-						const newTdcouponDueDate = 				$('<td />').text(item.couponDueDate);
-						const newTdcouponKindRegisterDate = 	$('<td />').text(item.couponKindRegisterDate);
+						const newTdreviewNum = 					$('<td />').text(item.reviewNum);
 						const newTdmemberId = 					$('<td />').text(item.memberId);
+						const newTdreviewContext = 				$('<td />').text(item.reviewContext);
+						const newTdfileAttribute = 				$('<td />').text(item.fileAttribute);
+						const newTdreviewDate = 				$('<td />').text(item.reviewDate);
+						const newTdreviewViews = 				$('<td />').text(item.reviewViews);
 						
 						newTr.append(newTdCheckBox,
-									 newTdcouponCode,
-									 newTdcouponName,
-									 newTdcouponPrice,
-									 newTdcouponDueDate,
-									 newTdcouponKindRegisterDate,
-									 newTdmemberId);
+									 newTdreviewNum,
+									 newTdmemberId,
+									 newTdreviewContext,
+									 newTdfileAttribute,
+									 newTdreviewDate,
+									 newTdreviewViews);
 						
-						$('#searchCouponTbodys').append(newTr);
+						$('#searchReviewTbodys').append(newTr);
 					});					
 					
 				});

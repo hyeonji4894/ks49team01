@@ -5,13 +5,15 @@
 	<resultMap type="AdminReview" id="reviewResultMap">
 		<id column="review_num" 				property="reviewNum"/>
 		<result column="member_id" 				property="memberId"/>
-		<result column="branchCode" 			property="branchCode"/>
+		<result column="branch_code" 			property="branchCode"/>
+		<result column="payments_due_code" 		property="paymentsDueCode"/>
 		<result column="stay_period_code" 		property="stayPeriodCode"/>
 		<result column="room_code" 				property="roomCode"/>
 		<result column="review_context" 		property="reviewContext"/>
 		<result column="review_date" 			property="reviewDate"/>
 		<result column="review_views" 			property="reviewViews"/>
 		<result column="review_file_code" 		property="reviewFileCode"/>
+		<result column="file_attribute" 		property="fileAttribute"/>
 		
 	</resultMap>
 	
@@ -19,19 +21,40 @@
 		SELECT
 			r.review_num,
 			r.member_id,
-			r.branch_code,
-			r.payments_due_code,
-			r.stay_period_code,
-			r.room_code,
 			r.review_context,
+			rf.file_attribute,
 			r.review_date,
-			r.review_views,
-			r.review_file_code
+			r.review_views
 		FROM
-			review AS r;
+			review AS r
+			INNER JOIN
+			review_file AS rf
+			ON
+			r.review_file_code = rf.review_file_code
  	</select>
  	
- 		<resultMap type="AdminReviewCategory" id="CategoryResultMap">
+ 	<select id="getReviewContext" resultMap="reviewResultMap">
+		SELECT
+			r.review_num,
+			r.member_id,
+			r.review_context,
+			rf.file_attribute,
+			r.review_date,
+			r.review_views
+		FROM
+			review AS r
+			INNER JOIN
+			review_file AS rf
+			ON
+			r.review_file_code = rf.review_file_code
+		<where>
+			<if test="searchReviewContext != null and searchReviewContext != ''">
+				r.review_context LIKE CONCAT('%', #{searchReviewContext}, '%')
+			</if>
+		</where>				
+ 	</select> 	
+ 	
+ 	<resultMap type="AdminReviewCategory" id="CategoryResultMap">
 		<id column="category_code" 						property="categoryCode"/>
 		<result column="member_id" 						property="memberId"/>
 		<result column="review_category_kind" 			property="reviewCategoryKind"/>
@@ -50,7 +73,7 @@
 			review_category AS rc;		
  	</select>
  	
- 	<select id="getReviewCategoryContext" resultMap="CategoryResultMap">
+ 	<select id="getSearchCategory" resultMap="CategoryResultMap" parameterType="list"> 	
 		SELECT
 			rc.category_code,
 			rc.member_id,
@@ -58,15 +81,13 @@
 			rc.review_category_context,
 			rc.review_category_register_date
 		FROM
-			review_category AS rc
+			review_category AS rc		
 		<where>
-			<if test="searchCategoryContext != null and searchCategoryContext != ''">
-				rc.review_category_context LIKE CONCAT('%', #{searchCategoryContext}, '%')
-			</if>
-		</where>				
- 	</select>
- 	
-
-	
-	
+			<foreach collection="paramList" item="item">
+				<if test="item.searchKey != null and item.searchKey != ''">
+					AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue} ,'%')		
+				</if>
+			</foreach>
+		</where>	
+	</select>
 </mapper>
