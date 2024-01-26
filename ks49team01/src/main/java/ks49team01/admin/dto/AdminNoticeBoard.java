@@ -10,5 +10,8 @@ public class AdminNoticeBoard {
 	private String noticeBoardTitle;
 	private String noticeBoardContent;
 	private String noticeBoardRegDate;
+	
+	private AdminUser adminUser;
+	private AdminUserLevel adminUserLevel;
 
 }

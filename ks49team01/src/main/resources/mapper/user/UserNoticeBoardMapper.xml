@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ks49team01.user.mapper.UserNoticeBoardMapper">
+
+    <resultMap id="UserNoticeBoardResultMap" type="UserNoticeBoard">
+        <id property="noticeBoardCode" column="notice_board_code" />
+        <result property="branchCode" column="branch_code" />
+        <result property="memberId" column="member_id" />
+        <result property="noticeBoardTitle" column="notice_board_title" />
+        <result property="noticeBoardContent" column="notice_board_content" />
+        <result property="noticeBoardRegDate" column="notice_board_reg_date" />
+    </resultMap>
+
+    <select id="getNoticeBoard" resultMap="UserNoticeBoardResultMap">
+        SELECT * FROM notice_board WHERE notice_board_code = #{noticeBoardCode}
+    </select>
+
+    <select id="getAllNoticeBoards" resultMap="UserNoticeBoardResultMap">
+        SELECT * FROM notice_board
+    </select>
+
+    <insert id="insertNoticeBoard" parameterType="UserNoticeBoard">
+        INSERT INTO notice_board (branch_code, member_id, notice_board_title, notice_board_content)
+        VALUES (#{branchCode}, #{memberId}, #{noticeBoardTitle}, #{noticeBoardContent})
+    </insert>
+
+    <update id="updateNoticeBoard" parameterType="UserNoticeBoard">
+        UPDATE notice_board
+        SET branch_code = #{branchCode}, member_id = #{memberId}, notice_board_title = #{noticeBoardTitle},
+            notice_board_content = #{noticeBoardContent}
+        WHERE notice_board_code = #{noticeBoardCode}
+    </update>
+
+    <delete id="deleteNoticeBoard" parameterType="String">
+        DELETE FROM notice_board WHERE notice_board_code = #{noticeBoardCode}
+    </delete>
+
+</mapper>

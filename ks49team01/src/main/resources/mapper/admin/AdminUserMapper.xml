@@ -14,7 +14,6 @@
 		<result column="member_phone" 		property="memberPhone"/>
 		<result column="member_addr" 		property="memberAddr"/>
 		<result column="member_regdate" 		property="memberRegDate"/>
-		<result column="member_addr_detail" 		property="member_addr_detail"/>
 		
 		
 		<result column="final_mileage" 		property="final_mileage"/>
@@ -34,9 +33,7 @@
 </association>
 
 	</resultMap>
-	<select id="findByUsernameAndPassword" resultType="AdminUser">
-        SELECT * FROM member WHERE member_id = #{memberId} AND member_pw = #{memberPw}
-    </select>
+	
 	<update id="modifyMember" parameterType="AdminUser">
 		/* 특정회원 수정 */
 		UPDATE member
@@ -64,10 +61,7 @@
 				member_phone=#{memberPhone},
 			</if>
 			<if test="memberAddr != null and memberAddr != ''">
-				member_addr=#{memberAddr},
-			</if>
-			<if test="member_addr_detail != null and member_addr_detail != ''">
-				member_addr_detail=#{member_addr_detail},
+				member_addr=#{memberAddr}
 			</if>
 			<if test="memberRegDate != null and memberRegDate != ''">
 				member_regdate=CURDATE()<!-- #{memberRegDate} -->,
@@ -97,8 +91,7 @@
 	member_birth, 
 	member_gender, 
 	member_phone, 
-	member_addr,
-	member_addr_detail,
+	member_addr, 
 	member_regdate, 
 	final_mileage, 
 	accumulated_payment_amount, 
@@ -145,7 +138,7 @@ FROM
 			m.member_birth,
 			m.member_gender,
 			m.member_phone,
-			CONCAT(member_addr," ",member_addr_detail) as member_addr,
+			m.member_addr,
 			m.member_regdate,
 			m.final_mileage
 		FROM
@@ -164,10 +157,12 @@ FROM
 <insert id="addMember" parameterType="AdminUser">
     <!-- 회원가입 -->
     INSERT INTO member
-    	(member_id, mem_level_code, member_pw, member_email, member_name, member_birth, member_gender, member_phone, member_addr, member_addr_detail, member_regdate, final_mileage, accumulated_payment_amount, memberState)
+    (member_id, mem_level_code, member_pw, member_email, member_name, member_birth,
+    member_gender, member_phone, member_addr, member_regdate, final_mileage,
+    accumulated_payment_amount, memberState)
     VALUES
     (#{memberId}, #{mem_level_code}, #{memberPw}, #{memberEmail}, #{memberName},
-    #{memberBirth}, #{memberGender}, #{memberPhone}, #{memberAddr}, #{member_addr_detail}, NOW(), <!-- #{final_mileage} -->0,
+    #{memberBirth}, #{memberGender}, #{memberPhone}, #{memberAddr}, CURDATE(), <!-- #{final_mileage} -->0,
     <!-- #{accumulated_payment_amount} -->0,<!--  #{memberState} -->'정상회원');
 </insert>
 
@@ -182,7 +177,7 @@ FROM
 			member_birth,
 			member_gender,
 			member_phone,
-			CONCAT(member_addr," ",member_addr_detail) as member_addr,
+			member_addr,
 			member_regdate,
 			final_mileage
 		FROM
