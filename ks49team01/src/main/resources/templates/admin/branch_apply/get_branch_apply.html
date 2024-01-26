@@ -143,9 +143,9 @@
 			    		<div class="btn-list text-right">
                            <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/branchApply/addbranchapply}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/branchApply/modifybranchapply}"><i class="fas fa-undo"></i>
                                수정</button>
-                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
+                           <button type="button" class="btn btn-outline-danger" id="removeBtn" th:href="@{/admin/branchApply/removebranchapply#}"><i class="fas fa-trash-alt"></i>
                                삭제</button>
                        </div>
 			    	</div>
@@ -164,11 +164,11 @@
                   <tbody class="border text-dark">
                       <tr tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
 	            		  th:each="b : ${adminBranchApply}">
-                          <td th:text="${b.branch_apply_code}"></td>
-                          <td th:text="${b.branch_recruit_code}"></td>
-			              <td th:text="${b.close_school_code}"></td>
-			              <td th:text="${b.member_id}"></td>
-			              <td th:text="${b.branch_apply_date}"></td>
+                          <td th:text="${b.branchApplyCode}"></td>
+                          <td th:text="${b.branchRecruitCode}"></td>
+			              <td th:text="${b.closeSchoolCode}"></td>
+			              <td th:text="${b.memberId}"></td>
+			              <td th:text="${b.branchApplyDate}"></td>
                       </tr>
                       <tr th:unless="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}">
                       	<td colspan="12">조회된 리스트가 없습니다</td>
@@ -224,39 +224,27 @@
                              <table class="table table-bordered table-hover text-center">
                                 <thead class="text-dark font-weight-bolder">
                                     <tr>
-                                        <th>가맹 신청 코드</th>
-                                        <th>가맹 모집 코드</th>
-                                        <th>폐교 코드</th>
-                                        <th>가맹신청자 아이디</th>
+                                        <th class="font-weight-bolder">가맹 신청 코드</th>
+						                <th class="font-weight-bolder">가맹 모집 코드</th>
+						                <th class="font-weight-bolder">폐교 코드</th>
+						                <th class="font-weight-bolder">가맹신청자 아이디</th>
+						                <th class="font-weight-bolder">가맹 신청 일자</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border border-dark searchTb1">
-                                    <tr>
-                                        <td>branch_apply_001</td>
-                                        <td>branch_recruit_0011</td>
-                                        <td>close_school_code_011</td>
-                                        <td>id008</td>
-                                    </tr>
-                                    <tr>
-                                        <td>branch_apply_002</td>
-                                        <td>branch_recruit_0012</td>
-                                        <td>close_school_code_012</td>
-                                        <td>id009</td>
-                                    </tr>
-                                    <tr>
-                                        <td>branch_apply_003</td>
-                                        <td>branch_recruit_0013</td>
-                                        <td>close_school_code_013</td>
-                                        <td>id016</td>
-                                    </tr>
-                                    <tr>
-                                        <td>branch_apply_004</td>
-                                        <td>branch_recruit_0013</td>
-                                        <td>close_school_code_014</td>
-                                        <td>id017</td>
-                                    </tr>
-                                </tbody>
-                              </table>
+                                    <tr tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
+				            		  th:each="b : ${adminBranchApply}">
+			                          <td th:text="${b.branchApplyCode}"></td>
+			                          <td th:text="${b.branchRecruitCode}"></td>
+						              <td th:text="${b.closeSchoolCode}"></td>
+						              <td th:text="${b.memberId}"></td>
+						              <td th:text="${b.branchApplyDate}"></td>
+			                       </tr>
+			                      <tr th:unless="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}">
+			                      	<td colspan="12">조회된 리스트가 없습니다</td>
+								  </tr>
+			                  </tbody>
+			                </table>
                           </div>
                       </div>
                   </div><!-- /.modal-content -->
@@ -286,39 +274,27 @@
                              <table class="table table-bordered table-hover text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>가맹 신청 코드</th>
-                                        <th>가맹 모집 코드</th>
-                                        <th>폐교 코드</th>
-                                        <th>가맹신청자 아이디</th>
+                                        <th class="font-weight-bolder">가맹 신청 코드</th>
+						                <th class="font-weight-bolder">가맹 모집 코드</th>
+						                <th class="font-weight-bolder">폐교 코드</th>
+						                <th class="font-weight-bolder">가맹신청자 아이디</th>
+						                <th class="font-weight-bolder">가맹 신청 일자</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border border-primary searchTb2">
-                                    <tr>
-                                        <td>branch_apply_001</td>
-                                        <td>branch_recruit_0011</td>
-                                        <td>close_school_code_011</td>
-                                        <td>id008</td>
-                                    </tr>
-                                    <tr>
-                                        <td>branch_apply_002</td>
-                                        <td>branch_recruit_0012</td>
-                                        <td>close_school_code_012</td>
-                                        <td>id009</td>
-                                    </tr>
-                                    <tr>
-                                        <td>branch_apply_003</td>
-                                        <td>branch_recruit_0013</td>
-                                        <td>close_school_code_013</td>
-                                        <td>id016</td>
-                                    </tr>
-                                    <tr>
-                                        <td>branch_apply_004</td>
-                                        <td>branch_recruit_0013</td>
-                                        <td>close_school_code_014</td>
-                                        <td>id017</td>
-                                    </tr>
-                                </tbody>
-                              </table>
+                                    <tr tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
+					            		  th:each="b : ${adminBranchApply}">
+				                          <td th:text="${b.branchApplyCode}"></td>
+				                          <td th:text="${b.branchRecruitCode}"></td>
+							              <td th:text="${b.closeSchoolCode}"></td>
+							              <td th:text="${b.memberId}"></td>
+							              <td th:text="${b.branchApplyDate}"></td>
+                     				</tr>
+			                      <tr th:unless="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}">
+			                      	<td colspan="12">조회된 리스트가 없습니다</td>
+								  </tr>
+			                  </tbody>
+			                </table>
                           </div>
                       </div>
                   </div><!-- /.modal-content -->
