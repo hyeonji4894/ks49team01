@@ -141,7 +141,7 @@
 		    		</div>	    	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/common/page2}"><i class="fas fas fa-pencil-alt"></i>
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/branchApply/addbranchapply}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
                            <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
                                수정</button>
@@ -153,58 +153,26 @@
 		    	
 		    	<table class="table table-bordered table-hover text-center search-result">
                   <thead class="h5 text-dark">
-                      <tr>
-                      	  <th style="width: 5%;">
-                            <input type="checkbox" id="allCheck">
-                      	  </th>
-                          <th class="font-weight-bolder">가맹 신청 코드</th>
-                          <th class="font-weight-bolder">가맹 모집 코드</th>
-                          <th class="font-weight-bolder">폐교 코드</th>
-                          <th class="font-weight-bolder">가맹신청자 아이디</th>
-                          <th class="font-weight-bolder">가맹 신청 일자</th>
-                      </tr>
+                     <tr>
+		                <th class="font-weight-bolder">가맹 신청 코드</th>
+		                <th class="font-weight-bolder">가맹 모집 코드</th>
+		                <th class="font-weight-bolder">폐교 코드</th>
+		                <th class="font-weight-bolder">가맹신청자 아이디</th>
+		                <th class="font-weight-bolder">가맹 신청 일자</th>
+	              	</tr>
                   </thead>
                   <tbody class="border text-dark">
-                      <tr>
-                    	  <td style="width: 5%;">
-                            <input type="checkbox" class="check">
-                      	  </td>
-                          <td>branch_apply_001</td>
-                          <td>branch_recruit_001</td>
-                          <td>close_school_code_011</td>
-                          <td>id008</td>
-                          <td>2023-08-17</td>              
+                      <tr tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
+	            		  th:each="b : ${adminBranchApply}">
+                          <td th:text="${b.branch_apply_code}"></td>
+                          <td th:text="${b.branch_recruit_code}"></td>
+			              <td th:text="${b.close_school_code}"></td>
+			              <td th:text="${b.member_id}"></td>
+			              <td th:text="${b.branch_apply_date}"></td>
                       </tr>
-                      <tr>
-                      	  <td style="width: 5%;">
-                            <input type="checkbox" class="check">
-                      	  </td>
-                          <td>branch_apply_002</td>
-                          <td>branch_recruit_002</td>
-                          <td>close_school_code_012</td>
-                          <td>id009</td>
-                          <td>2023-08-18</td>                         
-                      </tr>
-                      <tr>
-                       	  <td style="width: 5%;">
-                            <input type="checkbox" class="check">
-                      	  </td>
-                          <td>branch_apply_003</td>
-                          <td>branch_recruit_003</td>
-                          <td>close_school_code_013</td>
-                          <td>id016</td>
-                          <td>2023-08-25</td>                         
-                      </tr>
-                      <tr>
-                       	  <td style="width: 5%;">
-                            <input type="checkbox" class="check">
-                      	  </td>
-                          <td>branch_apply_004</td>
-                          <td>branch_recruit_004</td>
-                          <td>close_school_code_014</td>
-                          <td>id017</td>
-                          <td>2023-08-26</td>                         
-                      </tr>       
+                      <tr th:unless="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}">
+                      	<td colspan="12">조회된 리스트가 없습니다</td>
+					  </tr>
                   </tbody>
                 </table>
 			    <div class="row justify-content-center mt-5">
