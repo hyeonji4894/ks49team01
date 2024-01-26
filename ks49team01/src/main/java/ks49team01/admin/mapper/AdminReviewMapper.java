@@ -20,5 +20,5 @@ public interface AdminReviewMapper {
 	List<AdminReviewReply> getAdminReviewReply();
 
 	//리뷰 카테고리 내용 검색
-	List<AdminReviewCategory> getSearchCategoryContext(String reviewCategoryContext);
+	List<AdminReviewCategory> getReviewCategoryContext(String reviewCategoryContext);
 }

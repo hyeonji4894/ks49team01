@@ -50,7 +50,7 @@
 			review_category AS rc;		
  	</select>
  	
- 	 	<select id="getReviewCategoryContext" resultMap="CategoryResultMap">
+ 	<select id="getReviewCategoryContext" resultMap="CategoryResultMap">
 		SELECT
 			rc.category_code,
 			rc.member_id,
@@ -60,11 +60,13 @@
 		FROM
 			review_category AS rc
 		<where>
-			<if test="reviewCategoryContext != null and reviewCategoryContext != ''">
-				rc.review_category_context LIKE CONCAT('%', #{reviewCategoryContext}, '%')
+			<if test="searchCategoryContext != null and searchCategoryContext != ''">
+				rc.review_category_context LIKE CONCAT('%', #{searchCategoryContext}, '%')
 			</if>
 		</where>				
  	</select>
  	
 
+	
+	
 </mapper>

@@ -50,6 +50,6 @@ public class AdminReviewService {
 	 */
 	public List<AdminReviewCategory> getSearchCategoryContext(String reviewCategoryContext){
 		
-		return adminReviewMapper.getSearchCategoryContext(reviewCategoryContext);
+		return adminReviewMapper.getReviewCategoryContext(reviewCategoryContext);
 	}
 }

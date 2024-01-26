@@ -54,8 +54,8 @@
 		                <div class="col-12">
 		                  <div class="input-group">
 		                    <select class="form-control text-center">
-		                      <option value="">시설</option>
-		                      <option value="">분위기</option>
+		                      <option value="시설">시설</option>
+		                      <option value="분위기">분위기</option>
 		                    </select>
 		                  </div>
 		                </div>
@@ -277,6 +277,60 @@
 			});
 			
 			
+			
+			// 최종 검색 버튼
+			$(document).on('click','#searchBtn2', function(){
+				//const searchValue = $('#searchValue').val();
+				const searchArr = [];
+				$('.search-items').each(function(idx, item){
+					const searchObj = {};
+					searchObj.searchKey = item.id;
+					searchObj.searchValue = item.value;
+					searchArr.push(searchObj);
+				});
+				console.log(searchArr);
+				
+				const request = $.ajax({
+					url : '/admin/review/searchForCategoryContext',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(searchArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+					const searchList = res;
+					$('#searchCategoryTbodys').html('');
+					if(searchList == null || searchList.length < 1){
+						const newTr = $('<tr />');
+						const newTd = $('<td />',{'colspan': 5}).text('검색에 일치되는 내용이 없습니다.');
+						newTr.append(newTd);
+						$('#searchCategoryTbodys').append(newTr);
+						return;
+					}
+					$(searchList).each(function(idx, item){
+						const newTr = $('<tr />');
+						const checkBox = $('<input />', { type:'checkbox', class:'check'});
+						const newTdCheckBox = 						$('<td />').html(checkBox);
+						const newTdcategoryCode = 					$('<td />').text(item.categoryCode);
+						const newTdreviewCategoryContext = 			$('<td />').text(item.reviewCategoryContext);
+						const newTdmemberId = 						$('<td />').text(item.memberId);
+						const newTdreviewCategoryRegisterDate = 	$('<td />').text(item.reviewCategoryRegisterDate);
+						newTr.append(newTdCheckBox,
+									 newTdcategoryCode,
+									 newTdreviewCategoryContext,
+									 newTdmemberId,
+									 newTdreviewCategoryRegisterDate);
+						
+						$('#searchCategoryTbodys').append(newTr);
+					});					
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			
+			});			
 			
 				
 			
