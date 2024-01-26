@@ -54,6 +54,13 @@ public class CloseSchoolController{
 		return "admin/close_school/close_school_add";	
 	}
 	
+// 폐교 수정page 없이 modal로 되도록
+	
+	/*
+	 * @PostMapping("/getCloseSchool") public String getCloseSchool() {
+	 * 
+	 * return null; }
+	 */	
 	@PostMapping("/addCloseSchool")
 	public String addCloseSchool(AdminCloseSchool closeSchoolList, HttpSession session) {
 		

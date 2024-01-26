@@ -47,16 +47,16 @@
                    			<thead class="h5 text-dark">
                       			<tr>
 		                      	  <th scope="col">폐교 명</th>
-		                      	  	<th scope="col">폐교 이미지</th>
-			               		    <th scope="col">폐교 면적</th>
-			                		<th scope="col">위치</th>
-			                		<th scope="col">상세위치</th>
-			              		    <th scope="col">가맹 계약 현황</th>
-			                		<th scope="col">매입 금액</th>
-			                		<th scope="col">시스템 등록 일자</th>
-			                		<th scope="col">최종 수정날짜</th>
-			                		<th scope="col">폐교 조감도 이미지</th>
-			                		<th scope="col">등록자 아이디</th>
+		                      	  	<th class="font-weight-bolder">폐교 이미지</th>
+			               		    <th class="font-weight-bolder">폐교 면적</th>
+			                		<th class="font-weight-bolder">위치</th>
+			                		<th class="font-weight-bolder">상세위치</th>
+			              		    <th class="font-weight-bolder">가맹 계약 현황</th>
+			                		<th class="font-weight-bolder">매입 금액</th>
+			                		<th class="font-weight-bolder">시스템 등록 일자</th>
+			                		<th class="font-weight-bolder">최종 수정날짜</th>
+			                		<th class="font-weight-bolder">폐교 조감도 이미지</th>
+			                		<th class="font-weight-bolder">등록자 아이디</th>
 			                     </tr>
 			                  </thead>
 			                  <tbody class="border text-dark">
@@ -181,24 +181,24 @@
                       	  <th style="width: 5%;">
                             <input type="checkbox" id="allCheck">
                       	  </th>
-                      	  <th scope="col">폐교 명</th>
-                      	  	<th scope="col">폐교 이미지</th>
-	               		    <th scope="col">폐교 면적</th>
-	                		<th scope="col">위치</th>
-	                		<th scope="col">상세위치</th>
-	              		    <th scope="col">가맹 계약 현황</th>
-	                		<th scope="col">매입 금액</th>
-	                		<th scope="col">시스템 등록 일자</th>
-	                		<th scope="col">최종 수정날짜</th>
-	                		<th scope="col">폐교 조감도 이미지</th>
-	                		<th scope="col">등록자 아이디</th>
+                      	  	<th class="font-weight-bolder">폐교 명</th>
+                      	  	<th class="font-weight-bolder">폐교 이미지</th>
+	               		    <th class="font-weight-bolder">폐교 면적</th>
+	                		<th class="font-weight-bolder">위치</th>
+	                		<th class="font-weight-bolder">상세위치</th>
+	              		    <th class="font-weight-bolder">가맹 계약 현황</th>
+	                		<th class="font-weight-bolder">매입 금액</th>
+	                		<th class="font-weight-bolder">시스템 등록 일자</th>
+	                		<th class="font-weight-bolder">최종 수정날짜</th>
+	                		<th class="font-weight-bolder">폐교 조감도 이미지</th>
+	                		<th class="font-weight-bolder">등록자 아이디</th>
                      	</tr>
                   </thead>
                   <tbody class="border text-dark" id="searchResult">
                      <tr th:if="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}"
 						th:each="l : ${closeSchoolList}">
 						<td>
-                			<input type="checkbox" class="check"/>
+                			<input type="checkbox" class="check" name="check" /> <!-- th:data-closeSchool-code="${r.closeSchoolCode}" -->
             			</td>
 						<td th:text="${l.closeSchoolName}"></td>
 						<td th:text="${l.closeSchoolImg}"></td>
@@ -269,9 +269,9 @@
 						            	<th style="width: 5%;">
 					                    	<input type="checkbox" id="allCheck">
 					                    </th>
-						              	<th scope="col">폐교 명</th>
-						                <th scope="col">가맹 계약 현황</th>
-						                <th scope="col">등록자 아이디</th>
+						              	<th class="font-weight-bolder">폐교 명</th>
+						                <th class="font-weight-bolder">가맹 계약 현황</th>
+						                <th class="font-weight-bolder">등록자 아이디</th>
 						            </tr>
                                 </thead>
                                 <tbody class="border border-dark searchTb1">
@@ -291,37 +291,7 @@
                   </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
           </div><!-- /.modal -->
-		  <!-- search modal content -->
-          <div id="search2-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                  	  <div class="modal-header">
-                          <h4 class="modal-title" id="modalTitle2">창고검색</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      </div>
-                      <div class="modal-body">
-                         <div class="form-group row justify-content-center">                         	 
-                            <label for="searchItem1" class="col-sm-2 col-form-label card-title font-weight-bolder">학교명</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="searchItem1" placeholder="검색어를 입력해주세요">
-                            </div>
-                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button">
-                            	<i class="fas fa-search">&ensp;검색</i>
-                            </button>
-                         </div>
-                      </div>
-                      <div class="modal-footer">
-                      	 <div class="table-responsive">
-                             <table class="table table-bordered table-hover text-center">
-                                <thead class="bg-primary text-white">
-                                   
-                                </tbody>
-                              </table>
-                          </div>
-                      </div>
-                  </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
+	
 	</th:block>
 	<th:block layout:fragment="customJs">
 		<script>
@@ -372,16 +342,12 @@
 			// 수정버튼
 			$(document).on('click', '#modifyBtn', function(){
 				const checkLength = $('.check:checked').length;
-				if(checkLength > 1) {
+				if(checkLength != 1) {
 					alert('한개만 선택해주세요.')
 					return;
-				} else if(checkLength == 0){
-					alert('한 개 이상의 목록을 선택해주세요')
-					return;
-				};
-				
-				$('#centermodal').modal('show');
+				}		
 			});
+			
 			// searchItem1 검색한 값이 있는지 확인하고 표시
 			$(document).on('click','#schoolSearch',function(){
 				let searchValue = $('#searchSchool').val();
