@@ -1,12 +1,18 @@
 package ks49team01.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpSession;
 import ks49team01.admin.dto.AdminCloseSchool;
 import ks49team01.admin.mapper.AdminCloseSchoolMapper;
 import ks49team01.admin.service.AdminCloseSchoolService;
@@ -16,12 +22,15 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/admin/closeSchool")
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
 public class CloseSchoolController{
 
 	//의존성 주입 완료
-	private AdminCloseSchoolService adminCloseSchoolService;
+	private final AdminCloseSchoolService adminCloseSchoolService;
+	
+	private final AdminCloseSchoolMapper adminCloseSchoolMapper;
+	
 //	페교 목록 Controller
 	
 	@GetMapping("/getCloseSchool")
@@ -34,13 +43,28 @@ public class CloseSchoolController{
 		return "admin/close_school/close_school_get";
 	}	
 	
-	@GetMapping("/modifyListCloseShool")
-	public String modifyListCloseShool(Model model) {
+ //폐교 등록 Controller
+	
+	@GetMapping("/addCloseSchool")
+	public String addCloseSchool(Model model) {
 		
-		log.info("modifyListCloseShool");
-		model.addAttribute("page", "폐교목록 수정");
+		model.addAttribute("page", "폐교 등록");
+		log.info("addCloseSchoolv");
 		
-		return "admin/close_school/close_school_modify";
+		return "admin/close_school/close_school_add";	
+	}
+	
+	@PostMapping("/addCloseSchool")
+	public String addCloseSchool(AdminCloseSchool closeSchoolList, HttpSession session) {
+		
+		
+		log.info("closeSchoolList : {}, session : {}", closeSchoolList, session);
+		
+		adminCloseSchoolService.addCloseSchool(closeSchoolList);
+		
+		return "redirect:/admin/closeSchool/getCloseSchool";
+	 
+		
 	}
 	
 // 폐교 조감도 이미지 Controller	
@@ -103,4 +127,35 @@ public class CloseSchoolController{
 		
 		return "admin/close_school/close_school_img_get";
 	}	
+	
+	
+	//폐교명 검색
+	@PostMapping("/getCloseSchoolSearch")
+	@ResponseBody
+	public List<AdminCloseSchool> getCloseSchoolSearch(@RequestParam(value="searchValue") String searchValue) {
+		List<AdminCloseSchool> searchSchoolList = adminCloseSchoolMapper.getCloseSchoolSearch(searchValue);
+		return searchSchoolList;
+	}
+	
+	
+	//전체 검색
+	@PostMapping("/getCloseSchoolSearchTotal")
+	@ResponseBody
+	public List<AdminCloseSchool> getCloseSchoolSearchTotal(@RequestBody List<Map<String, Object>> paramList) {
+		log.info("paramList : {}", paramList);
+		if(paramList != null) {
+			paramList.forEach(paramMap -> {
+				String searchKey = (String) paramMap.get("searchKey");
+				switch (searchKey) {
+					case "closeSchoolName" -> searchKey = "close_school_name"; 
+					case "constractStatus" -> searchKey = "branch_current_situation"; 
+				}
+				paramMap.put("searchKey",searchKey);
+			});
+		}
+		log.info("paramList : {}", paramList);
+		List<AdminCloseSchool> searchSchoolList = adminCloseSchoolMapper.getCloseSchoolSearchTotal(paramList);
+		return searchSchoolList;
+	}
+	
 }
