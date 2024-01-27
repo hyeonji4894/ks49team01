@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 public class AdminSurchargeService {
 	
 	private final AdminSurchargeMapper adminSurchargeMapper;
+	
 
 	/**
 	 * 가맹점이등록한추가금리스트조회

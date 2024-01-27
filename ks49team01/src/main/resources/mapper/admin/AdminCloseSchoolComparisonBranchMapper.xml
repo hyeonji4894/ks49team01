@@ -6,7 +6,8 @@
 		<id column="total_map" property="totalMap"/>
 		<result column="close_school_code" 		property="closeSchoolCode"/>
 		<result column="member_id" 			property="memberId"/>
-		<result column="SD_EDU_OFFC_DIV_NM" 		property="coordinate"/>
+		<result column="close_school_area" 			property="closeSchoolArea"/>
+		<result column="roadAddress" 			property="roadAddress"/>
 		<result column="change_date" 		property="changeDate"/>
 		<result column="first_date" 		property="firstDate"/>
 		<result column="current_status" 		property="currentStatus"/>
@@ -29,14 +30,18 @@
 	
  	<select id="getAdminCloseSchoolComparisonBranch" resultMap="closeSchoolComparisonBranchMap">
  		SELECT
-			berag.grading_code,
-			berag.branch_recruit_code,
-			berag.question_code,
-			berag.member_id,
-			berag.list_of_branch_evaluation_questions,
-			berag.applicant_response,
-			berag.score_after_grading
+			cs.close_school_img,
+			cs.view_map_img,
+			bm.branch_image
 		FROM
-			branch_evaluation_response_and_grade AS berag;	
+			close_school_comparison_branch AS cscb
+			INNER JOIN
+			close_school AS cs
+			ON
+			cscb.member_id = cs.member_id
+			INNER JOIN
+			branch_management AS bm
+			ON
+			cscb.branch_code = bm.branch_code;
  	</select>
 </mapper>

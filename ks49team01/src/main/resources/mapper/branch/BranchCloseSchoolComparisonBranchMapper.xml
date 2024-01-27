@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ks49team01.admin.mapper.AdminBranchEvaluationMapper">
+<mapper namespace="ks49team01.branch.mapper.BranchCloseSchoolComparisonBranchMapper">
 
-	<resultMap type="AdminCloseSchoolComparisonBranch" id="closeSchoolComparisonBranchMap">
+	<resultMap type="BranchCloseSchoolComparisonBranch" id="BranchCloseSchoolComparisonBranchMap">
 		<id column="total_map" property="totalMap"/>
 		<result column="close_school_code" 		property="closeSchoolCode"/>
 		<result column="member_id" 			property="memberId"/>
@@ -28,20 +28,20 @@
 		<result column="branch_image" 		property="branchImage"/>		
 	</resultMap>
 	
- 	<select id="getAdminCloseSchoolComparisonBranch" resultMap="closeSchoolComparisonBranchMap">
+ 	<select id="getCloseSchoolComparisonBranch" resultMap="BranchCloseSchoolComparisonBranchMap">
  		SELECT
 			cs.close_school_img,
-			bm.branch_image,
-			cs.view_map_img
+			cs.view_map_img,
+			bm.branch_image
 		FROM
 			close_school_comparison_branch AS cscb
-		 	INNER JOIN
+			INNER JOIN
 			close_school AS cs
 			ON
-			cscb.close_school_code = cs.close_school_code
+			cscb.member_id = cs.member_id
 			INNER JOIN
 			branch_management AS bm
 			ON
-			cscb.branch_code = bm.branch_code;	
+			cscb.branch_code = bm.branch_code;
  	</select>
 </mapper>
