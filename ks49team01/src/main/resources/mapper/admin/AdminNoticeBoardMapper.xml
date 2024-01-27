@@ -65,15 +65,20 @@ INSERT INTO notice_board
 </insert> -->
 	
 <select id="getSearchForNoticeList" resultMap="usersNotice">
-	select
-notice_board_code,
-branch_code,
-member_id,
-notice_board_title,
-notice_board_content,
-notice_board_reg_date
+SELECT
+   CAST(SUBSTRING_INDEX(nb.notice_board_code, '_', -1) AS SIGNED) AS notice_board_code,
+nb.member_id,
+nb.branch_code,
+bm.branch_name,
+nb.notice_board_title,
+nb.notice_board_content,
+nb.notice_board_reg_date
 FROM
-notice_board
+notice_board AS nb
+INNER join
+branch_management AS bm
+ON
+nb.branch_code = bm.branch_code
 <where>
 		<if test="searchKey != null and searchKey != ''">
 			<choose>
@@ -83,12 +88,15 @@ notice_board
 			</choose>
 		</if>
 	</where>
+	ORDER BY 
+notice_board_code ASC,
+  SUBSTRING_INDEX(nb.notice_board_code, '_', 1) ASC;
 </select>
 	
 	
 <select id="getNoticeBoardList" resultMap="usersNotice">
 SELECT
-nb.notice_board_code,
+   CAST(SUBSTRING_INDEX(nb.notice_board_code, '_', -1) AS SIGNED) AS notice_board_code,
 nb.member_id,
 nb.branch_code,
 bm.branch_name,
@@ -102,8 +110,8 @@ branch_management AS bm
 ON
 nb.branch_code = bm.branch_code
 ORDER BY 
-  SUBSTRING_INDEX(notice_board_code, '_', -1) + 0 ASC,
-  SUBSTRING_INDEX(notice_board_code, '_', 1) ASC;
+notice_board_code ASC,
+  SUBSTRING_INDEX(nb.notice_board_code, '_', 1) ASC;
 
 </select>
 </mapper>

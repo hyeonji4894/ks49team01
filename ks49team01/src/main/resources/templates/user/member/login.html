@@ -52,10 +52,10 @@
                                         </div>
 										  <form th:action="@{/user/member/login}" method="post" th:object="${adminUser}">
                                             <div class="form-group" >
-        <input placeholder="아이디를 입력해주세요" type="text" id="memberId" name="memberId" th:field="*{memberId}" required>
+        									<input placeholder="아이디를 입력해주세요" type="text" id="memberId" name="memberId" th:field="*{memberId}" required>
                                             </div>
                                             <div class="form-group">
-        <input  placeholder="비밀번호를 입력해주세요" type="password" id="memberPw" name="memberPw" th:field="*{memberPw}" required>
+        									<input  placeholder="비밀번호를 입력해주세요" type="password" id="memberPw" name="memberPw" th:field="*{memberPw}" required>
                                             </div>
                                           
                                             <div class="form-group d-flex justify-content-end">

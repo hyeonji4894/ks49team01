@@ -17,16 +17,30 @@ public class AdminNoticeBoardService {
 	
 	private final AdminNoticeBoardMapper adminNoticeBoardMapper;
 	
+	/**
+	 * 공지사항 추가
+	 * @param adminNoticeBoard
+	 * @return
+	 */
 	public int addNoticeBoardList(AdminNoticeBoard adminNoticeBoard) {
 		return adminNoticeBoardMapper.addNoticeBoardList(adminNoticeBoard);
 		
 	}
-
+	
+	/**
+	 * 공지사항 검색
+	 * @param searchMap
+	 * @return
+	 */
 	public List<AdminNoticeBoard> getSearchForNoticeList(Map<String, Object> searchMap) {
-		// TODO Auto-generated method stub
+
 		return adminNoticeBoardMapper.getSearchForNoticeList(searchMap);
 	}
-
+	
+	/**
+	 * 공지사항 조회
+	 * @return
+	 */
 	public List<AdminNoticeBoard> getNoticeBoardList() {
 		// TODO Auto-generated method stub
 		return adminNoticeBoardMapper.getNoticeBoardList();

@@ -30,21 +30,19 @@ public class AdminNoticeBoardController {
 	private AdminNoticeBoardService adminNoticeBoardService;
 	private final AdminUserService userService;
 	
+	/**
+	 * 공지사항 추가
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("addNoticeBoard")
 	public String addNoticeBoardList(AdminNoticeBoard adminNoticeBoard) {
-		
 		adminNoticeBoardService.addNoticeBoardList(adminNoticeBoard);
 		
-
 		return "redirect:/admin/noticeBoard/getNoticeBoard";
-		
 	}
-	
-	
-	
 	@GetMapping("/addNoticeBoard")
 	public String addNoticeBoardList(Model model) {
-		
 		List<UserBranchManagement> branchName = userBranchManagementService.getUserBranchManagementList();
 		List<AdminUserLevel> memberLevel = userService.memberLevelList();
 		model.addAttribute("title", "공지사항 작성");
@@ -53,7 +51,11 @@ public class AdminNoticeBoardController {
 		
 		return "admin/noticeBoard/add_notice_board";
 	}
-	
+	/**
+	 * 공지사항 검색 항목
+	 * @param searchMap
+	 * @return
+	 */
 	@PostMapping("/searchForNoticeList")
 	@ResponseBody
 	public List<AdminNoticeBoard> SearchForNoticeList(@RequestBody Map<String, Object> searchMap) {
@@ -76,7 +78,11 @@ public class AdminNoticeBoardController {
 		
 		return searchList;
 	}
-	
+	/**
+	 * 공지사상 조회
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/getNoticeBoard")
 	public String getNoticeBoardList(Model model) {
 		

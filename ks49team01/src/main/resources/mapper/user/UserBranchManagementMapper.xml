@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.user.mapper.UserBranchManagementMapper">
+	
+		<resultMap type="userBranchManagement" id="UserBranchManagement">
+    <!-- id: 테이블의 PK컬럼 -->
+    <id column="branch_code" property="branch_code"/>
+    <!-- result: 테이블의 PK컬럼을 제외한 컬럼 -->
+    <result column="branch_code" property="branch_code"/>
+    <result column="branch_name" property="branch_name"/>
+		
+	</resultMap>
+	<select id="getUserBranchManagementList" resultType="userBranchManagement">
+		SELECT branch_code, member_id, branch_name, branch_addr, branch_phone, branch_representative, branch_start_date, branch_end_date, branch_image
+	FROM branch_management
+	</select>
+</mapper>

@@ -3,9 +3,23 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{admin/layout/default}">
 	  
-	<!-- css file import head태그 안에 추가  -->
+		<!-- css file import head태그 안에 추가  -->
 	<head>
+		 <title th:text="${title}">페이지 타이틀</title>
 		<!-- This Page CSS -->
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
@@ -23,42 +37,248 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-      <table class="table">
-                                    <thead>
+		 <div class="card mb-4">
+		    <div class="card-body">
+		      <div class="row">
+		        <div class="col-lg-10">
+		          <div class="row mb-3">
+					  <div class="col-12">
+						  
+		            	<div class="search">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label class="form-label card-title font-weight-bolder">검색구분</label>
+                                        <div class="input-group">
+                                            <select id="searchKey" class="form-control text-center">
+                                                <option value="inquiry_board_code">글번호</option>
+<!--                                                <option value="branch_code">가맹점코드</option>
+-->                                                <option value="member_id">아이디</option>
+                                                <option value="inquiry_board_title">제목</option>
+                                                <option value="inquiry_board_content">내용</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label card-title font-weight-bolder">검색</label>
+                                        <div class="input-group">
+                                            <input id="searchValue" placeholder="검색어를 작성해주세요" type="text" class="form-control">
+                                        </div>
+		            </div>
+		        </div>
+            </div>
+            </div>
+            </div>
+				</div>
+	        <div class="col-lg-2 align-self-center">
+				<div class="row justify-content-center">
+					<div class="col-12">
+		              <button id="searchBtn" class="btn btn-primary form-control col-sm-12 font-weight-bold" type="button">
+                            	<i class="fas fa-search">&ensp;검색</i>
+		              </button>
+					</div>
+	    	</div>
+	      </div>
+    	 </div>
+	     </div>
+		 <div class="card mb-4">
+		    <div class="card-body">
+		    	<div class="row mb-3">
+		    		<div class="col-sm-3 d-flex align-items-end">		    		
+				    	<h5 class="card-title">
+					    	[ 전체 &nbsp;
+					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	&nbsp;|&nbsp;  
+					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
+					    	]
+				    	</h5>
+		    		</div>	    	
+			    	<div class="col-sm-9">
+			    		<div class="btn-list text-right">
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/inquiryBoard/addInquiryBoard}"><i class="fas fas fa-pencil-alt"></i>
+                               등록</a>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+                               수정</button>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
+                               삭제</button>
+                       </div>
+			    	</div>
+		    	</div>
+		    	<table class="table table-bordered table-hover text-center search-result">
+                  <thead class="h5 text-dark">
                                         <tr>
-                                            <th scope="col">문의게시판코드</th>
-                                            <th scope="col">가맹점 코드</th>
-                                            <th scope="col">등록자 아이디</th>
-                                            <th scope="col">문의게시글제목</th>
-                                            <th scope="col">문의게시글내용</th>
-                                            <th scope="col">문의게시글작성일자</th>
+											                      	  <th style="width: 5%;">
+                            <input type="checkbox" id="allCheck">
+                                            <th scope="col">글번호</th>
+                                            <th scope="col">아이디</th>
+<!--                                            <th scope="col">가맹점</th>
+-->                                            <th scope="col">제목</th>
+                                            <th scope="col">내용</th>
+                                            <th scope="col">등록시간</th>
                                             <th scope="col">수정</th>
                                             <th scope="col">삭제</th>
                                         </tr>
                                     </thead>
-                      <tbody id="tbody">
+                  <tbody id="tbody" class="border text-dark">
                                           <tr th:if="${InquiryBoard != null and not #lists.isEmpty(InquiryBoard)}"
 												th:each="l : ${InquiryBoard}">
+												<td style="width: 5%;">
+                            						<input type="checkbox" class="check">
+                      	  						</td>
 												<td th:text="${l.inquiry_board_code}"></td>
-												<td th:text="${l.branch_code}"></td>
 												<td th:text="${l.member_id}"></td>
+										<!--		<td th:text="${l.branch_code}"></td>
+											<th:block th:object="${l.userBranchManagement}">
+												<td th:text="*{branch_name}"></td>
+											</th:block>		-->	
 												<td th:text="${l.inquiry_board_title}"></td>
 												<td th:text="${l.inquiry_board_content}"></td>
 												<td th:text="${l.inquiry_board_reg_time}"></td>
-						<td>
-						<a th:href>수정</a>
-					</td>
-
-						<td>T
-						<a th:href>삭제</a>
-					</td>
-                                        </tr>
+											<td>
+											<a th:href>수정</a>
+										</td>
+					
+											<td>
+											<a th:href>삭제</a>
+										</td>
+					                                        </tr>
                                         <tr th:unless="${InquiryBoard != null and not #lists.isEmpty(InquiryBoard)}">
 											<td colspan="8">등록된 회원의 정보가 없습니다.</td>
 										</tr>
                                     </tbody>
                                     </table>
+                                     <div class="row justify-content-center mt-5">
+			    	<div class="col-10">			    	
+				    	<ul class="pagination justify-content-center">
+		                   <li class="page-item disabled">
+		                       <a class="page-link" href="#" tabindex="-1">Previous</a>
+		                   </li>
+		                   <li class="page-item active"><a class="page-link" href="#">1</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">2</a></li>
+		                   <li class="page-item">
+		                       <a class="page-link" href="#">Next</a>
+		                   </li>
+		               </ul>
+			    	</div>
+			    </div>
+		    </div>
+		    </div>
+		  </div>
 </th:block>
+<th:block layout:fragment="customJs">
+		<script th:inline="javascript">
+		// model 객체 데이터(msg) 바인딩
+		let msg = [[${msg}]];
+		if(msg) alert(msg);
+		
+		$('#searchBtn').click(function(){
+			const searchValue = $('#searchValue').val();
+			
+			if(searchValue == null || searchValue == '') return;
+			
+			// 검색 객체 생성
+			//const searchArr = [];
+			const searchObj = {};
+			// 검색 항목 객체 속성 동적 삽입
+			$('.search select, .search input').each(function(idx, item){
+				//const searchObj = {};
+				searchObj[item.id] = $(item).val();
+				//searchArr.push(searchObj);
+			});
+			
+			console.log(searchObj);
+			//console.log(searchArr);
+			
+			const request = $.ajax({
+				url : '/admin/inquiryBoard/searchForInquiryBoardList',
+				method : 'POST',
+				contentType : 'application/json; charset=UTF-8',
+				data: JSON.stringify(searchObj),
+				//data: JSON.stringify(searchArr),
+				dataType: 'JSON'
+			});
+			request.done(function(res){
+				console.log(res)
+				const searchList = res;
+				$('#tbody').html(''); // tbody 초기화
+				
+				// 검색항목에 일치된 목록이 없을 경우
+				if(searchList == null || searchList.length < 1){
+					const newTr = $('<tr />');
+					const newTd = $('<td />',{'colspan': 6}).text('검색에 일치되는 내용이 없습니다.');
+					newTr.append(newTd);
+					$('#tbody').append(newTr);
+					return ;
+				}
+				
+				// 검색항목에 일치된 목록이 있을 경우
+				$(searchList).each(function(idx, item) {
+				    const newTr = $('<tr />');
+				    const checkbox = $('<input />', {
+				        type: 'checkbox',
+				        class: 'check'
+				    });
+				    const inquiry_board_code = item.inquiry_board_code;
+
+				    const newTdinquiry_board_code = $('<td />').text(item.inquiry_board_code);
+				   // const newTdbranch_code = $('<td />').text(item.branch_code);
+				    const newTdmember_id = $('<td />').text(item.member_id);
+				    const newTdinquiry_board_title = $('<td />').text(item.inquiry_board_title);
+				    const newTdinquiry_board_content = $('<td />').text(item.inquiry_board_content);
+				    const newTdinquiry_board_reg_time = $('<td />').text(item.inquiry_board_reg_time);
+
+				    newTr.append(
+				        $('<td />').append(checkbox),
+				        newTdinquiry_board_code,
+				        //newTdbranch_code,
+				        newTdmember_id,
+				        newTdinquiry_board_title,
+				        newTdinquiry_board_content,
+				        newTdinquiry_board_reg_time
+				    );
+
+				    $('#tbody').append(newTr);
+				});
+
+				
+			});
+			request.fail(function(jQXHR, textStatus, error){
+				console.log(error);
+			});
+		});
+		
+		
+			// 검색결과 tbody check box 이벤트
+			$(document).on('click', '.check', function(e){
+				e.stopPropagation();
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 전체체크
+			$(document).on('click', '#allCheck', function(){
+				const isChecked = $(this).prop('checked');
+				$('.check').prop('checked', isChecked);
+			});	
+			
+			 // 수정버튼
+        $(document).on('click', '#modifyBtn', function(){
+            const checkedCheckboxes = $('.check:checked');
+
+            // 체크된 체크박스가 하나인 경우에만 실행
+            if (checkedCheckboxes.length === 1) {
+                const memberId = checkedCheckboxes.closest('tr').find('td:eq(1)').text();
+                window.location.href = '/admin/member/modifyMember?memberId=' + memberId;
+            } else {
+                alert('한 개의 회원만 선택해주세요.');
+            }
+        });
+			
+			
+		</script>
+	</th:block>
 </html>
 
 

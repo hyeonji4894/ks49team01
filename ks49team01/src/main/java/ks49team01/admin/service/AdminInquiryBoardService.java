@@ -1,6 +1,7 @@
 package ks49team01.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,31 @@ public class AdminInquiryBoardService {
 	
 	private final AdminInquiryBoardmapper adminInquiryBoardmapper;
 	
+	/**
+	 * 1대1 문의 추가
+	 * @param adminInquiryBoard
+	 * @return
+	 */
+	public int addInquiryBoardList(AdminInquiryBoard adminInquiryBoard) {
+		return adminInquiryBoardmapper.addInquiryBoardList(adminInquiryBoard);
+		
+	}
+
+	
+	/**
+	 * 1대1 문의 검색
+	 * @param searchMap
+	 * @return
+	 */
+	public List<AdminInquiryBoard> getSearchForInquiryList(Map<String, Object> searchMap) {
+		
+		return adminInquiryBoardmapper.getSearchForInquiryList(searchMap);
+	}
+	
+	/**
+	 * 1대1 문의 조회
+	 * @return
+	 */
 	public List<AdminInquiryBoard> getInquiryBoard(){
 		return adminInquiryBoardmapper.getInquiryBoard();
 		
