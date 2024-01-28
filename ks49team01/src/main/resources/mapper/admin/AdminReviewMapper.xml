@@ -36,17 +36,10 @@
  	<select id="getReviewContext" resultMap="reviewResultMap">
 		SELECT
 			r.review_num,
-			r.member_id,
 			r.review_context,
-			rf.file_attribute,
-			r.review_date,
-			r.review_views
+			r.member_id
 		FROM
 			review AS r
-			INNER JOIN
-			review_file AS rf
-			ON
-			r.review_file_code = rf.review_file_code
 		<where>
 			<if test="searchReviewContext != null and searchReviewContext != ''">
 				r.review_context LIKE CONCAT('%', #{searchReviewContext}, '%')
@@ -62,6 +55,42 @@
 		<result column="review_category_register_date" 	property="reviewCategoryRegisterDate"/>	
 	</resultMap>
 	
+	<insert id="addReviewCategory" parameterType="AdminReviewCategory">
+		<selectKey keyProperty="categoryCode" resultType="String" order="BEFORE">
+			/* category code 자동증가 */
+			SELECT
+				CASE
+				WHEN COUNT(rc.category_code) = 0 THEN 'category_code_1' 
+				ELSE
+					CONCAT('category_code_',(MAX(CAST(SUBSTRING_INDEX(rc.category_code,'category_code_', -1) AS UNSIGNED))+1))
+				END AS categoryCode
+			FROM
+				review_category AS rc
+		</selectKey>
+			/* 카테고리등록 */
+			INSERT INTO review_category
+			(category_code, member_id, review_category_kind, review_category_context, review_category_register_date)
+			VALUES
+			(#{categoryCode}, #{memberId}, #{reviewCategoryKind}, #{reviewCategoryContext}, CURDATE())
+	</insert>	
+	
+	<select id="getReviewCategoryByCode" parameterType="String" resultMap="CategoryResultMap">
+	
+		/* 특정코드로 리뷰 카테고리 조회*/
+		SELECT
+			rc.category_code,
+			rc.member_id,
+			rc.review_category_kind,
+			rc.review_category_context,
+			rc.review_category_register_date
+		FROM
+			review_category AS rc
+		WHERE	
+			rc.category_code = #{categoryCode};
+	</select>	
+	
+	
+	
  	<select id="getReviewCategory" resultMap="CategoryResultMap">
 		SELECT
 			rc.category_code,
@@ -72,6 +101,22 @@
 		FROM
 			review_category AS rc;		
  	</select>
+ 	
+ 	<update id="modifyReviewCategory" parameterType="AdminReviewCategory">
+		/* 특정코드로 리뷰카테고리 수정*/
+		UPDATE review_category
+		<set>
+			<if test="reviewCategoryKind != null and reviewCategoryKind != ''">	
+				review_category_kind=#{reviewCategoryKind},
+			</if>
+			<if test="reviewCategoryContext != null and reviewCategoryContext != ''">
+				review_category_context=#{reviewCategoryContext},
+			</if>
+		</set>
+			WHERE
+				category_code=#{categoryCode};
+	</update>	
+		
  	
  	<select id="getSearchCategory" resultMap="CategoryResultMap" parameterType="list"> 	
 		SELECT

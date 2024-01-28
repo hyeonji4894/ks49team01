@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class ReviewMileageCriteria {
+public class AdminReviewMileageCriteria {
 
 	private String mileageCriteriaCode;
 	private String memberId;

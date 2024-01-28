@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpSession;
 import ks49team01.admin.dto.AdminReview;
 import ks49team01.admin.dto.AdminReviewCategory;
 import ks49team01.admin.dto.AdminReviewReply;
@@ -29,26 +30,60 @@ public class AdminReviewController {
 	private final AdminReviewService adminReviewService;
 	private final AdminReviewMapper adminReviewMapper;
 	
+	// 리뷰카테고리 등록화면
 	@GetMapping("/addReviewCategory")
 	public String addReviewCategory(Model model){
 		
-		log.info("리뷰 카테고리 등록");
+		log.info("리뷰카테고리 등록");
 		
 		model.addAttribute("title", "리뷰 카테고리 등록");
 		
 	return "admin/review_category/add_review_category";
 	}
 	
-	@GetMapping("/modifyReviewCategory")
-	public String modifyReviewCategory(Model model){
+	// 리뷰카테고리 등록
+	@PostMapping("/addReviewCategory")
+	public String addReviewCategory(AdminReviewCategory adminReviewCategory, HttpSession session) {
 		
-		log.info("리뷰 카테고리 수정");
+		log.info("리뷰카테고리 등록 adminReviewCategory: {}", adminReviewCategory);
 		
-		model.addAttribute("title", "리뷰 카테고리 수정");
+		adminReviewCategory.setMemberId("id001");
 		
-	return "admin/review_category/modify_review_category";
+		adminReviewService.addReviewCategory(adminReviewCategory);
+		
+		return "redirect:/admin/review/getReviewCategory";
 	}
 	
+	// 리뷰카테고리 수정
+	@PostMapping("/modifyReviewCategory")
+	public String modifyReviewCategory(AdminReviewCategory adminReviewCategory, HttpSession session) {
+		log.info("리뷰카테고리 수정: {}", adminReviewCategory);
+		
+		// 특정코드로 수정
+		adminReviewService.modifyReviewCategory(adminReviewCategory);
+		
+		return "redirect:/admin/review/getReviewCategory";
+	}	
+	
+	
+	
+	// 리뷰 카테고리 수정화면
+	@GetMapping("/modifyReviewCategory")
+	public String modifyReviewCategory(@RequestParam(value = "categoryCode")String categoryCode
+										,Model model){
+
+	log.info("카테고리 수정화면 categoryCode : {}", categoryCode);
+	
+	// 특정코드 조회
+	AdminReviewCategory adminReviewCategory = adminReviewService.getReviewCategoryByCode(categoryCode);
+	
+	model.addAttribute("adminReviewCategory", adminReviewCategory);
+	
+	return "admin/review_category/modify_review_category";
+}
+	
+
+	//리뷰카테고리 삭제
 	@GetMapping("/removeReviewCategory")
 	public String removeReviewCategory(Model model){
 		
@@ -59,17 +94,6 @@ public class AdminReviewController {
 	return "admin/review_category/remove_review_category";
 	}
 	
-	// 리뷰 카테고리 모달 검색
-	@PostMapping("/searchForCategoryContext")
-	@ResponseBody
-	public List<AdminReviewCategory> searchForCategoryContext(@RequestParam(value="searchCategoryContext") String reviewCategoryContext) {
-		
-		log.info("reviewCategoryContext: {}" ,reviewCategoryContext);
-		
-		List<AdminReviewCategory> searchCategoryContext = adminReviewService.getSearchCategoryContext(reviewCategoryContext);
-
-		return searchCategoryContext;
-	}
 	
 	// 리뷰 카테고리 최종 검색
 	@PostMapping("/getSearchCategory")
@@ -96,7 +120,7 @@ public class AdminReviewController {
 	}
 	
 	
-	
+	// 리뷰카테고리 목록조회
 	@GetMapping("/getReviewCategory")
 	public String getReviewCategory(Model model){
 		
@@ -111,7 +135,7 @@ public class AdminReviewController {
 	}
 	
 	
-	
+	// 리뷰 삭제
 	@GetMapping("/removeReview")
 	public String removeReview(Model model){
 		
@@ -121,7 +145,8 @@ public class AdminReviewController {
 		
 	return "admin/review/remove_review";
 	}
-	
+	 
+	// 리뷰 목록 조회
 	@GetMapping("/getReviewList")
 	public String getReviewList(Model model){
 		
@@ -135,7 +160,23 @@ public class AdminReviewController {
 	return "admin/review/get_review_list";
 	}
 	
+	// 리뷰 내용 검색
+	@PostMapping("/searchForReviewContext")
+	@ResponseBody
+	public List<AdminReview> searchForReviewContext(@RequestParam(value="searchReviewContext") String reviewContext){
+		
+		log.info("reviewContext: {}", reviewContext);
+		
+		List<AdminReview> searchReviewContext = adminReviewService.getReviewContext(reviewContext);
+		
+		return searchReviewContext;
+		
+	}
+
 	
+	
+	
+	// 리뷰 댓글 등록
 	@GetMapping("/addReviewReply")
 	public String addReviewReply(Model model){
 		
@@ -146,6 +187,7 @@ public class AdminReviewController {
 	return "admin/review_reply/add_review_reply";
 	}
 	
+	// 리뷰 댓글 수정
 	@GetMapping("/modifyReviewReply")
 	public String modifyReviewReply(Model model){
 		
@@ -156,19 +198,8 @@ public class AdminReviewController {
 	return "admin/review_reply/modify_review_reply";
 	}
 	
-	@PostMapping("/searchForReviewContext")
-	@ResponseBody
-	public List<AdminReview> searchForReviewContext(@RequestParam(value="searchReviewContext") String reviewContext){
 		
-		log.info("reviewContext: {}", reviewContext);
-		
-		List<AdminReview> searchReviewContext = adminReviewService.getSearchReviewContext(reviewContext);
-		
-		return searchReviewContext;
-		
-	}
-		
-		
+	// 리뷰 댓글 삭제
 	@GetMapping("/removeReviewReply")
 	public String removeReviewReply(Model model){
 		
@@ -179,6 +210,7 @@ public class AdminReviewController {
 	return "admin/review_reply/remove_review_reply";
 	}
 	
+	// 리뷰 댓글 조회
 	@GetMapping("/getReviewReply")
 	public String getReviewReply(Model model){
 		

@@ -84,9 +84,9 @@
 			    		<div class="btn-list text-right">
                            <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/review/addReviewCategory}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/review/modifyReviewCategory}"><i class="fas fa-undo"></i>
                                수정</button>
-                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn" th:href="@{/admin/review/removeReviewCategory}"><i class="fas fa-trash-alt"></i>
                                삭제</button>
                        </div>
 			    	</div>
@@ -181,11 +181,12 @@
 			// 수정버튼
 			$(document).on('click', '#modifyBtn', function(){
 				const checkLength = $('.check:checked').length;
-				if(checkLength > 1) {
+				if(checkLength != 1) {
 					alert('한개만 선택해주세요.')
 					return;
 				}
-				
+				const categoryCode = $('.check:checked').data('categoryCode')
+				location.href = `/admin/review/modifyReviewCategory?categoryCode=${categoryCode}`;								
 			});
 			
 			

@@ -20,10 +20,7 @@ public class AdminCouponService {
 	
 	private final AdminCouponMapper adminCouponMapper;
 	
-	/**
-	 * 쿠폰 종류 등록
-	 * @param adminCoupon
-	 */
+	// 쿠폰종류 등록
 	public void addCouponKind(AdminCoupon adminCoupon) {
 		log.info("쿠폰종류 insert 전 adminCoupon: {}", adminCoupon);
 		adminCouponMapper.addCouponKind(adminCoupon);
@@ -32,34 +29,45 @@ public class AdminCouponService {
 	}
 	
 	
-	/**
-	 * 쿠폰 종류 조회
-	 */
-	
+	// 쿠폰종류 목록조회
 	public List<AdminCoupon> getCouponKind(){
 		
 		return adminCouponMapper.getCouponKind();
 	}
 	
 
-	/**
-	 * 쿠폰 이름 검색
-	 * @return
-	 */
-
-
+	// 쿠폰종류 이름 검색
 	public List<AdminCoupon> getSearchCouponName(String couponName) {
 		
 		return adminCouponMapper.getSearchCouponName(couponName);
 	}
 		
-	/**
-	 * 쿠폰 가격 검색
-	 * @param paramList
-	 * @return
-	 */
+	// 쿠폰 가격 검색
 	public List<AdminCoupon> getSearchCouponPrice(List<Map<String, Object>> paramList){
 		
 		return adminCouponMapper.getSearchCouponPrice(paramList);
+	}
+	
+
+	// 특정코드로 쿠폰종류 조회
+	public AdminCoupon getCouponKindByCode(String couponCode) {
+		
+		AdminCoupon adminCouponKind = adminCouponMapper.getCouponKindByCode(couponCode);
+		
+		return adminCouponKind;
+	}
+	
+
+	// 특정코드로 쿠폰종류 수정
+	public void modifyCouponKind(AdminCoupon adminCoupon) {
+		int result = adminCouponMapper.modifyCouponKind(adminCoupon);
+		if(result > 0) log.info("쿠폰종류 수정 완료");
+	}
+	
+
+	// 쿠폰지급내역 목록조회
+	public List<AdminCoupon> getCouponList(){
+		
+		return adminCouponMapper.getCouponList();
 	}
 }

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class PaymentCriteriaMileage {
+public class AdminPaymentCriteriaMileage {
 	
 	private String roompayMileageRateCode;
 	private String memberId;

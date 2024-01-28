@@ -70,16 +70,16 @@
 				<div class="row border add-form">
 					<div class="col-2 add-form-label border-end">카테고리</div>
 					<div class="col-3">
-						<select class="form-control text-center">
-							<option value="">시설</option>
-							<option value="">분위기</option>
+						<select class="form-control text-center" name="reviewCategoryKind" id="reviewCategoryKind">
+							<option value="시설">시설</option>
+							<option value="분위기">분위기</option>
 						</select>
 					</div>
 				</div>			
 				<div class="row border add-form">
 					<div class="col-2 add-form-label border-end">카테고리 내용</div>
 					<div class="col-10">
-						<input type="text" class="form-control" name="couponName" id="couponName">
+						<input type="text" class="form-control" name="reviewCategoryContext" id="reviewCategoryContext">
 					</div>
 				</div>														
 			</div>
@@ -87,7 +87,7 @@
 					<div class="col-sm-3"></div>
 					<div class="col-sm-9">
 				   		<div class="btn-list text-right">
-		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/coupon/getCouponKind}"><i class=" fas fa-clipboard-list"></i>
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/review/getReviewCategory}"><i class=" fas fa-clipboard-list"></i>
 		                        목록</a>
 		                    <button type="button" class="btn btn-outline-success" id="addBtn"><i class="fas fas fa-pencil-alt"></i>
 		                        등록</button>
@@ -105,30 +105,24 @@
 	  	  <script th:inline="javascript">
 	  	  	 $('#addBtn').click(function(){
 	  	  		 let isValid = true;
-	  	  		 
-	  	  		 $('#addCategoryForm input').each(function(idx, item){
-	  	  			 const value = $(item).val();
-	  	  			 if(value == null || value == ''){
-	  	  				isValid = false;
-	  	  				
-	  	  				const cate = $(item).closest('.add-form').find('.add-form-label').text();
-	  	  				let msg = `${cate} 필수 입력항목입니다.`;
-	  	  				console.log(`${cate}`);
-	  	  				if(`${cate}` == '쿠폰종류 등록일자'){
-	  	  					isValid = true;
-		  	  				return true;
-	  	  				} else {
-		  	  				alert(msg);
-		  	  				$(item).focus();
-		  	  				return false;
-	  	  				}
-	  	  			 }
-	  	  		 })
-	  	  		 if(isValid) $('#addCategoryForm').submit();
-	  	  	 });	  	  
-	  	  
-	  	  
-	  	  </script>
+	  	  		
+	  	        
+	  	        $('#addCategoryForm input').each(function(idx, item){
+	  	            const value = $(item).val();
+	  	            if(value == null || value == ''){
+	  	                isValid = false;
+	  	                
+	  	                const cate = $(item).closest('.add-form').find('.add-form-label').text();
+	  	                let msg = `${cate} 필수 입력항목입니다.`;
+	  	                alert(msg);
+	  	                $(item).focus();
+	  	                return false;
+	  	            }
+	  	        });
+
+	  	        if(isValid) $('#addCategoryForm').submit();
+	  	    });
+	  	</script>
 	</th:block>
 	
 </html>

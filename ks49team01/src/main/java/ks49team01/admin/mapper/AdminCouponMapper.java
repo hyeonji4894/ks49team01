@@ -24,6 +24,19 @@ public interface AdminCouponMapper {
 	// 쿠폰 종류 조회
 	List<AdminCoupon> getCouponKind();
 
+	// 쿠폰 종류 삭제
+	public int removeCouponKind(List<String> paramList);
+	
+	//특정 코드로 쿠폰종류 수정
+	public int modifyCouponKind(AdminCoupon adminCoupon);
+	
+	// 특정 코드 조회
+	public AdminCoupon getCouponKindByCode(String couponCode);
+
+	
+	
+	// 쿠폰지급내역 목록조회
+	List<AdminCoupon> getCouponList();
 	
 }
 	

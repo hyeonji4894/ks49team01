@@ -120,6 +120,27 @@
 	<th:block layout:fragment="customJs">
 		<script th:inline="javascript">		
 		
+		// 검색결과 tbody 이벤트
+		$(document).on('click', '.search-result tbody tr', function(e){
+			e.stopPropagation();
+			const isChecked = $(this).find('.check').prop('checked');
+			$(this).find('.check').prop('checked', !isChecked);
+			if($('.check').length == $('.check:checked').length){
+				$('#allCheck').prop('checked', true);
+			}else{
+				$('#allCheck').prop('checked', false);
+			}
+		});
+		
+		// 검색결과 tbody check box 이벤트
+		$(document).on('click', '.check', function(e){
+			e.stopPropagation();
+			if($('.check').length == $('.check:checked').length){
+				$('#allCheck').prop('checked', true);
+			}else{
+				$('#allCheck').prop('checked', false);
+			}
+		});		
 			
 			// 전체체크
 			$(document).on('click', '#allCheck', function(){
@@ -130,11 +151,12 @@
 			// 수정버튼
 			$(document).on('click', '#modifyBtn', function(){
 				const checkLength = $('.check:checked').length;
-				if(checkLength > 1) {
+				if(checkLength != 1) {
 					alert('한개만 선택해주세요.')
 					return;
 				}
-				
+				const roompayMileageRateCode = $('.check:checked').data('roompayMileageRateCode')
+				location.href = `/admin/mileage/modifyPaymentCriteriaMileage?roompayMileageRateCode=${roompayMileageRateCode}`;								
 			});
 			
 			

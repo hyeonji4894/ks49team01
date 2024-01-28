@@ -47,13 +47,6 @@
 		                  <input type="text" class="form-control search-items" readonly="readonly" id="memberId" name="memberId">
 		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
 		                </div>
-		            </div>&emsp;&emsp;&emsp;
-		            <div class="col-lg-5">
-		                <label class="form-label card-title font-weight-bolder">쿠폰가격</label>
-		                <div class="input-group">
-		                  <input placeholder="$" type="text" class="form-control search-items" name="couponMinPrice" id="couponMinPrice"><label>&emsp;이상</label>&emsp;&emsp;
-		                  <input placeholder="$" type="text" class="form-control search-items" name="couponMaxPrice" id="couponMaxPrice"><label>&emsp;이하</label>
-		                </div>		                
 		            </div>
 		          </div>
 		        </div>
@@ -99,26 +92,30 @@
                       	  <th style="width: 5%;">
                             <input type="checkbox" id="allCheck">
                       	  </th>
-                          <th class="font-weight-bolder">쿠폰 코드</th>
-                          <th class="font-weight-bolder">쿠폰 이름</th>
-                          <th class="font-weight-bolder">쿠폰 할인금액</th>
-                          <th class="font-weight-bolder">쿠폰 사용기한</th>
-                          <th class="font-weight-bolder">쿠폰종류 등록일자</th>
-                          <th class="font-weight-bolder">등록자 아이디</th>
+                          <th class="font-weight-bolder">쿠폰지급코드</th>
+                          <th class="font-weight-bolder">쿠폰지급아이디</th>
+                          <th class="font-weight-bolder">쿠폰지급받은아이디</th>
+                          <th class="font-weight-bolder">쿠폰이름</th>
+                          <th class="font-weight-bolder">쿠폰가격</th>
+                          <th class="font-weight-bolder">쿠폰지급일자</th>
+                          <th class="font-weight-bolder">쿠폰만료일자</th>
+                          <th class="font-weight-bolder">쿠폰내역등록일자</th>
                       </tr>
                   </thead>
-                  <tbody class="border text-dark" id="searchCouponTbodys">
-		              <tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
-		            	  th:each="l : ${adminCouponKind}">
+                  <tbody class="border text-dark" id="searchCouponListTbodys">
+		              <tr th:if="${couponList != null and not #lists.isEmpty(couponList)}"
+		            	  th:each="l : ${couponList}">
 	                 	<td style="width: 5%;">
 	                    	<input type="checkbox" class="check">
 	                  	</td>			              
-		                <td th:text="${l.couponCode}"></td>
+		                <td th:text="${l.couponListCode}"></td>
+		                <td th:text="${l.couponGiveId}"></td>
+		                <td th:text="${l.memberId}"></td>
 		                <td th:text="${l.couponName}"></td>
 		                <td th:text="${l.couponPrice}"></td>
-		                <td th:text="${l.couponDueDate}"></td>
-		                <td th:text="${l.couponKindRegisterDate}"></td>
-		                <td th:text="${l.memberId}"></td>
+		                <td th:text="${l.couponGiveDate}"></td>
+		                <td th:text="${l.couponExpireDate}"></td>
+		                <td th:text="${l.couponListRegisterDate}"></td>
                       </tr>
                   </tbody>
                 </table>
@@ -146,18 +143,18 @@
 			    </div>
 		    </div>
 		  </div>
-		  
+	 
 		  <!-- search1 modal content -->
           <div id="search1-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog">
                   <div class="modal-content">
                   	  <div class="modal-header">
-                          <h4 class="modal-title" id="modalTitle1">쿠폰이름 검색</h4>
+                          <h4 class="modal-title" id="modalTitle1">쿠폰지급받은아이디 검색</h4>
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                       </div>
                       <div class="modal-body">
                          <div class="form-group row justify-content-center">                         	 
-                            <label for="searchItem1" class="col-sm-3 col-form-label card-title font-weight-bolder">쿠폰이름</label>
+                            <label for="searchItem1" class="col-sm-3 col-form-label card-title font-weight-bolder">아이디</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="searchCouponName" placeholder="검색어를 입력해주세요">
                             </div>
@@ -190,10 +187,11 @@
                   </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
           </div><!-- /.modal -->
+         
 	</th:block>
 	<th:block layout:fragment="customJs">
 		<script th:inline="javascript">		
-		
+		/*
 			//couponSearchBtn click
 			$(document).on('click', '#couponSearchBtn', function(){
 				let searchCouponName = $('#searchCouponName').val();
@@ -253,12 +251,12 @@
 				request.done(function(res){
 					console.log(res)
 					const searchList = res;
-					$('#searchCouponTbodys').html('');
+					$('#searchCouponListTbodys').html('');
 					if(searchList == null || searchList.length < 1){
 						const newTr = $('<tr />');
 						const newTd = $('<td />',{'colspan': 7}).text('검색에 일치되는 내용이 없습니다.');
 						newTr.append(newTd);
-						$('#searchCouponTbodys').append(newTr);
+						$('#searchCouponListTbodys').append(newTr);
 						return;
 					}
 					$(searchList).each(function(idx, item){
@@ -280,7 +278,7 @@
 									 newTdcouponKindRegisterDate,
 									 newTdmemberId);
 						
-						$('#searchCouponTbodys').append(newTr);
+						$('#searchCouponListTbodys').append(newTr);
 					});					
 					
 				});
@@ -332,7 +330,7 @@
 			
 			
 			
-				
+			*/	
 			
 		</script>
 	</th:block>

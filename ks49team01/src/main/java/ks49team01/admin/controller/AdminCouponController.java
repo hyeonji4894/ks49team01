@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpSession;
 import ks49team01.admin.dto.AdminCoupon;
 import ks49team01.admin.service.AdminCouponService;
 import lombok.AllArgsConstructor;
@@ -25,15 +26,20 @@ public class AdminCouponController {
 	
 	private final AdminCouponService adminCouponService;
 	
+	// 쿠폰종류 등록화면
 	@GetMapping("/addCouponKind")
 	public String addCouponKind(Model model){
 		
+		log.info("쿠폰종류 등록");
+		
+		model.addAttribute("title", "쿠폰종류 등록");
 		
 		return "/admin/coupon/add_coupon_kind";
 	}
 	
+	// 쿠폰종류 등록
 	@PostMapping("/addCouponKind")
-	public String addCouponKind(AdminCoupon adminCoupon){
+	public String addCouponKind(AdminCoupon adminCoupon, HttpSession session){
 		
 		log.info("쿠폰 종류 등록 adminCoupon: {}", adminCoupon);
 		
@@ -44,16 +50,33 @@ public class AdminCouponController {
 		return "redirect:/admin/coupon/getCouponKind";
 	}
 	
+	// 쿠폰종류 수정
+	@PostMapping("/modifyCouponKind")
+	public String modifyCouponKind(AdminCoupon adminCoupon, HttpSession session) {
+		log.info("쿠폰종류 수정: {}", adminCoupon);
+		
+		// 특정코드로 수정
+		adminCouponService.modifyCouponKind(adminCoupon);
+		
+		return "redirect:/admin/coupon/getCouponKind";
+	}
+	
+	// 쿠폰종류 수정화면
 	@GetMapping("/modifyCouponKind")
-	public String modifyCouponKind(Model model){
+	public String modifyCouponKind(@RequestParam(value = "couponCode")String couponCode
+									,Model model){
 		
-		log.info("쿠폰 종류 수정");
+		log.info("쿠폰종류 수정화면 couponCode : {}", couponCode);
 		
-		model.addAttribute("title", "쿠폰 종류 수정");
+		// 특정코드 조회
+		AdminCoupon adminCouponKind = adminCouponService.getCouponKindByCode(couponCode);
+		
+		model.addAttribute("adminCouponKind", adminCouponKind);
 		
 	return "admin/coupon/modify_coupon_kind";
 	}
 	
+	// 쿠폰종류 삭제
 	@GetMapping("/removeCouponKind")
 	public String removeCouponKind(Model model){
 		
@@ -64,6 +87,7 @@ public class AdminCouponController {
 	return "admin/coupon/remove_coupon_kind";
 	}
 	
+	// 쿠폰종류 이름 검색
 	@PostMapping("/searchForCouponName")
 	@ResponseBody
 	public List<AdminCoupon> searchForCouponList(@RequestParam(value="searchCouponName") String couponName) {
@@ -72,9 +96,11 @@ public class AdminCouponController {
 		
 		 List<AdminCoupon> searchCouponNameList = adminCouponService.getSearchCouponName(couponName);
 		
-		return searchCouponNameList;
+		 return searchCouponNameList;
+		 
 	}	
 	
+	// 쿠폰종류 가격검색
 	@PostMapping("/searchForCouponPrice")
 	@ResponseBody
 	public List<AdminCoupon> searchCouponPrice(@RequestBody List<Map<String, Object>> paramList){
@@ -103,6 +129,7 @@ public class AdminCouponController {
 		
 	}
 	
+	// 쿠폰종류 목록조회
 	@GetMapping("/getCouponKind")
 	public String getCouponKind(Model model){
 		
@@ -116,10 +143,24 @@ public class AdminCouponController {
 	return "admin/coupon/get_coupon_kind";
 	}
 	
+	
+	
+	
+	// 쿠폰지급내역 목록조회
 	@GetMapping("/getCouponList")
 	public String getCouponList(Model model) {
+		List<AdminCoupon> couponList = adminCouponService.getCouponList();
 		
+		log.info("couponList: {}", couponList);
+		
+		model.addAttribute("title", "쿠폰지급내역 조회");
+		model.addAttribute("couponList", couponList);
 		
 		return "admin/coupon/get_coupon_list";
 	}
+	
+	
+	
+	
+	
 }

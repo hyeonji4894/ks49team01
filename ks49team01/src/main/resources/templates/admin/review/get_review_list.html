@@ -76,7 +76,7 @@
 		    		</div>	    	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn" th:href="@{/admin/review/removeReview}"><i class="fas fa-trash-alt"></i>
                                삭제</button>
                        </div>
 			    	</div>
@@ -222,7 +222,6 @@
 			
 			// 최종 검색 버튼
 			$(document).on('click','#searchBtn2', function(){
-				//const searchValue = $('#searchValue').val();
 				const searchArr = [];
 				$('.search-items').each(function(idx, item){
 					const searchObj = {};
@@ -233,7 +232,7 @@
 				console.log(searchArr);
 				
 				const request = $.ajax({
-					url : '/admin/coupon/searchForReviewContext',
+					url : '/admin/review/searchForReviewContext',
 					method : 'POST',
 					contentType : 'application/json; charset=UTF-8',
 					data: JSON.stringify(searchArr),
@@ -241,16 +240,16 @@
 				});
 				request.done(function(res){
 					console.log(res)
-					const adminReviewList = res;
+					const searchList = res;
 					$('#searchReviewTbodys').html('');
-					if(adminReviewList == null || adminReviewList.length < 1){
+					if(searchList == null || searchList.length < 1){
 						const newTr = $('<tr />');
 						const newTd = $('<td />',{'colspan': 7}).text('검색에 일치되는 내용이 없습니다.');
 						newTr.append(newTd);
 						$('#searchReviewTbodys').append(newTr);
 						return;
 					}
-					$(adminReviewList).each(function(idx, item){
+					$(searchList).each(function(idx, item){
 						const newTr = $('<tr />');
 						const checkBox = $('<input />', { type:'checkbox', class:'check'});
 						const newTdCheckBox = 					$('<td />').html(checkBox);

@@ -9,6 +9,12 @@
 		<result column="coupon_price" 				property="couponPrice"/>
 		<result column="coupon_due_date" 			property="couponDueDate"/>
 		<result column="coupon_kind_register_date" 	property="couponKindRegisterDate"/>
+		
+		<result column="coupon_list_code" 			property="couponListCode"/>
+		<result column="coupon_give_id" 			property="couponGiveId"/>
+		<result column="coupon_give_date" 			property="couponGiveDate"/>
+		<result column="coupon_expire_date" 		property="couponExpireDate"/>
+		<result column="coupon_list_register_date" 	property="couponListRegisterDate"/>
 	</resultMap>
 	
 	
@@ -89,4 +95,60 @@
 			VALUES
 			(#{couponCode}, #{memberId}, #{couponName}, #{couponPrice}, #{couponDueDate}, CURDATE())
 	</insert>	
+	
+	<select id="getCouponKindByCode" parameterType="String" resultMap="couponResultMap">
+	
+		/* 특정코드로 쿠폰종류 조회*/
+		SELECT
+			eck.coupon_code,
+			eck.member_id,
+			eck.coupon_name,
+			eck.coupon_price,
+			eck.coupon_due_date,
+			eck.coupon_kind_register_date
+		FROM
+			event_coupon_kind AS eck
+		WHERE	
+			eck.coupon_code = #{couponCode};
+	</select>
+	
+	<update id="modifyCouponKind" parameterType="AdminCoupon">
+		/* 특정코드로 쿠폰종류 수정*/
+		UPDATE event_coupon_kind
+		<set>
+			<if test="couponName != null and couponName != ''">	
+				coupon_name=#{couponName},
+			</if>
+			<if test="couponPrice != null and couponPrice != ''">
+				coupon_price=#{couponPrice},
+			</if>
+			<if test="couponDueDate != null and couponDueDate != ''">	
+				coupon_due_date=#{couponDueDate},
+			</if>
+		</set>
+			WHERE
+				coupon_code=#{couponCode};
+	</update>	
+	
+	
+	
+	
+ 	<select id="getCouponList" resultMap="couponResultMap">
+		SELECT
+			cl.coupon_list_code,
+			cl.coupon_give_id,
+			cl.member_id,
+			eck.coupon_name,
+			eck.coupon_price,
+			cl.coupon_give_date,
+			cl.coupon_expire_date,
+			cl.coupon_list_register_date
+		FROM
+			coupon_list AS cl
+			INNER JOIN
+			event_coupon_kind AS eck
+			ON
+			cl.coupon_code = eck.coupon_code;	
+ 	</select>
+	
 </mapper>
