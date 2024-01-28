@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ks49team01.admin.dto.AdminUser;
 import ks49team01.admin.dto.AdminUserLevel;
 import ks49team01.admin.mapper.AdminUserMapper;
+import ks49team01.user.dto.RoompayMileageRate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 @Service
@@ -19,9 +20,32 @@ public class AdminUserService {
 	
 	private final AdminUserMapper userMapper;
 	
-	
-	
+	public int removeMemberById(String memberId) {
+		return userMapper.removeMemberById(memberId);
+		
+	}
 
+	
+	/**
+	 * 등급별 조회
+	 * @return
+	 */
+	public List<RoompayMileageRate>memberMileageList(){
+		return userMapper.memberMileageList();
+		
+	}
+	
+	/**
+	 * 맴버 등록 처리
+	 * @param adminUser
+	 */
+	public int addMember(AdminUser adminUser) {
+		log.info("insert 전 adminUser: {}", adminUser);
+		log.info("insert 후 adminUser: {}", adminUser);
+		return userMapper.addMember(adminUser);
+	}
+
+	
 	/**
 	 * 회원 수정
 	 * @param adminUser
@@ -77,15 +101,7 @@ public class AdminUserService {
 		return userMapper.getuserList();
 		
 	}
-	/**
-	 * 맴버 등록 처리
-	 * @param adminUser
-	 */
-	public int addMember(AdminUser adminUser) {
-		log.info("insert 전 adminUser: {}", adminUser);
-		log.info("insert 후 adminUser: {}", adminUser);
-		return userMapper.addMember(adminUser);
-	}
+
 	
 
 

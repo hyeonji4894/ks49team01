@@ -278,42 +278,14 @@
             const checkedCheckboxes = $('.check:checked');
 
             // 체크된 체크박스가 하나인 경우에만 실행
-            if (checkedCheckboxes.length === 1) {
-                const memberId = checkedCheckboxes.closest('tr').find('td:eq(1)').text();
-                window.location.href = '/admin/member/modifyMember?memberId=' + memberId;
-            } else {
-                alert('한 개의 회원만 선택해주세요.');
-            }
+         if (checkedCheckboxes.length === 1) {
+    const noticeBoardCode = checkedCheckboxes.closest('tr').find('td:eq(1)').text();
+    window.location.href = '/admin/noticeBoard/modifyNoticeBoard?noticeBoardCode=notice_board_code_' + noticeBoardCode;
+} else {
+    alert('한 개의 회원만 선택해주세요.');
+}
+
         });
-			
-			
 		</script>
 	</th:block>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </html>

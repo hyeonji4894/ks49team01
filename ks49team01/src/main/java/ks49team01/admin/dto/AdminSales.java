@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class AdminSales {
-	private String dailySales;
+	private String daily_sales_code;
 	private String branchCode;
 	private LocalDate DailySalesDay;
 	private int totalPrice;

@@ -118,6 +118,7 @@
 							<th class="font-weight-bolder">성별</th>
 							<th class="font-weight-bolder">전화번호</th>
 							<th class="font-weight-bolder">주소</th>
+							<th class="font-weight-bolder">적립등급</th>
 							<th class="font-weight-bolder">마일리지</th>
 							<th class="font-weight-bolder">회원 등록시간</th>
 							
@@ -136,7 +137,17 @@
 												<td th:text="${l.memberEmail}"></td>
 												<td th:text="${l.memberGender}"></td>
 												<td th:text="${l.memberPhone}"></td>
-												<td th:text="${l.memberAddr}"></td>
+												<td th:text="${l.memberAddr + ' ' + l.member_addr_detail}"></td>
+	<!--											<td th:text="${l.memberAddr}"></td>
+												<td th:text="${l.member_addr_detail}"></td>-->
+												<th:block th:object="${l.roompayMileageRate}">
+												<td th:text="${l.roompayMileageRate?.mileage_grade_name}"></td>
+												</th:block>	
+											<!--	<td th:if="${memberMileageList != null and not #lists.isEmpty(memberMileageList)}"
+												th:each="ml : ${memberMileageList}">
+												<td th:text="${ml.mileage_grade_name}">
+												</td>
+												</td>-->
 												<td th:text="${l.memberMileage}"></td>
 												<td th:text="${l.memberRegDate}"></td>
 						
@@ -219,22 +230,41 @@
 				        type: 'checkbox',
 				        class: 'check'
 				    });
-				    const memberId = item.memberId;
+				 //주소+상세주소   
+		   		const addressString = item.memberAddr + ' ' + item.member_addr_detail;
+				const newTdCombinedAddress = $('<td />').text(addressString);
+				const memberId = item.memberId;
+				
+				const newTdMemberId = $('<td />').text(item.memberId);
+				const newTdMemberPw = $('<td />').text(item.memberPw);
+				const newTdMemberName = $('<td />').text(item.memberName);
+				const newTdmemberBirth = $('<td />').text(item.memberBirth);
+				const newTdMemberEmail = $('<td />').text(item.memberEmail);
+				const newTdmemberGender = $('<td />').text(item.memberGender);
+				const newTdmemberPhone = $('<td />').text(item.memberPhone);
+				const newTdmileage_grade_name = $('<td />').text(item.mileage_grade_name);
+				const newTdfinal_mileage = $('<td />').text(item.final_mileage);
+				const newTdMemberRegDate = $('<td />').text(item.memberRegDate);
+				
+				newTr.append(
+				    $('<td />').append(checkbox),
+				    newTdMemberId,
+				    newTdMemberPw,
+				    newTdMemberName,
+				    newTdmemberBirth,
+				    newTdMemberEmail,
+				    newTdmemberGender,
+				    newTdmemberPhone,
+				    newTdCombinedAddress,  // 주소+상세주소
+				    newTdmileage_grade_name, // 조회안됨
+				    newTdfinal_mileage,
+				    newTdMemberRegDate
+				);
 
-				    const newTdMemberId = $('<td />').text(item.memberId);
-				    const newTdMemberPw = $('<td />').text(item.memberPw);
-				    const newTdMemberName = $('<td />').text(item.memberName);
-				    const newTdmemberBirth = $('<td />').text(item.memberBirth);
-				    const newTdMemberEmail = $('<td />').text(item.memberEmail);
-				    const newTdmemberGender = $('<td />').text(item.memberGender);
-				    const newTdmemberPhone = $('<td />').text(item.memberPhone);
-				    const newTdMemberAddr = $('<td />').text(item.memberAddr);
-				    const newTdmemberMileage = $('<td />').text(item.memberMileage);
-				    const newTdMemberRegDate = $('<td />').text(item.memberRegDate);
+$('#tbody').append(newTr);
 
-				    newTr.append($('<td />').append(checkbox), newTdMemberId, newTdMemberPw, newTdMemberName, newTdmemberBirth, newTdMemberEmail, newTdmemberGender, newTdmemberPhone, newTdMemberAddr, newTdmemberMileage, newTdMemberRegDate);
 
-				    $('#tbody').append(newTr);
+
 				});
 
 				
@@ -273,7 +303,44 @@
                 alert('한 개의 회원만 선택해주세요.');
             }
         });
-			
+        
+     // 삭제 버튼 클릭 이벤트
+$(document).on('click', '#delBtn', function() {
+    const checkedCheckboxes = $('.check:checked');
+
+    // 체크된 체크박스가 하나 이상인 경우에만 실행
+    if (checkedCheckboxes.length > 0) {
+        if (confirm('정말로 선택한 회원을 삭제하시겠습니까?')) {
+            // 선택된 모든 체크박스에 대해 반복
+            checkedCheckboxes.each(function() {
+                const memberId = $(this).closest('tr').find('td:eq(1)').text();
+
+                // 서버에 DELETE 요청을 보내 회원을 삭제합니다.
+                fetch('/admin/member/removeMember/' + memberId, {
+                    method: 'DELETE',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // 회원이 삭제되면 해당 행을 삭제
+                        $(this).closest('tr').remove();
+                    } else {
+                        alert('회원 삭제에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('회원 삭제에 실패했습니다.');
+                });
+            });
+
+            // 모든 처리가 완료되면 페이지 리로드
+            window.location.reload();
+        }
+    } else {
+        alert('삭제할 회원을 선택해주세요.');
+    }
+});
+
 			
 		</script>
 	</th:block>

@@ -17,6 +17,16 @@ public class AdminInquiryBoardService {
 	
 	private final AdminInquiryBoardmapper adminInquiryBoardmapper;
 	
+	public int modifyadminInquiryBoardList(AdminInquiryBoard adminInquiryBoard) {
+		return adminInquiryBoardmapper.addInquiryBoardList(adminInquiryBoard);
+		
+	}
+
+	
+	public AdminInquiryBoard adminInquiryBoard(String inquiry_board_code) {
+		return adminInquiryBoardmapper.adminInquiryBoardIfno(inquiry_board_code);
+		
+	}
 	/**
 	 * 1대1 문의 추가
 	 * @param adminInquiryBoard

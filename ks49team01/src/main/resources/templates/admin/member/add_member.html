@@ -112,14 +112,26 @@
 	                        </div>
 						</div>
 					</div>
+					
 					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">회원등급</div>
 						<div class="col-4">
 							<select class="form-control text-center" disabled="disabled" id="mem_level_code" name="mem_level_code" >
 								<option value="">회원등급을 선택해주세요</option>
-								<th:block th:if="${addMember != null and not #lists.isEmpty(addMember)}"
-										  th:each="l : ${addMember}">
+								<th:block th:if="${memberLevel != null and not #lists.isEmpty(memberLevel)}"
+										  th:each="l : ${memberLevel}">
 									<option th:value="${l.mem_level_code}" th:text="${l.membership_rating}"></option>
+							</select>
+						</div>
+					
+					
+						<div class="col-2 add-form-label border-end">적립등급</div>
+						<div class="col-4">
+							<select class="form-control text-center" disabled="disabled" id="roompay_mileage_rate_code" name="roompay_mileage_rate_code">
+							    <option value="">적립등급을 선택해주세요</option>
+							    <th:block th:if="${memberMileage != null and not #lists.isEmpty(memberMileage)}" th:each="ml : ${memberMileage}">
+							        <option th:value="${ml.roompayMileageRate.roompay_mileage_rate_code}" th:text="${ml.roompayMileageRate.mileage_grade_name}"></option>
+							    </th:block>
 							</select>
 						</div>
 					</div>
@@ -141,8 +153,6 @@
 						<div class="col-4">
 							<input disabled="disabled" type="date" class="form-control" placeholder="예시: 2000-01-01"  id="memberBirth" name="memberBirth">
 						</div>
-					</div>
-					<div class="row border add-form">
 					<div class="col-2 add-form-label border-end">우편번호</div>
 					<div class="col-2">
 						<input disabled="disabled" type="text" class="form-control" name="zipCode" id="zipCode">

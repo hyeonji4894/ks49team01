@@ -1,39 +1,166 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/default}">
+	  layout:decorate="~{admin/layout/default2}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
+				 <title th:text="${title}">페이지 타이틀</title>
+
 		<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		  <h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2" th:text="${title}">Default Title</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/admin/noticeBoard/getNoticeBoard}" class="text-muted h4">공지사항</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">공지사항작성</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">123</div>
-       		<div class="col-6">456</div>
-       	</div>
+		<form id="modfiyForm" method="post" th:action="@{/admin/inquiryBoard/modifyInquiryBoard}">
+						<div class="card mb-4"  th:object="${adminInquiryBoardIfno}">
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					
+					<!-- <div class="row border add-form">
+						<div class="col-2 add-form-label border-end">noticeBoardCode</div>
+						<div class="col-10">
+							<input type="text" class="form-control" id="noticeBoardCode" name="noticeBoardCode"  >
+						</div>
+					</div> -->
+					<!--<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">가맹점코드</div>
+						<div class="col-10">
+					 	<select class="form-control text-center" id="branch_code" name="branch_code" >
+								<option value="">가맹점을 선택해주세요</option>
+								<th:block th:if="${branchName != null and not #lists.isEmpty(branchName)}"
+										  th:each="l : ${branchName}">
+									<option th:value="${l.branch_code}" th:text="${l.branch_name}"></option>
+							</select> 
+						</div>
+					</div>-->
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">게시글번호</div>
+						<div class="col-10">
+							<input type="text" class="form-control" id="inquiry_board_code" name="inquiry_board_code"   th:value="*{inquiry_board_code}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">아이디</div>
+						<div class="col-10">
+							<input type="text" class="form-control" id="member_id" name="member_id" th:value="*{member_id}"> 
+						</div>
+					</div>
+					
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">제목</div>
+						<div class="col-10">
+							<input type="text" class="form-control" id="inquiry_board_title" name="inquiry_board_title" th:value="*{inquiry_board_title}"> 
+						</div>
+					</div>
+				
+					
+					<div class="row border add-form">
+					<div class="col-2 add-form-label border-end textarea-form">내용</div>
+					<div class="col-10">
+						<textarea class="form-control" rows="3" id="inquiry_board_content" name="inquiry_board_content" th:value="*{inquiry_board_content}" ></textarea>
+					</div>
+				</div>
+					
+					<div class="row mt-4">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-9">
+					   		<div class="btn-list text-right">
+			                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/member/getMember}"><i class=" fas fa-clipboard-list"></i>
+			                        목록</a>
+			                    <button type="submit" class="btn btn-outline-success" id="addBtn"><i class="fas fas fa-pencil-alt"></i>
+			                        등록</button>
+			                    <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
+			                        재설정</button>
+			                </div>
+					   	</div>
+					</div>
+				</div>
+			</div>
+		</form>
 	</th:block>
+	
+	
+	<!-- 이 페이지에서 사용될 js file 경로 -->
+	<th:block layout:fragment="customJsFile">
+	</th:block>
+	<th:block layout:fragment="customJs">
+				<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+		<script>
+		$('#addBtn').click(function(){
+			let isValid = true;
+			
+			$('#modfiyForm input, #modfiyForm select').each(function(idx, item){
+				const value = $(item).val();
+				if(value == null || value == ''){
+					isValid = false;
+					const cate = $(`label[for="${item.id}"]`).text();
+					let msg = `${cate} 필수 입력항목입니다.`;
+					alert(msg);
+					$(item).focus();
+					return false;
+				}
+			})
+			
+			if(isValid) $('#modfiyForm').submit();
+		});
+</script>
 </html>
-
-
-
-
-
 
 
 

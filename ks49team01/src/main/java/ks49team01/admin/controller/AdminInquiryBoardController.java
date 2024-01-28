@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks49team01.admin.dto.AdminInquiryBoard;
@@ -29,6 +30,29 @@ public class AdminInquiryBoardController {
 	private AdminInquiryBoardService adminInquiryBoardService;
 	private UserBranchManagementService userBranchManagementService;
 	private AdminUserService userService;
+	
+	
+
+	@PostMapping("/modifyInquiryBoard")
+	public String modifyNoticeBoardList(AdminInquiryBoard adminInquiryBoard) {
+		adminInquiryBoardService.modifyadminInquiryBoardList(adminInquiryBoard);
+		
+		return "redirect:/admin/inquiryBoard/getInquiryBoard";
+	}
+	@GetMapping("/modifyInquiryBoard")
+	public String modifyInquiryBoardList(@RequestParam(value="inquiry_board_code") String inquiry_board_code
+	  ,Model model) {
+		
+		AdminInquiryBoard adminInquiryBoardIfno = adminInquiryBoardService.adminInquiryBoard(inquiry_board_code);
+		List<UserBranchManagement> branchName = userBranchManagementService.getUserBranchManagementList();
+		List<AdminUserLevel> memberLevel = userService.memberLevelList();
+		model.addAttribute("title", "1대1문의 수정");
+		model.addAttribute("memberLevel", memberLevel);
+		model.addAttribute("branchName", branchName);
+		model.addAttribute("adminInquiryBoardIfno", adminInquiryBoardIfno);
+		
+		return "admin/inquiryBoard/modify_inquiry_board";
+	}
 	
 	/**
 	 * 1대1 문의 등록
@@ -69,7 +93,7 @@ public class AdminInquiryBoardController {
 			switch (searchKey) {
 				case "inquiry_board_code" -> searchKey = "inquiry_board_code";
 				case "branch_code" -> searchKey = "branch_code";
-				case "member_id" -> searchKey = "member_id";
+				case "member_id" -> searchKey = "ib.member_id";
 				case "inquiry_board_title" -> searchKey = "inquiry_board_title";
 				case "inquiry_board_content" -> searchKey = "inquiry_board_content";
 			}

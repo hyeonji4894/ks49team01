@@ -11,6 +11,18 @@ import ks49team01.admin.dto.AdminNoticeBoard;
 public interface AdminNoticeBoardMapper {
 	
 	/**
+	 * 공지사항 조회
+	 * @param noticeBoardCode
+	 * @return
+	 */
+	public AdminNoticeBoard noticeBoardInfo(String noticeBoardCode);
+	/**
+	 *  공지사항 수정
+	 * @param adminNoticeBoard
+	 * @return
+	 */
+	public int modifyNoticeBoardList(AdminNoticeBoard adminNoticeBoard);
+	/**
 	 * 공지사항 추가
 	 * @param adminNoticeBoard
 	 * @return

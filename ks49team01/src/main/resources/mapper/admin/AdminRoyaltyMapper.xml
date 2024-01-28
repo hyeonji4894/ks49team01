@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminRoyaltyMapper">
+
+	<resultMap type="AdminRoyalty" id="adminRoyalty">
+		<id 	column="month_royalty_payment_code" 		property="month_royalty_payment_code" />
+		<result column="branch_code" 		property="branch_code"/>
+		<result column="month_royalty_payment_code" 		property="month_royalty_payment_code"/>
+		<result column="monthly_sales_code" 		property="monthly_sales_code"/>
+		<result column="monthly_royalty" 		property="monthly_royalty"/>
+		<result column="payment_date" 		property="payment_date"/>
+		<result column="royalty_payment_period" 		property="royalty_payment_period"/>
+		<result column="payment_to_be_paid" 		property="payment_to_be_paid"/>
+		<result column="payment_method" 		property="payment_method"/>
+		<result column="royalty_exemption" 		property="royalty_exemption"/>
+		<result column="ranking_finish" 		property="ranking_finish"/>
+		<result column="payment_completed" 		property="payment_completed"/>
+		</resultMap>
+	<select id="getRoyaltyList" resultMap="adminRoyalty">
+SELECT 
+    CAST(SUBSTRING_INDEX(month_royalty_payment_code, '_', -1) AS SIGNED) AS month_royalty_payment_code,
+    month_royalty_payment_code, 
+    branch_code, 
+    monthly_sales_code, 
+    monthly_royalty, 
+    annual_royalty, 
+    payment_date, 
+    royalty_payment_period, 
+    payment_to_be_paid, 
+    payment_method, 
+    royalty_exemption, 
+    ranking_finish, 
+    payment_completed
+FROM 
+    month_royalty_payment
+ORDER BY 
+    SUBSTRING_INDEX(month_royalty_payment_code, '_', 1) ASC;
+
+	</select>
+</mapper>
+

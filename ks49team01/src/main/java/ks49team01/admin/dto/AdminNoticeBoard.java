@@ -18,7 +18,5 @@ public class AdminNoticeBoard {
 	private AdminUserLevel adminUserLevel;
 	
 	private UserBranchManagement userBranchManagement;
-	
-	 
 
 }

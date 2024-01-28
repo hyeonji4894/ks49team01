@@ -33,7 +33,38 @@
     <result column="branch_name" property="branch_name"/>
 </association>
 </resultMap>
+<update id="modifyadminInquiryBoardList" parameterType="adminInquiryBoard">
+		/* 특정회원 수정 */
+		UPDATE inquiry_board
+		<set>
+			<if test="inquiry_board_code != null and inquiry_board_code != ''">
+				inquiry_board_code=#{inquiry_board_code},
+			</if>
+		<!--	<if test="branch_code != null and branch_code != ''">
+				branch_code=#{branchCode},
+			</if>-->
+			<if test="member_id != null and member_id != ''">
+				member_id=#{member_id},
+			</if>
+			<if test="inquiry_board_title != null and inquiry_board_title != ''">
+				inquiry_board_title=#{inquiry_board_title},
+			</if>
+			<if test="inquiry_board_content != null and inquiry_board_content != ''">
+				inquiry_board_content=#{inquiry_board_content},
+			</if>
+			<if test="inquiry_board_reg_time != null and inquiry_board_reg_time != ''">
+				inquiry_board_reg_time=#{inquiry_board_reg_time},
+			</if>
+		</set>	
+		WHERE 
+			inquiry_board_code=#{inquiry_board_code};
+	</update>
 
+<select id="adminInquiryBoardIfno" resultMap="adminInquiryBoard" >
+	SELECT inquiry_board_code, member_id, inquiry_board_title, inquiry_board_content, inquiry_board_reg_time
+	FROM inquiry_board
+			  WHERE inquiry_board_code = #{inquiry_board_code};
+</select>
 <insert id="addInquiryBoardList" parameterType="AdminInquiryBoard" useGeneratedKeys="true" keyProperty="inquiry_board_code">
 	<selectKey keyProperty="inquiry_board_code" resultType="String" order="BEFORE">
 	SELECT
@@ -47,8 +78,8 @@ inquiry_board AS ib
 </selectKey>
 	
 	INSERT INTO inquiry_board
-	(inquiry_board_code, branch_code, member_id, inquiry_board_title, inquiry_board_content, inquiry_board_reg_time)
-		VALUES (#{inquiry_board_code}, #{branch_code}, #{member_id}, #{inquiry_board_title}, #{inquiry_board_content}, NOW())
+	(inquiry_board_code, member_id, inquiry_board_title, inquiry_board_content, inquiry_board_reg_time)
+		VALUES (#{inquiry_board_code}, #{member_id}, #{inquiry_board_title}, #{inquiry_board_content}, NOW())
 </insert>
 
 <select id="getSearchForInquiryList" resultMap="adminInquiryBoard" >
@@ -56,16 +87,14 @@ SELECT
    CAST(SUBSTRING_INDEX(ib.inquiry_board_code, '_', -1) AS SIGNED) AS inquiry_board_code,
   ib.member_id,
   ib.branch_code,
-  bm.branch_name,
   ib.inquiry_board_title,
   ib.inquiry_board_content,
   ib.inquiry_board_reg_time
 FROM
   inquiry_board AS ib
-INNER JOIN
-  branch_management AS bm
-ON
-  ib.branch_code = bm.branch_code
+ORDER BY 
+  inquiry_board_code ASC,
+  SUBSTRING_INDEX(ib.inquiry_board_code, '_', 1) ASC;
 <where>
 		<if test="searchKey != null and searchKey != ''">
 			<choose>
@@ -84,17 +113,11 @@ ON
 SELECT
    CAST(SUBSTRING_INDEX(ib.inquiry_board_code, '_', -1) AS SIGNED) AS inquiry_board_code,
   ib.member_id,
-  ib.branch_code,
-  bm.branch_name,
   ib.inquiry_board_title,
   ib.inquiry_board_content,
   ib.inquiry_board_reg_time
 FROM
   inquiry_board AS ib
-INNER JOIN
-  branch_management AS bm
-ON
-  ib.branch_code = bm.branch_code
 ORDER BY 
   inquiry_board_code ASC,
   SUBSTRING_INDEX(ib.inquiry_board_code, '_', 1) ASC;

@@ -29,6 +29,38 @@
 </association>
 		
 	</resultMap>
+	<update id="modifyNoticeBoardList" parameterType="AdminNoticeBoard">
+		/* 특정회원 수정 */
+		UPDATE notice_board
+		<set>
+			<if test="noticeBoardCode != null and noticeBoardCode != ''">
+				notice_board_code=#{noticeBoardCode},
+			</if>
+		<!--	<if test="branch_code != null and branch_code != ''">
+				branch_code=#{branchCode},
+			</if>-->
+			<if test="memberId != null and memberId != ''">
+				member_id=#{memberId},
+			</if>
+			<if test="noticeBoardTitle != null and noticeBoardTitle != ''">
+				notice_board_title=#{noticeBoardTitle},
+			</if>
+			<if test="noticeBoardContent != null and noticeBoardContent != ''">
+				notice_board_content=#{noticeBoardContent},
+			</if>
+			<if test="noticeBoardRegDate != null and noticeBoardRegDate != ''">
+				notice_board_reg_date=#{noticeBoardRegDate},
+			</if>
+		</set>	
+		WHERE 
+			notice_board_code=#{noticeBoardCode};
+	</update>
+	<!--공지사항 정보 가져오기-->
+	<select id="noticeBoardInfo" parameterType="String" resultMap="usersNotice">
+		SELECT notice_board_code,  member_id, notice_board_title, notice_board_content, notice_board_reg_date
+	FROM notice_board
+		  WHERE notice_board_code = #{noticeBoardCode};
+	</select>
 	
 	
 	<insert id="addNoticeBoardList" parameterType="AdminNoticeBoard" useGeneratedKeys="true" keyProperty="noticeBoardCode">
@@ -51,8 +83,8 @@ notice_board AS nb
     
 
 INSERT INTO notice_board
-	(notice_board_code, branch_code, member_id, notice_board_title, notice_board_content, notice_board_reg_date)
-	VALUES (#{noticeBoardCode}, #{branchCode}, #{memberId}, #{noticeBoardTitle}, #{noticeBoardContent}, NOW())
+	(notice_board_code,  member_id, notice_board_title, notice_board_content, notice_board_reg_date)
+	VALUES (#{noticeBoardCode},  #{memberId}, #{noticeBoardTitle}, #{noticeBoardContent}, NOW())
 </insert>
 	
 	
@@ -68,17 +100,12 @@ INSERT INTO notice_board
 SELECT
    CAST(SUBSTRING_INDEX(nb.notice_board_code, '_', -1) AS SIGNED) AS notice_board_code,
 nb.member_id,
-nb.branch_code,
-bm.branch_name,
 nb.notice_board_title,
 nb.notice_board_content,
 nb.notice_board_reg_date
 FROM
 notice_board AS nb
-INNER join
-branch_management AS bm
-ON
-nb.branch_code = bm.branch_code
+
 <where>
 		<if test="searchKey != null and searchKey != ''">
 			<choose>
@@ -98,20 +125,11 @@ notice_board_code ASC,
 SELECT
    CAST(SUBSTRING_INDEX(nb.notice_board_code, '_', -1) AS SIGNED) AS notice_board_code,
 nb.member_id,
-nb.branch_code,
-bm.branch_name,
 nb.notice_board_title,
 nb.notice_board_content,
 nb.notice_board_reg_date
 FROM
 notice_board AS nb
-INNER join
-branch_management AS bm
-ON
-nb.branch_code = bm.branch_code
-ORDER BY 
-notice_board_code ASC,
-  SUBSTRING_INDEX(nb.notice_board_code, '_', 1) ASC;
 
 </select>
 </mapper>

@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ks49team01.admin.dto.AdminUser;
 import ks49team01.admin.dto.AdminUserLevel;
 import ks49team01.admin.service.AdminUserService;
+import ks49team01.user.dto.RoompayMileageRate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +40,15 @@ public class AdminUserController {
 	
 
 	
+
+	  @DeleteMapping("/removeMember/{memberId}")
+	    public ResponseEntity<String> removeMember(@PathVariable String memberId) {
+	        userService.removeMemberById(memberId);
+	        return ResponseEntity.ok("회원이 삭제되었습니다.");
+	    }
 	
+	
+
 	    @PostMapping("/checkId")
 	    @ResponseBody
 	    public ResponseEntity <Boolean> checkId(@RequestParam String memberId) {
@@ -84,10 +95,12 @@ public class AdminUserController {
 		
 		// 회원등급 목록 조회
 		List<AdminUserLevel> memberLevelList = userService.memberLevelList();
-		
+		 List<RoompayMileageRate> memberMileage = userService.memberMileageList();
+
 		model.addAttribute("title", "회원수정");
 		model.addAttribute("memberInfo", memberInfo);
 		model.addAttribute("memberLevelList", memberLevelList);
+		model.addAttribute("memberMileage", memberMileage);
 		
 		return "admin/member/modify_member";
 	}
@@ -110,9 +123,11 @@ public class AdminUserController {
 	@GetMapping("/addMember")
 	public String addMember(Model model) {
 		
-		List<AdminUserLevel> addMember = userService.memberLevelList();
-		
-		model.addAttribute("addMember", addMember);
+		List<AdminUserLevel> memberLevel = userService.memberLevelList();
+		 List<RoompayMileageRate> memberMileage = userService.memberMileageList();
+
+		 model.addAttribute("memberMileage", memberMileage);
+		model.addAttribute("memberLevel", memberLevel);
 		model.addAttribute("title", "회원등록");
 
 		
@@ -141,7 +156,7 @@ public class AdminUserController {
 		}
 		
 		List<AdminUser> searchList = userService.getSearchForUserList(searchMap);
-		
+	    
 		return searchList;
 	}
 	
@@ -149,10 +164,14 @@ public class AdminUserController {
 	@GetMapping("/getMember")
 	public String getMemberList(Model model) {
 		List<AdminUser> userList = userService.getuserList();
+		 List<RoompayMileageRate> memberMileageList = userService.memberMileageList();
+			
+		
 		
 		log.info("userList: {}", userList);
 		model.addAttribute("title", "회원목록");
 		model.addAttribute("userList", userList);
+		model.addAttribute("memberMileageList", memberMileageList);
 		
 		return "admin/member/get_member";
 	}

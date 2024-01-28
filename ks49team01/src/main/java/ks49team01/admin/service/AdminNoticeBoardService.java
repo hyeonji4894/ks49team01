@@ -17,6 +17,16 @@ public class AdminNoticeBoardService {
 	
 	private final AdminNoticeBoardMapper adminNoticeBoardMapper;
 	
+	public AdminNoticeBoard noticeBoardInfo(String noticeBoardCode) {
+		return adminNoticeBoardMapper.noticeBoardInfo(noticeBoardCode);
+		
+	}
+	
+	public int modifyNoticeBoardList(AdminNoticeBoard adminNoticeBoard) {
+		return adminNoticeBoardMapper.addNoticeBoardList(adminNoticeBoard);
+		
+	}
+	
 	/**
 	 * 공지사항 추가
 	 * @param adminNoticeBoard

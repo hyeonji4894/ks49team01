@@ -4,7 +4,7 @@
 
 
 	<resultMap type="AdminSales" id="usersResultMap">
-		<id 	column="daily_sales" 		property="dailySales" />
+		<id 	column="daily_sales_code" 		property="daily_sales_code" />
 		<result column="branch_code" 		property="branchCode"/>
 		<result column="daily_sales_day" 		property="DailySalesDay"/>
 		<result column="total_price" 		property="totalPrice"/>
@@ -12,14 +12,11 @@
 	</resultMap>
 	
 	<select id="getBranchSalesList" resultMap="usersResultMap">
-SELECT
-	d.daily_sales,
-	d.branch_code,
-	d.daily_sales_day,
-	d.total_price,
-	d.daily_sales_reg_time
-FROM 
-	daily_sales AS d
+
+SELECT  CAST(SUBSTRING_INDEX(daily_sales_code, '_', -1) AS SIGNED) AS daily_sales_code, branch_code, daily_sales_day, total_price, daily_sales_reg_time
+	FROM daily_sales
+	ORDER BY 
+    SUBSTRING_INDEX(daily_sales_code, '_', 1) ASC;
 	</select>
 
 </mapper>

@@ -13,15 +13,15 @@
 		<result column="member_gender" 		property="memberGender"/>
 		<result column="member_phone" 		property="memberPhone"/>
 		<result column="member_addr" 		property="memberAddr"/>
+		<result column="member_addr_detail" 		property="member_addr_detail"/>
 		<result column="member_regdate" 		property="memberRegDate"/>
-		
+		<result column="roompay_mileage_rate_code" 		property="roompay_mileage_rate_code"/>
 		
 		<result column="final_mileage" 		property="final_mileage"/>
 		<result column="accumulated_payment_amount" 		property="accumulated_payment_amount"/>
 		<result column="memberState" 		property="memberState"/>
 		<result column="mem_level_code" 		property="mem_level_code"/>
 		<result column="membership_rating" 		property="membership_rating"/>
-		
 		
 		   <association property="adminUserLevel" javaType="AdminUserLevel">
     <!-- id: 테이블의 PK컬럼 -->
@@ -32,14 +32,31 @@
     <result column="System_registration_time" property="System_registration_time"/>
 </association>
 
+   <association property="roompayMileageRate" javaType="RoompayMileageRate">
+    <!-- id: 테이블의 PK컬럼 -->
+    <id column="roompay_mileage_rate_code" property="roompay_mileage_rate_code"/>
+    <!-- result: 테이블의 PK컬럼을 제외한 컬럼 -->
+    <result column="mileage_grade_name" property="mileage_grade_name"/>
+</association>
 	</resultMap>
 	
+<select id="memberMileageList" resultMap="usersResultMap">
+    SELECT roompay_mileage_rate_code, mileage_grade_name
+    FROM roompay_mileage_rate
+</select>
+<delete id="removeMemberById">
+	DELETE FROM member WHERE member_id=#{memberId};
+</delete>
+
 	<update id="modifyMember" parameterType="AdminUser">
 		/* 특정회원 수정 */
 		UPDATE member
 		<set>
 			<if test="mem_level_code != null and mem_level_code != ''">
 				mem_level_code=#{mem_level_code},
+			</if>
+			<if test="roompay_mileage_rate_code != null and roompay_mileage_rate_code != ''">
+				roompay_mileage_rate_code=#{roompay_mileage_rate_code},
 			</if>
 			<if test="memberPw != null and memberPw != ''">
 				member_pw=#{memberPw},
@@ -61,7 +78,10 @@
 				member_phone=#{memberPhone},
 			</if>
 			<if test="memberAddr != null and memberAddr != ''">
-				member_addr=#{memberAddr}
+				member_addr=#{memberAddr},
+			</if>
+			<if test="member_addr_detail != null and member_addr_detail != ''">
+				member_addr_detail=#{member_addr_detail},
 			</if>
 			<if test="memberRegDate != null and memberRegDate != ''">
 				member_regdate=CURDATE()<!-- #{memberRegDate} -->,
@@ -79,11 +99,12 @@
 		WHERE 
 			member_id=#{memberId};
 	</update>
-	
+	<!-- 수정할 회원 데이터 가져오기-->
 	<select id="getMemberInfoById" parameterType="String" resultMap="usersResultMap">
 		/* 특정회원 조회 */
 		SELECT 
 	member_id, 
+	roompay_mileage_rate_code,
 	mem_level_code, 
 	member_pw, 
 	member_email, 
@@ -93,6 +114,7 @@
 	member_phone, 
 	member_addr, 
 	member_regdate, 
+	member_addr_detail, 
 	final_mileage, 
 	accumulated_payment_amount, 
 	memberState
@@ -134,15 +156,21 @@ FROM
 			m.member_id,
 			m.member_pw,
 			m.member_name,
-			m.member_email,
-			m.member_birth,
-			m.member_gender,
-			m.member_phone,
-			m.member_addr,
-			m.member_regdate,
-			m.final_mileage
-		FROM
-				member AS m
+			member_email,
+			member_birth,
+			member_gender,
+			member_phone,
+			member_addr,
+			member_addr_detail,
+			rm.mileage_grade_name,
+			final_mileage,
+			member_regdate
+		
+	FROM member AS m
+	inner join
+	roompay_mileage_rate AS rm
+	on
+	m.roompay_mileage_rate_code = rm.roompay_mileage_rate_code
 	<where>
 			<if test="searchKey != null and searchKey != ''">
 				<choose>
@@ -153,16 +181,16 @@ FROM
 			</if>
 		</where>
 	</select>
-	
+
 <insert id="addMember" parameterType="AdminUser">
     <!-- 회원가입 -->
     INSERT INTO member
-    (member_id, mem_level_code, member_pw, member_email, member_name, member_birth,
-    member_gender, member_phone, member_addr, member_regdate, final_mileage,
+    (member_id, mem_level_code,roompay_mileage_rate_code, member_pw, member_email, member_name, member_birth,
+    member_gender, member_phone, member_addr,member_addr_detail, member_regdate, final_mileage,
     accumulated_payment_amount, memberState)
     VALUES
-    (#{memberId}, #{mem_level_code}, #{memberPw}, #{memberEmail}, #{memberName},
-    #{memberBirth}, #{memberGender}, #{memberPhone}, #{memberAddr}, CURDATE(), <!-- #{final_mileage} -->0,
+    (#{memberId}, #{mem_level_code},#{roompay_mileage_rate_code}, #{memberPw}, #{memberEmail}, #{memberName},
+    #{memberBirth}, #{memberGender}, #{memberPhone}, #{memberAddr}, #{member_addr_detail},CURDATE(), <!-- #{final_mileage} -->0,
     <!-- #{accumulated_payment_amount} -->0,<!--  #{memberState} -->'정상회원');
 </insert>
 
@@ -178,10 +206,17 @@ FROM
 			member_gender,
 			member_phone,
 			member_addr,
-			member_regdate,
-			final_mileage
-		FROM
-			member AS m
+			member_addr_detail,
+			rm.mileage_grade_name,
+			final_mileage,
+			member_regdate
+		
+	FROM member AS m
+	inner join
+	roompay_mileage_rate AS rm
+	on
+	m.roompay_mileage_rate_code = rm.roompay_mileage_rate_code
+	
 		<!--SELECT
 			m.member_id,
 			m.member_pw,

@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/default}">
+	  layout:decorate="~{admin/layout/default2}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
+		 <title th:text="${title}">페이지 타이틀</title>
 		<!-- This Page CSS -->
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
@@ -20,37 +34,105 @@
 		</li>
 		<li class="breadcrumb-item text-muted active" aria-current="page">로그인 목록</li>
 	</th:block>
-
+<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		  <h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2" th:text="${title}">Default Title</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">
+		<li class="breadcrumb-item">
+			<a th:href="@{http://localhost/admin/member/getMember}" class="text-muted h4">회원목록</a>
+		</li>
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">회원검색</li>
+	</th:block>
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<table class="table">
-                                    <thead>
+       	  <div class="card mb-4">
+		    <div class="card-body">
+		      <div class="row">
+		        <div class="col-lg-10">
+		          <div class="row mb-3">
+					  <div class="col-12">
+						  
+		            	<div class="search">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label class="form-label card-title font-weight-bolder">회원구분</label>
+                                        <div class="input-group">
+                                            <select id="searchKey" class="form-control text-center">
+                                                <option value="noticeBoardCode">가맹점</option>
+                                                <option value="memberId">아이디</option>
+<!--                                                <option value="branchCode">가맹점코드</option>
+-->                                                <option value="noticeBoardTitle">제목</option>
+                                                <option value="noticeBoardContent">내용</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label card-title font-weight-bolder">검색</label>
+                                        <div class="input-group">
+                                            <input id="searchValue" placeholder="검색어를 작성해주세요" type="text" class="form-control">
+                                        </div>
+		            </div>
+		        </div>
+            </div>
+            </div>
+            </div>
+				</div>
+	        <div class="col-lg-2 align-self-center">
+				<div class="row justify-content-center">
+					<div class="col-12">
+		              <button id="searchBtn" class="btn btn-primary form-control col-sm-12 font-weight-bold" type="button">
+                            	<i class="fas fa-search">&ensp;검색</i>
+		              </button>
+					</div>
+	    	</div>
+	      </div>
+    	 </div>
+	     </div>
+		 <div class="card mb-4">
+		    <div class="card-body">
+		    	<div class="row mb-3">
+		    		<div class="col-sm-3 d-flex align-items-end">		    		
+				    	<h5 class="card-title">
+					    	[ 전체 &nbsp;
+					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	&nbsp;|&nbsp;  
+					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
+					    	]
+				    	</h5>
+		    		</div>	    	
+			    	<div class="col-sm-9">
+			    		<div class="btn-list text-right">
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/noticeBoard/addNoticeBoard}"><i class="fas fas fa-pencil-alt"></i>
+                               등록</a>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+                               수정</button>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
+                               삭제</button>
+                       </div>
+			    	</div>
+		    	</div>
+		    	
+		    	<table class="table table-bordered table-hover text-center search-result">
+                  <thead class="h5 text-dark">
                                         <tr>
                                             <th scope="col">일별매출 코드</th>
                                             <th scope="col">가맹점 코드</th>
                                             <th scope="col">일별 매출일</th>
                                             <th scope="col">총결제금액</th>
                                             <th scope="col">등록 시간</th>
-                                            <th scope="col">수정</th>
-                                            <th scope="col">삭제</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tbody">
+                  <tbody id="tbody" class="border text-dark">
                                           <tr th:if="${branchSalesList != null and not #lists.isEmpty(branchSalesList)}"
 												th:each="l : ${branchSalesList}">
-												<td th:text="${l.dailySales}"></td>
+												<td th:text="${l.daily_sales_code}"></td>
 												<td th:text="${l.branchCode}"></td>
 												<td th:text="${l.DailySalesDay}"></td>
 												<td th:text="${l.totalPrice}"></td>
 												<td th:text="${l.dailySalesRegTime}"></td>
-	
-						<td>
-						<a th:href>수정</a>
-					</td>
-
-						<td>
-						<a th:href>삭제</a>
-					</td>
                                         </tr>
                                         <tr th:unless="${branchSalesList != null and not #lists.isEmpty(branchSalesList)}">
 											<td colspan="12">등록된 회원의 정보가 없습니다.</td>

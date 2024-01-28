@@ -114,8 +114,6 @@
 -->                                            <th scope="col">제목</th>
                                             <th scope="col">내용</th>
                                             <th scope="col">등록시간</th>
-                                            <th scope="col">수정</th>
-                                            <th scope="col">삭제</th>
                                         </tr>
                                     </thead>
                   <tbody id="tbody" class="border text-dark">
@@ -133,13 +131,6 @@
 												<td th:text="${l.inquiry_board_title}"></td>
 												<td th:text="${l.inquiry_board_content}"></td>
 												<td th:text="${l.inquiry_board_reg_time}"></td>
-											<td>
-											<a th:href>수정</a>
-										</td>
-					
-											<td>
-											<a th:href>삭제</a>
-										</td>
 					                                        </tr>
                                         <tr th:unless="${InquiryBoard != null and not #lists.isEmpty(InquiryBoard)}">
 											<td colspan="8">등록된 회원의 정보가 없습니다.</td>
@@ -268,8 +259,8 @@
 
             // 체크된 체크박스가 하나인 경우에만 실행
             if (checkedCheckboxes.length === 1) {
-                const memberId = checkedCheckboxes.closest('tr').find('td:eq(1)').text();
-                window.location.href = '/admin/member/modifyMember?memberId=' + memberId;
+                const inquiry_board_code = checkedCheckboxes.closest('tr').find('td:eq(1)').text();
+                window.location.href = '/admin/inquiryBoard/modifyInquiryBoard?inquiry_board_code=inquiry_board_code_' + inquiry_board_code;
             } else {
                 alert('한 개의 회원만 선택해주세요.');
             }
