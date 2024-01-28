@@ -167,7 +167,7 @@
 			    		<div class="btn-list text-right">
                            <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/closeSchool/addCloseSchool}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/closeSchool/modifyCloseSchoolInfo}"><i class="fas fa-undo"></i>
                                수정</button>
                            <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>	
                                삭제</button>
@@ -181,7 +181,7 @@
                       	  <th style="width: 5%;">
                             <input type="checkbox" id="allCheck">
                       	  </th>
-                      	  	<th class="font-weight-bolder">폐교 명</th>
+                      	    <th class="font-weight-bolder">폐교 명</th>
                       	  	<th class="font-weight-bolder">폐교 이미지</th>
 	               		    <th class="font-weight-bolder">폐교 면적</th>
 	                		<th class="font-weight-bolder">위치</th>
@@ -198,9 +198,9 @@
                      <tr th:if="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}"
 						th:each="l : ${closeSchoolList}">
 						<td>
-                			<input type="checkbox" class="check" name="check" /> <!-- th:data-closeSchool-code="${r.closeSchoolCode}" -->
+                			<input type="checkbox" class="check" name="check" th:data-closeSchool-name="${l.closeSchoolName}"/>
             			</td>
-						<td th:text="${l.closeSchoolName}"></td>
+            			<td th:text="${l.closeSchoolName}"></td>
 						<td th:text="${l.closeSchoolImg}"></td>
 						<td th:text="|${#numbers.formatInteger(l.closeSchoolArea, 3, 'COMMA')}㎡|"></td>
 						<td th:text="${l.roadAddress}"></td>
@@ -340,14 +340,17 @@
 			});	
 			
 			// 수정버튼
-			$(document).on('click', '#modifyBtn', function(){
+ 			$(document).on('click', '#modifyBtn', function(){
 				const checkLength = $('.check:checked').length;
+				
 				if(checkLength != 1) {
 					alert('한개만 선택해주세요.')
 					return;
-				}		
-			});
-			
+				}
+				const closeSchoolName = $('.check:checked').data('closeSchoolName')
+				location.href = `/admin/closeSchool/modifyCloseSchoolInfo?closeSchoolName=${closeSchoolName}`;
+
+			});			
 			// searchItem1 검색한 값이 있는지 확인하고 표시
 			$(document).on('click','#schoolSearch',function(){
 				let searchValue = $('#searchSchool').val();
@@ -411,7 +414,7 @@
 				}
 				$(searchTotal).each(function(idx, item){
 					const newTr = $('<tr />');
-					const checkBox = $('<input />', { type:'checkbox', class:'check'});
+					const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-closeSchool-name' : item.closeSchoolName});
 					const newTdCheckBox = 						$('<td />').html(checkBox);
 					const newTdcloseSchoolName = 				$('<td />').text(item.closeSchoolName);
 					const newTdcloseSchoolImg = 				$('<td />').text(item.closeSchoolImg);

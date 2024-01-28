@@ -49,12 +49,44 @@ public class CloseSchoolController{
 	public String addCloseSchool(Model model) {
 		
 		model.addAttribute("page", "폐교 등록");
-		log.info("addCloseSchoolv");
+		log.info("addCloseSchool");
 		
 		return "admin/close_school/close_school_add";	
 	}
 	
-// 폐교 수정page 없이 modal로 되도록
+//페교 수정
+	/**
+	 * 문제 1. closeSchoolName : undefined 값임
+	 * 문제 2. SELECT쿼리문이 전체 조회되지 않고 3개만 조회됨
+	 * 문제 2 -> closeSchoolName; 이 3개
+	 *       -> closeSchoolName = '{학교명}';은 됨
+	 * */
+	
+	@PostMapping("/modifyCloseSchoolInfo")
+	public String modifyCloseSchoolInfo(AdminCloseSchool adminCloseSchool, HttpSession session) {
+			
+		log.info("adminCloseSchool폐교 수정 : {}", adminCloseSchool);
+		adminCloseSchoolService.modifyCloseSchoolInfo(adminCloseSchool);
+		
+		return "redirect:/admin/close_school/modifyCloseSchoolInfo";
+	}
+	
+	@GetMapping("/modifyCloseSchoolInfo")
+	public String modifyCloseSchoolInfo(@RequestParam(value = "closeSchoolName")String closeSchoolName, Model model) 
+	{
+		
+		log.info("closeSchoolName : {}", closeSchoolName);
+		
+		//
+		AdminCloseSchool closeSchoolInfo = adminCloseSchoolService.getCloseSchoolInfoByName(closeSchoolName);
+		
+		model.addAttribute("closeSchoolInfo", closeSchoolInfo);
+		log.info("closeSchoolInfo : {}", closeSchoolInfo);
+		return "admin/close_school/close_school_modify";	
+ 
+		
+	}
+	
 	
 	/*
 	 * @PostMapping("/getCloseSchool") public String getCloseSchool() {

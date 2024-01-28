@@ -108,5 +108,62 @@
 				</if>
 			</foreach>
 		</where>
- 	</select>
+	</select>	
+	<select id="getCloseSchoolInfoByName" parameterType="String" resultMap="closeSchoolResultMap">
+    <!-- 특정 코드로 폐교명 조회 -->
+    SELECT
+        close_school_name,
+        close_school_img,
+        close_school_area,
+        roadAddress,
+        roadAddressDetail,
+        branch_current_situation,
+        purchase_amount,
+        system_registration_date,
+        last_modified_date,
+        view_map_img
+    FROM
+        close_school
+    WHERE
+        close_school_name = #{closeSchoolName};
+</select>
+	
+	<update id="modifyCloseSchoolInfo" parameterType="adminCloseSchool">
+    <!-- 특정 코드로 객실 수정 -->
+    UPDATE close_school
+    <set>
+        <if test="closeSchoolName != null and closeSchoolName != ''">
+            close_school_name=#{closeSchoolName}
+        </if>
+        <if test="closeSchoolImg != null and closeSchoolImg != ''">
+            close_school_img=#{closeSchoolImg}
+        </if>
+        <if test="closeSchoolArea != null and closeSchoolArea != ''">
+            close_school_area=#{closeSchoolArea}
+        </if>
+        <if test="roadAddress != null and roadAddress != ''">
+            roadAddress=#{roadAddress}
+        </if>
+        <if test="roadAddressDetail != null and roadAddressDetail != ''">
+            roadAddressDetail=#{roadAddressDetail}
+        </if>
+        <if test="branchCurrentSituation != null and branchCurrentSituation != ''">
+            branch_current_situation=#{branchCurrentSituation}
+        </if>
+        <if test="purchaseAmount != null and purchaseAmount != ''">
+            purchase_amount=#{purchaseAmount}
+        </if>
+        <if test="systemRegistrationDate != null and systemRegistrationDate != ''">
+            system_registration_date=#{systemRegistrationDate}
+        </if>
+        <if test="lastModifiedDate != null and lastModifiedDate != ''">
+            last_modified_date=#{lastModifiedDate}
+        </if>
+        <if test="viewMapImg != null and viewMapImg != ''">
+            view_map_img=#{viewMapImg}
+        </if>
+    </set>
+    WHERE
+        close_school_name=#{closeSchoolName};
+</update>
 </mapper>
