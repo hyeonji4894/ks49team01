@@ -64,9 +64,24 @@
 		</li>
 	</th:block>
 
+<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실정보수정</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{/admin/room/roomInfoList}" class="text-muted">객실</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">객실정보수정</a>
+		</li>
+	</th:block>
+
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<form id="modifyRoomForm" method="post" th:action="@{/branch/room/modifyRoomInfo}" th:object="${roomInfo}">		
+		<form id="modifyRoomForm" method="post" th:action="@{/admin/room/modifyRoomInfo}" th:object="${roomInfo}">		
 			<div class="card mb-4">
 				<div class="card-body ml-4 mr-4">
 					<div class="row border add-form">
@@ -118,7 +133,7 @@
 				<div class="col-sm-3"></div>
 					<div class="col-sm-9">
 				   		<div class="btn-list text-right">
-		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/branch/room/roomInfo}"><i class=" fas fa-clipboard-list"></i>
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/room/roomInfo}"><i class=" fas fa-clipboard-list"></i>
 		                        목록</a>
 		                    <button type="submit" class="btn btn-outline-success" id="modifyBtn"><i class="fas fas fa-pencil-alt"></i>
 		                        수정</button>

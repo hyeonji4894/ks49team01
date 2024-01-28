@@ -16,6 +16,32 @@
 		<result column="room_registration_date" property="roomRegistrationDate"/>
 	</resultMap>
 	
+	<select id="getBranchList" resultType="map">
+		/* 가맹점 목록 */
+		SELECT 
+			branch_code 	AS branchCode, 
+			member_id 		AS memberId, 
+			branch_name 	AS branchName
+		FROM 
+			branch_management;
+	</select>
+	
+	<select id="getRoomInfoByCode" parameterType="String" resultMap="roomResultMap">
+	/* 특정 코드로 객실 조회*/
+		SELECT
+			ri.branch_name,
+			ri.room_name,
+			ri.room_size,
+			ri.room_basic_personnel,
+			ri.room_max_personnel,
+			ri.available_dog_types,
+			ri.room_basic_price
+		FROM
+			room_information AS ri
+		WHERE	
+			ri.room_code = #{roomCode};
+	</select>
+	
 	<select id="getRoomList" resultMap="roomResultMap">
 		SELECT
 			ri.room_code,
