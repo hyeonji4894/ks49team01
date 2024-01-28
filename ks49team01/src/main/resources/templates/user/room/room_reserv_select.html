@@ -14,8 +14,8 @@
 	        <div class="page-header breadcrumb-wrap">
 	            <div class="container">
 	                <div class="breadcrumb">
-	                    <a th:href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-	                    <span></span> 객실 <span></span> 객실보기
+	                    <a th:href="@{/user}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+	                    <span></span> 객실
 	                </div>
 	            </div>
 	        </div>
@@ -70,16 +70,11 @@
 	            	 		 th:each="r : ${roomList}" class="product-list mb-50">
 	                        <div class="product-cart-wrap">
 	                            <div class="product-img-action-wrap">
-	                                    <div class="product-img-inner">
-	                                        <a href="shop-product-right.html">
-	                                            <img class="default-img" src="/user/assets/imgs/shop/64b8f2c3358d3.jpg" alt="" />
-	                                        </a>
-	                                    </div>
-	                                <div class="product-action-1">
-	                                    <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-	                                    <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-	                                    <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-	                                </div>
+                                    <div class="product-img-inner">
+                                        <a th:href="@{/user/room/roomDetailView}" id="clickRoomImg">
+                                            <img class="default-img" src="/user/assets/imgs/shop/64b8f2c3358d3.jpg" alt="" />
+                                        </a>
+                                    </div>
 	                            </div>
 	                            <div class="product-content-wrap">
 	                                <h2><a href="shop-product-right.html" th:text="${r.roomName}"></a></h2>
@@ -176,4 +171,25 @@
 	            </div>
 	    </main>
 	</th:block>
+	
+	<th:block layout:fragment="customJs">
+		<script th:inline="javascript">
+			
+			//img click
+			$(cocument).ready(function(){
+				$(document).on('click', '#clickRoomImg', function(){
+					const viewRoom = $(this).data('roomCode');
+					
+					if (!roomCode) {
+						alert('해당방의 정보를 찾을 수 없습니다.');
+						return;
+					}
+					location.href = `user/room/roomDetailView?roomCode=${roomCode}`;
+				});
+			});
+			
+		</script>
+	</th:block>
+	
+	
 </html>

@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks49team01.user.dto.UserRoom;
 import ks49team01.user.service.UserRoomService;
@@ -57,15 +59,23 @@ public class UserRoomController {
 	
 	// 객실 예약
 	
+	@PostMapping("/roomDetailView")
+	public String roomDetailView(UserRoom userRoom) {
+		log.info("객실보기: {}", userRoom);
+		
+		roomService.datailRoomView(userRoom);
+		return "redirect:/user/room/selectReservRoom";
+	}
+	
 	@GetMapping("/roomDetailView")
-	public String roomDetailView(Model model) {
+	public String roomDetailView(@RequestParam(value = "roomCode")String roomCode
+								 ,Model model) {
 		
-		log.info("객실보기");
-		List<UserRoom> roomList = roomService.getRoomList();
-		log.info("roomList: {}" ,roomList);
+		log.info("객실 조회 roomCode: {}", roomCode);
 		
-		model.addAttribute("title", "객실보기");		
-		model.addAttribute("roomList", roomList);
+		UserRoom roomInfo = roomService.getRoomInfoByCode(roomCode);
+		
+		model.addAttribute("roomInfo", roomInfo);
 		
 		return "user/room/room_Detail_veiw";
 	}
