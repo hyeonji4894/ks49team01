@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks49team01.admin.mapper.AdminMileageMapper">
 
-	<resultMap type="ReviewMileageCriteria" id="ReviewMileageResultMap">
+	<resultMap type="AdminReviewMileageCriteria" id="ReviewMileageResultMap">
 		<id column="mileage_criteria_code" 					property="mileageCriteriaCode"/>
 		<result column="member_id" 							property="memberId"/>
 		<result column="mileage_kind" 						property="mileageKind"/>
@@ -10,7 +10,7 @@
 		<result column="mileage_criteria_register_date" 	property="mileageCriteriaRegisterDate"/>
 	</resultMap>
 	
- 	<select id="getReviewMileageCriteria" resultMap="ReviewMileageResultMap">
+ 	<select id="getAdminReviewMileageCriteria" resultMap="ReviewMileageResultMap">
 		SELECT
 			rmc.mileage_criteria_code,
 			rmc.member_id,
