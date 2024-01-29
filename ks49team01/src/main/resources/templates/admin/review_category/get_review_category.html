@@ -84,7 +84,7 @@
 			    		<div class="btn-list text-right">
                            <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/review/addReviewCategory}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/review/modifyReviewCategory}"><i class="fas fa-undo"></i>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
                                수정</button>
                            <button type="button" class="btn btn-outline-danger" id="delBtn" th:href="@{/admin/review/removeReviewCategory}"><i class="fas fa-trash-alt"></i>
                                삭제</button>
@@ -109,7 +109,7 @@
 		              <tr th:if="${adminReviewCategory != null and not #lists.isEmpty(adminReviewCategory)}"
 		            	  th:each="l : ${adminReviewCategory}">
 	                 	<td style="width: 5%;">
-	                    	<input type="checkbox" class="check">
+	                    	<input type="checkbox" name="check" class="check" th:data-category-code="${l.categoryCode}" >
 	                  	</td>			              
 		                <td th:text="${l.categoryCode}"></td>
 		                <td th:text="${l.reviewCategoryKind}"></td>
@@ -185,7 +185,7 @@
 					alert('한개만 선택해주세요.')
 					return;
 				}
-				const categoryCode = $('.check:checked').data('categoryCode')
+				const categoryCode = $('.check:checked').data('categoryCode');
 				location.href = `/admin/review/modifyReviewCategory?categoryCode=${categoryCode}`;								
 			});
 			
@@ -222,7 +222,7 @@
 					}
 					$(searchList).each(function(idx, item){
 						const newTr = $('<tr />');
-						const checkBox = $('<input />', { type:'checkbox', class:'check'});
+						const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-category-code': item.categoryCode});
 						const newTdCheckBox = 						$('<td />').html(checkBox);
 						const newTdcategoryCode = 					$('<td />').text(item.categoryCode);
 						const newTdreviewCategoryKind = 			$('<td />').text(item.reviewCategoryKind);

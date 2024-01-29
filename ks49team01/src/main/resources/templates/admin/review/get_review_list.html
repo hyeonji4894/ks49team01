@@ -188,7 +188,7 @@
 				let searchReviewContext = $('#searchReviewContext').val();
 				searchReviewContext??'';
 				const request = $.ajax({
-					url:'/admin/review/searchForReviewContext',
+					url:'/admin/review/getSearchReviewContext',
 					method:'POST',
 					data:{'searchReviewContext' : searchReviewContext},
 					dataType:'json',
@@ -229,10 +229,10 @@
 					searchObj.searchValue = item.value;
 					searchArr.push(searchObj);
 				});
-				console.log(searchArr);
+				console.log(searchArr);			
 				
 				const request = $.ajax({
-					url : '/admin/review/searchForReviewContext',
+					url : '/admin/review/searchReviewList',
 					method : 'POST',
 					contentType : 'application/json; charset=UTF-8',
 					data: JSON.stringify(searchArr),
@@ -251,7 +251,7 @@
 					}
 					$(searchList).each(function(idx, item){
 						const newTr = $('<tr />');
-						const checkBox = $('<input />', { type:'checkbox', class:'check'});
+						const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-review-num' : item.reviewNum});
 						const newTdCheckBox = 					$('<td />').html(checkBox);
 						const newTdreviewNum = 					$('<td />').text(item.reviewNum);
 						const newTdmemberId = 					$('<td />').text(item.memberId);
@@ -308,18 +308,7 @@
 				$('.check').prop('checked', isChecked);
 			});	
 			
-			// 수정버튼
-			$(document).on('click', '#modifyBtn', function(){
-				const checkLength = $('.check:checked').length;
-				if(checkLength > 1) {
-					alert('한개만 선택해주세요.')
-					return;
-				}
-				
-			});
-			
-			
-			
+	
 				
 			
 		</script>

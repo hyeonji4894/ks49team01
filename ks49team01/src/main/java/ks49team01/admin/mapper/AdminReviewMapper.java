@@ -36,17 +36,22 @@ public interface AdminReviewMapper {
 	
 	
 	
-	//리뷰 목록 검색
+	//리뷰 목록 조회
 	List<AdminReview> getReviewList();
 	
-	//리뷰 내용 검색
-	List<AdminReview> getReviewContext(String reviewContext);
+	//리뷰 내용 검색(모달)
+	List<AdminReview> getSearchReviewContext(String reviewContext);
+	
+	//리뷰 내용 최종검색
+	List<AdminReview> getSearchByReview(List<Map<String, Object>> paramList);
 	
 	
-	
-	
-	
-	
-	//리뷰 댓글 조회
+	//리뷰댓글 목록 조회
 	List<AdminReviewReply> getAdminReviewReply();
+	
+	// 리뷰댓글 내용 검색(모달)
+	List<AdminReviewReply> getSearchReviewReplyContext(String reviewReplyContext);
+	
+	//리뷰댓글 내용 최종검색
+	List<AdminReviewReply> getSearchByReviewReply(List<Map<String, Object>> paramList);
 }

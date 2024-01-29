@@ -68,10 +68,10 @@ public class AdminReviewService {
 	
 	
 	
-	// 리뷰 내용 검색
-	public List<AdminReview> getReviewContext(String reviewContext){
+	// 리뷰 내용 검색(모달)
+	public List<AdminReview> getSearchReviewContext(String reviewContext){
 		
-		return adminReviewMapper.getReviewContext(reviewContext);
+		return adminReviewMapper.getSearchReviewContext(reviewContext);
 	}
 	
 	// 리뷰 목록 조회	
@@ -80,15 +80,32 @@ public class AdminReviewService {
 		return adminReviewMapper.getReviewList();
 	}
 
+	// 조건에 따른 리뷰검색(최종)
+	public List<AdminReview> getSearchByReview(List<Map<String, Object>> paramList){
+		
+		return adminReviewMapper.getSearchByReview(paramList);
+	}
 	
 	
 	
 	
 	
+	// 리뷰댓글 내용 검색(모달)
+	public List<AdminReviewReply> getSearchReviewReplyContext(String reviewReplyContext){
+		
+		return adminReviewMapper.getSearchReviewReplyContext(reviewReplyContext);
+	}
 	
 	// 리뷰 댓글 조회
 	public List<AdminReviewReply> getAdminReviewReply(){
 		
 		return adminReviewMapper.getAdminReviewReply();
 	}
+	
+	// 조건에 따른 리뷰 검색(최종)
+	public List<AdminReviewReply> getSearchByReviewReply(List<Map<String, Object>> paramList){
+		
+		return adminReviewMapper.getSearchByReviewReply(paramList);
+	}
+	
 }

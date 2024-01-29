@@ -17,6 +17,7 @@
 		
 	</resultMap>
 	
+	<!-- 리뷰목록 조회 -->
  	<select id="getReviewList" resultMap="reviewResultMap">
 		SELECT
 			r.review_num,
@@ -27,13 +28,14 @@
 			r.review_views
 		FROM
 			review AS r
-			INNER JOIN
+			LEFT JOIN
 			review_file AS rf
 			ON
-			r.review_file_code = rf.review_file_code
+			r.review_file_code = rf.review_file_code;
  	</select>
- 	
- 	<select id="getReviewContext" resultMap="reviewResultMap">
+ 
+ 	<!-- 리뷰내용에 따른 키워드 검색(모달) -->
+ 	<select id="getSearchReviewContext" parameterType="String" resultMap="reviewResultMap">
 		SELECT
 			r.review_num,
 			r.review_context,
@@ -46,6 +48,38 @@
 			</if>
 		</where>				
  	</select> 	
+ 
+ 	<!-- 리뷰목록 최종검색 -->
+   	<select id="getSearchByReview" resultMap="reviewResultMap" parameterType="list">
+		SELECT
+			r.review_num,
+			r.member_id,
+			r.review_context,
+			rf.file_attribute,
+			r.review_date,
+			r.review_views
+		FROM
+			review AS r
+			LEFT JOIN
+			review_file AS rf
+			ON
+			r.review_file_code = rf.review_file_code
+		<where>
+			<foreach collection="paramList" item="item">
+				<if test="item.searchKey != null and item.searchKey != ''">						
+					AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue},'%')										
+				</if>
+			</foreach>
+		</where>			
+ 	</select> 
+ 
+ 
+ 	
+
+ 	
+ 	
+ 	
+ 	
  	
  	<resultMap type="AdminReviewCategory" id="CategoryResultMap">
 		<id column="category_code" 						property="categoryCode"/>
@@ -55,6 +89,7 @@
 		<result column="review_category_register_date" 	property="reviewCategoryRegisterDate"/>	
 	</resultMap>
 	
+	<!-- 리뷰카테고리 등록 -->
 	<insert id="addReviewCategory" parameterType="AdminReviewCategory">
 		<selectKey keyProperty="categoryCode" resultType="String" order="BEFORE">
 			/* category code 자동증가 */
@@ -74,6 +109,7 @@
 			(#{categoryCode}, #{memberId}, #{reviewCategoryKind}, #{reviewCategoryContext}, CURDATE())
 	</insert>	
 	
+	<!-- 특정코드로 리뷰 카테고리 조회 -->
 	<select id="getReviewCategoryByCode" parameterType="String" resultMap="CategoryResultMap">
 	
 		/* 특정코드로 리뷰 카테고리 조회*/
@@ -90,7 +126,7 @@
 	</select>	
 	
 	
-	
+	<!-- 리뷰카테고리 목록 조회 -->
  	<select id="getReviewCategory" resultMap="CategoryResultMap">
 		SELECT
 			rc.category_code,
@@ -102,6 +138,7 @@
 			review_category AS rc;		
  	</select>
  	
+ 	<!-- 특정코드로 리뷰카테고리 수정 -->
  	<update id="modifyReviewCategory" parameterType="AdminReviewCategory">
 		/* 특정코드로 리뷰카테고리 수정*/
 		UPDATE review_category
@@ -117,7 +154,7 @@
 				category_code=#{categoryCode};
 	</update>	
 		
- 	
+ 	<!-- 카테고리종류에 따른 검색  -->
  	<select id="getSearchCategory" resultMap="CategoryResultMap" parameterType="list"> 	
 		SELECT
 			rc.category_code,
@@ -135,4 +172,8 @@
 			</foreach>
 		</where>	
 	</select>
+	
+	
+	
+	
 </mapper>

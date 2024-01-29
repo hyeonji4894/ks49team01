@@ -135,6 +135,12 @@ public class AdminReviewController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
 	// 리뷰 삭제
 	@GetMapping("/removeReview")
 	public String removeReview(Model model){
@@ -160,19 +166,46 @@ public class AdminReviewController {
 	return "admin/review/get_review_list";
 	}
 	
-	// 리뷰 내용 검색
-	@PostMapping("/searchForReviewContext")
+	// 리뷰 내용 검색(모달)
+	@PostMapping("/getSearchReviewContext")
 	@ResponseBody
-	public List<AdminReview> searchForReviewContext(@RequestParam(value="searchReviewContext") String reviewContext){
+	public List<AdminReview> getSearchReviewContext(@RequestParam(value="searchReviewContext") String reviewContext){
 		
 		log.info("reviewContext: {}", reviewContext);
 		
-		List<AdminReview> searchReviewContext = adminReviewService.getReviewContext(reviewContext);
+		List<AdminReview> searchReviewContext = adminReviewService.getSearchReviewContext(reviewContext);
 		
 		return searchReviewContext;
 		
 	}
-
+	
+	// 리뷰내용 최종검색
+	@PostMapping("/searchReviewList")
+	@ResponseBody
+	public List<AdminReview> searchReviewList(@RequestBody List<Map<String, Object>> paramList){
+		
+		log.info("검색 조건 선택:{}" , paramList);
+		if(paramList != null) {
+			paramList.forEach(searchMap -> {
+				String searchKey = (String) searchMap.get("searchKey");
+				switch (searchKey) {
+					case "reviewContext" -> searchKey = "review_context";
+				}
+				searchMap.put("searchKey", searchKey);
+			});
+		}
+		log.info("선택 조건 검색:{}" , paramList);
+		
+		List<AdminReview> searchByReview = adminReviewService.getSearchByReview(paramList);
+		
+		return searchByReview;
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 	
@@ -223,4 +256,41 @@ public class AdminReviewController {
 		
 	return "admin/review_reply/get_review_reply";
 	}
+	
+	// 리뷰댓글 내용 검색(모달)
+	@PostMapping("/getSearchReviewReplyContext")
+	@ResponseBody
+	public List<AdminReviewReply> getSearchReviewReplyContext(@RequestParam(value="searchReviewReplyContext") String reviewReplyContext){
+		
+		log.info("reviewReplyContext: {}", reviewReplyContext);
+		
+		List<AdminReviewReply> searchReviewReplyContext = adminReviewService.getSearchReviewReplyContext(reviewReplyContext);
+		
+		return searchReviewReplyContext;
+		
+	}
+	
+	// 리뷰댓글 내용 최종검색
+	@PostMapping("/searchReviewReplyList")
+	@ResponseBody
+	public List<AdminReviewReply> searchReviewReplyList(@RequestBody List<Map<String, Object>> paramList){
+		
+		log.info("검색 조건 선택:{}" , paramList);
+		if(paramList != null) {
+			paramList.forEach(searchMap -> {
+				String searchKey = (String) searchMap.get("searchKey");
+				switch (searchKey) {
+					case "reviewReplyContext" -> searchKey = "review_reply_context";
+				}
+				searchMap.put("searchKey", searchKey);
+			});
+		}
+		log.info("선택 조건 검색:{}" , paramList);
+		
+		List<AdminReviewReply> searchByReviewReply = adminReviewService.getSearchByReviewReply(paramList);
+		
+		return searchByReviewReply;
+		
+	}	
+	
 }
