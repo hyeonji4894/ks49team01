@@ -3,7 +3,7 @@ package ks49team01.branch.dto;
 import lombok.Data;
 
 @Data
-public class BranchRoomOption {
+public class BranchOption {
 	
 	private String roomOptionNumber;
 	private String roomOptionRegistrationId;
