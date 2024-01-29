@@ -120,7 +120,13 @@
 					<div class="col-2 add-form-label border-end">파일</div>
 					<div class="col-7">
 						<input type="file" name="fileData" id="upFile" multiple="multiple">
-					    
+					  <tfoot>
+					<tr>
+						<td colspan="3">
+						<button id="registerButton" onclick="location.href='/edit/'+'<%= posts[i]._id %>' " class="btn btn-danger add">등록</button>							
+						</td>	
+					</tr>
+				</tfoot>  
 					</div>
 				</div>
 				</div>

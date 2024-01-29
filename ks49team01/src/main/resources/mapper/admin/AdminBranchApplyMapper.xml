@@ -12,17 +12,13 @@
 	
  	<select id="getAdminBranchApplyList" resultMap="applyResultMap">
 		SELECT
+			b.branch_apply_code,
+			b.branch_recruit_code,
+			b.close_school_code,
 			b.member_id,
-			b.branch_apply_date,
-			c.close_school_img,
-			c.view_map_img
+			b.branch_apply_date
 		FROM
-			branch_apply AS b
-			INNER JOIN
-			close_school AS c
-			ON
-			b.close_school_code = c.close_school_code;
-	
+			branch_apply AS b;
  	</select>
  	
  	
