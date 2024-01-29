@@ -1,67 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/default}">
+	  layout:decorate="~{admin/layout/default2}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">리뷰관리</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">리뷰관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">리뷰 카테고리</a>
+			<a th:href="@{#}" class="text-muted h4">리뷰카테고리</a>
 		</li>
-		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">조회하기</a>
-		</li>
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">수정하기</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+		<form id="addReviewCategoryForm" method="post" th:action="@{/admin/review/modifyReviewCategory}" th:object="${adminReviewCategory}">	
+		<div class="card mb-4">
+			<div class="card-body ml-4 mr-4">
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">카테고리 종류</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="reviewCategoryKind" id="reviewCategoryKind" th:value="*{reviewCategoryKind}">
+						<input type="hidden" class="form-control" id="categoryCode" name="categoryCode" th:value="*{categoryCode}">						
+					</div>
+				</div>				
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">카테고리 내용</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="reviewCategoryContext" id="reviewCategoryContext" th:value="*{reviewCategoryContext}">
+					</div>
+				</div>																				
+			</div>
+				<div class="row mb-3">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/review/getReviewCategory}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="submit" class="btn btn-outline-success" id="modifyBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        수정</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>&emsp;
+		                </div>
+				   	</div>
+				</div>
+		</div> 
+		</form>   	
 	</th:block>
 	
-	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">	
-			<table class="table">
-			<thead>
-	            <tr>
-	                <th scope="col">카테고리 코드</th>
-	                <th scope="col">등록자 아이디</th>
-	                <th scope="col">시스템 등록일자</th>
-	                <th scope="col">카테고리 내용</th>                                                                                                                                             
-	            </tr>
-	         </thead>
-	         <tbody>
-	            <tr th:if="${reviewCategoryList != null and not #lists.isEmpty(reviewCategoryList)}"
-	            	th:each="l : ${reviewCategoryList}">
-	                <td th:text="${l.facilityCode}||${l.moodCode}"></td>
-	                <td th:text="${l.memberId}"></td>
-	                <td th:text="${l.facilityRegisterDate}||${moodRegisterDate}"></td>
-	                <td th:text="${l.facilityCategoryContext}||${l.moodCategoryContext}"></td>
-	                <td class="addList">
-	                	<a th:href="@{/admin/review/modifyReviewCategory}">수정</a>
-	                </td>
-	                <td>
-	                	<a th:href="@{/admin/coupon/removeReviewCategory}">삭제</a>
-	                </td>
-	            </tr>
-				<tr th:unless="${reviewCategoryList != null and not #lists.isEmpty(reviewCategoryList)}">
-					<td colspan="9">등록된 리뷰 카테고리가 없습니다.</td>
-				</tr>                            
-              </tbody>
-            </table>
+	
+	<th:block layout:fragment="customJs">
+	  	  <script th:inline="javascript">
+	  	  
+	  	  </script>
 	</th:block>
+	
 </html>
-
-
-
-
-
-
-
-
-
 

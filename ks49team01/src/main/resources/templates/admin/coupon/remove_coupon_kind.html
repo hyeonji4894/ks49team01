@@ -28,31 +28,17 @@
 			<table class="table">
 			 <thead>
 	            <tr>
-	                <th scope="col">쿠폰 코드</th>
-	                <th scope="col">등록자 아이디</th>
-	                <th scope="col">쿠폰 이름</th>
-	                <th scope="col">쿠폰 할인 금액</th>
-	                <th scope="col">쿠폰 사용기한</th>
-	                <th scope="col">쿠폰 종류 등록일자</th>
-	                <th scope="col">수정</th>
-	                <th scope="col">삭제</th>                                                                                                                                            
+	                <th scope="col">쿠폰이름</th>                                                                                                                                          
 	            </tr>
 	         </thead>
 	         <tbody>
 	            <tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
 	            	th:each="l : ${adminCouponKind}">
-	                <td th:text="${l.couponCode}"></td>
-	                <td th:text="${l.memberId}"></td>
-	                <td th:text="${l.couponName}"></td>
-	                <td th:text="${l.couponPrice}"></td>
-	                <td th:text="${l.couponDueDate}"></td>
-	                <td th:text="${l.couponKindRegisterDate}"></td>
-	                <td class="addList">
-	                	<a th:href="@{/admin/coupon/modifyCouponKind}">수정</a>
-	                </td>
-	                <td>
-	                	<a th:href="@{/admin/coupon/removeCouponKind}">삭제</a>
-	                </td>
+            		<td class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1"></label>
+                    </td>
+	                <td th:text="${l.couponName}"></td>            	
 	            </tr>
 				<tr th:unless="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}">
 					<td colspan="9">등록된 쿠폰이 없습니다.</td>
