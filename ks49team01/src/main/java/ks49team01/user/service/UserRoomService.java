@@ -25,9 +25,9 @@ public class UserRoomService {
 	}
 	
 	// roomCode로 객실 조회
-	public UserRoom getRoomInfoByCode(String roomCode) {
+	public UserRoom getRoomInfoByName(String roomName) {
 		
-		UserRoom roomInfo = userRoomMapper.getRoomInfoByCode(roomCode);
+		UserRoom roomInfo = userRoomMapper.getRoomInfoByName(roomName);
 		return roomInfo;
 	}
 	

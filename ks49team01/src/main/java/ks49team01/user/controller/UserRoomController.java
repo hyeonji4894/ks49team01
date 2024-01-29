@@ -44,13 +44,13 @@ public class UserRoomController {
 		return "user/room/get_reserv_room";
 	}
 	
-	// 객실 옵션 선택 + 총 금액
+	// 선택한 정보 + 총 금액
 	@GetMapping("/roomTotalAmount")
 	public String roomTotalAmount(Model model) {
 		
-		log.info("객실옵션및총금액확인");
+		log.info("선택정보및총금액확인");
 		
-		model.addAttribute("title", "객실옵션및총금액확인");
+		model.addAttribute("title", "선택정보및총금액확인");
 		
 		return "user/room/confirm_room_total_amount";
 	}
@@ -59,23 +59,25 @@ public class UserRoomController {
 	
 	// 객실 예약
 	
-	@PostMapping("/roomDetailView")
-	public String roomDetailView(UserRoom userRoom) {
-		log.info("객실보기: {}", userRoom);
-		
-		roomService.datailRoomView(userRoom);
-		return "redirect:/user/room/selectReservRoom";
-	}
+//	@PostMapping("/roomDetailView")
+//	public String roomDetailView(UserRoom userRoom) {
+//		log.info("객실보기: {}", userRoom);
+//		
+//		roomService.datailRoomView(userRoom);
+//		return "redirect:/user/room/selectReservRoom";
+//	}
 	
+	// 객실 확인 및 옵션 선택
 	@GetMapping("/roomDetailView")
-	public String roomDetailView(@RequestParam(value = "roomCode")String roomCode
-								 ,Model model) {
+	public String roomDetailView(
+								 Model model) {
 		
-		log.info("객실 조회 roomCode: {}", roomCode);
+		//log.info("객실 조회 roomName: {}", roomName);
 		
-		UserRoom roomInfo = roomService.getRoomInfoByCode(roomCode);
+		//UserRoom roomInfo = roomService.getRoomInfoByName(roomName);
+		List<UserRoom> roomList = roomService.getRoomList();
 		
-		model.addAttribute("roomInfo", roomInfo);
+		model.addAttribute("roomList", roomList);
 		
 		return "user/room/room_Detail_veiw";
 	}
