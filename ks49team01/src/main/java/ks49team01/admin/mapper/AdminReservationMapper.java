@@ -9,6 +9,7 @@ import ks49team01.admin.dto.AdminReservationUser;
 @Mapper
 public interface AdminReservationMapper {
 	
+
 	// 객실조회
 	List<AdminReservationUser> getReservationUserList();
 }
