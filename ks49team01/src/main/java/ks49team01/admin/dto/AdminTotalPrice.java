@@ -10,7 +10,7 @@ public class AdminTotalPrice {
 	private String stayPeriodCode;
 	private String reservationCode;
 	private String branchCode;
-	private String couponPrintCode;
+	private String couponListCode;
 	private int dueToPayPriceTotal;
 	private int useMilage;
 	private int useCoupon;

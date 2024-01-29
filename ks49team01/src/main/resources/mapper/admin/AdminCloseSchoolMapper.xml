@@ -129,7 +129,7 @@
 </select>
 	
 	<update id="modifyCloseSchoolInfo" parameterType="adminCloseSchool">
-    <!-- 특정 코드로 객실 수정 -->
+    <!-- 특정 코드로 폐교 수정 -->
     UPDATE close_school
     <set>
         <if test="closeSchoolName != null and closeSchoolName != ''">

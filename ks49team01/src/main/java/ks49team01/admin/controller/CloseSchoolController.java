@@ -31,6 +31,9 @@ public class CloseSchoolController{
 	
 	private final AdminCloseSchoolMapper adminCloseSchoolMapper;
 	
+// 폐교 삭제 개념은 존재 하지 않음.	
+// 필요할 시 작성
+	
 //	페교 목록 Controller
 	
 	@GetMapping("/getCloseSchool")
@@ -57,9 +60,12 @@ public class CloseSchoolController{
 //페교 수정
 	/**
 	 * 문제 1. closeSchoolName : undefined 값임
-	 * 문제 2. SELECT쿼리문이 전체 조회되지 않고 3개만 조회됨
-	 * 문제 2 -> closeSchoolName; 이 3개
-	 *       -> closeSchoolName = '{학교명}';은 됨
+	 * 해결 -> closeSchool.html에서 closeSchoolList에 data-close-school-name 값을 바인딩 하지 않았음
+	 *  input 에 넣은 data-?-?와 클릭 시 검색되는 버튼
+	 *  const closeSchoolName = $('.check:checked').data('closeSchoolName')
+				location.href = `/admin/closeSchool/modifyCloseSchoolInfo?closeSchoolName=${closeSchoolName}`;
+				이 부분과 일치시켜야 한다
+	 * 
 	 * */
 	
 	@PostMapping("/modifyCloseSchoolInfo")

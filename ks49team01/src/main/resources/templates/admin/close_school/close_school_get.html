@@ -42,47 +42,7 @@
                         <button type="button" class="close" data-dismiss="modal"
                             aria-hidden="true">×</button>
                     </div>
-                    <div class="modal-body">
-                    	<table>
-                   			<thead class="h5 text-dark">
-                      			<tr>
-		                      	  <th scope="col">폐교 명</th>
-		                      	  	<th class="font-weight-bolder">폐교 이미지</th>
-			               		    <th class="font-weight-bolder">폐교 면적</th>
-			                		<th class="font-weight-bolder">위치</th>
-			                		<th class="font-weight-bolder">상세위치</th>
-			              		    <th class="font-weight-bolder">가맹 계약 현황</th>
-			                		<th class="font-weight-bolder">매입 금액</th>
-			                		<th class="font-weight-bolder">시스템 등록 일자</th>
-			                		<th class="font-weight-bolder">최종 수정날짜</th>
-			                		<th class="font-weight-bolder">폐교 조감도 이미지</th>
-			                		<th class="font-weight-bolder">등록자 아이디</th>
-			                     </tr>
-			                  </thead>
-			                  <tbody class="border text-dark">
-			                     <tr th:if="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}"
-									th:each="l : ${closeSchoolList}">
-									<td>
-			                			<input type="checkbox" class="check"/>
-			            			</td>
-									<td th:text="${l.closeSchoolName}"></td>
-									<td th:text="${l.closeSchoolImg}"></td>
-									<td th:text="|${#numbers.formatInteger(l.closeSchoolArea, 3, 'COMMA')}㎡|"></td>
-									<td th:text="${l.roadAddress}"></td>
-									<td th:text="${l.roadAddressDetail}"></td>
-									<td th:text="${l.branchCurrentSituation}"></td>
-									<td th:text="|₩ ${#numbers.formatInteger(l.purchaseAmount, 3, 'COMMA')}|"></td>
-									<td th:text="${l.systemRegistrationDate}"></td>
-									<td th:text="${l.lastModifiedDate}"></td>
-									<td th:text="${l.viewMapImg}"></td>
-									<td th:text="${l.memberId}"></td>
-								</tr>
-								<tr th:unless="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}">
-									<td colspan="9">등록된 폐교가 없습니다.</td>
-								</tr>
-			                  </tbody>
-		                  </table>
-                    </div>
+   
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
@@ -108,32 +68,6 @@
 		                      <option value="2. 가맹점 모집 예정">2. 가맹점 모집 예정</option>
 		                    </select>
 		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="row">
-		            <div class="col-lg-6">
-		              <div class="mb-4">
-		                <div class="row">
-		                  <div class="input-group col-10">
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		            <div class="col-lg-3">
-		              <div class="row">
-		                <div class="col-12">
-		                	<div class="form-group">
-							</div>
-		                </div>
-		              </div>
-		            </div>
-		            <div class="col-lg-3">
-		              <div class="row">
-		                <div class="col-12">
-		                	<div class="form-group">
-							</div>
 		                </div>
 		              </div>
 		            </div>
@@ -173,8 +107,7 @@
                                삭제</button>
                        </div>
 			    	</div>
-		    	</div>
-		    	
+		    	</div>		    	
 		    	<table class="table table-bordered table-hover text-center search-result">
                   <thead class="h5 text-dark">
                       <tr>
@@ -198,7 +131,7 @@
                      <tr th:if="${closeSchoolList != null and not #lists.isEmpty(closeSchoolList)}"
 						th:each="l : ${closeSchoolList}">
 						<td>
-                			<input type="checkbox" class="check" name="check" th:data-closeSchool-name="${l.closeSchoolName}"/>
+                			<input type="checkbox" class="check" name="check" th:data-close-school-name="${l.closeSchoolName}"/>
             			</td>
             			<td th:text="${l.closeSchoolName}"></td>
 						<td th:text="${l.closeSchoolImg}"></td>
@@ -414,7 +347,7 @@
 				}
 				$(searchTotal).each(function(idx, item){
 					const newTr = $('<tr />');
-					const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-closeSchool-name' : item.closeSchoolName});
+					const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-close-school-name' : item.closeSchoolName});
 					const newTdCheckBox = 						$('<td />').html(checkBox);
 					const newTdcloseSchoolName = 				$('<td />').text(item.closeSchoolName);
 					const newTdcloseSchoolImg = 				$('<td />').text(item.closeSchoolImg);
