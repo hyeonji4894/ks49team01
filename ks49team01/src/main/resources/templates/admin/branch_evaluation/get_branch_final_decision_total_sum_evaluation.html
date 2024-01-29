@@ -5,87 +5,209 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
-		<!-- This Page CSS -->
+		<style>
+			table{
+				border : 1px solid black;
+				width : 700px;
+				table-layout : auto;
+				text-align : center;
+			}
+			th {
+				border : 1px solid black;
+				background-color: cornflowerblue;
+				color : azure;
+				height: 30px;
+			}
+			td {
+				border: 1px solid black;
+				height: 30px;
+			}
+			.search {
+				margin-bottom: 15px;
+			}
+			#minPrice, #maxPrice{
+				text-align: right;
+			}
+			input::-webkit-inner-spin-button {
+				margin-left: 8px;
+			}
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹평가질문목록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">가맹신청조회</a>
+			<a th:href="@{/}" class="text-muted">가맹평가질문조회</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청목록</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹평가질문목록</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-	       <table class="table">
-	            <thead>
-	                <tr>
-	                    <th scope="col">질문 코드</th>
-	                    <th scope="col">본사 아이디</th>
-	                    <th scope="col">평가 질문 등록 일자</th>
-	                    <th scope="col">가맹평가 질문 리스트</th>	                
-	                    <th scope="col">채점 코드</th>
-	                    <th scope="col">가맹 모집 코드</th>
-	                    <th scope="col">가맹 신청자 답변</th>
-	                    <th scope="col">채점 후 점수</th>	                
-	                    <th scope="col">1차 채점 기준 코드</th>
-	                    <th scope="col">기준</th>
-	                    <th scope="col">이상</th>
-	                    <th scope="col">미만</th>	                
-	                    <th scope="col">점수 번호</th>
-	                    <th scope="col">점수</th>
-	                    <th scope="col">가맹 평가 기준 등록 일자</th>
-	                    <th scope="col">합격여부 코드</th>	                
-	                    <th scope="col">1차 평가 합계 점수</th>
-	                    <th scope="col">합격여부</th>
-	                    <th scope="col">평가 총합계 코드</th>
-	                    <th scope="col">신청 폐교</th>	                
-	                    <th scope="col">항목 총 합계</th>
-	                    <th scope="col">등록자아이디</th>
-	                    <th scope="col">가맹신청 총합계 등록 시간</th>	                
-	                </tr>
-	            </thead>
-	            <tbody id="tbody">
-<tr th:if="${adminBranchEvaluation != null and not #lists.isEmpty(adminBranchEvaluation)}"
-th:each="e : ${adminBranchEvaluation}">
-<td th:text="${e.questionCode}"></td>
-<td th:text="${e.memberId}"></td>
-<td th:text="${e.branchEvaluationRegisterDate}"></td>
-<td th:text="${e.listOfBranchEvaluationQuestions}"></td>
-<td th:text="${e.grading_code}"></td>
-<td th:text="${e.branch_recruit_code}"></td>
-<td th:text="${e.applicant_response}"></td>
-<td th:text="${e.score_after_grading}"></td>
-<td th:text="${e.grading_criteria_code}"></td>
-<td th:text="${e.standard}"></td>
-<td th:text="${e.more}"></td>
-<td th:text="${e.under}"></td>
-<td th:text="${e.score_num}"></td>
-<td th:text="${e.score}"></td>
-<td th:text="${e.evaluation_criteria_date}"></td>
-<td th:text="${e.pass_or_not_code}"></td>
-<td th:text="${e.evaluation_total_score}"></td>
-<td th:text="${e.pass_or_not}"></td>
-<td th:text="${e.total_evaluation_code}"></td>
-<td th:text="${e.close_school_code}"></td>
-<td th:text="${e.total}"></td>
-<td th:text="${e.registrant_id}"></td>
-<td th:text="${e.system_registration_time}"></td>
-</tr>
-<tr th:unless="${adminBranchEvaluation != null and not #lists.isEmpty(adminBranchEvaluation)}">
-<td colspan="12">조회된 리스트가 없습니다</td>
-</tr>
-</tbody>
-	     </table>
+       <div class="search">
+            <select id="searchKey">
+                   <option value="questionCode">질문 코드</option>
+                   <option value="memberId">본사 아이디</option>
+                   <option value="branchEvaluationRegisterDate">평가 질문 등록 일자</option>
+                   <option value="listOfBranchEvaluationQuestions">가맹평가 질문 리스트</option>                   	                
+       		</select>
+       		<input type="text" id="searchValue" placeholder="검색어를 입력해주세요.">
+       		<button type="button" id="searchBtn">검색</button>
+            </div>
+            <table>
+            	<thead>
+            		<tr>
+            			<th>질문 코드</th>
+            			<th>본사 아이디</th>
+            			<th>평가 질문 등록 일자</th>
+            			<th>가맹평가 질문 리스트</th>
+            		</tr>
+            </thead>
+            <tbody id="tbody">
+				<tr th:if="${adminBranchEvaluation != null and not #lists.isEmpty(adminBranchEvaluation)}"
+				th:each="e : ${adminBranchEvaluation}">
+					<td th:text="${e.questionCode}"></td>
+					<td th:text="${e.memberId}"></td>
+					<td th:text="${e.branchEvaluationRegisterDate}"></td>
+					<td th:text="${e.listOfBranchEvaluationQuestions}"></td>
+				</tr>
+				<tr th:unless="${adminBranchEvaluation != null and not #lists.isEmpty(adminBranchEvaluation)}">
+					<td colspan="12">조회된 리스트가 없습니다</td>
+				</tr>
+			</tbody>
+		</table>
 	</th:block>
+	
+	<!-- 이 페이지에서 사용될 js file 경로 -->
+	<th:block layout:fragment="customJsFile">
+		<script th:src="@{/js/jquery-3.7.1.js}"></script>
+	</th:block>
+	
+	<!-- 이 페이지에서 사용될 스크립트 작성 -->
+	<th:block layout:fragment="customJs">
+		<script th:inline="javascript">
+			// 검색 항목 이벤트
+			$('#searchKey').change(function(){
+				const value = $(this).val();
+				$('.search input').remove();
+				$('.search label').remove();
+				if(value == 'searchValue'){
+					const $questionCode = $('<label />', {'for' : 'minPrice'}).text('최소금액: ');
+					const $memberId = $('<label />', {'for' : 'maxPrice'}).text('최대금액: ');
+					const $branchEvaluationRegisterDate = $('<label />').text('  ~  ');
+					const $listOfBranchEvaluationQuestions = $('<input />', {'type': 'number', 'id': 'minPrice', 'min' : 0, value : 0});
+					$('#searchBtn').before($questionCode, $memberId, $branchEvaluationRegisterDate, $listOfBranchEvaluationQuestions);
+				}else{
+					const $searchValue = $('<input />', {'type': 'text', 'id': 'searchValue', 'placeholder' : '검색어를 입력해주세요.'});
+					$searchValue.css('margin-right', '4px');
+					$('#searchBtn').before($searchValue);
+				}
+			});
+			$('#searchBtn').click(function(){
+				let isBreak = false;
+				$('.search input').each((idx, item) => {
+					const elementId = item.id;
+					const value = $(item).val();
+					if(elementId != 'searchValue'){
+						if(elementId == 'searchValue'){
+							alert('조회되지 않는 질문코드');
+							$(item).val(0);
+							isBreak = true;
+						}else if(elementId == 'searchValue'){
+							alert('조회되는 질문코드');
+							$(item).val(0);
+							$(item).focus();
+							isBreak = true;
+						}
+					}else{
+						if(value == '') isBreak = true;						
+					}
+					return !isBreak;
+				});
+				
+				if(isBreak) return;
+				
+				const searchObj = {};
+				// 검색 항목 객체 속성 동적 삽입
+				$('.search select, .search input').each(function(idx, item){
+					searchObj[item.id] = $(item).val();
+				});
+				
+				console.log(searchObj);
+				
+				const request = $.ajax({
+					url : '/admin/branchEvaluation/getbranchevaluationquestions',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(searchObj),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+					const searchList = res;
+					$('#tbody').html(''); // tbody 초기화
+					
+					// 검색항목에 일치된 목록이 없을 경우
+					if(searchList == null || searchList.length < 1){
+						const newTr = $('<tr />');
+						const newTd = $('<td />',{'colspan': 9}).text('검색에 일치되는 내용이 없습니다.');
+						newTr.append(newTd);
+						$('#tbody').append(newTr);
+						return ;
+					}
+					
+					// 검색항목에 일치된 목록이 있을 경우
+					$(searchList).each(function(idx, item){
+						const newTr = $('<tr />');
+						
+						const questionCode = item.questionCode;
+						const newTdGoodsCode 	 = $('<td />').text(item.goodsCode);
+						const newTdGoodsName 	 = $('<td />').text(item.goodsName);
+						const newTdGoodsPrice 	 = $('<td />').text(`${Number(item.goodsPrice).toLocaleString("ko-KR", { style: "currency", currency : "KRW" })}`);
+						const newTdGoodsSellerId = $('<td />').text(item.goodsSellerId);
+						const newTdMemberName 	 = $('<td />').text(item.member.memberName);
+						const newTdMemberEmail 	 = $('<td />').text(item.member.memberEmail);
+						const newTdGoodsRegDate = $('<td />').text(item.goodsRegDate);						
+						const newModifyTd = $('<td />');
+						const modifyATag = $('<a />', { 'href' : `/goods/modifyGoods?goodsCode=${goodsCode}`})
+												.text('수정');
+						newModifyTd.append(modifyATag);
+						const newDeleteTd = $('<td />');
+						const deleteATag = $('<a />', { 'href' : `/goods/deleteGoods?goodsCode=${goodsCode}`})
+												.text('삭제');
+						newDeleteTd.append(deleteATag);
+						
+						newTr.append(newTdGoodsCode,
+									 newTdGoodsName, 
+									 newTdGoodsPrice, 
+									 newTdGoodsSellerId, 
+									 newTdMemberName, 
+									 newTdMemberEmail, 
+									 newTdGoodsRegDate,  
+									 newModifyTd, 
+									 newDeleteTd);
+						
+						$('#tbody').append(newTr);
+					
+					});
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			});
+			
+			
+			
+		</script>
+	</th:block>
+	
 </html>
-
 
 
 
