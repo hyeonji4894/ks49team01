@@ -13,4 +13,10 @@ public class AdminCoupon {
 	private int couponPrice;
 	private String couponDueDate;
 	private LocalDate couponKindRegisterDate;
+	
+	private String couponListCode;
+	private String couponGiveId;
+	private LocalDate couponGiveDate;
+	private LocalDate couponExpireDate;
+	private LocalDate couponListRegisterDate;
 }

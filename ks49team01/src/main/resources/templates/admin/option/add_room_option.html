@@ -5,6 +5,48 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
+	<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
@@ -22,30 +64,67 @@
 		</li>
 	</th:block>
 
-	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<table class="table">
-	        <thead>
-	            <tr>
-      				<th>옵션 및 부가서비스</th>
-	                <th>옵션 및 부가서비스 명</th>
-	                <th>가격</th>
-	                <th>등록날짜</th>
-	                <th>등록인아이디</th> 
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	            </tr>
-	        </tbody>
-	     </table>
-	     <div style="float: right;">
-	    		<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/option/roomOptionList}">등록</a>
-	     </div>
+		<form id="addOptionForm" method="post" th:action="@{/admin/option/addRoomOption}">		
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end" >카테고리</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomOptionCate" name="roomOptionCate">							
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">옵션명</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomOptionName" name="roomOptionName">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">가격</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomOptionPrice" name="roomOptionPrice">
+						</div>
+					</div>
+				</div>
+			<div class="row mb-3">
+				<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/option/roomOptionList}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="button" class="btn btn-outline-success" id="addBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        등록</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>
+		                </div>
+				   	</div>
+				</div>	
+			</div>
+		</form>
+	  </th:block>
+	  
+	  <th:block layout:fragment="customJs">
+	  	  <script th:inline="javascript">
+	  	  	 $('#addBtn').click(function(){
+	  	  		 let isValid = true;
+	  	  		 
+	  	  		 $('#addOptionForm input').each(function(idx, item){
+	  	  			 const value = $(item).val();
+	  	  			 if(value == null || value == ''){
+	  	  				isValid = false;
+	  	  				
+	  	  				const cate = $(item).closest('.add-form').find('.add-form-label').text();
+	  	  				let msg = `${cate} 필수 입력항목입니다.`;
+	  	  				alert(msg);
+	  	  				$(item).focus();
+	  	  				return false;
+	  	  			 }
+	  	  		 })
+	  	  		 if(isValid) $('#addOptionForm').submit();
+	  	  	 });	  	  
+	  	  
+	  	  
+	  	  </script>
 	  </th:block>
 </html>

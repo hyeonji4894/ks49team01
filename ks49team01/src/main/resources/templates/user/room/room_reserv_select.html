@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -14,8 +15,8 @@
 	        <div class="page-header breadcrumb-wrap">
 	            <div class="container">
 	                <div class="breadcrumb">
-	                    <a th:href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-	                    <span></span> 객실 <span></span> 객실보기
+	                    <a th:href="@{/user}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+	                    <span></span> 객실
 	                </div>
 	            </div>
 	        </div>
@@ -69,22 +70,16 @@
 	                    <div th:if="${roomList != null and not #lists.isEmpty(roomList)}"
 	            	 		 th:each="r : ${roomList}" class="product-list mb-50">
 	                        <div class="product-cart-wrap">
-	                            <div class="product-img-action-wrap">
-	                                    <div class="product-img-inner">
-	                                        <a href="shop-product-right.html">
-	                                            <img class="default-img" src="/user/assets/imgs/shop/64b8f2c3358d3.jpg" alt="" />
-	                                        </a>
-	                                    </div>
-	                                <div class="product-action-1">
-	                                    <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-	                                    <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-	                                    <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-	                                </div>
+	                            <div class="product-img-action-wrap ">
+                                    <div class="product-img-inner">
+                                        <a th:href="@{#}">
+                                            <img class="default-img click-items" src="/user/assets/imgs/shop/64b8f2c3358d3.jpg" alt="" />
+                                        </a>
+                                    </div>
 	                            </div>
 	                            <div class="product-content-wrap">
-	                                <h2><a href="shop-product-right.html" th:text="${r.roomName}"></a></h2>
-	                                <p th:text="${r.roomMaxPersonnel}" class="mt-15 mb-15"></p>
-	                                <div class="product-price">
+	                                <h2><a class="click-items" th:href="@{#}" id="roomName" th:text="${r.roomName}"></a></h2>
+	                               <div class="product-price">
 	                                    <span th:text="|₩ ${#numbers.formatInteger(r.roomBasicPrice, 3, 'COMMA')}|"></span>
 	                                </div>
 	                            </div>
@@ -176,4 +171,14 @@
 	            </div>
 	    </main>
 	</th:block>
+	
+	<th:block layout:fragment="customJs">
+		<script th:inline="javascript">
+			
+			
+			
+		</script>
+	</th:block>
+	
+	
 </html>

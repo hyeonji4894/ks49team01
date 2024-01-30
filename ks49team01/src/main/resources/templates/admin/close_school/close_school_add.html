@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/default2}">
+	  
+	<!-- css file import head태그 안에 추가  -->
+	<head>
+		<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			 #addressBtn {
+     	   letter-spacing: -2px;
+   			 }
+		</style>
+	</head>
+	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">폐교 등록</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{/default/page1}" class="text-muted h4">폐교 등록 페이지</a>
+		</li>
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">addCloseSchoolPage</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+		<form id="addCloseSchoolForm" method="post" th:action="@{/admin/closeSchool/addCloseSchool}">
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row mb-3">
+						<div class="col-sm-3"></div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">폐교명</div>
+						<div class="col-4 " >
+							<input type="text" class="form-control" id="closeSchoolName" name="closeSchoolName" 
+									   placeholder="등록할 폐교명을 입력해주세요">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">아이디</div>
+						<div class="col-4 " >
+							<input type="text" class="form-control" id="memberId" name="memberId" 
+									   placeholder="아이디를 입력해주세요">
+						</div>
+					</div>
+					<div class="row border add-form" >
+						<div class="col-2 add-form-label border-end">폐교이미지</div>
+						<div class="col-4 text-left ">
+							<input type="file" name="closeSchoolImg" id="closeSchoolImg" multiple="multiple">   
+						<div class="col-3">
+						</div>
+						</div>
+						<div class="col-4 ">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">폐교 면적</div>
+						<div class="col-2">
+							<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="면적을 입력해주세요" id="closeSchoolArea" name="closeSchoolArea"/>
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">위치</div>
+						<div class="col-1">
+							<button class="btn btn-outline-info" type="button" id="addressBtn"><i class="fas fa-search">&ensp;위치 검색</i></button>
+						</div>
+						<div class="col-3">
+							<input type="text" class="form-control" name="roadAddress" id="roadAddress" readonly="readonly">
+						</div>
+						<div class="col-5">
+							<input type="text" class="form-control" name="roadAddressDetail" id="roadAddressDetail" placeholder="상세주소를 입력해주세요.">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">가맹 계약 현황</div>
+						<div class="col-3">
+							<select class="form-control text-center" name="branchCurrentSituation">
+			                      <option value="1. 가맹점 계약 완료">1. 가맹점 계약 완료</option>
+			                      <option value="2. 가맹점 모집 예정">2. 가맹점 모집 예정</option>
+							</select>
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">매입 금액</div>
+						<div class="col-4 " >
+							<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="금액을 입력해주세요" id="purchaseAmount" name="purchaseAmount" />
+						</div>
+					</div>
+					<div class="row border add-form" >
+						<div class="col-2 add-form-label border-end">조감도 이미지</div>
+						<div class="col-4 text-left ">
+							<input type="file" name="viewMapImg" id="viewMapImg" multiple="multiple">   
+						<div class="col-3">
+						</div>
+						</div>
+						<div class="col-4 ">
+						</div>
+					</div>
+					<div class="col-sm-12">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/closeSchool/getCloseSchool}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="button" class="btn btn-outline-success" id="addBtn" ><i class="fas fas fa-pencil-alt"></i>
+		                        등록</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>
+		                </div>
+					</div>
+				</div>
+			</div>
+ </form>
+	</th:block>
+	<th:block layout:fragment="customJs">
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		
+		<script>
+		 
+			$('#addressBtn').click(function(){	
+				const width = 500; //팝업의 너비
+				const height = 600; //팝업의 높이
+			    new daum.Postcode({
+			        oncomplete: function(data) {
+
+			        	// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+		                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+		                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		                var roadAddr = data.roadAddress; // 도로명 주소 변수
+		                var extraRoadAddr = ''; // 참고 항목 변수
+
+		                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                    extraRoadAddr += data.bname;
+		                }
+		                // 건물명이 있고, 공동주택일 경우 추가한다.
+		                if(data.buildingName !== '' && data.apartment === 'Y'){
+		                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		                }
+		                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+		                if(extraRoadAddr !== ''){
+		                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+		                }
+
+		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById('roadAddress').value = data.zonecode;
+		                document.getElementById("roadAddress").value = roadAddr;
+		                
+			        }
+			    }).open({
+			        left: (window.screen.width / 2) - (width / 2),
+			        top: (window.screen.height / 2) - (height / 2)
+			    });
+			})
+		</script>
+		<script th:inline="javascript">
+			$('#addBtn').click(function(){
+			    let isValid = true;
+			    
+			    $('#addCloseSchoolForm input').each(function(idx, item){
+			        const value = $(item).val();
+
+			        // 파일 업로드 필드인 경우
+			        if ($(item).attr('type') === 'file') {
+			            // 파일이 선택되지 않은 경우
+			            if ($(item)[0].files.length === 0) {
+			                // 파일 업로드 필드는 null 값으로 처리
+			                $(item).val(null);
+			            }
+			        } else {
+			            // 일반적인 입력 필드인 경우
+			            if (value == null || value === '') {
+			                isValid = false;
+			                
+			                const cate = $(item).closest('.add-form').find('.add-form-label').text();
+			                let msg = `${cate} 필수 입력항목입니다.`;
+			                alert(msg);
+			                $(item).focus();
+			                
+			                return false;
+			            }
+			        }
+			    });
+
+			    if(isValid) {
+			        $('#addCloseSchoolForm').submit();
+			    }
+			});
+		</script>
+	</th:block>
+</html>

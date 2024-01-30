@@ -5,6 +5,19 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
+		<!-- This Page CSS -->
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
@@ -24,40 +37,222 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<table class="table">
-	        <thead>
-	            <tr>
-	                <th>옵션 및 부가서비스</th>
-	                <th>옵션 및 부가서비스 명</th>
-	                <th>가격</th>
-	                <th>등록날짜</th>
-	                <th>등록인아이디</th>              
-	                <th>수정</th>           
-	                <th>삭제</th>           
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr th:if="${optionList != null and not #lists.isEmpty(optionList)}"
-	            	th:each="o : ${optionList}">
-	                <td th:text="${o.roomOptionCate}"></td>
-	                <td th:text="${o.roomOptionName}"></td>
-	                <td th:text="${o.roomOptionPrice}"></td>
-	                <td th:text="${o.roomOptionRegistrationId}"></td>
-	                <td th:text="${o.roomOptionRegistrationDate}"></td>
-	                <td>
-	    				<a th:href="@{/admin/option/modifyRoomOption}">수정</a>
-	                </td>
-	                <td>
-	    				<a th:href="@{/admin/option/removeRoomOption}">삭제</a>
-	                </td>
-	            </tr>
-	            <tr th:unless="${optionList != null and not #lists.isEmpty(optionList)}">
-					<td colspan="5">조회된 리스트가 없습니다</td>
-				</tr>
-	        </tbody>
-	     </table>
-	     <div style="float: right;">
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/option/addRoomOption}">추가</a>
-	     </div>
-	  </th:block>
+	 	<div class="card mb-4">
+		    <div class="card-body">
+		      <div class="row">
+		        <div class="col-lg-10">
+		          <div class="row mb-3">
+		            <div class="col-lg-6">
+		              <label class="form-label card-title font-weight-bolder">카테고리</label>
+		              <div class="row">
+		                <div class="col-12">
+		                  <div class="input-group">
+		                    <select class="form-control text-center search-items" id="roomOptionCate">
+		                      <option value="옵션">옵션</option>
+		                      <option value="부가 서비스">부가 서비스</option>
+		                    </select>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-lg-2 align-self-center">
+		          <div class="row justify-content-center">
+		            <div class="col-8">
+		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;" id="totalSearchBtn">
+		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
+		              </button>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="card mb-4">
+		    <div class="card-body">
+		    	<div class="row mb-3">
+		    		<div class="col-sm-3 d-flex align-items-end">		    		
+				    	<h5 class="card-title">
+					    	[ 전체 &nbsp;
+					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(optionList)}"></label> 건
+					    	&nbsp;|&nbsp;  
+					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(optionList)}"></label> 건
+					    	]
+				    	</h5>
+		    		</div>	    	
+			    	<div class="col-sm-9">
+			    		<div class="btn-list text-right">
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/option/addRoomOption}"><i class="fas fas fa-pencil-alt"></i>
+                               등록</a>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/option/modifyRoomOption}"><i class="fas fa-undo"></i>
+                               수정</button>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn" th:href="@{/admin/option/removeRoomOption}"><i class="fas fa-trash-alt"></i>
+                               삭제</button>
+                       </div>
+			    	</div>
+		    	</div>
+		    	
+		    	<table class="table table-bordered table-hover text-center search-result">
+                  <thead class="h5 text-dark">
+                      <tr>
+                      	  <th style="width: 5%;">
+                            <input type="checkbox" id="allCheck">
+                          <th class="font-weight-bolder">옵션번호</th>
+                          <th class="font-weight-bolder">카테고리</th>
+                          <th class="font-weight-bolder">옵션 명</th>
+                          <th class="font-weight-bolder">가격</th>
+                          <th class="font-weight-bolder">등록날짜</th>
+                          <th class="font-weight-bolder">등록인아이디</th>
+                      </tr>
+                  </thead>
+                  <tbody class="border text-dark" id="searchOptionTbody">
+                  	<tr th:if="${optionList != null and not #lists.isEmpty(optionList)}"
+                         th:each="o : ${optionList}">
+                  		<td style="width: 5%;">
+                        	<input type="checkbox" name="check" class="check" th:data-room-option-number="${o.roomOptionNumber}">
+                      	</td>
+                        <td th:text="${o.roomOptionNumber}"></td>
+                        <td th:text="${o.roomOptionCate}"></td>
+	                 	<td th:text="${o.roomOptionName}"></td>
+	                  	<td th:text="${o.roomOptionPrice}"></td>
+	                 	<td th:text="${o.roomOptionRegistrationDate}"></td>
+	                 	<td th:text="${o.roomOptionRegistrationId}"></td>
+                    <tr th:unless="${optionList != null and not #lists.isEmpty(optionList)}">
+						<td colspan="6">조회된 리스트가 없습니다</td>
+				  	</tr>                      
+                  </tbody>
+                </table>
+			    <div class="row justify-content-center mt-5">
+			    	<div class="col-10">			    	
+				    	<ul class="pagination justify-content-center">
+		                   <li class="page-item disabled">
+		                       <a class="page-link" href="#" tabindex="-1">Previous</a>
+		                   </li>
+		                   <li class="page-item active"><a class="page-link" href="#">1</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">2</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">3</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">4</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">5</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">6</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">7</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">8</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">9</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">10</a></li>
+		                   <li class="page-item">
+		                       <a class="page-link" href="#">Next</a>
+		                   </li>
+		               </ul>
+			    	</div>
+			    </div>
+		     </div>
+		  </div>	                        		  
+	</th:block>
+	<th:block layout:fragment="customJs">
+		<script>			
+			
+			// 전체검색
+			$(document).on('click', '#totalSearchBtn', function () {
+		    const searchArr = [];
+		
+		    $('.search-items').each(function (idx, item) {
+		        const searchObj = {};
+		        searchObj.searchKey = item.id;
+		        searchObj.searchValue = item.value;
+		        searchArr.push(searchObj);
+		    });
+		    console.log("searchArr 확인.", searchArr);
+		
+		    const request = $.ajax({
+		        url: '/admin/option/getSearchOption',
+		        method: 'POST',
+		        contentType: 'application/json; charset=utf-8',
+		        data: JSON.stringify(searchArr),
+		        dataType: 'json',
+		    });
+		
+		    request.done(function (res) {
+		        console.log("res 확인.", res);
+		       
+		        const  searchTotal = res;
+				$('#searchOptionTbody').html('');
+				if(searchTotal == null || searchTotal.length < 1){
+					const newTr = $('<tr />');
+					const newTd = $('<td />',{'colspan': 7}).text('검색에 일치되는 내용이 없습니다.');
+					newTr.append(newTd);
+					$('#searchOptionTbody').append(newTr);
+					return;
+				}
+				$(searchTotal).each(function(idx, item){
+					const newTr = $('<tr />');
+					const checkBox = $('<input />', { type:'checkbox', class:'check'});
+					const newTdCheckBox = 						$('<td />').html(checkBox);
+					const newTdroomOptionNumber = 				$('<td />').text(item.roomOptionNumber);
+					const newTdroomOptionCate = 				$('<td />').text(item.roomOptionCate);
+					const newTdroomOptionName = 				$('<td />').text(item.roomOptionName);
+					const newTdroomOptionPrice = 				$('<td />').text(item.roomOptionPrice);
+					const newTdroomOptionRegistrationDate = 	$('<td />').text(item.roomOptionRegistrationDate);
+					const newTdroomOptionRegistrationId = 		$('<td />').text(item.roomOptionRegistrationId);
+					
+					newTr.append(newTdCheckBox,
+							newTdroomOptionNumber,
+							newTdroomOptionCate,
+							newTdroomOptionName,
+							newTdroomOptionPrice,
+							newTdroomOptionRegistrationDate, 
+							newTdroomOptionRegistrationId); 
+					$('#searchOptionTbody').append(newTr);
+				});					
+		        
+		    });
+		
+		    request.fail(function (jQXHR, textStatus, err) {
+		        console.log(err);
+		    });
+		});
+						
+			// 검색결과 tbody 이벤트
+			$(document).on('click', '.search-result tbody tr', function(e){
+				e.stopPropagation();
+				const isChecked = $(this).find('.check').prop('checked');
+				$(this).find('.check').prop('checked', !isChecked);
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 검색결과 tbody check box 이벤트
+			$(document).on('click', '.check', function(e){
+				e.stopPropagation();
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 전체체크
+			$(document).on('click', '#allCheck', function(){
+				const isChecked = $(this).prop('checked');
+				$('.check').prop('checked', isChecked);
+			});	
+			
+			// 수정버튼
+			$(document).on('click', '#modifyBtn', function(){
+				const checkLength = $('.check:checked').length;
+				
+				if(checkLength != 1) {
+					alert('한개만 선택해주세요.')
+					return;
+				}
+				const roomOptionNumber = $('.check:checked').data('roomOptionNumber')
+				location.href = `/admin/option/modifyRoomOption?roomOptionNumber=${roomOptionNumber}`;
+				
+			});
+			
+		</script>
+	</th:block>
+	
 </html>

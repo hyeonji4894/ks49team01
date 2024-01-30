@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks49team01.branch.mapper.BranchRoomMapper">
 
-	<resultMap type="AdminRoom" id="roomResultMap">
+	<resultMap type="BranchRoom" id="roomResultMap">
 		<id column="room_code" 			property="roomCode"/>
 		<result column="branch_code" 	property="branchCode"/>
 		<result column="registrant_id" 	property="registrantId"/>
@@ -16,10 +16,47 @@
 		<result column="room_registration_date" property="roomRegistrationDate"/>
 	</resultMap>
 	
-		<select id="getRoomInfoList" resultMap="roomResultMap">
+	<select id="getBranchList" resultType="map">
+		/* 가맹점 목록 */
+		SELECT 
+			branch_code 	AS branchCode, 
+			member_id 		AS memberId, 
+			branch_name 	AS branchName
+		FROM 
+			branch_management;
+	</select>
+	
+	<update id="modifyRoomInfo" parameterType="BranchRoom">
+		/* 특정코드로 객실 수정*/
+		UPDATE room_information
+		<set>
+			<if test="roomName != null and roomName != ''">	
+				room_name=#{roomName},
+			</if>
+			<if test="roomSize != null and roomSize != ''">
+				room_size=#{roomSize},
+			</if>
+			<if test="roomBasicPersonnel != null and roomBasicPersonnel != ''">	
+				room_basic_personnel=#{roomBasicPersonnel},
+			</if>
+			<if test="roomMaxPersonnel != null and roomMaxPersonnel != ''">	
+				room_max_personnel=#{roomMaxPersonnel},
+			</if>
+			<if test="availableDogTypes != null and availableDogTypes != ''">	
+				available_dog_types=#{availableDogTypes},
+			</if>
+			<if test="roomBasicPrice != null and roomBasicPrice != ''">	
+				room_basic_price=#{roomBasicPrice},
+			</if>
+		</set>
+			WHERE
+				room_code=#{roomCode};
+	</update>
+	
+	<select id="getRoomInfoByCode" parameterType="String" resultMap="roomResultMap">
+		/* 특정 코드로 객실 조회*/
 		SELECT
 			ri.room_code,
-			ri.branch_code,
 			ri.registrant_id,
 			ri.branch_name,
 			ri.room_name,
@@ -28,9 +65,117 @@
 			ri.room_max_personnel,
 			ri.available_dog_types,
 			ri.room_basic_price,
+			ri.room_registration_date	
+		FROM
+			room_information AS ri
+		WHERE	
+			ri.room_code = #{roomCode};
+	</select>
+	
+	<insert id="addRoom" parameterType="BranchRoom">
+		<selectKey keyProperty="roomCode" resultType="String" order="BEFORE">
+			/* room code 자동증가 */
+			SELECT
+				CASE
+				WHEN COUNT(ri.room_code) = 0 THEN 'room_code_1' 
+				ELSE
+					CONCAT('room_code_',(MAX(CAST(SUBSTRING_INDEX(ri.room_code,'room_code_', -1) AS UNSIGNED))+1))
+				END AS roomCode
+			FROM
+				room_information AS ri
+		</selectKey>
+			/* 객실등록 */
+			INSERT INTO room_information
+			(room_code, branch_code, registrant_id, room_name, room_size, room_basic_personnel, 
+			 room_max_personnel, available_dog_types, room_basic_price, room_registration_date)
+			VALUES
+			(#{roomCode}, #{branchCode}, #{registrantId}, #{roomName}, #{roomSize},
+			 #{roomBasicPersonnel}, #{roomMaxPersonnel}, #{availableDogTypes}, #{roomBasicPrice}, CURDATE())
+	</insert>
+	
+	
+	<select id="getSearchByRoom" resultMap="roomResultMap" parameterType="list"> 
+		/*조건 선택 후 검색*/
+		SELECT
+			ri.room_code,
+			ri.branch_code,
+			ri.registrant_id,
+			bm.branch_name,
+			ri.room_name,
+			ri.room_size,
+			ri.room_basic_personnel,
+			ri.room_max_personnel,
+			ri.available_dog_types,
+			ri.room_basic_price,
 			ri.room_registration_date
 		FROM
-			room_information AS ri;
+			room_information AS ri
+			INNER JOIN
+			branch_management AS bm
+			ON 
+			ri.branch_code = bm.branch_code
+		<where>
+			<foreach collection="list" item="item">
+				<choose>
+					<when test="item.searchKey != null and item.searchKey == 'ri.room_basic_price' and item.searchValue != ''">
+						<![CDATA[AND ${item.searchKey} <= #{item.searchValue}]]>
+					</when>
+					<otherwise>
+						<if test="item.searchKey != null and item.searchValue != ''">						
+							AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue},'%')										
+						</if>
+					</otherwise>
+				</choose>
+			</foreach>
+		</where>
 	</select>
-
+	
+	<select id="getRoomInfoSearch" resultMap="roomResultMap" parameterType="String">
+		/*조건 검색*/
+		SELECT
+			ri.room_code,
+			ri.branch_code,
+			ri.registrant_id,
+			bm.branch_name,
+			ri.room_name,
+			ri.room_size,
+			ri.room_basic_personnel,
+			ri.room_max_personnel,
+			ri.available_dog_types,
+			ri.room_basic_price,
+			ri.room_registration_date
+		FROM
+			room_information AS ri
+			INNER JOIN
+			branch_management AS bm
+			ON 
+			ri.branch_code = bm.branch_code
+		<where>
+			<if test="searchBranchName != null and searchBranchName != ''">
+				bm.branch_name LIKE CONCAT('%',  #{searchBranchName}, '%')
+			</if>
+		</where>
+	</select>	
+	
+	<select id="getRoomInfoList" resultMap="roomResultMap">
+	SELECT
+		ri.room_code,
+		ri.branch_code,
+		ri.registrant_id,
+		bm.branch_name,
+		ri.room_name,
+		ri.room_size,
+		ri.room_basic_personnel,
+		ri.room_max_personnel,
+		ri.available_dog_types,
+		ri.room_basic_price,
+		ri.room_registration_date
+	FROM
+		room_information AS ri
+		INNER JOIN
+		branch_management AS bm
+		ON 
+		ri.branch_code = bm.branch_code;
+	</select>
+	
 </mapper>

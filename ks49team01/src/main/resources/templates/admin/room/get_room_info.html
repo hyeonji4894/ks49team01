@@ -77,9 +77,9 @@
 		    		<div class="col-sm-3 d-flex align-items-end">		    		
 				    	<h5 class="card-title">
 					    	[ 전체 &nbsp;
-					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(roomInfoList)}"></label> 건
 					    	&nbsp;|&nbsp;  
-					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
+					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(roomInfoList)}"></label> 건
 					    	]
 				    	</h5>
 		    		</div>	    	
@@ -87,9 +87,9 @@
 			    		<div class="btn-list text-right">
                            <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/room/addRoomInfo}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/room/modifyRoomInfo}"><i class="fas fa-undo"></i>
                                수정</button>
-                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
+                           <button type="submit" class="btn btn-outline-danger" id="delBtn" th:href="@{/admin/room/removeRoomInfo}"><i class="fas fa-trash-alt"></i>
                                삭제</button>
                        </div>
 			    	</div>
@@ -115,7 +115,7 @@
                   	<tr th:if="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}"
 	            	 	  th:each="r : ${roomInfoList}">
                       	 <td style="width: 5%;">
-                            <input type="checkbox" class="check">
+                            <input type="checkbox" name="check" class="check" th:data-room-code="${r.roomCode}">
                       	 </td>
                          <td th:text="${r.branchName}"></td>
 		                 <td th:text="${r.roomName}"></td>
@@ -194,10 +194,13 @@
                       </div>
                   </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->		  	
+          </div><!-- /.modal -->	
 	  </th:block>
+	  
 	 <th:block layout:fragment="customJs">
 		<script th:inline="javascript">
+		
+		
 						
 			//searchBtn click
 			$(document).on('click', '#searchBtn', function(){
@@ -237,6 +240,7 @@
 			});
 			
 			
+			
 			// 최종 검색 버튼
 			$(document).on('click','#searchBtn2', function(){
 				//const searchValue = $('#searchValue').val();
@@ -269,9 +273,10 @@
 					}
 					$(searchList).each(function(idx, item){
 						const newTr = $('<tr />');
-						const branchName = item.memberId;
-						const checkBox = $('<input />', { type:'checkbox', class:'check'});
+						const branchName = item.branchName;
+						const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-room-code' : item.roomCode});
 						const newTdCheckBox = 				$('<td />').html(checkBox);
+						//const newTdroomCode = 				$('<td />').text(item.roomCode);
 						const newTdbranchName = 			$('<td />').text(item.branchName);
 						const newTdroomName = 				$('<td />').text(item.roomName);
 						const newTdroomSize = 				$('<td />').text(item.roomSize);
@@ -285,6 +290,7 @@
 						const newTdregistrantId = 			$('<td />').text(item.registrantId);
 						
 						newTr.append(newTdCheckBox,
+									 //newTdroomCode,
 									 newTdbranchName,
 									 newTdroomName,
 									 newTdroomSize,
@@ -337,12 +343,51 @@
 			// 수정버튼
 			$(document).on('click', '#modifyBtn', function(){
 				const checkLength = $('.check:checked').length;
-				if(checkLength > 1) {
+				
+				if(checkLength != 1) {
 					alert('한개만 선택해주세요.')
 					return;
 				}
+				const roomCode = $('.check:checked').data('roomCode')
+				location.href = `/admin/room/modifyRoomInfo?roomCode=${roomCode}`;
 				
 			});
+			
+			// 삭제 버튼			
+			$(document).on('click', '#delBtn', function(){
+				const checkLength = $('.check:checked').length;
+				
+				if(checkLength == 0) {
+					alert('한개이상 선택해주세요.')
+					return;
+				}
+				var chkArr = $('input:checkbox[name="check"]'); 
+				var newChkArr=[];
+				
+				for(var i=0; chkArr.length > i; i++){
+					if($(chkArr[i]).is(":checked")){
+						newChkArr.push($(chkArr[i]).data('roomCode'));
+					}
+				}
+				console.log(newChkArr);	
+				const request = $.ajax({
+					url : '/admin/room/removeRoomInfo',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(newChkArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+								
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			})
+			
+			
 			
 		</script>
 	</th:block> 
