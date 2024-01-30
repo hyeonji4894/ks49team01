@@ -19,11 +19,19 @@
 			}
 		</style>
 	</head>	    
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">폐교와 가맹점 지도</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">조회</li>
+	</th:block>
 		<th:block layout:fragment="customContent">
     		<table class="table table-bordered table-hover text-center search-result">
                 <thead class="h5 text-dark">
                     <tr>
-                    	<th class="font-weight-bolder">비교 코드(임시)</th>
+                    	<th class="font-weight-bolder">지도 코드</th>
                     	<th class="font-weight-bolder">폐교 코드</th>
                     	<th class="font-weight-bolder">등록자 아이디</th>
                     	<th class="font-weight-bolder">가맹점 코드</th>

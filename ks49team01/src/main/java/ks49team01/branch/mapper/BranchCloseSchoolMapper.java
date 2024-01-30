@@ -9,5 +9,5 @@ import ks49team01.branch.dto.BranchCloseSchool;
 @Mapper
 public interface BranchCloseSchoolMapper {
 
-	List<BranchCloseSchool> getBranchCloseSchool();
+	List<BranchCloseSchool> getBranchCloseSchoolList();
 }

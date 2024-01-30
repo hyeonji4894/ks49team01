@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import ks49team01.branch.dto.BranchTotalPrice;
 import ks49team01.branch.service.BranchTotalPriceService;
 import lombok.AllArgsConstructor;
@@ -29,14 +28,17 @@ public class BranchTotalPriceController {
 		model.addAttribute("getBranchTotalPrice", getBranchTotalPrice);
 		
 		return "branch/final_total_price/final_total_price_get";
+	
 	}
 	
-	@GetMapping("/calcFinalTotalPriceDueTo")
+	@GetMapping("/calcFinalTotalPriceRoyalty")
 	public String calcFinalTotalPriceDueTo(Model model) {
 		
-		log.info("finalTotalPriceDueTo");
-		model.addAttribute("page","최종 금액 결제 예정");
+		List<BranchTotalPrice> getBranchTotalPrice = branchTotalPriceService.BranchTotalPriceList();
+		log.info("getBranchTotalPrice : {}", getBranchTotalPrice);
+		model.addAttribute("page","로열티 결제");
+		model.addAttribute("getBranchTotalPrice", getBranchTotalPrice);
 		
-		return "branch/final_total_price/final_total_price_due_to_calc";
+		return "branch/final_total_price/final_total_price_royality_calc";
 	}
 }

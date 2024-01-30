@@ -6,6 +6,18 @@
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
@@ -30,44 +42,202 @@
 	</th:block>
 	<th:block layout:fragment="customContent">
 		<form id="getBranchCloseSchool" method="post" th:action="@{/close_school/close_school_get}">		
-			<table class="table">
-			 <thead>
-	            <tr>
-	                <th scope="col">폐교 이미지</th>
-	                <th scope="col">폐교 면적</th>
-	                <th scope="col">위치</th>
-	                <th scope="col">가맹 계약 현황</th>
-	                <th scope="col">매입 금액</th>
-	                <th scope="col">시스템 등록 일자</th>
-	                <th scope="col">최종 수정날짜</th>
-	                <th scope="col">폐교 조감도 이미지</th>
-	                <th scope="col">등록자 아이디</th>
-	            </tr>
-	        </thead>
-				<tbody>
-					<tr th:if="${branchCloseSchoolList != null and not #lists.isEmpty(branchCloseSchoolList)}"
+			<div class="modal fade" id="centermodal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="width: 80%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myCenterModalLabel">Center modal</h4>
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                    </div>
+   
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+       	  <div class="card mb-4">
+		    <div class="card-body">
+		      <div class="row">
+		        <div class="col-lg-10">
+		          <div class="row mb-3">
+		            <div class="col-lg-4">
+		                <label class="form-label card-title font-weight-bolder">폐교명</label>
+		                <div class="input-group">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="closeSchoolName">
+		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
+		                </div>
+		            </div>
+		            <div class="col-lg-4">
+		              <label class="form-label card-title font-weight-bolder">계약상태</label>
+		              <div class="row">
+		                <div class="col-12">
+		                  <div class="input-group">
+		                    <select class="form-control text-center search-items" id="constractStatus">
+		                      <option value="1. 가맹점 계약 완료">1. 가맹점 계약 완료</option>
+		                      <option value="2. 가맹점 모집 예정">2. 가맹점 모집 예정</option>
+		                    </select>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-lg-2 align-self-center">
+		          <div class="row justify-content-center">
+		            <div class="col-8">
+		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;" id="totalCloseChoolSearchBtn">
+		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
+		              </button>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="card mb-4">
+		    <div class="card-body">
+		    	<div class="row mb-3">
+		    		<div class="col-sm-3 d-flex align-items-end">		    		
+				    	<h5 class="card-title">
+					    	[ 전체 &nbsp;
+					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(branchCloseSchoolList)}"></label> 건
+					    	&nbsp;|&nbsp;  
+					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(branchCloseSchoolList)}"></label> 건
+					    	]
+				    	</h5>
+		    		</div>	    	
+			    	<div class="col-sm-9">
+			    		<div class="btn-list text-right">
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/closeSchool/addCloseSchool}"><i class="fas fas fa-pencil-alt"></i>
+                               등록</a>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/closeSchool/modifyCloseSchoolInfo}"><i class="fas fa-undo"></i>
+                               수정</button>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>	
+                               삭제</button>
+                       </div>
+			    	</div>
+		    	</div>		    	
+		    	<table class="table table-bordered table-hover text-center search-result">
+                  <thead class="h5 text-dark">
+                      <tr>
+                      	  <th style="width: 5%;">
+                            <input type="checkbox" id="allCheck">
+                      	  </th>
+                      	    <th class="font-weight-bolder">폐교 명</th>
+                      	  	<th class="font-weight-bolder">폐교 이미지</th>
+	               		    <th class="font-weight-bolder">폐교 면적</th>
+	                		<th class="font-weight-bolder">위치</th>
+	                		<th class="font-weight-bolder">상세위치</th>
+	              		    <th class="font-weight-bolder">가맹 계약 현황</th>
+	                		<th class="font-weight-bolder">매입 금액</th>
+	                		<th class="font-weight-bolder">시스템 등록 일자</th>
+	                		<th class="font-weight-bolder">최종 수정날짜</th>
+	                		<th class="font-weight-bolder">폐교 조감도 이미지</th>
+	                		<th class="font-weight-bolder">등록자 아이디</th>
+                     	</tr>
+                  </thead>
+                  <tbody class="border text-dark" id="searchResult">
+                     <tr th:if="${branchCloseSchoolList != null and not #lists.isEmpty(branchCloseSchoolList)}"
 						th:each="l : ${branchCloseSchoolList}">
+						<td>
+                			<input type="checkbox" class="check" name="check"/>
+            			</td>
+            			<td th:text="${l.closeSchoolName}"></td>
 						<td th:text="${l.closeSchoolImg}"></td>
-						<td th:text="${l.closeSchoolArea}"></td>
+						<td th:text="|${#numbers.formatInteger(l.closeSchoolArea, 3, 'COMMA')}㎡|"></td>
 						<td th:text="${l.roadAddress}"></td>
 						<td th:text="${l.roadAddressDetail}"></td>
 						<td th:text="${l.branchCurrentSituation}"></td>
 						<td th:text="|₩ ${#numbers.formatInteger(l.purchaseAmount, 3, 'COMMA')}|"></td>
 						<td th:text="${l.systemRegistrationDate}"></td>
-						<td th:text="${l.lastModifiedDate}"></td>
+						<td th:text="${l.lastModifiedDate}"></td> 
 						<td th:text="${l.viewMapImg}"></td>
 						<td th:text="${l.memberId}"></td>
 					</tr>
 					<tr th:unless="${branchCloseSchoolList != null and not #lists.isEmpty(branchCloseSchoolList)}">
 						<td colspan="9">등록된 폐교가 없습니다.</td>
 					</tr>
-				</tbody>
-			</table>		
+                  </tbody>
+                </table>
+			    <div class="row justify-content-center mt-5">
+			    	<div class="col-10">			    	
+				    	<ul class="pagination justify-content-center">
+		                   <li class="page-item disabled">
+		                       <a class="page-link" href="#" tabindex="-1">Previous</a>
+		                   </li>
+		                   <li class="page-item active"><a class="page-link" href="#">1</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">2</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">3</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">4</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">5</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">6</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">7</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">8</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">9</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">10</a></li>
+		                   <li class="page-item">
+		                       <a class="page-link" href="#">Next</a>
+		                   </li>
+		               </ul>
+			    	</div>
+			    </div>
+		    </div>
+		  </div>
+		  
+		  <!-- search1 modal content -->
+          <div id="search1-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                  	  <div class="modal-header">
+                          <h4 class="modal-title" id="modalTitle1">폐교검색</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      </div>
+                      <div class="modal-body">
+                         <div class="form-group row justify-content-center">                         	 
+                            <label for="searchItem1" class="col-sm-2 col-form-label card-title font-weight-bolder">폐교명</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="searchSchool" placeholder="폐교명을 입력해주세요">
+                            </div>
+                            <button class="btn btn-primary form-control col-sm-3 font-weight-bold" type="button" id="schoolSearch">
+                            	<i class="fas fa-search">&ensp;검색</i>
+                            </button>
+                         </div>
+                      </div>
+                      <div class="modal-footer">
+                      	 <div class="table-responsive">
+                             <table class="table table-bordered table-hover text-center">
+                                <thead class="text-dark font-weight-bolder">
+                                    <tr>
+						            	<th style="width: 5%;">
+					                    	<input type="checkbox" id="allCheck">
+					                    </th>
+						              	<th class="font-weight-bolder">폐교 명</th>
+						                <th class="font-weight-bolder">가맹 계약 현황</th>
+						                <th class="font-weight-bolder">등록자 아이디</th>
+						            </tr>
+                                </thead>
+                                <tbody class="border border-dark searchTb1">
+                                 	<tr th:if="${branchCloseSchoolList != null and not #lists.isEmpty(branchCloseSchoolList)}"
+										th:each="l : ${branchCloseSchoolList}">
+										<td>
+				                			<input type="checkbox" />
+				            			</td>
+										<td th:text="${l.closeSchoolName}"></td>
+										<td th:text="${l.branchCurrentSituation}"></td>
+										<td th:text="${l.memberId}"></td>
+									</tr>
+                                </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
 		</form>
 	</th:block>
+	<th:block layout:fragment="customJs">
+	
+	</th:block>
 </html>
-
-
 
 
 

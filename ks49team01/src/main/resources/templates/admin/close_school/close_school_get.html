@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/default2}">
+	  layout:decorate="~{admin/layout/default}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
@@ -26,11 +26,8 @@
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
-	<th:block layout:fragment="customBreadcrumb">	
-		<li class="breadcrumb-item">
-			<a th:href="@{/default/page1}" class="text-muted h4">폐교목록 조회</a>
-		</li>
-		<li class="breadcrumb-item text-muted active h4" aria-current="page">closeSchoolList</li>
+	<th:block layout:fragment="customBreadcrumb">
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">조회</li>
 	</th:block>
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">

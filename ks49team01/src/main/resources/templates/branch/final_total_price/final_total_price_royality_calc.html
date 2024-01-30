@@ -6,29 +6,68 @@
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
-	</head>
-	
+		<link th:href="@{/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css}" rel="stylesheet">
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}
+		</style>
+	</head>	    
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">로열티 납부</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
-	<th:block layout:fragment="customBreadcrumb">	
-		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
-		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록</li>
+	<th:block layout:fragment="customBreadcrumb">
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">조회</li>
 	</th:block>
-
-	<!-- Start Page Content -->
+	
 	<th:block layout:fragment="customContent">
-       	<table class="table">
-			 <thead>
-	            <tr>
-	                <th scope="col">건별 본사 로열티 납부 예정 금액</th>
-	            </tr>
-	        </thead>
-	     </table>
+		<div class="row">
+        	<div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">납부 현황</h4>
+                       		<div class="table-responsive">
+                        		<table id="zero_config" class="table table-bordered table-hover text-center search-result">
+                            		<thead class="h5 text-dark">
+                               			<tr>
+							                <th class="font-weight-bolder">결제 코드</th>
+							                <th class="font-weight-bolder">가맹점 코드</th>
+							                <th class="font-weight-bolder">최종 결제 금액</th>
+							                <th class="font-weight-bolder">결제 별 로열티 금액</th>
+							        	</tr>
+		                            </thead>
+		                            <tbody>
+	                             	<tr th:if="${getBranchTotalPrice != null and not #lists.isEmpty(getBranchTotalPrice)}"
+										th:each="l : ${getBranchTotalPrice}">
+										<td th:text="${l.paymentsDueCode}"></td>
+										<td th:text="${l.branchCode}"></td>
+										<td th:text="${l.finalPayment}"></td>
+										<td th:text="${l.royaltyPaymentAmountForEachCase}"></td>
+								 	</tr>
+                            	 </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</th:block>
+	<th:block layout:fragment="customJsFile">
+		<script th:src="@{/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+	</th:block>
+	<th:block layout:fragment="customJs">
+		<script>
+			$('#zero_config').DataTable();
+  		</script>
 	</th:block>
 </html>
