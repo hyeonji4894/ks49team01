@@ -10,18 +10,36 @@
 	
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContents">
-        <main class="main">
+<main class="main">
             <div class="page-header mt-30 mb-75">
                 <div class="container">
                     <div class="archive-header">
                         <div class="row align-items-center">
                             <div class="col-xl-3">
-                                <h1 class="mb-15">Review</h1>
+                                <h1 class="mb-15">Blog & News</h1>
                                 <div class="breadcrumb">
                                     <a href="index.html" rel="nofollow">Home<i class="fi-rs-home mr-5"></i></a>
-                                    <span></span> Review
-                                    <span></span> 리뷰
+                                    <span></span> Blog & News
                                 </div>
+                            </div>
+                            <div class="col-xl-9 text-end d-none d-xl-block">
+                                <ul class="tags-list">
+                                    <li class="hover-up">
+                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>Shopping</a>
+                                    </li>
+                                    <li class="hover-up active">
+                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>Recips</a>
+                                    </li>
+                                    <li class="hover-up">
+                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>Kitchen</a>
+                                    </li>
+                                    <li class="hover-up">
+                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>News</a>
+                                    </li>
+                                    <li class="hover-up mr-0">
+                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>Food</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -50,10 +68,10 @@
                                         </div>
                                         <div class="sort-by-dropdown">
                                             <ul>
-                                                <li><a class="active" href="#">5</a></li>
-                                                <li><a href="#">10</a></li>
-                                                <li><a href="#">15</a></li>
-                                                <li><a href="#">20</a></li>
+                                                <li><a class="active" href="#">50</a></li>
+                                                <li><a href="#">100</a></li>
+                                                <li><a href="#">150</a></li>
+                                                <li><a href="#">200</a></li>
                                                 <li><a href="#">All</a></li>
                                             </ul>
                                         </div>
@@ -80,8 +98,9 @@
                             </div>
                             <div class="loop-grid loop-list pr-30 mb-50">
                                 <article class="wow fadeIn animated hover-up mb-30 animated">
-                                    <div class="post-thumb" style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAyMDA4MzBfMTA1/MDAxNTk4NzgwOTExMTU5.L48uzq5AutFPHUe7UVIasaxey3Srg_Hxx5ElMc4n6pwg._0mMEa-3VVYzTg1IskEuD1JqrsvkPG38SMrR1xiFjJQg.JPEG.maru0133/IMG_7101.jpg?type=w800)">
+                                    <div class="post-thumb" style="background-image: url(assets/imgs/blog/blog-1.png)">
                                         <div class="entry-meta">
+                                            <a class="entry-meta meta-2" href="blog-category-grid.html"><i class="fi-rs-play-alt"></i></a>
                                         </div>
                                     </div>
                                     <div class="entry-content-2 pl-50">
@@ -392,7 +411,7 @@
                     </div>
                 </div>
             </div>
-        </main>
+        </main> 
 	</th:block>
 </html>
 
