@@ -95,8 +95,7 @@
 		<id column="total_map" property="totalMap"/>
 		<result column="close_school_code" 		property="closeSchoolCode"/>
 		<result column="member_id" 			property="memberId"/>
-		<result column="close_school_area" 			property="closeSchoolArea"/>
-		<result column="roadAddress" 			property="roadAddress"/>
+		<result column="SD_EDU_OFFC_DIV_NM" 		property="coordinate"/>
 		<result column="change_date" 		property="changeDate"/>
 		<result column="first_date" 		property="firstDate"/>
 		<result column="current_status" 		property="currentStatus"/>

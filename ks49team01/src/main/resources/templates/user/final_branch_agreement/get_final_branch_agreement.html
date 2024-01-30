@@ -93,7 +93,7 @@
 		        <div class="col-lg-2 align-self-center">
 		          <div class="row justify-content-center">
 		            <div class="col-8">
-		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;">
+		              <button id="searchbranch" class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;">
 		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
 		              </button>
 		            </div>
@@ -357,6 +357,10 @@
 				}
 				
 			});
+			
+			$(document).on('click','#searchbranch', function(){
+				alert('click')
+			})
 			
 		</script>
 	</th:block>
