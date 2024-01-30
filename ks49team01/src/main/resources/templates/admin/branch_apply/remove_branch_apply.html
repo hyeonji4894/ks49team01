@@ -126,13 +126,10 @@
 				</div>
 			</div>
 			<div class="container">
-	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-	<c:if test="${board.user.id == principal.user.id }">
-            <button id="btn-update" class="btn btn-warning">수정</button>
-            <button id="btn-delete" class="btn btn-danger">삭제</button>
-	</c:if>
- 
-		  
+            <button id="modify-btn" class="btn btn-warning">수정</button>
+            <button id="remove-btn" class="btn btn-danger">삭제</button>
+			</div>
+	
 		  <!-- search1 modal content -->
           <div id="search1-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog">
@@ -279,6 +276,22 @@
 			        left: (window.screen.width / 2) - (width / 2),
 			        top: (window.screen.height / 2) - (height / 2)
 			    });
+				
+				// 수정 버튼 클릭
+				$("#modify-btn").click(function(){
+					
+					formObj.attr("action","/admin/modify");
+					formObj.attr("method","get");
+					formObj.submit();
+				});
+				// 삭제 버튼 클릭
+				$("#remove-btn").click(function(){
+					
+					formObj.attr("action","/admin/remove");
+					formObj.attr("method","get");
+					formObj.submit();
+				});
+				
 			})
 		</script>
 	</th:block>

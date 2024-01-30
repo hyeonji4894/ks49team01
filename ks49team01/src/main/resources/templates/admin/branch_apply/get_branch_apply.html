@@ -17,10 +17,9 @@
 			.border{
 				border-color: #bac6d0 !important;
 			}
-			
 		</style>
 	</head>
-	
+		
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
 		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">가맹신청조회</h4>
@@ -33,32 +32,108 @@
 		</li>
 		<li class="breadcrumb-item text-muted active h4" aria-current="page">검색페이지</li>
 	</th:block>
-
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
+		<div class="modal fade" id="centermodal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="width: 80%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myCenterModalLabel">Center modal</h4>
+                        <button type="button" class="branchApply" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                    	<table>
+                   			<thead class="h5 text-dark">
+                      			<tr>
+		                      	  <th scope="col">가맹 신청 코드</th>
+		                      	  	<th scope="col">가맹 모집 코드</th>
+			               		    <th scope="col">폐교 코드</th>
+			                		<th scope="col">가맹신청자 아이디</th>
+			                		<th scope="col">가맹 신청 일자</th>
+			                     </tr>
+			                  </thead>
+			                  <tbody class="border text-dark" id="searchResult">
+			                     <tr th:if="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}"
+									th:each="l : ${adminBranchApply}">
+									<td>
+			                			<input type="checkbox" class="check"/>
+			            			</td>
+									<td th:text="${l.branchApplyCode}"></td>
+									<td th:text="${l.branchRecruitCode}"></td>
+									<td th:text="${l.closeSchoolCode}"></td>
+									<td th:text="${l.memberId}"></td>
+									<td th:text="${l.branchApplyDate}"></td>									
+								</tr>
+								<tr th:unless="${adminBranchApply != null and not #lists.isEmpty(adminBranchApply)}">
+									<td colspan="9">등록된 폐교가 없습니다.</td>
+								</tr>
+			                  </tbody>
+		                  </table>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
        	  <div class="card mb-4">
 		    <div class="card-body">
 		      <div class="row">
 		        <div class="col-lg-10">
 		          <div class="row mb-3">
-		            
+		            <div class="col-lg-4">
+		                <label class="form-label card-title font-weight-bolder">가맹점 이름</label>
+		                <div class="input-group">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="branchName">
+		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
+		                </div>
+		            </div>
 		            <div class="col-lg-4">
 		                <label class="form-label card-title font-weight-bolder">가맹신청자 아이디</label>
 		                <div class="input-group">
-		                  <input placeholder="$" type="text" class="form-control">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="memberId">
+		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
 		                </div>
 		            </div>
-		            
+		            <div class="col-lg-4">
+		              <label class="form-label card-title font-weight-bolder">가맹점 신청상태</label>
+		              <div class="row">
+		                <div class="col-12">
+		                  <div class="input-group">
+		                    <select class="form-control text-center search-items" id="branchApplyStatus">
+		                      <option value="1. 가맹점 계약 완료">1. 가맹점 신청 완료</option>
+		                      <option value="2. 가맹점 모집 예정">2. 가맹점 모집 예정</option>
+		                    </select>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
 		          </div>
-		          <div class="col-lg-4">
-		                <label class="form-label card-title font-weight-bolder">가맹 모집 코드</label>
-		                <div class="input-group">
-		                  <input placeholder="$" type="text" class="form-control">
+		          <div class="row">
+		            <div class="col-lg-6">
+		              <div class="mb-4">
+		                <div class="row">
+		                  <div class="input-group col-10">
+		                  </div>
 		                </div>
+		              </div>
 		            </div>
-		        </div>
-		            
-		           
+		            <div class="col-lg-3">
+		              <div class="row">
+		                <div class="col-12">
+		                	<div class="form-group">
+							</div>
+		                </div>
+		              </div>
+		            </div>
+		            <div class="col-lg-3">
+		              <div class="row">
+		                <div class="col-12">
+		                	<div class="form-group">
+							</div>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+		        </div> 
 		        <div class="col-lg-2 align-self-center">
 		          <div class="row justify-content-center">
 		            <div class="col-8">
@@ -159,7 +234,7 @@
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" id="searchItem1" placeholder="가맹점 코드를 입력해주세요">
                             </div>
-                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button">
+                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button" id="">
                             	<i class="fas fa-search">&ensp;검색</i>
                             </button>
                          </div>
@@ -207,9 +282,9 @@
                          <div class="form-group row justify-content-center">                         	 
                             <label for="searchItem1" class="col-sm-2 col-form-label card-title font-weight-bolder">가맹 신청 정보</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="searchItem1" placeholder="가맹 신청 아이디를 입력해주세요">
+                                <input type="text" class="form-control" id="searchBranch" placeholder="가맹 신청 아이디를 입력해주세요">
                             </div>
-                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button">
+                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button" id="searchBranch">
                             	<i class="fas fa-search">&ensp;검색</i>
                             </button>
                          </div>
@@ -250,10 +325,8 @@
 		<script>		
 			// modal searchTb1 처리
 			$(document).on('click', '.searchTb1 tr', function(){
-				const code = $(this).children().eq(0).text();
-				const name = $(this).children().eq(1).text();
-				$('#search1Name').val(name);
-				$('#search1Code').val(code);
+				const branchName = $(this).children().eq(1).text();
+				$('#branchName').val(branchName);
 				$('#search1-modal').modal('hide');
 			});
 			
@@ -300,17 +373,108 @@
 				if(checkLength > 1) {
 					alert('한개만 선택해주세요.')
 					return;
-				}
+				} else if(checkLength == 0){
+					alert('한 개 이상의 목록을 선택해주세요')
+					return;
+				};
 				
+				$('#centermodal').modal('show');
 			});
 			
-			$(document).on('click', '#searchbranch', function(){
-				alert('click')
-				
+			
+			// searchItem1 검색한 값이 있는지 확인하고 표시
+			$(document).on('click','#searchBranch',function(){
+				let searchValue = $('#searchBranch').val();
+				searchValue??'';
+				const request = $.ajax({
+					url: '/admin/branchApply/getbranchapply',
+					method:'POST',
+				    data:{'searchValue': searchValue},
+				    dataType:'json',
+				});
+				request.done(function(res){
+					console.log(res)
+					$('.searchTb1').html('');
+					let contents = ``;
+					$(res).each(function(idx, item){
+						contents += `<tr>`;
+						contents += `	<td><input type="checkbox" /></td>`;
+						contents += `	<td>${item.branchApplyCode}</td>`;
+						contents += `	<td>${item.branchRecruitCode}</td>`;
+						contents += `	<td>${item.closeSchoolCode}</td>`;
+						contents += `	<td>${item.memberId}</td>`;
+						contents += `	<td>${item.branchApplyDate}</td>`;
+						contents += `</tr>`;
+					})
+					$('.searchTb1').html(contents);
+				});
+				request.fail(function(jQXHR, textStatus, err){
+					console.log(err);
+				});
 			});
+			
+			// 전체검색
+			$(document).on('click', '#totalbranchSearchBtn', function () {
+		    const searchArr = [];
+		
+		    $('.search-items').each(function (idx, item) {
+		        const searchObj = {};
+		        searchObj.searchKey = item.id;
+		        searchObj.searchValue = item.value;
+		        searchArr.push(searchObj);
+		    });
+		    console.log("searchArr 확인 용입니다.", searchArr);
+		
+		    const request = $.ajax({
+		        url: '/admin/branchApply/getbranchapply',
+		        method: 'POST',
+		        contentType: 'application/json; charset=utf-8',
+		        data: JSON.stringify(searchArr),
+		        dataType: 'json',
+		    });
+		
+		    request.done(function (res) {
+		        console.log("res 확인용입니다.", res);
+		       
+		        const  searchTotal = res;
+				$('#searchResult').html('');
+				if(searchTotal == null || searchTotal.length < 1){
+					const newTr = $('<tr />');
+					const newTd = $('<td />',{'colspan': 11}).text('검색에 일치되는 내용이 없습니다.');
+					newTr.append(newTd);
+					$('#searchResult').append(newTr);
+					return;
+				}
+				$(searchTotal).each(function(idx, item){
+					const newTr = $('<tr />');
+					const checkBox = $('<input />', { type:'checkbox', class:'check'});
+					const newTdCheckBox = 						$('<td />').html(checkBox);
+					const newTdbranchApplyCode = 				$('<td />').text(item.branchApplyCode);
+					const newTdbranchRecruitCode = 				$('<td />').text(item.branchRecruitCode);
+					const newTdcloseSchoolCode = 				$('<td />').text(item.closeSchoolCode);
+					const newTdmemberId = 						$('<td />').text(item.memberId);
+					const newTdbranchApplyDate = 				$('<td />').text(item.branchApplyDate);
+					
+					newTr.append(newTdCheckBox,
+							newTdbranchApplyCode,
+							newTdbranchRecruitCode,
+							newTdcloseSchoolCode,
+							newTdmemberId,
+							newTdbranchApplyDate); 
+					$('#searchResult').append(newTr);
+				});					
+		        
+		    });
+		
+		    request.fail(function (jQXHR, textStatus, err) {
+		        console.log(err);
+		    });
+		});
+					
+			
+			
 		</script>
 	</th:block>
-	
 	
 	
 	
