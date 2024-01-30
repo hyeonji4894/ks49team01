@@ -32,9 +32,9 @@ public class UserRoomService {
 	}
 	
 	
-	public List<UserRoom> getRoomList(){
+	public List<UserRoom> getRoomList(String location){
 		
-		return userRoomMapper.getRoomList();
+		return userRoomMapper.getRoomList(location);
 	}
 	
 }
