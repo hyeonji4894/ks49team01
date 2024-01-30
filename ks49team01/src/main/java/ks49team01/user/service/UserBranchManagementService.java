@@ -16,9 +16,6 @@ public class UserBranchManagementService {
 
 	private  UserBranchManagementMapper userBranchManagementMapper;
 	
-	/**
-	 * 가맹 신청 조회
-	 */
 	public List<UserBranchManagement> getUserBranchManagementList(){
 		return userBranchManagementMapper.getUserBranchManagementList();
 	}

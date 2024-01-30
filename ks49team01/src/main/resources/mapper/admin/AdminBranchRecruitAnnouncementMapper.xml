@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminBranchRecruitAnnouncementMapper">
+
+	<resultMap type="AdminBranchRecruitAnnouncement" id="recruitAnnouncementResultMap">
+		<id column="branch_recruit_code" 								property="branchRecruitCode"/>
+		<result column="close_school_code" 								property="closeSchoolCode"/>		
+		<result column="member_id" 										property="memberId"/>		
+		<result column="branch_recruit_religion" 						property="branchRecruitReligion"/>		
+		<result column="branch_recruit_year" 							property="branchRecruitYear"/>		
+		<result column="branch_recruitment_round" 						property="branchRecruitmentRound"/>		
+		<result column="branch_registration_date" 						property="branchRegistrationDate"/>		
+		<result column="branch_recruitment_period" 						property="branchRecruitmentPeriod"/>		
+		<result column="recruitment_progress_status" 					property="recruitmentProgressStatus"/>				
+	</resultMap>
+	
+ 	<select id="getAdminBranchRecruitAnnouncementList" resultMap="recruitAnnouncementResultMap">	
+	SELECT
+		b.branch_recruit_code,
+		b.close_school_code,
+		b.member_id,
+		b.branch_recruit_religion,
+		b.branch_recruit_year,
+		b.branch_recruitment_round,
+		b.branch_registration_date,
+		b.branch_recruitment_period,
+		b.recruitment_progress_status
+	FROM
+		branch_recruit_announcement AS b;
+ 	</select>
+</mapper>

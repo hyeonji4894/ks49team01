@@ -16,7 +16,20 @@ public class AdminBranchEvaluationService {
 
 	private AdminBranchEvaluationMapper adminBranchEvaluationMapper;
 	
-	public List<AdminBranchEvaluation> getAdminBranchEvaluationList(){
-		return adminBranchEvaluationMapper.getAdminBranchEvaluationList();
+	public List<AdminBranchEvaluation> getAdminBranchEvaluationQuestionsList() {
+		return adminBranchEvaluationMapper.getAdminBranchEvaluationQuestionsList();
 	}
+	public List<AdminBranchEvaluation> getAdminBranchEvaluationResponseAndGradeList() {
+		return adminBranchEvaluationMapper.getAdminBranchEvaluationResponseAndGradeList();
+	}	
+	public List<AdminBranchEvaluation> getAdminBranchFinalDecisionTotalSumEvaluationList() {
+		return adminBranchEvaluationMapper.getAdminBranchFinalDecisionTotalSumEvaluationList();
+	}
+	public List<AdminBranchEvaluation> getAdminTotalBranchApplyEvaluationList() {
+		return adminBranchEvaluationMapper.getAdminTotalBranchApplyEvaluationList();
+	}
+	public List<AdminBranchEvaluation> getAdminBranchEvaluationScoringCriteriaList() {
+		return adminBranchEvaluationMapper.getAdminBranchEvaluationScoringCriteriaList();
+	}
+
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminBranchManagementMapper">
+
+	<resultMap type="AdminBranchManagement" id="managementResultMap">
+		<id column="branch_code" 								property="branchCode"/>
+		<result column="member_id" 								property="memberId"/>		
+		<result column="branch_name" 							property="branchName"/>		
+		<result column="branch_addr" 							property="branchAddr"/>		
+		<result column="branch_phone" 							property="branchPhone"/>		
+		<result column="branch_representative" 					property="branchRepresentative"/>		
+		<result column="branch_start_date" 						property="branchStartDate"/>		
+		<result column="branch_end_date" 						property="branchEndDate"/>		
+		<result column="branch_image" 							property="branchImage"/>				
+	</resultMap>
+	
+ 	<select id="getAdminBranchManagementList" resultMap="managementResultMap">	
+	SELECT 
+		b.branch_code,
+		b.member_id,
+		b.branch_name,
+		b.branch_addr,
+		b.branch_phone,
+		b.branch_representative,
+		b.branch_start_date,
+		b.branch_end_date,
+		b.branch_image
+	FROM 
+		branch_management AS b;
+ 	</select>
+</mapper>
