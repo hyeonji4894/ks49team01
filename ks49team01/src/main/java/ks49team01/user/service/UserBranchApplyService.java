@@ -16,9 +16,6 @@ public class UserBranchApplyService {
 
 	private UserBranchApplyMapper userBranchApplyMapper;
 	
-	/**
-	 * 가맹 신청 조회
-	 */
 	public List<UserBranchApply> getUserBranchApplyList(){
 		return userBranchApplyMapper.getUserBranchApplyList();
 	}

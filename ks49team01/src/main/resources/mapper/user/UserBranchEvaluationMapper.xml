@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.user.mapper.UserBranchEvaluationMapper">
+
+	<resultMap type="UserBranchEvaluation" id="evaluationResultMap">
+		<id column="question_code" 								property="questionCode"/>
+		<result column="member_id" 								property="memberId"/>		
+		<result column="branch_evaluation_register_date" 		property="branchEvaluationRegisterDate"/>		
+		<result column="list_of_branch_evaluation_questions" 	property="listOfBranchEvaluationQuestions"/>		
+		<result column="grading_code" 							property="gradingCode"/>		
+		<result column="branch_recruit_code" 					property="branchRecruitCode"/>		
+		<result column="applicant_response" 					property="applicantResponse"/>		
+		<result column="score_after_grading" 					property="scoreAfterGrading"/>		
+		<result column="grading_criteria_code"			 		property="gradingCriteriaCode"/>		
+		<result column="standard" 								property="standard"/>		
+		<result column="more" 									property="more"/>		
+		<result column="under" 									property="under"/>		
+		<result column="score_num" 								property="scoreNum"/>		
+		<result column="score" 									property="score"/>		
+		<result column="evaluation_criteria_date" 				property="evaluationCriteriaDate"/>		
+		<result column="pass_or_not_code" 						property="passOrNotCode"/>		
+		<result column="evaluation_total_score" 				property="evaluationTotalScore"/>		
+		<result column="pass_or_not" 							property="passOrNot"/>		
+		<result column="total_evaluation_code" 					property="totalEvaluationCode"/>		
+		<result column="close_school_code" 						property="closeSchoolCode"/>		
+		<result column="total" 									property="total"/>		
+		<result column="registrant_id" 							property="registrantId"/>		
+		<result column="system_registration_time" 				property="systemRegistrationTime"/>				
+	</resultMap>
+	
+ 	<select id="getUserBranchEvaluationList" resultMap="evaluationResultMap">
+		SELECT
+			beq.question_code,
+			beq.member_id,
+			beq.branch_evaluation_register_date,
+			beq.list_of_branch_evaluation_questions
+		FROM
+			branch_evaluation_questions AS beq;
+ 	</select>
+ 	
+	<resultMap type="AdminCloseSchoolComparisonBranch" id="closeSchoolComparisonBranchMap">
+		<id column="total_map" property="totalMap"/>
+		<result column="close_school_code" 		property="closeSchoolCode"/>
+		<result column="member_id" 			property="memberId"/>
+		<result column="SD_EDU_OFFC_DIV_NM" 		property="coordinate"/>
+		<result column="change_date" 		property="changeDate"/>
+		<result column="first_date" 		property="firstDate"/>
+		<result column="current_status" 		property="currentStatus"/>
+		<result column="close_school_img" 		property="closeSchoolImg"/>
+		<result column="close_school_area" 		property="closeSChoolArea"/>
+		<result column="branch_current_situation" 		property="branchCurrenqtSituation"/>
+		<result column="purchase_amount" 		property="purchaseAmount"/>
+		<result column="system_registration_date" 		property="systemRegistrationDate"/>
+		<result column="last_modified_date" 		property="lastModifiedDate"/>
+		<result column="view_map_img" 		property="viewMapImg"/>
+		<result column="branch_code" 		property="branchCode"/>
+		<result column="branch_name" 		property="branchName"/>
+		<result column="branch_addr" 		property="branchAddr"/>
+		<result column="branch_phone" 		property="branchPhone"/>
+		<result column="branch_representative" 		property="branchRepresentative"/>
+		<result column="branch_start_date" 		property="branchStartDate"/>
+		<result column="branch_end_date" 		property="branchEndDate"/>
+		<result column="branch_image" 		property="branchImage"/>		
+	</resultMap>
+	
+ 	<select id="getAdminCloseSchoolComparisonBranch" resultMap="closeSchoolComparisonBranchMap">
+ 		SELECT
+			cs.close_school_img,
+			bm.branch_image,
+			cs.view_map_img
+		FROM
+			close_school_comparison_branch AS cscb
+		 	INNER JOIN
+			close_school AS cs
+			ON
+			cscb.close_school_code = cs.close_school_code
+			INNER JOIN
+			branch_management AS bm
+			ON
+			cscb.branch_code = bm.branch_code;
+ 	</select>
+</mapper>
+

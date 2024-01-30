@@ -16,9 +16,6 @@ public class AdminBranchApplyService {
 
 	private AdminBranchApplyMapper adminBranchApplyMapper;
 	
-	/**
-	 * 가맹 신청 조회
-	 */
 	public List<AdminBranchApply> getAdminBranchApplyList(){
 		return adminBranchApplyMapper.getAdminBranchApplyList();
 	}

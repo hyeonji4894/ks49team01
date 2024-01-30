@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminFinalBranchAgreementMapper">
+
+	<resultMap type="AdminFinalBranchAgreement" id="finalAgreementResultMap">
+		<id column="final_contract_code" 								property="finalContractCode"/>
+		<result column="pass_or_not_code" 								property="passOrNotCode"/>		
+		<result column="close_school_code" 								property="closeSchoolCode"/>		
+		<result column="member_id" 										property="memberId"/>		
+		<result column="operation_start_date" 							property="operationStartDate"/>		
+		<result column="operation_end_date" 							property="operationEndDate"/>		
+		<result column="operation_education_period" 					property="operationEducationPeriod"/>		
+		<result column="deposit_dat" 									property="depositDat"/>		
+		<result column="royalty_payment_criteria" 						property="royaltyPaymentCriteria"/>				
+		<result column="contract_payment" 								property="contractPayment"/>		
+		<result column="assurance_payment" 								property="assurancePayment"/>		
+		<result column="deposit_payment_status" 						property="depositPaymentStatus"/>		
+		<result column="Contract_status" 								property="ContractStatus"/>		
+		<result column="operation_approve_id" 							property="operationApproveId"/>		
+		<result column="operation_approve_date" 						property="operationApproveDate"/>				
+	</resultMap>
+	
+ 	<select id="getAdminFinalBranchAgreementList" resultMap="finalAgreementResultMap">	
+	SELECT
+		f.final_contract_code,
+		f.pass_or_not_code,
+		f.close_school_code,
+		f.member_id,
+		f.operation_start_date,
+		f.operation_end_date,
+		f.operation_education_period,
+		f.deposit_dat,
+		f.royalty_payment_criteria,
+		f.contract_payment,
+		f.assurance_payment,
+		f.deposit_payment_status,
+		f.Contract_status,
+		f.operation_approve_id,
+		f.operation_approve_date
+	FROM
+		final_branch_agreement AS f;
+ 	</select>
+</mapper>
