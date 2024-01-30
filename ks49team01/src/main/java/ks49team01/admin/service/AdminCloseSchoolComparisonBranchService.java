@@ -8,15 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ks49team01.admin.dto.AdminCloseSchoolComparisonBranch;
 import ks49team01.admin.mapper.AdminCloseSchoolComparisonBranchMapper;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
 @AllArgsConstructor
-@Slf4j
 public class AdminCloseSchoolComparisonBranchService {
 
-	private AdminCloseSchoolComparisonBranchMapper adminCloseSchoolComparisonBranchMapper;
+	private final AdminCloseSchoolComparisonBranchMapper adminCloseSchoolComparisonBranchMapper;
 	
 	/*
 	 * public void addCloseSchool(AdminCloseSchoolComparisonBranch
@@ -27,8 +25,8 @@ public class AdminCloseSchoolComparisonBranchService {
 	/**
 	 * 폐교 목록 조회
 	 * */
-	public List<AdminCloseSchoolComparisonBranch> getAdminCloseSchoolComparisonBranch() {
-		return adminCloseSchoolComparisonBranchMapper.getAdminCloseSchoolComparisonBranch();
+	public List<AdminCloseSchoolComparisonBranch> getAdminCloseSchoolComparisonBranchList(){
+		return adminCloseSchoolComparisonBranchMapper.getAdminCloseSchoolComparisonBranchList();
 	}
 	
 }

@@ -9,6 +9,9 @@ import ks49team01.user.dto.UserRoom;
 @Mapper
 public interface UserRoomMapper {
 	
+	// 지역 카테고리 검색
+	public List<String> getLocationList();
+	
 	// roomCode로 객실 불러오기
 	public int datailRoomView(UserRoom userRoom);
 	
@@ -16,5 +19,5 @@ public interface UserRoomMapper {
 	public UserRoom getRoomInfoByName(String roomName);
 	
 	
-	List<UserRoom> getRoomList();
+	List<UserRoom> getRoomList(String location);
 }

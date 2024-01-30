@@ -31,6 +31,9 @@ public class CloseSchoolController{
 	
 	private final AdminCloseSchoolMapper adminCloseSchoolMapper;
 	
+// 폐교 삭제 개념은 존재 하지 않음.	
+// 필요할 시 작성
+	
 //	페교 목록 Controller
 	
 	@GetMapping("/getCloseSchool")
@@ -49,11 +52,53 @@ public class CloseSchoolController{
 	public String addCloseSchool(Model model) {
 		
 		model.addAttribute("page", "폐교 등록");
-		log.info("addCloseSchoolv");
+		log.info("addCloseSchool");
 		
 		return "admin/close_school/close_school_add";	
 	}
 	
+//페교 수정
+	/**
+	 * 문제 1. closeSchoolName : undefined 값임
+	 * 해결 -> closeSchool.html에서 closeSchoolList에 data-close-school-name 값을 바인딩 하지 않았음
+	 *  input 에 넣은 data-?-?와 클릭 시 검색되는 버튼
+	 *  const closeSchoolName = $('.check:checked').data('closeSchoolName')
+				location.href = `/admin/closeSchool/modifyCloseSchoolInfo?closeSchoolName=${closeSchoolName}`;
+				이 부분과 일치시켜야 한다
+	 * 
+	 * */
+	
+	@PostMapping("/modifyCloseSchoolInfo")
+	public String modifyCloseSchoolInfo(AdminCloseSchool adminCloseSchool, HttpSession session) {
+			
+		log.info("adminCloseSchool폐교 수정 : {}", adminCloseSchool);
+		adminCloseSchoolService.modifyCloseSchoolInfo(adminCloseSchool);
+		
+		return "redirect:/admin/close_school/modifyCloseSchoolInfo";
+	}
+	
+	@GetMapping("/modifyCloseSchoolInfo")
+	public String modifyCloseSchoolInfo(@RequestParam(value = "closeSchoolName")String closeSchoolName, Model model) 
+	{
+		
+		log.info("closeSchoolName : {}", closeSchoolName);
+		
+		//
+		AdminCloseSchool closeSchoolInfo = adminCloseSchoolService.getCloseSchoolInfoByName(closeSchoolName);
+		
+		model.addAttribute("closeSchoolInfo", closeSchoolInfo);
+		log.info("closeSchoolInfo : {}", closeSchoolInfo);
+		return "admin/close_school/close_school_modify";	
+ 
+		
+	}
+	
+	
+	/*
+	 * @PostMapping("/getCloseSchool") public String getCloseSchool() {
+	 * 
+	 * return null; }
+	 */	
 	@PostMapping("/addCloseSchool")
 	public String addCloseSchool(AdminCloseSchool closeSchoolList, HttpSession session) {
 		

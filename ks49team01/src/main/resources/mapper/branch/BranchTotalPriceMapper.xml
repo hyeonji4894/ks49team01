@@ -8,7 +8,7 @@
 		<result column="stay_period_code" 		property="stayPeriodCode"/>
 		<result column="reservation_code" 		property="reservationCode"/>
 		<result column="branch_code" 		property="branchCode"/>
-		<result column="coupon_print_code" 		property="couponPrintCode"/>
+		<result column="coupon_list_code" 		property="couponListCode"/>
 		<result column="DUE_TO_PAY_PRICE_TOTAL" 		property="dueToPayPriceTotal"/>
 		<result column="USE_MILEAGE" 		property="useMilage"/>
 		<result column="USE_COUPON" 		property="useCoupon"/>
@@ -27,7 +27,7 @@
 			ftp.stay_period_code,
 			ftp.reservation_code,
 			ftp.branch_code,
-			ftp.coupon_print_code,
+			ftp.coupon_list_code,
 			ftp.DUE_TO_PAY_PRICE_TOTAL,
 			ftp.USE_MILEAGE,
 			ftp.USE_COUPON,
