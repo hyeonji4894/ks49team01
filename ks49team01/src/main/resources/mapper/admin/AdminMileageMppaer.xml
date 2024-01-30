@@ -11,6 +11,7 @@
 		<result column="mileage_list_register_date" 	property="mileageListRegisterDate"/>
 	</resultMap>
 	
+	<!-- 적립금지급내역 조회 -->
  	<select id="getMileageList" resultMap="MileageResultMap">
 		SELECT
 			ml.mileage_list_code,
@@ -22,17 +23,21 @@
 			mileage_list AS ml;
  	</select>
  	
- 		<select id="getSearchMileageId" resultMap="MileageResultMap" parameterType="String">
-			SELECT
-				ml.mileage_list_code,
-				ml.member_id,
-				ml.mileage_kind
-			FROM
-				mileage_list as ml;
-			<where>
-				<if test="memberId != null and memberId != ''">
-					ml.member_id LIKE CONCAT('%', #{memberId}, '%')
-				</if>
-			</where>
-		</select>	
+ 	<!-- 적립금지급내역 아이디 검색 -->
+	<select id="getSearchMileageId" resultMap="MileageResultMap" parameterType="String">
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.mileage_kind
+		FROM
+			mileage_list as ml;
+		<where>
+			<if test="memberId != null and memberId != ''">
+				ml.member_id LIKE CONCAT('%', #{memberId}, '%')
+			</if>
+		</where>
+	</select>
+	
+	
+		
 </mapper>

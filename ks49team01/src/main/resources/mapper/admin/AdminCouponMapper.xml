@@ -17,23 +17,23 @@
 		<result column="coupon_list_register_date" 	property="couponListRegisterDate"/>
 	</resultMap>
 	
-	
-		<select id="getSearchCouponName" resultMap="couponResultMap" parameterType="String">
-			SELECT
-				eck.coupon_name,
-				eck.coupon_code,
-				eck.member_id
-			FROM
-				event_coupon_kind AS eck
-			<where>
-				<if test="couponName != null and couponName != ''">
-					eck.coupon_name LIKE CONCAT('%', #{couponName}, '%')
-				</if>
-			</where>
-		</select>
+	<!-- 쿠폰이름 검색(모달) -->
+	<select id="getSearchCouponName" resultMap="couponResultMap" parameterType="String">
+		SELECT
+			eck.coupon_name,
+			eck.coupon_code,
+			eck.member_id
+		FROM
+			event_coupon_kind AS eck
+		<where>
+			<if test="couponName != null and couponName != ''">
+				eck.coupon_name LIKE CONCAT('%', #{couponName}, '%')
+			</if>
+		</where>
+	</select>
 		
 	
-	
+	<!-- 쿠폰종류 목록조회 -->
  	<select id="getCouponKind" resultMap="couponResultMap">
 		SELECT
 			eck.coupon_code,
@@ -48,6 +48,7 @@
 			
  	</select>
  	
+ 	<!-- 쿠폰가격 검색 -->
 	<select id="getSearchCouponPrice" resultMap="couponResultMap" parameterType="list"> 
 		SELECT
 			eck.coupon_code,
@@ -77,6 +78,7 @@
 		</where>
 	</select>
 	
+	<!-- 쿠폰종류 등록 -->
 	<insert id="addCouponKind" parameterType="AdminCoupon">
 		<selectKey keyProperty="couponCode" resultType="String" order="BEFORE">
 			/* coupon code 자동증가 */
@@ -96,6 +98,7 @@
 			(#{couponCode}, #{memberId}, #{couponName}, #{couponPrice}, #{couponDueDate}, CURDATE())
 	</insert>	
 	
+	<!-- 특정코드로 쿠폰종류 조회 -->
 	<select id="getCouponKindByCode" parameterType="String" resultMap="couponResultMap">
 	
 		/* 특정코드로 쿠폰종류 조회*/
@@ -112,6 +115,7 @@
 			eck.coupon_code = #{couponCode};
 	</select>
 	
+	<!--특정코드로 쿠폰종류 수정 -->
 	<update id="modifyCouponKind" parameterType="AdminCoupon">
 		/* 특정코드로 쿠폰종류 수정*/
 		UPDATE event_coupon_kind
@@ -132,7 +136,7 @@
 	
 	
 	
-	
+	<!-- 쿠폰지급내역 조회 -->
  	<select id="getCouponList" resultMap="couponResultMap">
 		SELECT
 			cl.coupon_list_code,

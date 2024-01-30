@@ -20,15 +20,12 @@ public class AdminMileageService {
 
 	private final AdminMileageMapper adminMileageMapper;
 	
-	
 	//결제적립금 기준 등록
 	public void addAdminPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage) {
 		log.info("결제적립금 기준 insert 전 adminPaymentCriteriaMileage: {}", adminPaymentCriteriaMileage);
 		adminMileageMapper.addAdminPaymentCriteriaMileage(adminPaymentCriteriaMileage);
-		log.info("결제적립금 기준 insert 전 adminPaymentCriteriaMileage: {}", adminPaymentCriteriaMileage);
-		
+		log.info("결제적립금 기준 insert 전 adminPaymentCriteriaMileage: {}", adminPaymentCriteriaMileage);	
 	}	
-	
 	
 	// 특정코드로 결제적립금 기준 조회
 	public AdminPaymentCriteriaMileage getPaymentMileageCriteriaByCode(String roompayMileageRateCode) {
@@ -39,7 +36,7 @@ public class AdminMileageService {
 	}
 	
 	// 특정코드로 결제적립금기준 수정
-	public void modifyPaymentMileageCriteria(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage) {
+	public void modifyAdminPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage) {
 		int result = adminMileageMapper.modifyAdminPaymentCriteriaMileage(adminPaymentCriteriaMileage);
 		if(result > 0) log.info("결제적립금 기준 수정완료");
 	}
@@ -51,11 +48,23 @@ public class AdminMileageService {
 		return adminMileageMapper.getAdminPaymentCriteriaMileage();
 	}
 	
+	
+	
+	
+	
+	
 	// 리뷰적립금 기준 조회
 	public List<AdminReviewMileageCriteria> getAdminReviewMileageCriteria(){
 		
 		return adminMileageMapper.getAdminReviewMileageCriteria();
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	// 적립금목록 조회
 	public List<AdminMileage> getMileageList(){

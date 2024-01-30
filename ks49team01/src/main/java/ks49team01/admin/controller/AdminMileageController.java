@@ -53,11 +53,11 @@ public class AdminMileageController {
 		
 	// 결제적립금 기준 수정
 	@PostMapping("/modifyPaymentCriteriaMileage")
-	public String modifyPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage, HttpSession session) {
+	public String modifyAdminPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage, HttpSession session) {
 		log.info("쿠폰종류 수정: {}", adminPaymentCriteriaMileage);
 		
 		// 특정코드로 수정
-		adminMileageService.modifyPaymentMileageCriteria(adminPaymentCriteriaMileage);
+		adminMileageService.modifyAdminPaymentCriteriaMileage(adminPaymentCriteriaMileage);
 		
 		return "redirect:/admin/mileage/getPaymentMileageCriteria";
 	}	
@@ -65,7 +65,7 @@ public class AdminMileageController {
 	
 	// 결제적립금 기준 수정화면
 	@GetMapping("/modifyPaymentCriteriaMileage")
-	public String modifyPaymentCriteriaMileage(@RequestParam(value = "roompayMileageRateCode")String roompayMileageRateCode
+	public String modifyAdminPaymentCriteriaMileage(@RequestParam(value = "roompayMileageRateCode")String roompayMileageRateCode
 												,Model model){
 		
 		log.info("결제적립금 기준 수정화면 roompayMileageRateCode : {}", roompayMileageRateCode);
@@ -80,7 +80,7 @@ public class AdminMileageController {
 	
 	//결제적립금 기준 삭제
 	@GetMapping("/removePaymentCriteriaMileage")
-	public String removePaymentCriteriaMileage(Model model){
+	public String removeAdminPaymentCriteriaMileage(Model model){
 		
 		log.info("적립금 기준 삭제");
 		
@@ -102,6 +102,11 @@ public class AdminMileageController {
 		
 	return "admin/pay_mileage/get_payment_criteria_mileage";
 	}
+	
+	
+	
+	
+	
 	
 	// 리뷰적립금 기준 조회	
 	@GetMapping("/getReviewMileageCriteria")
@@ -149,6 +154,13 @@ public class AdminMileageController {
 		
 	return "admin/review_mileage/remove_review_mileage_criteria";
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	// 적립금지급받은 회원아이디 검색
 	@PostMapping("/searchForMileageId")

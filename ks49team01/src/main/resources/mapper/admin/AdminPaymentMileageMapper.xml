@@ -11,6 +11,8 @@
 		<result column="mileage_rate_register_date" 		property="mileageRateRegisterDate"/>
 	</resultMap>
 	
+	
+	<!-- 결제적립금기준 목록조회 -->
  	<select id="getAdminPaymentCriteriaMileage" resultMap="PaymentMileageResultMap">
 		SELECT
 			rmr.roompay_mileage_rate_code,
@@ -23,6 +25,7 @@
 			roompay_mileage_rate AS rmr;
  	</select>
  	
+ 	<!-- 결제적립금기준 등록 -->
 	<insert id="addAdminPaymentCriteriaMileage" parameterType="AdminPaymentCriteriaMileage">
 		<selectKey keyProperty="roompayMileageRateCode" resultType="String" order="BEFORE">
 			/* roompay_mileage_rate_code 자동증가 */
@@ -42,9 +45,10 @@
 			(#{roompayMileageRateCode}, #{memberId}, #{mileageGradeName}, #{paymentCriteriaMileagePercent}, #{paymentCriteriaUpgrade}, CURDATE())
 	</insert>	
 	 
+	 <!-- 특정코드로 결제적립금기준 조회 -->
 	<select id="getPaymentMileageCriteriaByCode" parameterType="String" resultMap="PaymentMileageResultMap">
 	
-		/* 특정코드로 결제적립금 기준 조회*/
+		/* 특정코드로 결제적립금기준 조회*/
 		SELECT
 			rmr.roompay_mileage_rate_code,
 			rmr.member_id,
@@ -58,6 +62,7 @@
 			rmr.roompay_mileage_rate_code = #{roompayMileageRateCode};
 	</select>
 	
+	<!-- 특정코드로 결제적립금기준 수정 -->
 	<update id="modifyAdminPaymentCriteriaMileage" parameterType="AdminPaymentCriteriaMileage">
 		/* 특정코드로 결제적립금기준 수정*/
 		UPDATE roompay_mileage_rate
