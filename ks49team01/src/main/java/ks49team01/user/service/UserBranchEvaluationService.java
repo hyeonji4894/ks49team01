@@ -16,9 +16,6 @@ public class UserBranchEvaluationService {
 
 	private UserBranchEvaluationMapper userBranchEvaluationMapper;
 	
-	/**
-	 * 가맹 신청 조회
-	 */
 	public List<UserBranchEvaluation> getUserBranchEvaluationList(){
 		return userBranchEvaluationMapper.getUserBranchEvaluationList();
 	}

@@ -16,8 +16,8 @@
                 <div class="home-slide-cover mt-30">
                     <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
                         <div class="single-hero-slider single-animation-wrap" style="background-image: url(https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/wlQ/image/t4ZCFy1DSp2HsqC96MqjXY4D3jk.jpg)">
-                            <div class="slider-content">
-                                <h1 class="display-2 mb-40" style="color: white;">
+                            <div class="slider-content" >
+                                <h1 class="display-2 mb-40" style="color: white;" >
                                     애견 글램핑장 <br />
                                     펫소리 
                                 </h1>
@@ -134,7 +134,31 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
                         <div class="row product-grid-4">
-                            <!--end product card-->
+                        	<th:block th:if="${roomList != null and not #lists.isEmpty(roomList)}"
+		            	 		 	  th:each="r : ${roomList}">
+	                            <!--end product card-->
+	                            <div class="col-lg-1-12 col-md-3 col-12 col-sm-6">
+	                                <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".2s">
+	                                    <div class="product-img-action-wrap">
+	                                        <div class="product-img product-img-zoom">
+	                                            <a href="shop-product-right.html">
+	                                                <img class="default-img" th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="" />
+	                                                <img class="hover-img" th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="" />
+	                                            </a>
+	                                        </div>
+	                                    </div>
+	                                    <div class="product-content-wrap">
+	                                        <div class="product-category">
+	                                            <a th:href="@{#}" th:text="${r.branchName}">가맹점이름</a>
+	                                        </div>
+	                                        <h2><a th:href="@{#}" th:text="${r.roomName}">객실이름</a></h2>
+                                            <div class="product-price">
+                                                <span th:text="|₩ ${#numbers.formatInteger(r.roomBasicPrice, 3, 'COMMA')}|">금액</span>
+                                            </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+                            </th:block><!-- 
                             <div class="col-lg-1-12 col-md-3 col-12 col-sm-6">
                                 <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".2s">
                                     <div class="product-img-action-wrap">
@@ -281,28 +305,7 @@
                                             </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-1-12 col-md-3 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".2s">
-                                    <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
-                                            <a href="shop-product-right.html">
-                                                <img class="default-img" th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="" />
-                                                <img class="hover-img" th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap">
-                                        <div class="product-category">
-                                            <a th:href="@{#}">가맹점이름</a>
-                                        </div>
-                                        <h2><a th:href="@{#}">객실이름</a></h2>
-                                            <div class="product-price">
-                                                <span>금액</span>
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </div> -->
                         </div>
                 	</div>
             	</div>

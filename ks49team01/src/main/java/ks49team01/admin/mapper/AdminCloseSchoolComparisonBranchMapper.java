@@ -9,5 +9,5 @@ import ks49team01.admin.dto.AdminCloseSchoolComparisonBranch;
 @Mapper
 public interface AdminCloseSchoolComparisonBranchMapper {
 	
-	List<AdminCloseSchoolComparisonBranch> getAdminCloseSchoolComparisonBranch();
+	List<AdminCloseSchoolComparisonBranch> getAdminCloseSchoolComparisonBranchList();
 }

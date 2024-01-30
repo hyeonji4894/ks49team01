@@ -15,7 +15,6 @@ public class BranchCloseSchoolService {
 	private final BranchCloseSchoolMapper branchCloseSchoolMapper;
 	
 	public List<BranchCloseSchool> getBranchCloseSchoolList(){
-		
-		return branchCloseSchoolMapper.getBranchCloseSchool();
+		return branchCloseSchoolMapper.getBranchCloseSchoolList();
 	}
 }
