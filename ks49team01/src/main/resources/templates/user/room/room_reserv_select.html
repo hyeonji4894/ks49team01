@@ -7,19 +7,23 @@
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
+		<link rel="stylesheet" href="/user/assets/css/plugins/slider-range.css" />
 	</head>
 	
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContents">
 	    <main class="main">
-	        <div class="page-header breadcrumb-wrap">
-	            <div class="container">
-	                <div class="breadcrumb">
-	                    <a th:href="@{/user}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-	                    <span></span> 객실
-	                </div>
-	            </div>
-	        </div>
+	    	<div class="page-header mt-30 mb-50">
+		        <div class="page-header breadcrumb-wrap">
+		            <div class="container">
+		                <div class="breadcrumb">
+		                    <a th:href="@{/user}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+		                    <span></span> 객실
+		                </div>
+		            </div>
+		        </div>
+	    	</div>
+	        <div class="container mb-30">
 	            <div class="row flex-row-reverse">
 	                <div class="col-lg-4-5">
 	                    <div class="shop-product-fillter">
@@ -27,7 +31,7 @@
 	                            <p>We found <strong class="text-brand">29</strong> items for you!</p>
 	                        </div>
 	                        <div class="sort-by-product-area">
-	                            <div class="sort-by-cover mr-10">
+	                            <!-- <div class="sort-by-cover mr-10">
 	                                <div class="sort-by-product-wrap">
 	                                    <div class="sort-by">
 	                                        <span><i class="fi-rs-apps"></i>Show:</span>
@@ -45,23 +49,22 @@
 	                                        <li><a href="#">All</a></li>
 	                                    </ul>
 	                                </div>
-	                            </div>
+	                            </div> -->
 	                            <div class="sort-by-cover">
 	                                <div class="sort-by-product-wrap">
 	                                    <div class="sort-by">
 	                                        <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
 	                                    </div>
 	                                    <div class="sort-by-dropdown-wrap">
-	                                        <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+	                                        <span> 지역 <i class="fi-rs-angle-small-down"></i></span>
 	                                    </div>
 	                                </div>
 	                                <div class="sort-by-dropdown">
 	                                    <ul>
-	                                        <li><a class="active" href="#">Featured</a></li>
-	                                        <li><a href="#">Price: Low to High</a></li>
-	                                        <li><a href="#">Price: High to Low</a></li>
-	                                        <li><a href="#">Release Date</a></li>
-	                                        <li><a href="#">Avg. Rating</a></li>
+	                                        <li><a th:classappend="${param.location == null}? 'active'" th:href="@{/user/room/selectReservRoom}" >전체</a></li>
+	                                    	<th:block th:if="${locationList != null}" th:each="l : ${locationList}">
+	                                    		<li><a th:classappend="${#strings.equals(param.location, l)}? 'active'" th:href="@{/user/room/selectReservRoom(location=${l})}" th:text="${l}"></a></li>
+	                                    	</th:block>
 	                                    </ul>
 	                                </div>
 	                            </div>
@@ -78,7 +81,7 @@
                                     </div>
 	                            </div>
 	                            <div class="product-content-wrap">
-	                                <h2><a class="click-items" th:href="@{#}" id="roomName" th:text="${r.roomName}"></a></h2>
+	                                <h2><a class="click-items" th:href="@{/user/room/roomDetailView(roomCode=${r.roomCode})}" id="roomName" th:text="${r.roomName}"></a></h2>
 	                               <div class="product-price">
 	                                    <span th:text="|₩ ${#numbers.formatInteger(r.roomBasicPrice, 3, 'COMMA')}|"></span>
 	                                </div>
@@ -169,6 +172,7 @@
 	                    </div>
 	                </div>
 	            </div>
+	        </div>
 	    </main>
 	</th:block>
 	

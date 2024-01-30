@@ -9,22 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks49team01.user.dto.UserBranchManagement;
 import ks49team01.user.service.UserBranchManagementService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@AllArgsConstructor
 @RequestMapping("/user/branchManagement")
 public class UserBranchManagementController {
-	//의존성 주입
-	private UserBranchManagementService userBranchManagementService;
+	
+	private final UserBranchManagementService userBranchManagementService;
 	
 	@GetMapping("/getbranchmanagement")
 	public String getbranchmanagement(Model model) {
-		List<UserBranchManagement> userManagementList = userBranchManagementService.getUserBranchManagementList();
+		
+		List<UserBranchManagement> userBranchManagement = userBranchManagementService.getUserBranchManagementList();
 		log.info("가맹점 조회");
+		log.info("userBranchManagement",userBranchManagement);
 		
 		model.addAttribute("title", "가맹점 조회");
-		model.addAttribute("userManagementList : {}", userManagementList);		
+		model.addAttribute("userBranchManagement", userBranchManagement);
 		// 연결 클래스 파일/경로
 		return "user/branch_management/get_branch_management";
 	}

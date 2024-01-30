@@ -16,9 +16,6 @@ public class AdminFinalBranchAgreementService {
 
 	private  AdminFinalBranchAgreementMapper adminFinalBranchAgreementMapper;
 	
-	/**
-	 * 가맹 신청 조회
-	 */
 	public List<AdminFinalBranchAgreement> getAdminFinalBranchAgreementList(){
 		return adminFinalBranchAgreementMapper.getAdminFinalBranchAgreementList();
 	}

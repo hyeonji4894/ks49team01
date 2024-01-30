@@ -16,9 +16,6 @@ public class UserBranchRecruitAnnouncementService {
 
 	private  UserBranchRecruitAnnouncementMapper userBranchRecruitAnnouncementMapper;
 	
-	/**
-	 * 가맹 신청 조회
-	 */
 	public List<UserBranchRecruitAnnouncement> getUserBranchRecruitAnnouncementList(){
 		return userBranchRecruitAnnouncementMapper.getUserBranchRecruitAnnouncementList();
 	}

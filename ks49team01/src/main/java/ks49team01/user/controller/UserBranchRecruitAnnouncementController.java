@@ -9,22 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks49team01.user.dto.UserBranchRecruitAnnouncement;
 import ks49team01.user.service.UserBranchRecruitAnnouncementService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@AllArgsConstructor
 @RequestMapping("/user/BranchRecruitAnnouncement")
 public class UserBranchRecruitAnnouncementController {
-	//의존성 주입	
-	private UserBranchRecruitAnnouncementService userBranchRecruitAnnouncementService;
+	
+	private final UserBranchRecruitAnnouncementService userBranchRecruitAnnouncementService;
 	
 	@GetMapping("/getbranchrecruitannouncement")
 	public String getbranchrecruitannouncement(Model model) {
-		List<UserBranchRecruitAnnouncement> userRecruitAnnouncementList = userBranchRecruitAnnouncementService.getUserBranchRecruitAnnouncementList();
+		
+		List<UserBranchRecruitAnnouncement> userBranchRecruitAnnouncement = userBranchRecruitAnnouncementService.getUserBranchRecruitAnnouncementList();
 		log.info("가맹 신청 모집 공고 조회");
+		log.info("userBranchRecruitAnnouncement",userBranchRecruitAnnouncement);
 		
 		model.addAttribute("title", "가맹 신청 모집 공고 조회");
-		model.addAttribute("userRecruitAnnouncementList", userRecruitAnnouncementList);
+		model.addAttribute("userBranchRecruitAnnouncement", userBranchRecruitAnnouncement);
 		
 		return "user/branch_recruit_announcement/get_branch_recruit_announcement";
 	}
