@@ -2,7 +2,7 @@ package ks49team01.admin.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks49team01.admin.dto.AdminCloseSchoolComparisonBranch;
 import ks49team01.admin.service.AdminCloseSchoolComparisonBranchService;
-
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
 @RequestMapping("/admin/closeSchoolComparisonBranch")
 @Slf4j
+@AllArgsConstructor
 public class CloseSchoolComparisonBranchController{
-	@Autowired
-	private AdminCloseSchoolComparisonBranchService adminCloseSchoolComparisonBranchService;
+	
+	private final AdminCloseSchoolComparisonBranchService adminCloseSchoolComparisonBranchService;
 	
 	@GetMapping("/getCloseSchoolComparisonBranch")
 	public String getCloseSchoolComparisonBranch(Model model) {
 		
-		List<AdminCloseSchoolComparisonBranch> closeSchoolComparisonBranchList = adminCloseSchoolComparisonBranchService.getAdminCloseSchoolComparisonBranch();
+		List<AdminCloseSchoolComparisonBranch> closeSchoolComparisonBranchList = adminCloseSchoolComparisonBranchService.getAdminCloseSchoolComparisonBranchList();
 		
 		log.info("closeSchoolComparisonBranchList 실행 전 : {}", closeSchoolComparisonBranchList);
 		model.addAttribute("page", "폐교와 가맹점 사진 조회");
@@ -33,6 +34,8 @@ public class CloseSchoolComparisonBranchController{
 		
 		return "admin/close_school_comparison_branch/close_school_comparison_branch_img_get";
 	}
+	
+	
 	@GetMapping("/addCloseSchoolComparisonBranch")
 	public String addCloseSchoolComparisonBranch(Model model){
 		
