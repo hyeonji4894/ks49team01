@@ -13,7 +13,7 @@ public interface BranchRoomMapper {
 	// 특정 코드로 객실 수정
 	public int modifyRoomInfo(BranchRoom branchRoom);
 	
-	// 특정 코드 조회
+	// 수정 할 특정 코드 조회
 	public BranchRoom getRoomInfoByCode(String roomCode);
 	
 	// 객실 등록

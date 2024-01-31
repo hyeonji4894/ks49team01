@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminMileageMapper">
+
+	<resultMap type="AdminMileage" id="MileageResultMap">
+		<id column="mileage_list_code" 					property="mileageListCode"/>
+		<result column="member_id" 						property="memberId"/>
+		<result column="payments_due_code" 				property="paymentsDueCode"/>
+		<result column="mileage_kind" 					property="mileageKind"/>
+		<result column="mileage_save_price" 			property="mileageSavePrice"/>
+		<result column="mileage_list_register_date" 	property="mileageListRegisterDate"/>
+	</resultMap>
+	
+ 	<select id="getMileageList" resultMap="MileageResultMap">
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.mileage_kind,
+			ml.mileage_save_price,
+			ml.mileage_list_register_date
+		FROM
+			mileage_list AS ml;
+ 	</select>
+ 	
+ 		<select id="getSearchMileageId" resultMap="MileageResultMap" parameterType="String">
+			SELECT
+				ml.mileage_list_code,
+				ml.member_id,
+				ml.mileage_kind
+			FROM
+				mileage_list as ml;
+			<where>
+				<if test="memberId != null and memberId != ''">
+					ml.member_id LIKE CONCAT('%', #{memberId}, '%')
+				</if>
+			</where>
+		</select>	
+</mapper>

@@ -16,12 +16,55 @@
 		<result column="room_registration_date" property="roomRegistrationDate"/>
 	</resultMap>
 	
+	<select id="getLocationList" resultType="String">
+		/* 지역 카테고리 */
+		 <![CDATA[
+		SELECT
+			(CASE 
+			 WHEN FIELD(SUBSTR(bm.branch_addr,1,2), '서울', '부산', '대구', '인천', '광주', '대전', '울산') < 1 
+			 THEN CONCAT(SUBSTR(bm.branch_addr,1,2),'도') 
+			 ELSE
+			 	 SUBSTR(bm.branch_addr,1,2)
+			 END) AS branchAddr
+		FROM
+			branch_management AS bm
+		GROUP BY SUBSTR(bm.branch_addr,1,2)
+		ORDER BY FIELD(branch_addr, '서울', '부산', '대구', '인천', '광주', '대전', '울산', '강원도', '충청도', '전라도', '경상도', '제주도')
+		]]>
+	</select>
+	
+	<select id="getBranchList" resultType="map">
+		/* 가맹점 목록 */
+		SELECT 
+			branch_code 	AS branchCode, 
+			member_id 		AS memberId, 
+			branch_name 	AS branchName
+		FROM 
+			branch_management;
+	</select>
+	
+	<select id="getRoomInfoByCode" parameterType="String" resultMap="roomResultMap">
+	/* 특정 코드로 객실 조회*/
+		SELECT
+			ri.branch_name,
+			ri.room_name,
+			ri.room_size,
+			ri.room_basic_personnel,
+			ri.room_max_personnel,
+			ri.available_dog_types,
+			ri.room_basic_price
+		FROM
+			room_information AS ri
+		WHERE	
+			ri.room_code = #{roomCode};
+	</select>
+	
 	<select id="getRoomList" resultMap="roomResultMap">
 		SELECT
 			ri.room_code,
 			ri.branch_code,
 			ri.registrant_id,
-			ri.branch_name,
+			bm.branch_name,
 			ri.room_name,
 			ri.room_size,
 			ri.room_basic_personnel,
@@ -30,7 +73,17 @@
 			ri.room_basic_price,
 			ri.room_registration_date
 		FROM
-			room_information AS ri;
+			room_information AS ri
+			INNER JOIN
+			branch_management AS bm
+			ON 
+			ri.branch_code = bm.branch_code 
+		<where>
+			<if test="location != null and location != ''">
+				SUBSTR(bm.branch_addr, 1, 2) = SUBSTR(#{location}, 1, 2)
+			</if>
+		</where>
+		ORDER BY room_registration_date DESC;
 	</select>
 
 </mapper>

@@ -16,9 +16,6 @@ public class UserFinalBranchAgreementService {
 
 	private  UserFinalBranchAgreementMapper userFinalBranchAgreementMapper;
 	
-	/**
-	 * 가맹 신청 조회
-	 */
 	public List<UserFinalBranchAgreement> getUserFinalBranchAgreementList(){
 		return userFinalBranchAgreementMapper.getUserFinalBranchAgreementList();
 	}

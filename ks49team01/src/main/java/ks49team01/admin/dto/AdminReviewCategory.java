@@ -1,19 +1,17 @@
 package ks49team01.admin.dto;
 
+import java.time.LocalDate;
+
 import lombok.Data;
 
 @Data
 public class AdminReviewCategory {
 
-	private String facilityCode;
+	private String categoryCode;
 	private String memberId;
-	private String facilityRegisterDate;
-	private String facilityCategoryContext;
+	private String reviewCategoryKind;
+	private String reviewCategoryContext;
+	private LocalDate reviewCategoryRegisterDate;
+
 	
-	private String moodCode;
-	private String moodRegisterDate;
-	private String moodCategoryContext;
-	
-	private String facilityMoodChoiceCode;
-	private String chosenCategory;
 }

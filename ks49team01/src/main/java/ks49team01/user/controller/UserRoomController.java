@@ -6,8 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks49team01.user.dto.UserRoom;
+import ks49team01.user.mapper.UserRoomMapper;
 import ks49team01.user.service.UserRoomService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserRoomController {
 	
 	private final UserRoomService roomService;
+	private final UserRoomMapper roomMapper;
 
 	// 객실 예약 확인
 	
@@ -42,13 +45,13 @@ public class UserRoomController {
 		return "user/room/get_reserv_room";
 	}
 	
-	// 객실 옵션 선택 + 총 금액
+	// 선택한 정보 + 총 금액
 	@GetMapping("/roomTotalAmount")
 	public String roomTotalAmount(Model model) {
 		
-		log.info("객실옵션및총금액확인");
+		log.info("선택정보및총금액확인");
 		
-		model.addAttribute("title", "객실옵션및총금액확인");
+		model.addAttribute("title", "선택정보및총금액확인");
 		
 		return "user/room/confirm_room_total_amount";
 	}
@@ -57,15 +60,26 @@ public class UserRoomController {
 	
 	// 객실 예약
 	
+//	@PostMapping("/roomDetailView")
+//	public String roomDetailView(UserRoom userRoom) {
+//		log.info("객실보기: {}", userRoom);
+//		
+//		roomService.datailRoomView(userRoom);
+//		return "redirect:/user/room/selectReservRoom";
+//	}
+	
+	// 객실 확인 및 옵션 선택
 	@GetMapping("/roomDetailView")
 	public String roomDetailView(Model model) {
 		
-		log.info("객실보기");
-		List<UserRoom> roomList = roomService.getRoomList();
-		log.info("roomList: {}" ,roomList);
+		//log.info("객실 조회 roomName: {}", roomName);
 		
-		model.addAttribute("title", "객실보기");		
-		model.addAttribute("roomList", roomList);
+		model.addAttribute("roomDetailView", "객실상세");
+		
+		//UserRoom roomInfo = roomService.getRoomInfoByName(roomName);
+		//List<UserRoom> roomList = roomService.getRoomList("");
+		
+		//model.addAttribute("roomList", roomList);
 		
 		return "user/room/room_Detail_veiw";
 	}
@@ -82,13 +96,17 @@ public class UserRoomController {
 	}
 	
 	@GetMapping("/selectReservRoom")
-	public String selectReservRoom(Model model) {
+	public String selectReservRoom(Model model,@RequestParam(value="location", required = false)
+								   String location) {
 		
 		
-		List<UserRoom> roomList = roomService.getRoomList();
+		List<String> locationList = roomMapper.getLocationList();
+		
+		List<UserRoom> roomList = roomService.getRoomList(location);
 		
 		model.addAttribute("title", "예약객실선택");
 		model.addAttribute("roomList", roomList);
+		model.addAttribute("locationList", locationList);
 		
 		return "user/room/room_reserv_select";
 	}

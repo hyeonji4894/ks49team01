@@ -26,7 +26,7 @@ public class TotalPriceController {
 		List<AdminTotalPrice> getTotalPriceList = adminTotalPriceService.AdminTotalPriceList();
 		
 		log.info("getTotalPriceList : {}", getTotalPriceList);
-		model.addAttribute("page","최종 금액 결제");
+		model.addAttribute("page","결제 금액");
 		model.addAttribute("getTotalPriceList", getTotalPriceList);
 		
 		return "admin/final_total_price/final_total_price_get";
@@ -35,17 +35,22 @@ public class TotalPriceController {
 	@GetMapping("/calcFinalTotalPriceRoyality")
 	public String calcFinalTotalPriceRoyality(Model model) {
 		
-		log.info("calcFinalTotalPriceRoyality");
-		model.addAttribute("page","건별 본사 납부 로열티");
+		List<AdminTotalPrice> getTotalPriceList = adminTotalPriceService.AdminTotalPriceList();
+		
+		log.info("getTotalPriceList : {}", getTotalPriceList);
+		model.addAttribute("page","결제 별 로열티 납부");
+		model.addAttribute("getTotalPriceList", getTotalPriceList);
 		
 		return "admin/final_total_price/final_total_price_royality_calc";
 	}
 	
+	
+	// 예약일자될 때 결제 완료 처리 
 	@GetMapping("/calcFinalTotalPriceDueTo")
 	public String calcFinalTotalPriceDueTo(Model model) {
 		
 		log.info("finalTotalPriceDueTo");
-		model.addAttribute("page","최종 금액 결제 예정");
+		model.addAttribute("page","결제 금액 예정");
 		
 		return "admin/final_total_price/final_total_price_due_to_calc";
 	}

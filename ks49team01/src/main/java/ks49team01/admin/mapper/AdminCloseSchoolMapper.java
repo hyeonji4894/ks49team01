@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import ks49team01.admin.dto.AdminCloseSchool;
-import ks49team01.admin.dto.AdminRoom;
 
 @Mapper
 public interface AdminCloseSchoolMapper {
@@ -22,4 +21,11 @@ public interface AdminCloseSchoolMapper {
 	List<AdminCloseSchool> getCloseSchool();
 
 	List<AdminCloseSchool> getCloseSchoolSearchTotal(List<Map<String, Object>> paramList);
+
+	// 특정 코드 수정
+	public int modifyCloseSchoolInfo(AdminCloseSchool adminCloseSchool);
+	
+	// 특정 코드 조회
+	public AdminCloseSchool getCloseSchoolInfoByName(String closeSchoolName);
+	
 }

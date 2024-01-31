@@ -1,5 +1,7 @@
 package ks49team01.admin.dto;
 
+import java.time.LocalDate;
+
 import lombok.Data;
 
 @Data
@@ -7,9 +9,13 @@ public class AdminReview {
 	
 	private String reviewNum;
 	private String memberId;
+	private String branchCode;
+	private String paymentsDueCode;
+	private String stayPeriodCode;
 	private String roomCode;
-	private String visitDate;
 	private String reviewContext;
-	private String reviewDate;
-	private String reviewViews;
+	private LocalDate reviewDate;
+	private int reviewViews;
+	private String reviewFileCode;
+	private String FileAttribute;
 }

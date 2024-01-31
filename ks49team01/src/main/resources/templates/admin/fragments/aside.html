@@ -7,25 +7,11 @@
 	        <nav class="sidebar-nav">
 	            <ul id="sidebarnav">
 	                <li class="sidebar-item">
-						<a class="sidebar-link sidebar-link" href="index.html" aria-expanded="false">
+						<a class="sidebar-link sidebar-link" th:href="@{/admin}" aria-expanded="false">
 							<i data-feather="home" class="feather-icon"></i>
 							<span class="hide-menu">관리자 Dashboard</span>
 						</a>
 					</li>
-	                <li class="list-divider"></li>
-	                <li class="nav-small-cap">
-	                	<span class="hide-menu"> 고정? </span>
-	                </li>
-	                <li class="sidebar-item">
-	                	<a class="sidebar-link" href="ticket-list.html" aria-expanded="false">
-	                		<span class="hide-menu"> 고정메뉴? </span>
-	                	</a>
-	                </li>
-	                <li class="sidebar-item">
-	                	<a class="sidebar-link sidebar-link" href="app-chat.html" aria-expanded="false">
-	                		<span class="hide-menu"> 고정메뉴? </span>
-	                	</a>
-	                </li>
 	                <li class="list-divider"></li>
 	                <li class="nav-small-cap">
 	                	<span class="hide-menu">ROOM (신현지)</span>
@@ -96,30 +82,50 @@
 	                    </ul>
 	                </li>
 	                <li class="nav-small-cap">
-	                	<span class="hide-menu">MILEAGE/COUPON (김다운)</span>
+	                	<span class="hide-menu">MILEAGE (김다운)</span>
 	                </li>
 	                <li class="sidebar-item"> 
 	                	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-	                		<span class="hide-menu"> 적립금/쿠폰 </span>
+	                		<span class="hide-menu"> 적립금 </span>
 	                	</a>
 	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
 	                        	<a th:href="@{/admin/mileage/getPaymentCriteriaMileage}" class="sidebar-link">
-	                        		<span class="hide-menu"> 적립률 관리(결제기준) </span>
+	                        		<span class="hide-menu"> 결제기준 적립률 관리 </span>
 								</a>
 	                        </li>
 	                        <li class="sidebar-item">
 	                        	<a th:href="@{/admin/mileage/getReviewMileageCriteria}" class="sidebar-link">
-	                        		<span class="hide-menu"> 적립률 관리(리뷰기준) </span>
+	                        		<span class="hide-menu"> 리뷰기준 적립률 관리 </span>
 								</a>
 	                        </li>
+	                        <li class="sidebar-item">
+	                        	<a th:href="@{/admin/mileage/getMileageList}" class="sidebar-link">
+	                        		<span class="hide-menu"> 적립금 지급내역 </span>
+								</a>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <li class="nav-small-cap">
+	                	<span class="hide-menu">COUPON (김다운)</span>
+	                </li>
+	                <li class="sidebar-item"> 
+	                	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+	                		<span class="hide-menu"> 쿠폰 </span>
+	                	</a>
+	                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                        <li class="sidebar-item">
 	                        	<a th:href="@{/admin/coupon/getCouponKind}" class="sidebar-link">
 	                        		<span class="hide-menu"> 쿠폰 관리 </span>
 								</a>
 	                        </li>
+	                        <li class="sidebar-item">
+	                        	<a th:href="@{/admin/coupon/getCouponList}" class="sidebar-link">
+	                        		<span class="hide-menu"> 쿠폰 지급내역 </span>
+								</a>
+	                        </li>
 	                    </ul>
-	                </li>
+	                </li>	                
 	                <li class="list-divider"></li>
 	                <li class="nav-small-cap">
 	                	<span class="hide-menu">CLOSE SCHOOL (박시우)</span>
@@ -157,11 +163,6 @@
 	                        <li class="sidebar-item">
 	                        	<a th:href="@{/admin/finalTotalPrice/calcFinalTotalPriceRoyality}" class="sidebar-link">
 	                        		<span class="hide-menu"> 건별본사로열티 관리 </span>
-								</a>
-	                        </li>                                           
-	                        <li class="sidebar-item">
-	                        	<a th:href="@{/admin/finalTotalPrice/calcFinalTotalPriceDueTo}" class="sidebar-link">
-	                        		<span class="hide-menu"> 결제 예정 금액 합계 </span>
 								</a>
 	                        </li>
 	                    </ul>	
