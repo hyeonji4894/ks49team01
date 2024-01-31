@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.user.mapper.UserReviewMapper">
+
+	<resultMap type="UserReview" id="reviewResultMap">
+		<id column="review_num" 				property="reviewNum"/>
+		<result column="member_id" 				property="memberId"/>
+		<result column="branch_code" 			property="branchCode"/>
+		<result column="payments_due_code" 		property="paymentsDueCode"/>
+		<result column="stay_period_code" 		property="stayPeriodCode"/>
+		<result column="room_code" 				property="roomCode"/>
+		<result column="review_context" 		property="reviewContext"/>
+		<result column="review_date" 			property="reviewDate"/>
+		<result column="review_views" 			property="reviewViews"/>
+		<result column="review_file_code" 		property="reviewFileCode"/>
+		<result column="file_attribute" 		property="fileAttribute"/>
+	</resultMap>
+	
+	<select id="getReview" resultType="map">
+		SELECT
+			r.review_num,
+			r.member_id,
+			r.review_context,
+			rf.file_attribute,
+			r.review_date,
+			r.review_views
+		FROM
+			review AS r
+			LEFT JOIN
+			review_file AS rf
+			ON
+			r.review_file_code = rf.review_file_code;		
+	</select>
+	
+	
+	
+</mapper>
