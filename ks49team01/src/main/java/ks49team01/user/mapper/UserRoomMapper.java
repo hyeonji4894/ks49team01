@@ -16,7 +16,7 @@ public interface UserRoomMapper {
 	public int datailRoomView(UserRoom userRoom);
 	
 	// roomCode로 객실 조회
-	public UserRoom getRoomInfoByName(String roomName);
+	public UserRoom getRoomInfoByCode(String roomCode);
 	
 	
 	List<UserRoom> getRoomList(String location);
