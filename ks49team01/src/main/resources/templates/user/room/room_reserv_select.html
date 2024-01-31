@@ -31,25 +31,6 @@
 	                            <p>We found <strong class="text-brand">29</strong> items for you!</p>
 	                        </div>
 	                        <div class="sort-by-product-area">
-	                            <!-- <div class="sort-by-cover mr-10">
-	                                <div class="sort-by-product-wrap">
-	                                    <div class="sort-by">
-	                                        <span><i class="fi-rs-apps"></i>Show:</span>
-	                                    </div>
-	                                    <div class="sort-by-dropdown-wrap">
-	                                        <span> 50 <i class="fi-rs-angle-small-down"></i></span>
-	                                    </div>
-	                                </div>
-	                                <div class="sort-by-dropdown">
-	                                    <ul>
-	                                        <li><a class="active" href="#">50</a></li>
-	                                        <li><a href="#">100</a></li>
-	                                        <li><a href="#">150</a></li>
-	                                        <li><a href="#">200</a></li>
-	                                        <li><a href="#">All</a></li>
-	                                    </ul>
-	                                </div>
-	                            </div> -->
 	                            <div class="sort-by-cover">
 	                                <div class="sort-by-product-wrap">
 	                                    <div class="sort-by">
@@ -75,8 +56,8 @@
 	                        <div class="product-cart-wrap">
 	                            <div class="product-img-action-wrap ">
                                     <div class="product-img-inner">
-                                        <a th:href="@{#}">
-                                            <img class="default-img click-items" src="/user/assets/imgs/shop/64b8f2c3358d3.jpg" alt="" />
+                                        <a th:href="@{/user/room/roomDetailView(roomCode=${r.roomCode})}">
+                                            <img class="default-img click-items" th:src="@{/user/assets/imgs/shop/camping-1180234_1280.jpg}" alt="" />
                                         </a>
                                     </div>
 	                            </div>

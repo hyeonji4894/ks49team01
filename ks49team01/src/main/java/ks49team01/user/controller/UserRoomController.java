@@ -5,11 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import ks49team01.user.dto.UserRoom;
+import ks49team01.user.dto.UserRoomOption;
 import ks49team01.user.mapper.UserRoomMapper;
+import ks49team01.user.mapper.UserRoomOptionMapper;
 import ks49team01.user.service.UserRoomService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +26,8 @@ public class UserRoomController {
 	
 	private final UserRoomService roomService;
 	private final UserRoomMapper roomMapper;
+	private final UserRoomService optionService;
 
-	// 객실 예약 확인
 	
 	@GetMapping("/cancelReserv")
 	public String cancelReserv(Model model) {
@@ -45,6 +49,7 @@ public class UserRoomController {
 		return "user/room/get_reserv_room";
 	}
 	
+	
 	// 선택한 정보 + 총 금액
 	@GetMapping("/roomTotalAmount")
 	public String roomTotalAmount(Model model) {
@@ -60,26 +65,27 @@ public class UserRoomController {
 	
 	// 객실 예약
 	
-//	@PostMapping("/roomDetailView")
-//	public String roomDetailView(UserRoom userRoom) {
-//		log.info("객실보기: {}", userRoom);
-//		
-//		roomService.datailRoomView(userRoom);
-//		return "redirect:/user/room/selectReservRoom";
-//	}
+	@PostMapping("/roomDetailView")
+	public String roomDetailView(UserRoom userRoom, HttpSession session) {
+		log.info("객실선택완료: {}", userRoom);
+		
+		roomService.datailRoomView(userRoom);
+		
+		return "redirect:/user/room/roomTotalAmount";
+	}
 	
-	// 객실 확인 및 옵션 선택
+	// 한개의 객실 보기
 	@GetMapping("/roomDetailView")
-	public String roomDetailView(Model model) {
+	public String roomDetailView(@RequestParam(value = "roomCode") String roomCode
+								,Model model) {
 		
-		//log.info("객실 조회 roomName: {}", roomName);
+		UserRoom roomInfo = roomService.getRoomInfoByCode(roomCode);
+		log.info("roomInfo: {}", roomInfo);
 		
-		model.addAttribute("roomDetailView", "객실상세");
-		
-		//UserRoom roomInfo = roomService.getRoomInfoByName(roomName);
-		//List<UserRoom> roomList = roomService.getRoomList("");
-		
-		//model.addAttribute("roomList", roomList);
+		// 인원추가 옵션
+		//List<UserRoomOption> addPeopleOption = optionService.getRoomOptionList();
+				
+		model.addAttribute("roomInfo", roomInfo);
 		
 		return "user/room/room_Detail_veiw";
 	}

@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks49team01.user.dto.UserRoom;
+import ks49team01.user.dto.UserRoomOption;
 import ks49team01.user.mapper.UserRoomMapper;
+import ks49team01.user.mapper.UserRoomOptionMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,6 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 public class UserRoomService {
 	
 	private final UserRoomMapper userRoomMapper;
+	private final UserRoomOptionMapper userRoomOptionMapper;
+	
+	public List<UserRoomOption> getRoomOptionList(){
+		
+		return userRoomOptionMapper.getRoomOptionList();
+	}
 	
 	//roomCode로 객실 불러오기
 	public void datailRoomView(UserRoom userRoom) {
@@ -25,10 +33,10 @@ public class UserRoomService {
 	}
 	
 	// roomCode로 객실 조회
-	public UserRoom getRoomInfoByName(String roomName) {
+	public UserRoom getRoomInfoByCode(String roomCode) {
 		
-		UserRoom roomInfo = userRoomMapper.getRoomInfoByName(roomName);
-		return roomInfo;
+		UserRoom oneRoomInfo = userRoomMapper.getRoomInfoByCode(roomCode);
+		return oneRoomInfo;
 	}
 	
 	

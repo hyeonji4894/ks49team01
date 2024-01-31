@@ -5,17 +5,17 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
-		<!-- This Page CSS -->
-		<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-		
-		<style>
-			.detail-info .product-price .current-price {
-			    font-size: 40px !important;
-			}
-			.detail-info h2 {
-			    font-size: 50px !important;
-			}
-		</style>
+		<!-- This Page CSS -->		
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	    
+	    <style>
+	        .daterangepicker .drp-calendar {
+	            max-width: 425px !important;
+	        }
+	        .custom_select .select2-container--default .select2-selection--single .select2-selection__rendered{
+	            font-size: 20px !important;
+	        }
+	    </style>
 	</head>
 	
 		<!-- Start Page Content -->
@@ -42,53 +42,123 @@
 	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
 	                                        </figure>
 	                                        <figure class="border-radius-10">
-	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
+	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2b85e0d1.jpg}" alt="product image" />
 	                                        </figure>
 	                                        <figure class="border-radius-10">
-	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
+	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2b8af8a6.jpg}" alt="product image" />
 	                                        </figure>
 	                                        <figure class="border-radius-10">
-	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
+	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2bad666d.jpg}" alt="product image" />
 	                                        </figure>
 	                                         <figure class="border-radius-10">
-	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
+	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c540c4c.jpg}" alt="product image" />
 	                                        </figure>
 	                                    </div>
 	                                    <!-- THUMBNAILS -->
 	                                    <div class="slider-nav-thumbnails">
 	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
+	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2b85e0d1.jpg}" alt="product image" /></div>
+	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2b8af8a6.jpg}" alt="product image" /></div>
+	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2bad666d.jpg}" alt="product image" /></div>
+	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c540c4c.jpg}" alt="product image" /></div>
 	                                    </div>
 	                                </div>
 	                                <!-- End Gallery -->
 	                            </div>
 	                            <div class="col-md-6 col-sm-12 col-xs-12">
-	                                <div class="detail-info pr-30 pl-30">
-	                                    
-	                                    <h2 class="title-detail mt-2" id="roomName">글램핑1호</h2>
-			                            
-			                            
-			                            <div class="clearfix product-price-cover mt-3">
-                                            <div class="product-price primary-color float-left">
-                                                <span class="current-price text-brand">₩ 120000</span>
+                                        <div class="detail-info pr-30 pl-30" th:object="${roomInfo}">
+                                            <h2 class="title-detail mt-20" th:text="*{roomName}">객실 : 스위트 룸</h2>
+                                            
+                                            <div class="short-desc mb-30">
+                                                <div class="row mt-15">
+                                                    <div class="col-lg-12">
+                                                        <div class="calculate-shiping p-10 mb-10" >
+                                                            <div class="clearfix product-price-cover">
+                                                                <div class="product-price primary-color float-left">
+                                                                    <span class="current-price text-brand" id="roomPrice" th:data-room-price="*{roomBasicPrice}" th:text="|₩ ${#numbers.formatInteger(roomInfo.roomBasicPrice, 3, 'COMMA')}|">₩ 120,000</span>
+                                                                    <span class="mt-15">
+                                                                        <span class="font-md ml-10 text-dark font-weight-bold" style="font-size: 20px;">/ 박</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <span class="font-weight-bold ml-10 mt-10" style="font-size: 21px;">Check in - Check out</span>
+                                                            <div class="d-flex">
+                												<input type="text" id="checkInOut" style="font-size: 20px;"/>
+                                                                <input type="hidden" id="startDate" name="startDate" />
+                                                                <input type="hidden" id="endDate" name="endDate" />
+                                                            </div>
+                                                            <div class="field_form shipping_calculator">
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-lg-12">
+                                                                        <div class="custom_select">
+                                                                            <select class="form-control select-active w-100" id="countSelect">
+                                                                                <option value="1">인원수: 1 명</option>
+                                                                                <option value="2">인원수: 2 명</option>
+                                                                                <option value="3">인원수: 3 명</option>
+                                                                                <option value="4">인원수: 4 명</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group col-lg-12 mt-20">
+                                                                        <button type="button" class="btn w-100" style="height: 60px; font-size: 25px;" name="roomTotalAmount"
+                                                                         id="ReservationBtn" th:href="@{user/room/roomTotalAmount}">예약하기</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <p class="mb-40 text-center"><span class="font-lg text-success">예약 확정 전에는 요금이 청구되지 않습니다.</span></p>
+                                                            <p class="mb-30">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <span class="font-lg text-dark font-weight-bold" style="font-size: 21px;">₩&nbsp
+                                                                            <strong class="text-brand" id="pricePerPerson">120,000</strong>
+                                                                            &nbsp;x&nbsp;
+                                                                            <strong class="text-brand" id="days">1</strong>
+                                                                            &nbsp;박
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="col-6 text-end">
+                                                                        <span class="font-lg text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            ₩&nbsp;&nbsp;<strong class="text-brand" id="calcAmount">120,000</strong>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </p>
+                                                            <p class="mb-30">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <span class="font-lg style text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            수수료
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="col-6 text-end">
+                                                                        <span class="font-lg text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            ₩&nbsp;&nbsp;<strong class="text-brand" id="charge">120,000</strong>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </p>
+                                                            <hr />
+                                                            <p class="mb-30">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <span class="font-lg style text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            총합계
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="col-6 text-end">
+                                                                        <span class="font-lg text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            ₩&nbsp;&nbsp;<strong class="text-brand" id="total">120,000</strong>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-			                            
-	                                    <div class="short-desc mb-30">
-	                                    	<div class="row">
-	                                    		<div class="form-group col-md-12">
-                                                    <label class="h5 font-weight-bold">예약일자</label>
-			                                        <input type="text" class="form-control" name="daterange" value="01/01/2015 - 01/31/2015" />
-                                                </div>
-	                                    	</div>
-	                                       
-	                                    </div>
-	                                </div>
-	                                <!-- Detail Info -->
-	                            </div>
+                                        <!-- Detail Info -->
+                                    </div>
 	                        </div>
 	                        <div class="product-info">
 	                            <div class="tab-style3">
@@ -108,11 +178,11 @@
 	                                        <div class="">
 	                                        	<hr class="wp-block-separator is-style-dots" />
 	                                        	<h4 class="mt-30">기본 정보</h4>
-	                                            <ul class="product-more-infor mt-30">
-	                                                <li id="rommSize" th:value="*{roomSize}"><span>객실 크기</span> 70%</li>
-	                                                <li id="roomBasicPersonnel" th:value="*{roomBasicPersonnel}"><span>객실 기본인원</span> Bottle</li>
-	                                                <li id="roomMaxPersonnel" th:value="*{roomMaxPersonnel}"><span>객실 최대인원</span> Green, Pink, Powder Blue, Purple</li>
-	                                                <li id="availableDogTypes" th:value="*{availableDogTypes}"><span>객실이용 가능 견종</span> 100ml</li>
+	                                            <ul class="product-more-infor mt-30" th:object="${roomInfo}">
+	                                                <li id="rommSize" th:text="*{roomSize}"><span>객실사이즈</span> </li>
+	                                                <li id="roomBasicPersonnel" th:text="*{roomBasicPersonnel}"><span>객실 기본인원</span></li>
+	                                                <li id="roomMaxPersonnel" th:text="*{roomMaxPersonnel}"><span>객실 최대인원</span></li>
+	                                                <li id="availableDogTypes" th:text="*{availableDogTypes}"><span>객실이용 가능 견종</span></li>
 	                                            </ul>
 	                                            <hr class="wp-block-separator is-style-dots" />
 	                                            <h4 class="mt-30">편의시설 및 서비스</h4> <br/>
@@ -144,9 +214,9 @@
 	                                                    <td>
 	                                                    	<ul class="product-more-infor mt-10">
 				                                                <li><span>9일전 취소</span> 90% 환불</li>
-				                                                <li><span>5 일전 취소</span> 50% 환불</li>
-				                                                <li><span>3 일전 취소</span> 30% 환불</li>
-				                                                <li><span> 1 일전 취소</span> 0% 환불</li>				                                            
+				                                                <li><span>5일전 취소</span> 50% 환불</li>
+				                                                <li><span>3일전 취소</span> 30% 환불</li>
+				                                                <li><span>1일전 취소</span> 0% 환불</li>				                                            
 	                                                    	</ul>
 	                                                    </td>
 	                                                </tr>
@@ -159,41 +229,7 @@
 	                                            </tbody>
 	                                        </table>
 	                                    </div>
-	                                    <div class="tab-pane fade" id="Vendor-info">
-	                                        <div class="vendor-logo d-flex mb-30">
-	                                            <img src="/user/assets/imgs/vendor/vendor-18.svg" alt="" />
-	                                            <div class="vendor-name ml-15">
-	                                                <h6>
-	                                                    <a href="vendor-details-2.html">Noodles Co.</a>
-	                                                </h6>
-	                                                <div class="product-rate-cover text-end">
-	                                                    <div class="product-rate d-inline-block">
-	                                                        <div class="product-rating" style="width: 90%"></div>
-	                                                    </div>
-	                                                    <span class="font-small ml-5 text-muted"> (32 reviews)</span>
-	                                                </div>
-	                                            </div>
-	                                        </div>
-	                                        <ul class="contact-infor mb-50">
-	                                            <li><img src="/user/assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
-	                                            <li><img src="/user/user/assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Contact Seller:</strong><span>(+91) - 540-025-553</span></li>
-	                                        </ul>
-	                                        <div class="d-flex mb-55">
-	                                            <div class="mr-30">
-	                                                <p class="text-brand font-xs">Rating</p>
-	                                                <h4 class="mb-0">92%</h4>
-	                                            </div>
-	                                            <div class="mr-30">
-	                                                <p class="text-brand font-xs">Ship on time</p>
-	                                                <h4 class="mb-0">100%</h4>
-	                                            </div>
-	                                            <div>
-	                                                <p class="text-brand font-xs">Chat response</p>
-	                                                <h4 class="mb-0">89%</h4>
-	                                            </div>
-	                                        </div>
-	                                        <p>Noodles & Company is an American fast-casual restaurant that offers international and American noodle dishes and pasta in addition to soups and salads. Noodles & Company was founded in 1995 by Aaron Kennedy and is headquartered in Broomfield, Colorado. The company went public in 2013 and recorded a $457 million revenue in 2017.In late 2018, there were 460 Noodles & Company locations across 29 states and Washington, D.C.</p>
-	                                    </div>
+	                                    <!-- 다운 review start  -->
 	                                    <div class="tab-pane fade" id="Reviews">
 	                                        <!--Comments-->
 	                                        <div class="comments-area">
@@ -294,6 +330,7 @@
 	                                        </div>
 	                                        <!--comment form-->
 	                                    </div>
+	                                    <!-- 다운 review end  -->
 	                                </div>
 	                            </div>
 	                        </div>	                        
@@ -306,13 +343,89 @@
 	
 	<!-- This Page JS -->
     <th:block layout:fragment="customJsFile">
-    	<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    	<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     </th:block>
+    
     <!-- This Page JS Script -->
     <th:block layout:fragment="customJs">
-    	<script>
-    	 	$('input[name="daterange"]').daterangepicker();
-    	</script>
+	   	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	    <script th:inline="javascript">
+	        $(function() {
+	            const date = moment();
+	            console.log(moment().format('MM/DD/YYYY'));
+	            
+	            $('#checkInOut').daterangepicker({
+	                opens: 'right',
+	                startDate: moment().format('MM/DD/YYYY'),
+	                endDate: moment().add(1, 'days').format('MM/DD/YYYY')
+	            }, function(start, end, label) {
+	                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+	            });
+	
+	            $('#checkInOut').on('apply.daterangepicker', function(ev, picker) {
+	                const endDate = moment(picker.endDate.format('YYYY-MM-DD'));
+	                const startDate = moment(picker.startDate.format('YYYY-MM-DD'));
+	                const diff = endDate.diff(startDate, 'days');
+	                $('#startDate').val(startDate);
+	                $('#endDate').val(endDate);
+	                
+	                const optionPrice = [[${20000}]];
+	                const cntPerson = (Number($('#countSelect').val()) - 2) <= 0 ? 0 : (Number($('#countSelect').val()) - 2);
+	                // 인원수에 따른 금액
+	                const pricePerPerson = Number($('#roomPrice').data('roomPrice')) + (cntPerson * optionPrice);
+	                $('#pricePerPerson').text(pricePerPerson.toLocaleString('ko-KR'));
+	                
+	                // 몇박 
+	                $('#days').text(diff);
+	                
+	                // 중간 계산
+	                const calcAmount = pricePerPerson * diff;
+	                $('#calcAmount').text(calcAmount.toLocaleString('ko-KR'));
+	                
+	                // 수수료
+	                const charge = calcAmount * 0.1;
+	                $('#charge').text(charge.toLocaleString('ko-KR'));
+	                // 총합계
+	                const total = calcAmount + charge;
+	                $('#total').text(total.toLocaleString('ko-KR'));
+	                
+	
+	                console.log(picker.startDate.format('YYYY-MM-DD'));
+	                console.log(picker.endDate.format('YYYY-MM-DD'));
+	            });
+	
+	            $('#countSelect').on('change', function(){
+	                const startDate = $('#checkInOut').data('daterangepicker').startDate.format('YYYY-MM-DD');
+	                const endDate = $('#checkInOut').data('daterangepicker').endDate.format('YYYY-MM-DD');
+	                const diff = moment(endDate).diff(startDate, 'days');
+	                
+	                // 인원수에 따른 금액
+	                const optionPrice = [[${20000}]];
+	                const cntPerson = (Number($(this).val()) - 2) <= 0 ? 0 : (Number($(this).val()) - 2);
+	                
+	                const pricePerPerson = Number($('#roomPrice').data('roomPrice')) + (cntPerson * optionPrice);
+	                $('#pricePerPerson').text(pricePerPerson.toLocaleString('ko-KR'));
+	                
+	                // 몇박 
+	                $('#days').text(diff);
+	                
+	                // 중간 계산
+	                const calcAmount = pricePerPerson * diff;
+	                $('#calcAmount').text(calcAmount.toLocaleString('ko-KR'));
+	                
+	                // 수수료
+	                const charge = calcAmount * 0.1;
+	                $('#charge').text(charge.toLocaleString('ko-KR'));
+	                // 총합계
+	                const total = calcAmount + charge;
+	                $('#total').text(total.toLocaleString('ko-KR'));
+	            });
+	
+	            $('#countSelect').select2({	minimumResultsForSearch: Infinity});
+	        });
+	
+	    </script>
     </th:block>
 </html>
