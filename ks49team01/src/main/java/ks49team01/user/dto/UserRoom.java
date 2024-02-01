@@ -1,5 +1,7 @@
 package ks49team01.user.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -17,4 +19,5 @@ public class UserRoom {
 	private int roomBasicPrice;
 	private String roomRegistrationDate;
 	
+	private List<UserRoomOption> roomOptionList;
 }
