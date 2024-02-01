@@ -20,11 +20,18 @@ public class AdminMileageService {
 
 	private final AdminMileageMapper adminMileageMapper;
 	
+	
+	// 결제적립금 기준 조회
+	public List<AdminPaymentCriteriaMileage> getAdminPaymentCriteriaMileage(){
+		
+		return adminMileageMapper.getAdminPaymentCriteriaMileage();
+	}
+	
 	//결제적립금 기준 등록
 	public void addAdminPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage) {
 		log.info("결제적립금 기준 insert 전 adminPaymentCriteriaMileage: {}", adminPaymentCriteriaMileage);
 		adminMileageMapper.addAdminPaymentCriteriaMileage(adminPaymentCriteriaMileage);
-		log.info("결제적립금 기준 insert 전 adminPaymentCriteriaMileage: {}", adminPaymentCriteriaMileage);	
+		log.info("결제적립금 기준 insert 후 adminPaymentCriteriaMileage: {}", adminPaymentCriteriaMileage);	
 	}	
 	
 	// 특정코드로 결제적립금 기준 조회
@@ -42,11 +49,6 @@ public class AdminMileageService {
 	}
 	
 	
-	// 결제적립금 기준 조회
-	public List<AdminPaymentCriteriaMileage> getAdminPaymentCriteriaMileage(){
-		
-		return adminMileageMapper.getAdminPaymentCriteriaMileage();
-	}
 	
 	
 	
@@ -59,6 +61,27 @@ public class AdminMileageService {
 		return adminMileageMapper.getAdminReviewMileageCriteria();
 	}
 	
+	//리뷰적립금 기준 등록
+	public void addAdminReviewMileageCriteria(AdminReviewMileageCriteria adminReviewMileageCriteria) {
+		log.info("리뷰적립금 기준 inser 전 adminReviewMileageCriteria: {}", adminReviewMileageCriteria);
+		adminMileageMapper.addAdminReviewMileageCriteria(adminReviewMileageCriteria);
+		log.info("리뷰적립금 기준 inser 후 adminReviewMileageCriteria: {}", adminReviewMileageCriteria);
+	}
+	
+	// 특정코드로 리뷰적립금기준 조회
+		public AdminReviewMileageCriteria getReviewMileageCriteriaByCode(String mileageCriteriaCode) {
+			
+			AdminReviewMileageCriteria adminReviewMileageCriteria = adminMileageMapper.getReviewMileageCriteriaByCode(mileageCriteriaCode);
+			
+			return adminReviewMileageCriteria;
+		}
+		
+		// 특정코드로 리뷰적립금기준 수정
+		public void modifyAdminReviewMileageCriteria(AdminReviewMileageCriteria adminReviewMileageCriteria) {
+			int result = adminMileageMapper.modifyAdminReviewMileageCriteria(adminReviewMileageCriteria);
+			if(result > 0) log.info("리뷰적립금 기준 수정완료");
+		}
+		
 	
 	
 	

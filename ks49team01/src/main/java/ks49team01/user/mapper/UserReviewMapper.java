@@ -10,5 +10,5 @@ import ks49team01.user.dto.UserReview;
 public interface UserReviewMapper {
 
 	// 리뷰 목록조회
-	List<UserReview> getSearchReviewList();
+	List<UserReview> getUserReviewList();
 }

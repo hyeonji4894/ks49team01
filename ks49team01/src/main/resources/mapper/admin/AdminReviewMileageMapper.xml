@@ -22,4 +22,59 @@
 		FROM
 			review_mileage_criteria AS rmc;
  	</select>
+ 	
+ 	
+	 <!-- 리뷰적립금기준 등록 -->
+	<insert id="addAdminReviewMileageCriteria" parameterType="AdminReviewMileageCriteria">
+		<selectKey keyProperty="mileageCriteriaCode" resultType="String" order="BEFORE">
+			/* mileage_criteria_code 자동증가 */
+			SELECT
+				CASE
+				WHEN COUNT(rmc.mileage_criteria_code) = 0 THEN 'mileage_criteria_code01' 
+				ELSE
+					CONCAT('mileage_criteria_code0',(MAX(CAST(SUBSTRING_INDEX(rmc.mileage_criteria_code,'mileage_criteria_code', -1) AS UNSIGNED))+1))
+				END AS mileageCriteriaCode
+			FROM
+				review_mileage_criteria as rmc;
+		</selectKey>
+			/* 리뷰적립금 기준 등록 */
+			INSERT INTO review_mileage_criteria
+			(mileage_criteria_code, member_id, mileage_kind, mileage_amount, mileage_criteria_register_date)
+			VALUES
+			(#{mileageCriteriaCode}, #{memberId}, #{mileageKind}, #{mileageAmount}, CURDATE())
+	</insert>
+	
+	 <!-- 특정코드로 리뷰적립금기준 조회 -->
+	<select id="getReviewMileageCriteriaByCode" parameterType="String" resultMap="ReviewMileageResultMap">
+	
+		/* 특정코드로 리뷰적립금기준 조회*/
+		SELECT
+			rmc.mileage_criteria_code,
+			rmc.member_id,
+			rmc.mileage_kind,
+			rmc.mileage_amount,
+			rmc.mileage_criteria_register_date
+		FROM
+			review_mileage_criteria AS rmc
+		WHERE	
+			rmc.mileage_criteria_code = #{mileageCriteriaCode};
+	</select>
+	
+	<!-- 특정코드로 리뷰적립금기준 수정 -->
+	<update id="modifyAdminReviewMileageCriteria" parameterType="AdminReviewMileageCriteria">
+		/* 특정코드로 리뷰적립금기준 수정*/
+		UPDATE review_mileage_criteria
+		<set>
+			<if test="mileageKind != null and mileageKind != ''">	
+				mileage_kind=#{mileageKind},
+			</if>
+			<if test="mileageAmount != null and mileageAmount != ''">
+				mileage_amount=#{mileageAmount},
+			</if>
+		</set>
+			WHERE
+				mileage_criteria_code=#{mileageCriteriaCode};
+	</update>	
+	
+	
 </mapper>

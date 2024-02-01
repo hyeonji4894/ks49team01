@@ -18,8 +18,8 @@ public class UserReviewService {
 	
 	
 	// 리뷰종류 목록조회
-	public List<UserReview> getReviewList(){
+	public List<UserReview> getUserReviewList(){
 		
-		return userReviewMapper.getSearchReviewList();
+		return userReviewMapper.getUserReviewList();
 	}
 }

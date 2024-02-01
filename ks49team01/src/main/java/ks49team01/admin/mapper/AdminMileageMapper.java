@@ -13,26 +13,35 @@ import ks49team01.admin.dto.AdminReviewMileageCriteria;
 @Mapper
 public interface AdminMileageMapper {
 	
+	// 결제적립금기준 목록조회
+	List<AdminPaymentCriteriaMileage> getAdminPaymentCriteriaMileage();
+	
 	// 결제적립금기준 등록
 	int addAdminPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage);
-	
-	// 특정코드로 결제적립금기준 수정
-	public int modifyAdminPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage);
 	
 	//특정코드로 결제적립금기준 조회
 	public AdminPaymentCriteriaMileage getPaymentMileageCriteriaByCode(String roompayMileageRateCode);
 	
-	// 결제적립금기준 목록조회
-	List<AdminPaymentCriteriaMileage> getAdminPaymentCriteriaMileage();
+	// 특정코드로 결제적립금기준 수정
+	public int modifyAdminPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage);
 	
 	
 	
 	
-	// 리뷰적립금 기준 조회
+	// 리뷰적립금기준 목록조회
 	List<AdminReviewMileageCriteria> getAdminReviewMileageCriteria();
 	
+	// 리뷰적립금기준 등록
+	int addAdminReviewMileageCriteria(AdminReviewMileageCriteria adminReviewMileageCriteria);
 	
+	// 특정코드로 리뷰적립금기준 조회
+	public AdminReviewMileageCriteria getReviewMileageCriteriaByCode(String mileageCriteriaCode);                       
 	
+	// 특정코드로 리뷰적립금기준 수정
+	public int modifyAdminReviewMileageCriteria(AdminReviewMileageCriteria adminReviewMileageCriteria);
+
+
+
 	
 	// 적립금지급내역 목록조회
 	List<AdminMileage> getMileageList();

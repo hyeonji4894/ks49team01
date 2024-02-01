@@ -17,21 +17,6 @@
 		<result column="coupon_list_register_date" 	property="couponListRegisterDate"/>
 	</resultMap>
 	
-	<!-- 쿠폰이름 검색(모달) -->
-	<select id="getSearchCouponName" resultMap="couponResultMap" parameterType="String">
-		SELECT
-			eck.coupon_name,
-			eck.coupon_code,
-			eck.member_id
-		FROM
-			event_coupon_kind AS eck
-		<where>
-			<if test="couponName != null and couponName != ''">
-				eck.coupon_name LIKE CONCAT('%', #{couponName}, '%')
-			</if>
-		</where>
-	</select>
-		
 	
 	<!-- 쿠폰종류 목록조회 -->
  	<select id="getCouponKind" resultMap="couponResultMap">
@@ -44,40 +29,8 @@
 			eck.coupon_kind_register_date
 		FROM
 			event_coupon_kind AS eck;
-			
-			
  	</select>
- 	
- 	<!-- 쿠폰가격 검색 -->
-	<select id="getSearchCouponPrice" resultMap="couponResultMap" parameterType="list"> 
-		SELECT
-			eck.coupon_code,
-			eck.member_id,
-			eck.coupon_name,
-			eck.coupon_price,
-			eck.coupon_due_date,
-			eck.coupon_kind_register_date
-		FROM
-			event_coupon_kind AS eck
-		<where>
-			<foreach collection="paramList" item="item">
-				<choose>
-					<when test="item.searchKey != null and item.searchKey == 'eck.coupon_price' and item.gubun == 'min' and item.searchValue != ''">
-						<![CDATA[AND ${item.searchKey} >= #{item.searchValue}]]>
-					</when>
-					<when test="item.searchKey != null and item.searchKey == 'eck.coupon_price' and item.gubun == 'max' and item.searchValue != ''">
-						<![CDATA[AND ${item.searchKey} <= #{item.searchValue}]]>
-					</when>
-					<otherwise>
-						<if test="item.searchKey != null and item.searchValue != ''">						
-							AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue},'%')										
-						</if>
-					</otherwise>
-				</choose>
-			</foreach>
-		</where>
-	</select>
-	
+ 		
 	<!-- 쿠폰종류 등록 -->
 	<insert id="addCouponKind" parameterType="AdminCoupon">
 		<selectKey keyProperty="couponCode" resultType="String" order="BEFORE">
@@ -133,6 +86,57 @@
 			WHERE
 				coupon_code=#{couponCode};
 	</update>	
+	
+	
+	<!-- 쿠폰이름 검색(모달) -->
+	<select id="getSearchCouponName" resultMap="couponResultMap" parameterType="String">
+		SELECT
+			eck.coupon_name,
+			eck.coupon_code,
+			eck.member_id
+		FROM
+			event_coupon_kind AS eck
+		<where>
+			<if test="couponName != null and couponName != ''">
+				eck.coupon_name LIKE CONCAT('%', #{couponName}, '%')
+			</if>
+		</where>
+	</select>
+		
+
+ 	<!-- 쿠폰가격 검색 -->
+	<select id="getSearchCouponPrice" resultMap="couponResultMap" parameterType="list"> 
+		SELECT
+			eck.coupon_code,
+			eck.member_id,
+			eck.coupon_name,
+			eck.coupon_price,
+			eck.coupon_due_date,
+			eck.coupon_kind_register_date
+		FROM
+			event_coupon_kind AS eck
+		<where>
+			<foreach collection="paramList" item="item">
+				<choose>
+					<when test="item.searchKey != null and item.searchKey == 'eck.coupon_price' and item.gubun == 'min' and item.searchValue != ''">
+						<![CDATA[AND ${item.searchKey} >= #{item.searchValue}]]>
+					</when>
+					<when test="item.searchKey != null and item.searchKey == 'eck.coupon_price' and item.gubun == 'max' and item.searchValue != ''">
+						<![CDATA[AND ${item.searchKey} <= #{item.searchValue}]]>
+					</when>
+					<otherwise>
+						<if test="item.searchKey != null and item.searchValue != ''">						
+							AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue},'%')										
+						</if>
+					</otherwise>
+				</choose>
+			</foreach>
+		</where>
+	</select>
+	
+	
+	
+	
 	
 	
 	

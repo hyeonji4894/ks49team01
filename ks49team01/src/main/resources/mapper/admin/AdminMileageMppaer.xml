@@ -23,7 +23,7 @@
 			mileage_list AS ml;
  	</select>
  	
- 	<!-- 적립금지급내역 아이디 검색 -->
+ 	<!-- 적립금지급내역 아이디 검색 (모달)-->
 	<select id="getSearchMileageId" resultMap="MileageResultMap" parameterType="String">
 		SELECT
 			ml.mileage_list_code,
@@ -38,6 +38,23 @@
 		</where>
 	</select>
 	
-	
+	<!-- 리뷰댓글 목록 최종검색 -->
+   	<select id="getSearchByMileageId" resultMap="MileageResultMap" parameterType="list">
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.mileage_kind,
+			ml.mileage_save_price,
+			ml.mileage_list_register_date
+		FROM
+			mileage_list AS ml
+		<where>
+			<foreach collection="paramList" item="item">
+				<if test="item.searchKey != null and item.searchKey != ''">						
+					AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue},'%')										
+				</if>
+			</foreach>
+		</where>			
+ 	</select>  		
 		
 </mapper>

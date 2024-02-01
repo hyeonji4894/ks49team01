@@ -33,245 +33,189 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-12 m-auto">
                     <div class="product-detail accordion-detail">
-                        <div class="row mb-50 mt-30">
-                            <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
-                                <div class="detail-gallery">
-                                    <!-- MAIN SLIDES -->
-                                    <div class="product-image-slider">
-                                        <figure class="border-radius-10">
-                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
-                                        </figure>
-                                        <figure class="border-radius-10">
-                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
-                                        </figure>
-                                        <figure class="border-radius-10">
-                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
-                                        </figure>
-                                        <figure class="border-radius-10">
-                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
-                                        </figure>
-                                         <figure class="border-radius-10">
-                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
-                                        </figure>
-                                    </div>
-                                    <!-- THUMBNAILS -->
-                                    <div class="slider-nav-thumbnails">
-                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-                                    </div>
-                                </div>
-                                <!-- End Gallery -->
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <div class="detail-info pr-30 pl-30">
-                                    
-                                    <h2 class="title-detail mt-2" id="roomName">글램핑1호</h2>
-		                            
-		                            
-		                            <div class="clearfix product-price-cover mt-3">
-                                           <div class="product-price primary-color float-left">
-                                               <span class="current-price text-brand">₩ 120000</span>
-                                           </div>
-                                       </div>
-		                            
-                                    <div class="short-desc mb-30">
-                                    	<div class="row">
-                                    		<div class="form-group col-md-12">
-                                                   <label class="h5 font-weight-bold">예약일자</label>
-		                                        <input type="text" class="form-control" name="daterange" value="01/01/2015 - 01/31/2015" />
-                                               </div>
-                                    	</div>
-                                       
-                                    </div>
-                                </div>
-                                <!-- Detail Info -->
-                            </div>
-                        </div>
                         <div class="product-info">
-                            <div class="tab-style3">
-                                <ul class="nav nav-tabs text-uppercase">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">객실소개</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">추가 정보</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">리뷰</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content shop_info_tab entry-main-content">
-                                    <div class="tab-pane fade show active" id="Description">
-                                        <div class="">
-                                        	<hr class="wp-block-separator is-style-dots" />
-                                        	<h4 class="mt-30">기본 정보</h4>
-                                            <ul class="product-more-infor mt-30">
-                                                <li id="rommSize" th:value="*{roomSize}"><span>객실 크기</span> 70%</li>
-                                                <li id="roomBasicPersonnel" th:value="*{roomBasicPersonnel}"><span>객실 기본인원</span> Bottle</li>
-                                                <li id="roomMaxPersonnel" th:value="*{roomMaxPersonnel}"><span>객실 최대인원</span> Green, Pink, Powder Blue, Purple</li>
-                                                <li id="availableDogTypes" th:value="*{availableDogTypes}"><span>객실이용 가능 견종</span> 100ml</li>
-                                            </ul>
-                                            <hr class="wp-block-separator is-style-dots" />
-                                            <h4 class="mt-30">편의시설 및 서비스</h4> <br/>
-                                            <p> TV, 에어컨, 침대1개, 헤어드라이기, 식탁, 조리도구, 수건, 휴지, 치약, 비누, 바디워시, 샴푸, 애견식기세트, 배변판, 배변패드, 배변봉투, 먼지제거기, WI-FI</p>
-                                            <p> 매점 운영시간 : 09:00 ~ 19:30 </p>
-                                            <p> 주차가능 </p>
-                                            <hr class="wp-block-separator is-style-dots" />
-                                            <h4 class="mt-30">주의 사항</h4> <br/>
-                                            <p> 입실시간은 15시 이후, 퇴실시간은 11시까지 입니다.(조기 입실 및 퇴실시간 연장 불가) </p>
-                                            <p> 최대 인원 초과 시 입실이 불가능할 수 있으며, 해당 사유로 환불 받을 수 없습니다. </p>
-                                            <p> 개인 소지품 및 귀중품, 현금등의 불실 및 파손은 숙박업소에서 책임지지 않습니다. </p>
-                                            <p> 숙박 업소는 법적으로 청소년 혼숙이 금지되어 있습니다. 또한 미성년자의 예약 및 이용은 숙소 규정에 따라 결정되며 해당 사유로 환불 받을 수 없습니다. </p>
-                                            <p> 퇴실시 음식물을 비롯한 모든 쓰레기는 분리수거해 주시고, 사용하신 주방용품은 다음 손님을 위해 꼭 세척해주시기 바랍니다. </p>
-                                            <p> 원칙적으로 택배 및 퀵은 받지 않으며, 택배를 배송할 경우 분실 및 파손에 대한 책임을 지지 않습니다. </p>
-                                            <p> 다른 이용객에게 피해를 줄 수 있는 무분별한 오락, 음주, 고성방가는 삼가주시기 바랍니다. </p>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="Additional-info">
-                                        <table class="font-md">
-                                            <tbody>
-                                                <tr class="stand-up">
-                                                    <th>환불규정</th>
-                                                    <td>
-                                                        <p>예약 후에는 취소/환불 규정이 적용되어, 예약 당일에도 방문 예정일에 따라 취소 수수료가 부과 되오니 신중히 예약 해주시기 바랍니다.</p>
-                                                    </td>
-                                                </tr>
-                                                <tr class="folded-wo-wheels">
-                                                    <th>취소 수수료</th>
-                                                    <td>
-                                                    	<ul class="product-more-infor mt-10">
-			                                                <li><span>9일전 취소</span> 90% 환불</li>
-			                                                <li><span>5 일전 취소</span> 50% 환불</li>
-			                                                <li><span>3 일전 취소</span> 30% 환불</li>
-			                                                <li><span> 1 일전 취소</span> 0% 환불</li>				                                            
-                                                    	</ul>
-                                                    </td>
-                                                </tr>
-                                                 <tr class="folded-wo-wheels">
-                                                    <th>주의 사항</th>
-                                                    <td>
-                                                        <p>개인 소지품 및 귀중품, 현금등의 불실 및 파손은 숙박업소에서 책임지지 않습니다.</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane fade" id="Reviews">
+	                            <div class="tab-style3">
+	                                <ul class="nav nav-tabs text-uppercase">
+	                                    <li class="nav-item">
+	                                        <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">객실소개</a>
+	                                    </li>
+	                                    <li class="nav-item">
+	                                        <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">추가 정보</a>
+	                                    </li>
+	                                    <li class="nav-item">
+	                                        <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">리뷰</a>
+	                                    </li>
+	                                </ul>
+	                                <div class="tab-content shop_info_tab entry-main-content">
+	                                    <div class="tab-pane fade show active" id="Description">
+	                                        <div class="">
+	                                        	<hr class="wp-block-separator is-style-dots" />
+	                                        	<h4 class="mt-30">기본 정보</h4>
+	                                            <ul class="product-more-infor mt-30">
+	                                                <li id="rommSize" th:value="*{roomSize}"><span>객실 크기</span> 70%</li>
+	                                                <li id="roomBasicPersonnel" th:value="*{roomBasicPersonnel}"><span>객실 기본인원</span> Bottle</li>
+	                                                <li id="roomMaxPersonnel" th:value="*{roomMaxPersonnel}"><span>객실 최대인원</span> Green, Pink, Powder Blue, Purple</li>
+	                                                <li id="availableDogTypes" th:value="*{availableDogTypes}"><span>객실이용 가능 견종</span> 100ml</li>
+	                                            </ul>
+	                                            <hr class="wp-block-separator is-style-dots" />
+	                                            <h4 class="mt-30">편의시설 및 서비스</h4> <br/>
+	                                            <p> TV, 에어컨, 침대1개, 헤어드라이기, 식탁, 조리도구, 수건, 휴지, 치약, 비누, 바디워시, 샴푸, 애견식기세트, 배변판, 배변패드, 배변봉투, 먼지제거기, WI-FI</p>
+	                                            <p> 매점 운영시간 : 09:00 ~ 19:30 </p>
+	                                            <p> 주차가능 </p>
+	                                            <hr class="wp-block-separator is-style-dots" />
+	                                            <h4 class="mt-30">주의 사항</h4> <br/>
+	                                            <p> 입실시간은 15시 이후, 퇴실시간은 11시까지 입니다.(조기 입실 및 퇴실시간 연장 불가) </p>
+	                                            <p> 최대 인원 초과 시 입실이 불가능할 수 있으며, 해당 사유로 환불 받을 수 없습니다. </p>
+	                                            <p> 개인 소지품 및 귀중품, 현금등의 불실 및 파손은 숙박업소에서 책임지지 않습니다. </p>
+	                                            <p> 숙박 업소는 법적으로 청소년 혼숙이 금지되어 있습니다. 또한 미성년자의 예약 및 이용은 숙소 규정에 따라 결정되며 해당 사유로 환불 받을 수 없습니다. </p>
+	                                            <p> 퇴실시 음식물을 비롯한 모든 쓰레기는 분리수거해 주시고, 사용하신 주방용품은 다음 손님을 위해 꼭 세척해주시기 바랍니다. </p>
+	                                            <p> 원칙적으로 택배 및 퀵은 받지 않으며, 택배를 배송할 경우 분실 및 파손에 대한 책임을 지지 않습니다. </p>
+	                                            <p> 다른 이용객에게 피해를 줄 수 있는 무분별한 오락, 음주, 고성방가는 삼가주시기 바랍니다. </p>
+	                                        </div>
+	                                    </div>
+	                                    <div class="tab-pane fade" id="Additional-info">
+	                                        <table class="font-md">
+	                                            <tbody>
+	                                                <tr class="stand-up">
+	                                                    <th>환불규정</th>
+	                                                    <td>
+	                                                        <p>예약 후에는 취소/환불 규정이 적용되어, 예약 당일에도 방문 예정일에 따라 취소 수수료가 부과 되오니 신중히 예약 해주시기 바랍니다.</p>
+	                                                    </td>
+	                                                </tr>
+	                                                <tr class="folded-wo-wheels">
+	                                                    <th>취소 수수료</th>
+	                                                    <td>
+	                                                    	<ul class="product-more-infor mt-10">
+				                                                <li><span>9일전 취소</span> 90% 환불</li>
+				                                                <li><span>5 일전 취소</span> 50% 환불</li>
+				                                                <li><span>3 일전 취소</span> 30% 환불</li>
+				                                                <li><span> 1 일전 취소</span> 0% 환불</li>				                                            
+	                                                    	</ul>
+	                                                    </td>
+	                                                </tr>
+	                                                 <tr class="folded-wo-wheels">
+	                                                    <th>주의 사항</th>
+	                                                    <td>
+	                                                        <p>개인 소지품 및 귀중품, 현금등의 불실 및 파손은 숙박업소에서 책임지지 않습니다.</p>
+	                                                    </td>
+	                                                </tr>
+	                                            </tbody>
+	                                        </table>
+	                                    </div>
+	                                    <div class="tab-pane fade" id="Vendor-info">
+	                                        <div class="vendor-logo d-flex mb-30">
+	                                            <img src="/user/assets/imgs/vendor/vendor-18.svg" alt="" />
+	                                            <div class="vendor-name ml-15">
+	                                                <h6>
+	                                                    <a href="vendor-details-2.html">Noodles Co.</a>
+	                                                </h6>
+	                                                <div class="product-rate-cover text-end">
+	                                                    <div class="product-rate d-inline-block">
+	                                                        <div class="product-rating" style="width: 90%"></div>
+	                                                    </div>
+	                                                    <span class="font-small ml-5 text-muted"> (32 reviews)</span>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                        <ul class="contact-infor mb-50">
+	                                            <li><img src="/user/assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
+	                                            <li><img src="/user/user/assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Contact Seller:</strong><span>(+91) - 540-025-553</span></li>
+	                                        </ul>
+	                                        <div class="d-flex mb-55">
+	                                            <div class="mr-30">
+	                                                <p class="text-brand font-xs">Rating</p>
+	                                                <h4 class="mb-0">92%</h4>
+	                                            </div>
+	                                            <div class="mr-30">
+	                                                <p class="text-brand font-xs">Ship on time</p>
+	                                                <h4 class="mb-0">100%</h4>
+	                                            </div>
+	                                            <div>
+	                                                <p class="text-brand font-xs">Chat response</p>
+	                                                <h4 class="mb-0">89%</h4>
+	                                            </div>
+	                                        </div>
+	                                        <p>offers international anddition to soups and saladsmpany was founded in 1995 byolorado. The company went public in 2013 and recorded a $457 million revenue in 2017.In late 2018, there were 460 Noodles  Company locations across 29 states and Washington, D.C.</p>
+	                                    </div>
+	                                    <div class="tab-pane fade" id="Reviews">
                                         <!--Comments-->
-                                       	<div class="row justify-content-center">
-						                    	<div class="col-lg-10">
-						                        <div class="shop-product-fillter mb-50 pr-30">
-						                            <div class="totall-product">
-						                                <h2>
-						                                    <img class="w-36px mr-10" src="assets/imgs/theme/icons/category-1.svg" alt="" />
-						                                    Reviews
-						                                </h2>
+                                    	<div class="card mb-4">
+						                    <header class="card-header">
+						                        <div class="row gx-3">
+						                            <div class="col-lg-2 col-md-3 col-6">
+						                                <select class="form-select">
+						                                    <option>일반</option>
+						                                    <option>최신순</option>
+						                                    <option>날짜순</option>
+						                                    <option>댓글많은순</option>
+						                                </select>
 						                            </div>
-						                            <div class="sort-by-product-area">
-						                                <div class="sort-by-cover mr-10">
-						                                    <div class="sort-by-product-wrap">
-						                                        <div class="sort-by">
-						                                            <span><i class="fi-rs-apps"></i>Show:</span>
-						                                        </div>
-						                                        <div class="sort-by-dropdown-wrap">
-						                                            <span> 5 <i class="fi-rs-angle-small-down"></i></span>
-						                                        </div>
-						                                    </div>
-						                                    <div class="sort-by-dropdown">
-						                                        <ul>
-						                                            <li><a class="active" href="#">5</a></li>
-						                                            <li><a href="#">10</a></li>
-						                                            <li><a href="#">15</a></li>
-						                                            <li><a href="#">20</a></li>
-						                                            <li><a href="#">All</a></li>
-						                                        </ul>
-						                                    </div>
-						                                </div>
-						                                <div class="sort-by-cover">
-						                                    <div class="sort-by-product-wrap">
-						                                        <div class="sort-by">
-						                                            <span><i class="fi-rs-apps-sort"></i>Sort:</span>
-						                                        </div>
-						                                        <div class="sort-by-dropdown-wrap">
-						                                            <span>Featured <i class="fi-rs-angle-small-down"></i></span>
-						                                        </div>
-						                                    </div>
-						                                    <div class="sort-by-dropdown">
-						                                        <ul>
-						                                            <li><a class="active" href="#">Featured</a></li>
-						                                            <li><a href="#">Newest</a></li>
-						                                            <li><a href="#">Most Comments</a></li>
-						                                            <li><a href="#">Release Date</a></li>
-						                                        </ul>
-						                                    </div>
-						                                </div>
+						                            <div class="col-lg-2 col-md-3 col-6">
+						                                <select class="form-select">
+						                                    <option>Show 10</option>
+						                                    <option>Show 15</option>
+						                                    <option>Show 20</option>
+						                                </select>
 						                            </div>
 						                        </div>
-						                        <div class="loop-grid loop-list pr-30 mb-50">
-						                            <article class="wow fadeIn animated hover-up mb-30 animated">
-						                                <div class="post-thumb" style="background-image: url(assets/imgs/blog/blog-1.png)">
-						                                    <div class="entry-meta">
-						                                    	<img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" style="width: 400px" height="400px"/>
-						                                        <a class="entry-meta meta-2" href="blog-category-grid.html"><i class="fi-rs-play-alt"></i></a>
-						                                    </div>
-						                                </div>
-						                                <div class="entry-content-2 pl-50">
-						                                    <p class="post-exerpt mb-40 fs-5">숙소가 깨끗해요 좋아요.!</p>
-						                                    <div class="entry-meta meta-1 font-s color-grey mt-10 pb-10">
-						                                        <div>
-						                                            <span class="post-on">25 April 2022</span>
-						                                            <span class="hit-count has-dot">126k Views</span>
-						                                        </div>
-						                                        <a href="blog-post-right.html" class="text-brand font-heading font-weight-bold">Read more <i class="fi-rs-arrow-right"></i></a>
-						                                    </div>
-						                                </div>
-						                            </article>
-						                            <article class="wow fadeIn animated hover-up mb-30 animated">
-						                                <div class="post-thumb" style="background-image: url(assets/imgs/blog/blog-3.png)">
-						                                    <div class="entry-meta">
-						                                        <a class="entry-meta meta-2" href="blog-category-grid.html"><i class="fi-rs-picture"></i></a>
-						                                    </div>
-						                                </div>
-						                                <div class="entry-content-2 pl-50">
-						                                    <h3 class="post-title mb-20">
-						                                        <a href="blog-post-right.html">I Tried 38 Different Bottles of Mustard — These Are the Ones I’ll Buy Again</a>
-						                                    </h3>
-						                                    <p class="post-exerpt mb-40">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-						                                    <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-						                                        <div>
-						                                            <span class="post-on">25 April 2022</span>
-						                                            <span class="hit-count has-dot">126k Views</span>
-						                                        </div>
-						                                        <a href="blog-post-right.html" class="text-brand font-heading font-weight-bold">Read more <i class="fi-rs-arrow-right"></i></a>
-						                                    </div>
-						                                </div>
-						                            </article>
+						                    </header>
+						                    <!-- card-header end// -->
+						                    <div class="card-body">
+						                        <div>
+						                            <table class="table table-hover">
+						                                <thead>
+						                                    <tr>
+						                                        <th style="width: 1%">No</th>
+						                                        <th style="width: 7%">아이디</th>
+						                                        <th style="width: 50%">내용</th>
+						                                        <th style="width: 7%">가맹점명</th>
+						                                        <th style="width: 7%">객실명</th>
+						                                        <th style="width: 7%">등록일자</th>
+						                                        <th style="width: 7%">조회수</th>
+						                                        <th style="width: 8%">자세히 보기</th>
+						                                    </tr>
+						                                </thead>
+						                                <tbody>
+						                                    <tr th:if="${userReviewList != null and not #lists.isEmpty(userReviewList)}"
+						                                    	th:each="l : ${userReviewList}">
+						                                        <td th:text="${l.reviewListNum}"></td>
+						                                        <td th:text="${l.memberId}"></td>
+						                                        <td th:text="${l.reviewContext}"></td>
+						                                        <td th:text="${l.branchName}"></td>
+						                                        <td th:text="${l.roomName}"></td>
+						                                        <td th:text="${l.reviewDate}"></td>
+						                                        <td th:text="${l.reviewViews}"></td>
+						                                        <td class="text-end">
+						                                            <a href="#" class="btn btn-md rounded font-sm">Detail</a>
+						                                        </td>
+						                                    </tr>
+						                                </tbody>
+						                            </table>
 						                        </div>
-						                        <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
-						                            <nav aria-label="Page navigation example">
-						                                <ul class="pagination justify-content-start">
-						                                    <li class="page-item">
-						                                        <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
-						                                    </li>
-						                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-						                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-						                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-						                                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-						                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-						                                    <li class="page-item">
-						                                        <a class="page-link" href="#"><i class="fi-rs-arrow-small-right"></i></a>
-						                                    </li>
-						                                </ul>
-						                            </nav>
-						                        </div>
+						                        <!-- table-responsive//end -->
 						                    </div>
+						                    <!-- card-body end// -->
 						                </div>
-                                  		<!--comment form-->
-                                    </div>
-                                </div>
+				                        <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+				                            <nav aria-label="Page navigation example">
+				                                <ul class="pagination justify-content-start">
+				                                    <li class="page-item">
+				                                        <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
+				                                    </li>
+				                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+				                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+				                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				                                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+				                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+				                                    <li class="page-item">
+				                                        <a class="page-link" href="#"><i class="fi-rs-arrow-small-right"></i></a>
+				                                    </li>
+				                                </ul>
+				                            </nav>
+				                        </div>
+				                    </div>
+				                </div>
+                     		<!--comment form-->
                             </div>
                         </div>	                        
                     </div>

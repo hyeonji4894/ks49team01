@@ -26,7 +26,22 @@ public class AdminCouponController {
 	
 	private final AdminCouponService adminCouponService;
 	
-	// 쿠폰종류 등록화면
+	
+	// 쿠폰종류 목록조회
+	@GetMapping("/getCouponKind")
+	public String getCouponKind(Model model){
+		
+		List<AdminCoupon> adminCouponKind = adminCouponService.getCouponKind();
+		
+		log.info("adminCouponKind: {}",adminCouponKind);
+		
+		model.addAttribute("title", "쿠폰 종류 조회");
+		model.addAttribute("adminCouponKind", adminCouponKind );
+		
+		return "admin/coupon/get_coupon_kind";
+	}
+	
+	// 쿠폰종류 등록
 	@GetMapping("/addCouponKind")
 	public String addCouponKind(Model model){
 		
@@ -34,7 +49,7 @@ public class AdminCouponController {
 		
 		model.addAttribute("title", "쿠폰종류 등록");
 		
-		return "/admin/coupon/add_coupon_kind";
+		return "admin/coupon/add_coupon_kind";
 	}
 	
 	// 쿠폰종류 등록
@@ -51,6 +66,21 @@ public class AdminCouponController {
 	}
 	
 	// 쿠폰종류 수정
+	@GetMapping("/modifyCouponKind")
+	public String modifyCouponKind(@RequestParam(value = "couponCode")String couponCode
+			,Model model){
+		
+		log.info("쿠폰종류 수정화면 couponCode : {}", couponCode);
+		
+		// 특정코드 조회
+		AdminCoupon adminCouponKind = adminCouponService.getCouponKindByCode(couponCode);
+		
+		model.addAttribute("adminCouponKind", adminCouponKind);
+		
+		return "admin/coupon/modify_coupon_kind";
+	}
+	
+	// 쿠폰종류 수정
 	@PostMapping("/modifyCouponKind")
 	public String modifyCouponKind(AdminCoupon adminCoupon, HttpSession session) {
 		log.info("쿠폰종류 수정: {}", adminCoupon);
@@ -61,20 +91,6 @@ public class AdminCouponController {
 		return "redirect:/admin/coupon/getCouponKind";
 	}
 	
-	// 쿠폰종류 수정화면
-	@GetMapping("/modifyCouponKind")
-	public String modifyCouponKind(@RequestParam(value = "couponCode")String couponCode
-									,Model model){
-		
-		log.info("쿠폰종류 수정화면 couponCode : {}", couponCode);
-		
-		// 특정코드 조회
-		AdminCoupon adminCouponKind = adminCouponService.getCouponKindByCode(couponCode);
-		
-		model.addAttribute("adminCouponKind", adminCouponKind);
-		
-	return "admin/coupon/modify_coupon_kind";
-	}
 	
 	// 쿠폰종류 삭제
 	@GetMapping("/removeCouponKind")
@@ -129,19 +145,9 @@ public class AdminCouponController {
 		
 	}
 	
-	// 쿠폰종류 목록조회
-	@GetMapping("/getCouponKind")
-	public String getCouponKind(Model model){
-		
-		List<AdminCoupon> adminCouponKind = adminCouponService.getCouponKind();
-		
-		log.info("adminCouponKind: {}",adminCouponKind);
-		
-		model.addAttribute("title", "쿠폰 종류 조회");
-		model.addAttribute("adminCouponKind", adminCouponKind );
-		
-	return "admin/coupon/get_coupon_kind";
-	}
+	
+	
+	
 	
 	
 	

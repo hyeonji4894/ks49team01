@@ -4,6 +4,7 @@
 
 	<resultMap type="UserReview" id="reviewResultMap">
 		<id column="review_num" 				property="reviewNum"/>
+		<result column="review_list_num" 		property="reviewListNum"/>
 		<result column="member_id" 				property="memberId"/>
 		<result column="branch_code" 			property="branchCode"/>
 		<result column="payments_due_code" 		property="paymentsDueCode"/>
@@ -14,22 +15,30 @@
 		<result column="review_views" 			property="reviewViews"/>
 		<result column="review_file_code" 		property="reviewFileCode"/>
 		<result column="file_attribute" 		property="fileAttribute"/>
+		<result column="room_name" 				property="roomName"/>
+		<result column="branch_name" 			property="branchName"/>
 	</resultMap>
 	
-	<select id="getReview" resultType="map">
+	<select id="getUserReviewList" resultMap="reviewResultMap">
 		SELECT
 			r.review_num,
+			r.review_list_num,
 			r.member_id,
 			r.review_context,
-			rf.file_attribute,
 			r.review_date,
-			r.review_views
+			r.review_views,
+			bm.branch_name,
+			ri.room_name
 		FROM
 			review AS r
-			LEFT JOIN
-			review_file AS rf
+			INNER JOIN
+			branch_management AS bm
 			ON
-			r.review_file_code = rf.review_file_code;		
+			r.branch_code = bm.branch_code
+			INNER JOIN
+			room_information AS ri
+			ON
+			r.room_code = ri.room_code		
 	</select>
 	
 	

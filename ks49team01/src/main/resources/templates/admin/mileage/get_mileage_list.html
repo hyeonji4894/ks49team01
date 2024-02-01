@@ -253,14 +253,15 @@
 						return;
 					}
 					$(searchList).each(function(idx, item){
-						const newTr = 								$('<tr />');
-						const checkBox = 							$('<input />', { type:'checkbox', class:'check', 'data-mileage-list-code' : item.mileageListCode});
-						const newTdCheckBox = 						$('<td />').html(checkBox);
-						const newTdmileageListCode = 				$('<td />').text(item.mileageListCode);
-						const newTdmemberId = 						$('<td />').text(item.memberId);
-						const newTdmileageKind = 					$('<td />').text(item.mileageKind);
-						const newTdmileageSavePrice = 				$('<td />').text(item.mileageSavePrice);
-						const newTdmileageListRegisterDate = 		$('<td />').text(item.mileageListRegisterDate);
+						const newTr = $('<tr />');
+						const memberId = item.memberId;	
+						const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-mileage-list-code' : item.mileageListCode});
+						const newTdCheckBox = 					$('<td />').html(checkBox);
+						const newTdmileageListCode = 			$('<td />').text(item.mileageListCode);
+						const newTdmemberId = 					$('<td />').text(item.memberId);
+						const newTdmileageKind = 				$('<td />').text(item.mileageKind);
+						const newTdmileageSavePrice = 			$('<td />').text(item.mileageSavePrice);
+						const newTdmileageListRegisterDate = 	$('<td />').text(item.mileageListRegisterDate);
 						
 						newTr.append(newTdCheckBox,
 									 newTdmileageListCode,

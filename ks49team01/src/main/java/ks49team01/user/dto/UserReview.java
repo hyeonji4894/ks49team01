@@ -8,6 +8,7 @@ import lombok.Data;
 public class UserReview {
 
 	private String reviewNum;
+	private int reviewListNum;
 	private String memberId;
 	private String branchCode;
 	private String paymentsDueCode;
@@ -18,4 +19,6 @@ public class UserReview {
 	private int reviewViews;
 	private String reviewFileCode;
 	private String FileAttribute;
+	private String roomName;
+	private String branchName;
 }

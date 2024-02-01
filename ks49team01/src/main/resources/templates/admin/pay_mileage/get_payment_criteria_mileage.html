@@ -75,7 +75,7 @@
                           <th class="font-weight-bolder">결제적립금 기준 등록일자</th>
                       </tr>
                   </thead>
-                  <tbody class="border text-dark" id="searchCouponTbodys">
+                  <tbody class="border text-dark" >
 		              <tr th:if="${paymentCriteriaMileage != null and not #lists.isEmpty(paymentCriteriaMileage)}"
 		            	  th:each="l : ${paymentCriteriaMileage}">
 	                 	<td style="width: 5%;">
@@ -119,28 +119,6 @@
 	
 	<th:block layout:fragment="customJs">
 		<script th:inline="javascript">		
-		
-		// 검색결과 tbody 이벤트
-		$(document).on('click', '.search-result tbody tr', function(e){
-			e.stopPropagation();
-			const isChecked = $(this).find('.check').prop('checked');
-			$(this).find('.check').prop('checked', !isChecked);
-			if($('.check').length == $('.check:checked').length){
-				$('#allCheck').prop('checked', true);
-			}else{
-				$('#allCheck').prop('checked', false);
-			}
-		});
-		
-		// 검색결과 tbody check box 이벤트
-		$(document).on('click', '.check', function(e){
-			e.stopPropagation();
-			if($('.check').length == $('.check:checked').length){
-				$('#allCheck').prop('checked', true);
-			}else{
-				$('#allCheck').prop('checked', false);
-			}
-		});		
 			
 			// 전체체크
 			$(document).on('click', '#allCheck', function(){
