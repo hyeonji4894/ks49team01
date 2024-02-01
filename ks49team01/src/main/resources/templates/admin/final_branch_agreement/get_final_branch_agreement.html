@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/default2}">
+	  layout:decorate="~{admin/layout/default}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
@@ -17,140 +17,132 @@
 			.border{
 				border-color: #bac6d0 !important;
 			}
-			
 		</style>
 	</head>
-	
+		
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
 		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">가맹점 조회</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
-	<th:block layout:fragment="customBreadcrumb">	
-		<li class="breadcrumb-item">
-			<a th:href="@{/default/page1}" class="text-muted h4">가맹점 조회</a>
-		</li>
-		<li class="breadcrumb-item text-muted active h4" aria-current="page">검색페이지</li>
+	<th:block layout:fragment="customBreadcrumb">
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">가맹점 조회</li>
 	</th:block>
-
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
+		<div class="modal fade" id="centermodal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="width: 80%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myCenterModalLabel">Center modal</h4>
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                    </div>
+   
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
        	  <div class="card mb-4">
 		    <div class="card-body">
 		      <div class="row">
 		        <div class="col-lg-10">
 		          <div class="row mb-3">
-		            
 		            <div class="col-lg-4">
-		                <label class="form-label card-title font-weight-bolder">가맹점 아이디</label>
+		                <label class="form-label card-title font-weight-bolder">가맹점명</label>
 		                <div class="input-group">
-		                  <input placeholder="$" type="text" class="form-control">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="branchName">
+		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
 		                </div>
 		            </div>
-		             <div class="col-lg-4">
-		                <label class="form-label card-title font-weight-bolder">매장명</label>
-		                <div class="input-group">
-		                  <input placeholder="$" type="text" class="form-control">
+		            <div class="col-lg-4">
+		              <label class="form-label card-title font-weight-bolder">계약상태</label>
+		              <div class="row">
+		                <div class="col-12">
+		                  <div class="input-group">
+		                    <select class="form-control text-center search-items" id="constractStatus">
+		                      <option value="1. 가맹점 계약 완료">1. 가맹점 계약 완료</option>
+		                      <option value="2. 가맹점 모집 예정">2. 가맹점 모집 예정</option>
+		                    </select>
+		                  </div>
 		                </div>
+		              </div>
 		            </div>
-		          </div>
-		          
 		          </div>
 		        </div>
-		            <div class="col-lg-4">
-		                <label class="form-label card-title font-weight-bolder">주소</label>
-		                <div class="input-group">
-		                  <input placeholder="$" type="text" class="form-control">
-		                </div>
-		            </div>
-		            <div class="col-lg-4">
-		                <label class="form-label card-title font-weight-bolder">전화번호</label>
-		                <div class="input-group">
-		                  <input placeholder="$" type="text" class="form-control">
-		                </div>
-		            </div>
-		           
 		        <div class="col-lg-2 align-self-center">
 		          <div class="row justify-content-center">
 		            <div class="col-8">
-		              <button id="searchbranch" class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;">
+		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;" id="totalCloseChoolSearchBtn">
 		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
-									              
 		              </button>
 		            </div>
 		          </div>
 		        </div>
 		      </div>
 		    </div>
-		  
-		  <div class="card mb-4">
-		    <div class="card-body">
-		    	<div class="row mb-3">
-		    		<div class="col-sm-3 d-flex align-items-end">		    		
-				    	<h5 class="card-title">
-					    	[ 전체 &nbsp;
-					    	<label id="listCnt" class="text-info mb-0">100</label> 건
-					    	&nbsp;|&nbsp;  
-					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
-					    	]
-				    	</h5>
-		    		</div>	    	
+		  </div>
+		  	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/branchManagement/addbranchmanagement}"><i class="fas fas fa-pencil-alt"></i>
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/closeSchool/addCloseSchool}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/branchManagement/modifybranchmanagement}"><i class="fas fa-undo"></i>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/closeSchool/modifyCloseSchoolInfo}"><i class="fas fa-undo"></i>
                                수정</button>
-                           <button type="button" class="btn btn-outline-danger" id="removeBtn" th:href="@{/admin/branchManagement/removebranchmanagement}"><i class="fas fa-trash-alt"></i>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>	
                                삭제</button>
                        </div>
 			    	</div>
-		    	</div>
-		    	
+		    	</div>		    	
 		    	<table class="table table-bordered table-hover text-center search-result">
                   <thead class="h5 text-dark">
-                     <tr>
-	                    <th scope="col">최종 계약 코드</th>
-	                    <th scope="col">합격여부 코드</th>
-	                    <th scope="col">신청 폐교</th>
-	                    <th scope="col">가맹 신청자 아이디</th>	                
-	                    <th scope="col">운영 시작일</th>
-	                    <th scope="col">운영 종료일</th>
-	                    <th scope="col">운영 교육 기간</th>
-	                    <th scope="col">입금일 지정</th>	                
-	                    <th scope="col">로열티 지급 기준 %</th>	                
-	                    <th scope="col">계약금</th>
-	                    <th scope="col">보증금</th>
-	                    <th scope="col">계약금 지불 상태</th>
-	                    <th scope="col">최종 가맹점 계약 현황</th>	                
-	                    <th scope="col">본사 승인자id</th>
-	                    <th scope="col">본사 승인일자</th>    
-	                </tr>
+                      <tr>
+                      	  <th style="width: 5%;">
+                            <input type="checkbox" id="allCheck">
+                      	  </th>
+                      	    <th class="font-weight-bolder">최종 계약 코드</th>
+                      	  	<th class="font-weight-bolder">합격여부 코드</th>
+	               		    <th class="font-weight-bolder">신청 폐교</th>
+	                		<th class="font-weight-bolder">가맹 신청자 아이디</th>
+	                		<th class="font-weight-bolder">운영 시작일</th>
+	              		    <th class="font-weight-bolder">운영 종료일</th>
+	                		<th class="font-weight-bolder">운영 교육 기간</th>
+	                		<th class="font-weight-bolder">입금일 지정</th>
+	                		<th class="font-weight-bolder">로열티 지급 기준 %</th>
+	                		<th class="font-weight-bolder">계약금</th>
+	                		<th class="font-weight-bolder">보증금</th>
+	                		<th class="font-weight-bolder">계약금 지불 상태</th>
+	                		<th class="font-weight-bolder">최종 가맹점 계약 현황</th>
+	                		<th class="font-weight-bolder">본사 승인자id</th>
+	                		<th class="font-weight-bolder">본사 승인일자</th>
+                     	</tr>
                   </thead>
-                  <tbody id="tbody">
-					<tr th:if="${adminFinalBranchAgreement != null and not #lists.isEmpty(adminFinalBranchAgreement)}"
-					th:each="e : ${adminFinalBranchAgreement}">
-					<td th:text="${e.finalContractCode}"></td>
-					<td th:text="${e.passOrNotCode}"></td>
-					<td th:text="${e.closeSchoolCode}"></td>
-					<td th:text="${e.memberId}"></td>
-					<td th:text="${e.operationStartDate}"></td>
-					<td th:text="${e.operationEndDate}"></td>
-					<td th:text="${e.operationEducationPeriod}"></td>
-					<td th:text="${e.depositDat}"></td>
-					<td th:text="${e.royaltyPaymentCriteria}"></td>
-					<td th:text="${e.contractPayment}"></td>
-					<td th:text="${e.assurancePayment}"></td>
-					<td th:text="${e.depositPaymentStatus}"></td>
-					<td th:text="${e.ContractStatus}"></td>
-					<td th:text="${e.operationApproveId}"></td>
-					<td th:text="${e.operationApproveDate}"></td>
+                  <tbody class="border text-dark" id="searchResult">
+                     <tr th:if="${adminFinalBranchAgreement != null and not #lists.isEmpty(adminFinalBranchAgreement)}"
+						th:each="l : ${adminFinalBranchAgreement}">
+						<td>
+                			<input type="checkbox" class="check" name="check" th:data-close-school-name="${l.finalContractCode}"/>
+            			</td>
+            			<td th:text="${l.finalContractCode}"></td>
+						<td th:text="${l.passOrNotCode}"></td>
+						<td th:text="${l.closeSchoolCode}"></td>
+						<td th:text="${l.memberId}"></td>
+						<td th:text="${l.operationStartDate}"></td>
+						<td th:text="${l.operationEndDate}"></td>
+						<td th:text="${l.operationEducationPeriod}"></td> 
+						<td th:text="${l.depositDat}"></td>
+						<td th:text="${l.royaltyPaymentCriteria}"></td>
+						<td th:text="${l.contractPayment}"></td>
+						<td th:text="${l.assurancePayment}"></td>
+						<td th:text="${l.depositPaymentStatus}"></td>
+						<td th:text="${l.ContractStatus}"></td> 
+						<td th:text="${l.operationApproveId}"></td>
+						<td th:text="${l.operationApproveDate}"></td>
 					</tr>
 					<tr th:unless="${adminFinalBranchAgreement != null and not #lists.isEmpty(adminFinalBranchAgreement)}">
-					<td colspan="12">조회된 리스트가 없습니다</td>
+						<td colspan="9">등록된 폐교가 없습니다.</td>
 					</tr>
-					</tbody>
+                  </tbody>
                 </table>
 			    <div class="row justify-content-center mt-5">
 			    	<div class="col-10">			    	
@@ -174,8 +166,7 @@
 		               </ul>
 			    	</div>
 			    </div>
-		    </div>
-		  </div>
+		   
 		  
 		  <!-- search1 modal content -->
           <div id="search1-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
@@ -187,11 +178,11 @@
                       </div>
                       <div class="modal-body">
                          <div class="form-group row justify-content-center">                         	 
-                            <label for="searchItem1" class="col-sm-2 col-form-label card-title font-weight-bolder">가맹점코드</label>
+                            <label for="searchItem1" class="col-sm-2 col-form-label card-title font-weight-bolder">가맹점검색</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="searchItem1" placeholder="가맹점 코드를 입력해주세요">
+                                <input type="text" class="form-control" id="searchBranch" placeholder="가맹점을 입력해주세요">
                             </div>
-                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button">
+                            <button class="btn btn-primary form-control col-sm-3 font-weight-bold" type="button" id="memberId">
                             	<i class="fas fa-search">&ensp;검색</i>
                             </button>
                          </div>
@@ -200,114 +191,36 @@
                       	 <div class="table-responsive">
                              <table class="table table-bordered table-hover text-center">
                                 <thead class="text-dark font-weight-bolder">
-                                   <tr>
-					                    <th scope="col">최종 계약 코드</th>
-					                    <th scope="col">합격여부 코드</th>
-					                    <th scope="col">신청 폐교</th>
-					                    <th scope="col">가맹 신청자 아이디</th>	                
-					                    <th scope="col">운영 시작일</th>
-					                    <th scope="col">운영 종료일</th>
-					                    <th scope="col">운영 교육 기간</th>
-					                    <th scope="col">입금일 지정</th>	                
-					                    <th scope="col">로열티 지급 기준 %</th>	                
-					                    <th scope="col">계약금</th>	                
-					                    <th scope="col">보증금</th>
-					                    <th scope="col">계약금 지불 상태</th>
-					                    <th scope="col">최종 가맹점 계약 현황</th>
-					                    <th scope="col">입금일 지정</th>	                
-					                    <th scope="col">로열티 지급 기준 %</th>	                
-					                </tr>
+                                    <tr>
+						            	<th style="width: 5%;">
+					                    	<input type="checkbox" id="allCheck">
+					                    </th>
+						              	<th class="font-weight-bolder">가맹점 아이디</th>
+						            </tr>
                                 </thead>
-                                <tbody id="tbody">
-									<tr th:if="${adminBranchManagement != null and not #lists.isEmpty(adminBranchManagement)}"
-									th:each="e : ${adminBranchManagement}">
-									<td th:text="${e.branchCode}"></td>
-									<td th:text="${e.memberId}"></td>
-									<td th:text="${e.branchName}"></td>
-									<td th:text="${e.branchAddr}"></td>
-									<td th:text="${e.branchPhone}"></td>
-									<td th:text="${e.branchRepresentative}"></td>
-									<td th:text="${e.branchStartDate}"></td>
-									<td th:text="${e.branchEndDate}"></td>
-									<td th:text="${e.branchImage}"></td>
+                                <tbody class="border border-dark searchTb1">
+                                 	<tr th:if="${adminFinalBranchAgreement != null and not #lists.isEmpty(adminFinalBranchAgreement)}"
+										th:each="l : ${adminFinalBranchAgreement}">
+										<td>
+				                			<input type="checkbox" />
+				            			</td>
+										<td th:text="${l.finalContractCode}"></td>
 									</tr>
-									<tr th:unless="${adminBranchManagement != null and not #lists.isEmpty(adminBranchManagement)}">
-									<td colspan="12">조회된 리스트가 없습니다</td>
-									</tr>
-									</tbody>
-			                </table>
+                                </tbody>
+                              </table>
                           </div>
                       </div>
                   </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
           </div><!-- /.modal -->
-		  <!-- search modal content -->
-          <div id="search2-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                  	  <div class="modal-header">
-                          <h4 class="modal-title" id="modalTitle2">가맹 신청자 조회</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      </div>
-                      <div class="modal-body">
-                         <div class="form-group row justify-content-center">                         	 
-                            <label for="searchItem1" class="col-sm-2 col-form-label card-title font-weight-bolder">가맹 신청 정보</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="searchItem1" placeholder="가맹 신청 아이디를 입력해주세요">
-                            </div>
-                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button">
-                            	<i class="fas fa-search">&ensp;검색</i>
-                            </button>
-                         </div>
-                      </div>
-                      <div class="modal-footer">
-                      	 <div class="table-responsive">
-                             <table class="table table-bordered table-hover text-center">
-                                <thead class="bg-primary text-white">
-                                   <tr>
-					                    <th scope="col">가맹점 코드</th>
-					                    <th scope="col">가맹점 아이디</th>
-					                    <th scope="col">매장명</th>
-					                    <th scope="col">주소</th>	                
-					                    <th scope="col">전화번호</th>
-					                    <th scope="col">가맹점대표</th>
-					                    <th scope="col">영업 시작일</th>
-					                    <th scope="col">영업 종료일</th>	                
-					                    <th scope="col">영업 시작 후 실사 이미지</th>	                
-					                </tr>
-                                </thead>
-                                 <tbody id="tbody">
-									<tr th:if="${adminBranchManagement != null and not #lists.isEmpty(adminBranchManagement)}"
-									th:each="e : ${adminBranchManagement}">
-									<td th:text="${e.branchCode}"></td>
-									<td th:text="${e.memberId}"></td>
-									<td th:text="${e.branchName}"></td>
-									<td th:text="${e.branchAddr}"></td>
-									<td th:text="${e.branchPhone}"></td>
-									<td th:text="${e.branchRepresentative}"></td>
-									<td th:text="${e.branchStartDate}"></td>
-									<td th:text="${e.branchEndDate}"></td>
-									<td th:text="${e.branchImage}"></td>
-									</tr>
-									<tr th:unless="${adminBranchManagement != null and not #lists.isEmpty(adminBranchManagement)}">
-									<td colspan="12">조회된 리스트가 없습니다</td>
-									</tr>
-								</tbody>
-			                </table>
-                          </div>
-                      </div>
-                  </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
+	
 	</th:block>
 	<th:block layout:fragment="customJs">
-		<script>		
+		<script>
 			// modal searchTb1 처리
 			$(document).on('click', '.searchTb1 tr', function(){
-				const code = $(this).children().eq(0).text();
-				const name = $(this).children().eq(1).text();
-				$('#search1Name').val(name);
-				$('#search1Code').val(code);
+				const memberId = $(this).children().eq(1).text();
+				$('#memberId').val(memberId);
 				$('#search1-modal').modal('hide');
 			});
 			
@@ -349,47 +262,118 @@
 			});	
 			
 			// 수정버튼
-			$(document).on('click', '#modifyBtn', function(){
+ 			$(document).on('click', '#modifyBtn', function(){
 				const checkLength = $('.check:checked').length;
-				if(checkLength > 1) {
+				
+				if(checkLength != 1) {
 					alert('한개만 선택해주세요.')
 					return;
 				}
-				
+				const memberId = $('.check:checked').data('memberId')
+				location.href = `/admin/FinalBranchAgreement/getfinalbranchagreementInfo?memberId=${memberId}`;
+
+			});			
+			// searchItem1 검색한 값이 있는지 확인하고 표시
+			$(document).on('click','#branchName',function(){
+				let searchValue = $('#branchName').val();
+				searchValue??'';
+				const request = $.ajax({
+					url: '/admin/FinalBranchAgreement/getfinalbranchagreement',
+					method:'POST',
+				    data:{'searchValue': searchValue},
+				    dataType:'json',
+				});
+				request.done(function(res){
+					console.log(res)
+					$('.searchTb1').html('');
+					let contents = ``;
+					$(res).each(function(idx, item){
+						contents += `<tr>`;
+						contents += `	<td><input type="checkbox" /></td>`;
+						contents += `	<td>${item.closeSchoolName}</td>`;
+						contents += `	<td>${item.branchCurrentSituation}</td>`;
+						contents += `	<td>${item.memberId}</td>`;
+						contents += `</tr>`;
+					})
+					$('.searchTb1').html(contents);
+				});
+				request.fail(function(jQXHR, textStatus, err){
+					console.log(err);
+				});
 			});
-			// 검색버튼 알림창
-			$(document).on('click', '#searchbranch', function(){
-				
-				alert('click')
-			})
+			
+			// 전체검색
+			$(document).on('click', '#totalCloseChoolSearchBtn', function () {
+		    const searchArr = [];
+		
+		    $('.search-items').each(function (idx, item) {
+		        const searchObj = {};
+		        searchObj.searchKey = item.id;
+		        searchObj.searchValue = item.value;
+		        searchArr.push(searchObj);
+		    });
+		    console.log("searchArr 확인 용입니다.", searchArr);
+		
+		    const request = $.ajax({
+		        url: '/admin/closeSchool/getCloseSchoolSearchTotal',
+		        method: 'POST',
+		        contentType: 'application/json; charset=utf-8',
+		        data: JSON.stringify(searchArr),
+		        dataType: 'json',
+		    });
+		
+		    request.done(function (res) {
+		        console.log("res 확인용입니다.", res);
+		       
+		        const  searchTotal = res;
+				$('#searchResult').html('');
+				if(searchTotal == null || searchTotal.length < 1){
+					const newTr = $('<tr />');
+					const newTd = $('<td />',{'colspan': 11}).text('검색에 일치되는 내용이 없습니다.');
+					newTr.append(newTd);
+					$('#searchResult').append(newTr);
+					return;
+				}
+				$(searchTotal).each(function(idx, item){
+					const newTr = $('<tr />');
+					const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-close-school-name' : item.closeSchoolName});
+					const newTdCheckBox = 						$('<td />').html(checkBox);
+					const newTdcloseSchoolName = 				$('<td />').text(item.closeSchoolName);
+					const newTdcloseSchoolImg = 				$('<td />').text(item.closeSchoolImg);
+					const newTdcloseSchoolArea = 				$('<td />').text(item.closeSchoolArea);
+					const newTdroadAddress = 					$('<td />').text(item.roadAddress);
+					const newTdroadAddressDetail = 				$('<td />').text(item.roadAddressDetail);
+					const newTdbranchCurrentSituation = 		$('<td />').text(item.branchCurrentSituation);
+					const newTdpurchaseAmount = 				$('<td />').text(item.purchaseAmount);
+					const newTdsystemRegistrationDate = 		$('<td />').text(item.systemRegistrationDate);
+					const newTdlastModifiedDate = 				$('<td />').text(item.lastModifiedDate);
+					const newTdviewMapImg = 					$('<td />').text(item.viewMapImg);
+					const newTdmemberId = 						$('<td />').text(item.memberId);
+					
+					newTr.append(newTdCheckBox,
+							newTdcloseSchoolName,
+							newTdcloseSchoolImg,
+							newTdcloseSchoolArea,
+							newTdroadAddress,
+							newTdroadAddressDetail, 
+							newTdbranchCurrentSituation,
+							newTdpurchaseAmount,
+							newTdsystemRegistrationDate,
+							newTdlastModifiedDate,
+							newTdviewMapImg,
+							newTdmemberId); 
+					$('#searchResult').append(newTr);
+				});					
+		        
+		    });
+		
+		    request.fail(function (jQXHR, textStatus, err) {
+		        console.log(err);
+		    });
+		});
+					
+			
 			
 		</script>
 	</th:block>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </html>
