@@ -24,4 +24,27 @@
 		FROM 
 			set_stay_period;
 	</select>
+	
+	<select id="getMemberIdSearch" resultMap="reservationResultMap" parameterType="String">
+		/* 모달검색 멤버아이디 */
+		SELECT 
+			sp.stay_period_code, 
+			m.member_id, 
+			sp.branch_code,
+			sp.check_in,
+			sp.check_out, 
+			sp.number_of_stays, 
+			sp.reserv_registration_date
+		FROM 
+			set_stay_period AS sp
+			INNER JOIN
+			member AS m
+			ON 
+			sp.member_id = m.member_id
+		<where>
+			<if test="searchMemberId != null and searchMemberId != ''">
+				m.member_id LIKE CONCAT('%',  #{searchMemberId}, '%')
+			</if>
+		</where>
+	</select>
 </mapper>

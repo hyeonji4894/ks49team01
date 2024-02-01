@@ -21,6 +21,6 @@
 		FROM
 			room_option_list AS ol
 		WHERE 
-			ol.room_option_number = 'option_01';
+			ol.room_option_number = #{roomOptionNumber};
 	</select>
 </mapper>

@@ -182,7 +182,6 @@
                                         <th>등록자ID</th>
                                     </tr>
                                 </thead>
-                                <tbody class="border border-dark searchTb1">
                                     <tr th:if="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}"
 	            	 	  				th:each="r : ${roomInfoList}">
                                         <td th:text="${r.branchName}"></td>
