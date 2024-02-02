@@ -190,7 +190,7 @@
 				let searchMileageId = $('#searchMileageId').val();
 				searchMileageId??'';
 				const request = $.ajax({
-					url:'/admin/mileage/searchForMileageId',
+					url:'/admin/mileage/getSearchMileageId',
 					method:'POST',
 					data:{'searchMileageId' : searchMileageId},
 					dataType:'json',
@@ -235,7 +235,7 @@
 				console.log(searchArr);
 				
 				const request = $.ajax({
-					url : '/admin/mileage/getSearchMileageId',
+					url : '/admin/mileage/getSearchMileageList',
 					method : 'POST',
 					contentType : 'application/json; charset=UTF-8',
 					data: JSON.stringify(searchArr),

@@ -33,6 +33,12 @@ public class UserReviewController {
 		return "user/review/get_review";
 	}
 	
+	@GetMapping("/getReviewDetail")
+	public String getReviewDetail(Model model) {
+		
+		return "user/review/get_review_detail";
+	}
+	
 	@GetMapping("/selectCategory")
 	public String selectCategory(Model model){
 		

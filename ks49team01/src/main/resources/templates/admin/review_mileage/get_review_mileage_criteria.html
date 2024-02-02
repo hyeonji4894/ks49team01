@@ -78,7 +78,7 @@
 		              <tr th:if="${reviewMileageCriteria != null and not #lists.isEmpty(reviewMileageCriteria)}"
 		            	  th:each="l : ${reviewMileageCriteria}">
 	                 	<td style="width: 5%;">
-	                    	<input type="checkbox" class="check" th:data-mileage-criteria-code="${l.mileageCriteriaCode}">
+	                    	<input type="checkbox" name="check" class="check" th:data-mileage-criteria-code="${l.mileageCriteriaCode}">
 	                  	</td>			              
 		                <td th:text="${l.mileageCriteriaCode}"></td>
 		                <td th:text="${l.mileageKind}"></td>

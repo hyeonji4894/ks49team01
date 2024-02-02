@@ -165,8 +165,64 @@ public class AdminCouponController {
 		return "admin/coupon/get_coupon_list";
 	}
 	
+	// 쿠폰지급내역 등록
+	@GetMapping("/addCouponList")
+	public String addCouponList(Model model) {
+		
+		log.info("title", "쿠폰지급내역 등록");
+
+		return "admin/coupon/addCouponList";
+	}
 	
+	// 쿠폰지급내역 수정
+	@GetMapping("/modifyCouponList")
+	public String modifyCouponList(Model model) {
+		
+		log.info("title", "쿠폰지급내역 수정");
+		
+		return "admin/coupon/modifyCouponList";
+	}
 	
+	// 쿠폰지급내역 삭제
+	@GetMapping("/removeCouponList")
+	public String removeCouponList(Model model) {
+		
+		log.info("title", "쿠폰지급내역 삭제");
+		
+		return "admin/coupon/removeCouponList";
+	}
 	
+	// 쿠폰지급받은 회원아이디 검색(모달)
+	@PostMapping("/getSearchCouponId")
+	@ResponseBody
+	public List<AdminCoupon> getSearchCouponId(@RequestParam(value="searchCouponId") String memberId) {
+		
+		log.info("memberId: {}", memberId);
+		
+		 List<AdminCoupon> searchCouponId = adminCouponService.getSearchCouponId(memberId);
+		
+		return searchCouponId;
+	}	
 	
+	// 쿠폰지급내역 최종검색
+	@PostMapping("/getSearchCouponList")
+	@ResponseBody
+	public List<AdminCoupon> getSearchCouponList(@RequestBody List<Map<String, Object>> paramList) {
+		
+		log.info("검색 조건 선택:{}" , paramList);
+		if(paramList != null) {
+			paramList.forEach(searchMap -> {
+				String searchKey = (String) searchMap.get("searchKey");
+				switch (searchKey) {
+					case "memberId" -> searchKey = "member_id";
+				}
+				searchMap.put("searchKey", searchKey);
+			});
+		}
+		
+		log.info("선택 조건 검색: {}", paramList);
+		
+		 List<AdminCoupon> searchCouponList = adminCouponService.getSearchCouponList(paramList);
+		return searchCouponList;
+	}	
 }

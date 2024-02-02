@@ -1,11 +1,13 @@
 package ks49team01.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminMileageController {
 	
 	private final AdminMileageService adminMileageService;
+	
 	
 	// 결제적립금 기준 조회
 	@GetMapping("/getPaymentCriteriaMileage")
@@ -206,19 +209,7 @@ public class AdminMileageController {
 		return "admin/mileage/get_mileage_list";
 	}
 	
-	// 적립금지급받은 회원아이디 검색
-	@PostMapping("/searchForMileageId")
-	@ResponseBody
-	public List<AdminMileage> searchForMileageId(@RequestParam(value="searchMileageId") String memberId) {
-		
-		log.info("memberId: {}", memberId);
-		
-		 List<AdminMileage> searchMileageId = adminMileageService.getSearchMileageId(memberId);
-		
-		return searchMileageId;
-	}	
-	
-	// 적립금지급내역 최종검색
+	// 적립금지급받은 회원아이디 검색(모달)
 	@PostMapping("/getSearchMileageId")
 	@ResponseBody
 	public List<AdminMileage> getSearchMileageId(@RequestParam(value="searchMileageId") String memberId) {
@@ -228,6 +219,29 @@ public class AdminMileageController {
 		 List<AdminMileage> searchMileageId = adminMileageService.getSearchMileageId(memberId);
 		
 		return searchMileageId;
+	}	
+	
+	// 적립금지급내역 최종검색
+	@PostMapping("/getSearchMileageList")
+	@ResponseBody
+	public List<AdminMileage> getSearchMileageList(@RequestBody List<Map<String, Object>> paramList) {
+		
+		log.info("검색 조건 선택:{}" , paramList);
+		if(paramList != null) {
+			paramList.forEach(searchMap -> {
+				String searchKey = (String) searchMap.get("searchKey");
+				switch (searchKey) {
+					case "memberId" -> searchKey = "member_id";
+				}
+				searchMap.put("searchKey", searchKey);
+			});
+		}
+		
+		log.info("선택 조건 검색: {}", paramList);
+		
+		 List<AdminMileage> searchMileageList = adminMileageService.getSearchMileageList(paramList);
+		
+		return searchMileageList;
 	}	
 	
 	

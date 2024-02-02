@@ -38,7 +38,13 @@ public interface AdminCouponMapper {
 	// 쿠폰지급내역 목록조회
 	List<AdminCoupon> getCouponList();
 	
-}
+	// 쿠폰지급내역 지급받은아이디 검색(모달)
+	List<AdminCoupon> getSearchCouponId(String memberId);
+		
+	// 쿠폰 지급받은 아이디 최종검색
+	List<AdminCoupon> getSearchCouponList(List<Map<String, Object>> paramList);
+	}
+
 	
 	
 	

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks49team01.admin.mapper.AdminMileageMapper">
 
-	<resultMap type="AdminMileage" id="MileageResultMap">
+	<resultMap type="AdminMileage" id="mileageResultMap">
 		<id column="mileage_list_code" 					property="mileageListCode"/>
 		<result column="member_id" 						property="memberId"/>
 		<result column="payments_due_code" 				property="paymentsDueCode"/>
@@ -12,7 +12,7 @@
 	</resultMap>
 	
 	<!-- 적립금지급내역 조회 -->
- 	<select id="getMileageList" resultMap="MileageResultMap">
+ 	<select id="getMileageList" resultMap="mileageResultMap">
 		SELECT
 			ml.mileage_list_code,
 			ml.member_id,
@@ -24,13 +24,13 @@
  	</select>
  	
  	<!-- 적립금지급내역 아이디 검색 (모달)-->
-	<select id="getSearchMileageId" resultMap="MileageResultMap" parameterType="String">
+	<select id="getSearchMileageId" resultMap="mileageResultMap" parameterType="String">
 		SELECT
 			ml.mileage_list_code,
 			ml.member_id,
 			ml.mileage_kind
 		FROM
-			mileage_list as ml;
+			mileage_list as ml
 		<where>
 			<if test="memberId != null and memberId != ''">
 				ml.member_id LIKE CONCAT('%', #{memberId}, '%')
@@ -38,8 +38,8 @@
 		</where>
 	</select>
 	
-	<!-- 리뷰댓글 목록 최종검색 -->
-   	<select id="getSearchByMileageId" resultMap="MileageResultMap" parameterType="list">
+	<!-- 적립금지급내역 최종검색 -->
+   	<select id="getSearchMileageList" resultMap="mileageResultMap" parameterType="list">
 		SELECT
 			ml.mileage_list_code,
 			ml.member_id,

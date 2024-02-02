@@ -1,6 +1,7 @@
 package ks49team01.admin.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -46,6 +47,9 @@ public interface AdminMileageMapper {
 	// 적립금지급내역 목록조회
 	List<AdminMileage> getMileageList();
 	
-	// 적립금지급내역 지급받은아이디 검색
+	// 적립금지급내역 지급받은아이디 검색(모달)
 	List<AdminMileage> getSearchMileageId(String memberId);
+	
+	// 적립금 지급받은 아이디 최종검색
+	List<AdminMileage> getSearchMileageList(List<Map<String, Object>> paramList);
 }

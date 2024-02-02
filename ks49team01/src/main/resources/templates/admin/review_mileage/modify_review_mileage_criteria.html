@@ -64,37 +64,36 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<form id="addReviewMileageForm" method="post" th:action="@{/admin/mileage/modifyReviewMileageCriteria}" th:object="${adminReviewMieageCriteria}">	
+		<form id="addReviewMileageForm" method="post" th:action="@{/admin/mileage/modifyReviewMileageCriteria}" th:object="${adminReviewMileageCriteria}">	
 			<div class="card mb-4">
 				<div class="card-body ml-4 mr-4">
 					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">적립금등급 이름</div>
 						<div class="col-10">
 							<input type="text" class="form-control" name="mileageKind" id="mileageKind" th:value="*{mileageKind}">
-							<input type="hidden" class="form-control" id="mileageCriteriaCode" name="mileageCriteriaCode" th:value="*{mileageCriteriaCode}">						
+							<input type="hidden" class="form-control" name="mileageCriteriaCode" id="mileageCriteriaCode" th:value="*{mileageCriteriaCode}">						
 						</div>
 					</div>				
 					<div class="row border add-form">
 						<div class="col-2 add-form-label border-end">적립금 금액</div>
 						<div class="col-10">
 							<input type="text" class="form-control" name="mileageAmount" id="mileageAmount" th:value="*{mileageAmount}">
-						</div>															
-					</div>
-					<div class="row mb-3">
-						<div class="col-sm-3">
-							<div class="col-sm-9">
-						   		<div class="btn-list text-right">
-				                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/mileage/getReviewMileageCriteria}"><i class=" fas fa-clipboard-list"></i>
-				                        목록</a>
-				                    <button type="submit" class="btn btn-outline-success" id="modifyBtn"><i class="fas fas fa-pencil-alt"></i>
-				                        수정</button>
-				                    <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
-				                        재설정</button>&emsp;
-				                </div>
-						   	</div>
 						</div>
-					</div>
-				</div> 
+					</div>															
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/mileage/getReviewMileageCriteria}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="submit" class="btn btn-outline-success" id="modifyBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        수정</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>&emsp;
+		                </div>
+				  	</div>
+				</div>
 			</div>
 		</form>   	
 	</th:block>

@@ -1,6 +1,7 @@
 package ks49team01.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,9 +97,15 @@ public class AdminMileageService {
 				
 	}
 	
-	// 적립금지급내역 지급받은아이디 검색
+	// 적립금지급내역 지급받은아이디 검색(모달)
 	public List<AdminMileage> getSearchMileageId(String memberId){
 		
 		return adminMileageMapper.getSearchMileageId(memberId);
+	}
+	
+	// 조건에 따른 적립금 목록 검색(최종)
+	public List<AdminMileage> getSearchMileageList(List<Map<String, Object>> paramList){
+		
+		return adminMileageMapper.getSearchMileageList(paramList);
 	}
 }
