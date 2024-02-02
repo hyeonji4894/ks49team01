@@ -194,6 +194,7 @@
                                         <th>아이디</th>
                                     </tr>
                                 </thead>
+                                <tbody class="searchTb1">
                                     <tr th:if="${reservationSearchList != null and not #lists.isEmpty(reservationSearchList)}"
 	            	 	  				th:each="r : ${reservationSearchList}">
                                         <td th:text="${r.memberId}"></td>

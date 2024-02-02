@@ -85,11 +85,11 @@
 		    		</div>	    	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/room/addRoomInfo}"><i class="fas fas fa-pencil-alt"></i>
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/branch/room/addRoomInfo}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/room/modifyRoomInfo}"><i class="fas fa-undo"></i>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/branch/room/modifyRoomInfo}"><i class="fas fa-undo"></i>
                                수정</button>
-                           <button type="submit" class="btn btn-outline-danger" id="delBtn" th:href="@{/admin/room/removeRoomInfo}"><i class="fas fa-trash-alt"></i>
+                           <button type="submit" class="btn btn-outline-danger" id="delBtn" th:href="@{/branch/room/removeRoomInfo}"><i class="fas fa-trash-alt"></i>
                                삭제</button>
                        </div>
 			    	</div>
@@ -127,7 +127,7 @@
 		                 <td th:text="${r.roomRegistrationDate}"></td>
 	               		 <td th:text="${r.registrantId}"></td>
 	              	</tr>
-                  </tbody> 
+                  </tbody>
                 </table>
 			    <div class="row justify-content-center mt-5">
 			    	<div class="col-10">			    	
@@ -182,6 +182,7 @@
                                         <th>등록자ID</th>
                                     </tr>
                                 </thead>
+                                <tbody class="border border-dark searchTb1">
                                     <tr th:if="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}"
 	            	 	  				th:each="r : ${roomInfoList}">
                                         <td th:text="${r.branchName}"></td>
@@ -206,7 +207,7 @@
 				let searchBranchName = $('#searchBranchName').val();
 				searchBranchName??'';
 				const request = $.ajax({
-					url: '/admin/room/searchRoomName',
+					url: '/branch/room/searchRoomName',
 					method: 'POST',
 					data: {'searchBranchName' : searchBranchName},
 					dataType: 'json',
@@ -253,7 +254,7 @@
 				console.log(searchArr);
 				
 				const request = $.ajax({
-					url : '/admin/room/searchRoomInfo',
+					url : '/branch/room/searchRoomInfo',
 					method : 'POST',
 					contentType : 'application/json; charset=UTF-8',
 					data: JSON.stringify(searchArr),
@@ -348,7 +349,7 @@
 					return;
 				}
 				const roomCode = $('.check:checked').data('roomCode')
-				location.href = `/admin/room/modifyRoomInfo?roomCode=${roomCode}`;
+				location.href = `/branch/room/modifyRoomInfo?roomCode=${roomCode}`;
 				
 			});
 			
@@ -370,7 +371,7 @@
 				}
 				console.log(newChkArr);	
 				const request = $.ajax({
-					url : '/admin/room/removeRoomInfo',
+					url : '/branch/room/removeRoomInfo',
 					method : 'POST',
 					contentType : 'application/json; charset=UTF-8',
 					data: JSON.stringify(newChkArr),
@@ -385,7 +386,6 @@
 					console.log(error);
 				});
 			})
-			
 			
 			
 		</script>

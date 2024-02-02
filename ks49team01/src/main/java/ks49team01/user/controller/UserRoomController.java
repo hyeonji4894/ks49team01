@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpSession;
 import ks49team01.user.dto.UserRoom;
 import ks49team01.user.dto.UserRoomOption;
 import ks49team01.user.mapper.UserRoomMapper;
-import ks49team01.user.mapper.UserRoomOptionMapper;
 import ks49team01.user.service.UserRoomOptionService;
 import ks49team01.user.service.UserRoomService;
 import lombok.AllArgsConstructor;
