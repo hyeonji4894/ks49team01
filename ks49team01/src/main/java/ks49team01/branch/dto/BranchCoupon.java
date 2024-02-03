@@ -1,23 +1,22 @@
 package ks49team01.branch.dto;
 
+import java.time.LocalDate;
+
 import lombok.Data;
 
 @Data
 public class BranchCoupon {
-
+	
 	private String couponCode;
 	private String memberId;
 	private String couponName;
-	private String couponPrice;
+	private int couponPrice;
 	private String couponDueDate;
-	private String couponKindRegisterDate;
+	private LocalDate couponKindRegisterDate;
 	
-	private String couponPrintCode;
-	private String branchCode;
-	private String couponMemberId;
-	private String couponIssueDate;
-	private String couponExpireDate;
-	private String couponState;
-	private String couponRegisterDate;
-	
+	private String couponListCode;
+	private String couponGiveId;
+	private LocalDate couponGiveDate;
+	private LocalDate couponExpireDate;
+	private LocalDate couponListRegisterDate;
 }

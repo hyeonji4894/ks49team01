@@ -24,7 +24,7 @@ public class AdminCouponService {
 	public void addCouponKind(AdminCoupon adminCoupon) {
 		log.info("쿠폰종류 insert 전 adminCoupon: {}", adminCoupon);
 		adminCouponMapper.addCouponKind(adminCoupon);
-		log.info("쿠폰종류 insert 전 adminCoupon: {}", adminCoupon);
+		log.info("쿠폰종류 insert 후 adminCoupon: {}", adminCoupon);
 		
 	}
 	

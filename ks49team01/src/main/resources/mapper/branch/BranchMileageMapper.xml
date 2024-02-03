@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.branch.mapper.BranchMileageMapper">
+
+	<resultMap type="BranchMileage" id="mileageResultMap">
+		<id column="mileage_list_code" 					property="mileageListCode"/>
+		<result column="member_id" 						property="memberId"/>
+		<result column="payments_due_code" 				property="paymentsDueCode"/>
+		<result column="mileage_kind" 					property="mileageKind"/>
+		<result column="mileage_save_price" 			property="mileageSavePrice"/>
+		<result column="mileage_list_register_date" 	property="mileageListRegisterDate"/>
+	</resultMap>
+	
+	<!-- 적립금지급내역 조회 -->
+ 	<select id="getMileageList" resultMap="mileageResultMap">
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.mileage_kind,
+			ml.mileage_save_price,
+			ml.mileage_list_register_date
+		FROM
+			mileage_list AS ml;
+ 	</select>
+ 	
+ 	<!-- 적립금지급내역 아이디 검색 (모달)-->
+	<select id="getSearchMileageId" resultMap="mileageResultMap" parameterType="String">
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.mileage_kind
+		FROM
+			mileage_list as ml
+		<where>
+			<if test="memberId != null and memberId != ''">
+				ml.member_id LIKE CONCAT('%', #{memberId}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 적립금지급내역 최종검색 -->
+   	<select id="getSearchMileageList" resultMap="mileageResultMap" parameterType="list">
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.mileage_kind,
+			ml.mileage_save_price,
+			ml.mileage_list_register_date
+		FROM
+			mileage_list AS ml
+		<where>
+			<foreach collection="paramList" item="item">
+				<if test="item.searchKey != null and item.searchKey != ''">						
+					AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue},'%')										
+				</if>
+			</foreach>
+		</where>			
+ 	</select>  		
+		
+</mapper>
