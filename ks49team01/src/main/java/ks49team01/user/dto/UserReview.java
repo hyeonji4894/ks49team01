@@ -21,4 +21,7 @@ public class UserReview {
 	private String FileAttribute;
 	private String roomName;
 	private String branchName;
+	private String checkIn;
+	private String checkOut;
+	private String chosenCategory;
 }
