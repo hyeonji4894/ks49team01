@@ -59,8 +59,8 @@
 		        <div class="col-lg-2 align-self-center">
 		          <div class="row justify-content-center">
 		            <div class="col-8">
-		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;" id="totalSearchBtn">
-		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
+		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 80px;" id="totalSearchBtn">
+		                <i class="fas fa-search mr-20" style="font-size: 20px;">&ensp;검색</i>
 		              </button>
 		            </div>
 		          </div>
@@ -79,24 +79,12 @@
 					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(optionList)}"></label> 건
 					    	]
 				    	</h5>
-		    		</div>	    	
-			    	<div class="col-sm-9">
-			    		<div class="btn-list text-right">
-                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{#}"><i class="fas fas fa-pencil-alt"></i>
-                               등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{#}"><i class="fas fa-undo"></i>
-                               수정</button>
-                           <button type="button" class="btn btn-outline-danger" id="delBtn" th:href="@{#}"><i class="fas fa-trash-alt"></i>
-                               삭제</button>
-                       </div>
-			    	</div>
+		    		</div>
 		    	</div>
 		    	
 		    	<table class="table table-bordered table-hover text-center search-result">
                   <thead class="h5 text-dark">
                       <tr>
-                      	  <th style="width: 5%;">
-                            <input type="checkbox" id="allCheck">
                           <th class="font-weight-bolder">옵션번호</th>
                           <th class="font-weight-bolder">카테고리</th>
                           <th class="font-weight-bolder">옵션 명</th>
@@ -108,9 +96,6 @@
                   <tbody class="border text-dark" id="searchOptionTbody">
                   	<tr th:if="${optionList != null and not #lists.isEmpty(optionList)}"
                          th:each="o : ${optionList}">
-                  		<td style="width: 5%;">
-                        	<input type="checkbox" name="check" class="check" th:data-room-option-number="${o.roomOptionNumber}">
-                      	</td>
                         <td th:text="${o.roomOptionNumber}"></td>
                         <td th:text="${o.roomOptionCate}"></td>
 	                 	<td th:text="${o.roomOptionName}"></td>
