@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import ks49team01.user.dto.UserRoom;
 import ks49team01.user.dto.UserRoomOption;
 import ks49team01.user.mapper.UserRoomMapper;
-import ks49team01.user.mapper.UserRoomOptionMapper;
+import ks49team01.user.service.UserRoomOptionService;
 import ks49team01.user.service.UserRoomService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class UserRoomController {
 	
 	private final UserRoomService roomService;
 	private final UserRoomMapper roomMapper;
-	private final UserRoomService optionService;
+	private final UserRoomOptionService optionService;
 
 	
 	@GetMapping("/cancelReserv")
@@ -54,9 +54,13 @@ public class UserRoomController {
 	@GetMapping("/roomTotalAmount")
 	public String roomTotalAmount(Model model) {
 		
+		List<UserRoomOption> roomOptionList = optionService.getOptionLis();
+		log.info("roomOptionList :{}",roomOptionList);
+		
 		log.info("선택정보및총금액확인");
 		
 		model.addAttribute("title", "선택정보및총금액확인");
+		model.addAttribute("roomOptionList",roomOptionList);
 		
 		return "user/room/confirm_room_total_amount";
 	}
@@ -83,9 +87,11 @@ public class UserRoomController {
 		log.info("roomInfo: {}", roomInfo);
 		
 		// 인원추가 옵션
-		//List<UserRoomOption> addPeopleOption = optionService.getRoomOptionList();
-				
+		//List<UserRoomOption> roomOptionByPersonnel = optionService.getOptionByPersonnel();
+		//log.info("roomOptionByPersonnel :{}",roomOptionByPersonnel);
+		
 		model.addAttribute("roomInfo", roomInfo);
+		//model.addAttribute("roomOptionByPersonnel", roomOptionByPersonnel);
 		
 		return "user/room/room_Detail_veiw";
 	}

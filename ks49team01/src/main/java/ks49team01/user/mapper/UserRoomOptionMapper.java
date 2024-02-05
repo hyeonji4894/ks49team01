@@ -10,5 +10,8 @@ import ks49team01.user.dto.UserRoomOption;
 public interface UserRoomOptionMapper {
 	
 	// 옵션 리스트
-	public List<UserRoomOption> getRoomOptionList();
+	public List<UserRoomOption> getOptionList();
+	
+	// 인원 추가 옵션 조건
+	public List<UserRoomOption> getOptionByPersonnel();
 }
