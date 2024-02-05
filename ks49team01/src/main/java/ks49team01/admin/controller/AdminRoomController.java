@@ -81,6 +81,7 @@ public class AdminRoomController {
 		
 		log.info("객실등록 adminRoom: {}",adminRoom);
 		
+		// 관리자 로그인 가능할 때 사용
 		//String sessionId = (String) session.getAttribute("SID");
 		//adminRoom.setRegistrantId(sessionId);
 		
