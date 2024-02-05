@@ -76,11 +76,11 @@
 		    		</div>	    	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/admin/coupon/addCouponList}"><i class="fas fas fa-pencil-alt"></i>
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{#}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/admin/coupon/modifyCouponList}"><i class="fas fa-undo"></i>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{#}"><i class="fas fa-undo"></i>
                                수정</button>
-                           <button type="button" class="btn btn-outline-danger" id="delBtn" th:href="@{/admin/coupon/removeCouponList}"><i class="fas fa-trash-alt"></i>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn" th:href="@{#}"><i class="fas fa-trash-alt"></i>
                                삭제</button>
                        </div>
 			    	</div>
@@ -169,16 +169,16 @@
                                 <thead class="text-dark font-weight-bolder">
                                     <tr>
                                         <th>쿠폰코드</th>
-                                        <th>쿠폰이름</th>
                                         <th>아이디</th>
+                                        <th>쿠폰이름</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border border-dark searchTb1">
 	          		 	 			<tr th:if="${couponList != null and not #lists.isEmpty(couponList)}"
 			            	 			th:each="l : ${couponList}">
                                         <td th:text="${l.couponListCode}"></td>
-						                <td th:text="${l.couponName}"></td>
 						                <td th:text="${l.memberId}"></td>
+						                <td th:text="${l.couponName}"></td>
                                     </tr>
                                 </tbody>
                               </table>
@@ -209,8 +209,8 @@
 					$(res).each(function(idx, item){						
 						content += `<tr>`;
 						content += `	<td>${item.couponListCode}</td>`;
-						content += `	<td>${item.couponName}</td>`;
 						content += `	<td>${item.memberId}</td>`;
+						content += `	<td>${item.couponName}</td>`;
 						content += `</tr>`;						
 					});
 					$('.searchTb1').html(content);
@@ -328,7 +328,8 @@
 					alert('한개만 선택해주세요.')
 					return;
 				}
-				
+				const couponListCode = $('.check:checked').data('couponListCode');
+				location.href = `/admin/coupon/modifyCouponList?couponListCode=${couponListCode}`;								
 			});
 			
 			

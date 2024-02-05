@@ -90,11 +90,33 @@ public class BranchMileageService {
 	
 	
 	
-	// 적립금목록 조회
+	// 적립금지급내역 목록조회
 	public List<BranchMileage> getMileageList(){
 		
 		return branchMileageMapper.getMileageList();
 				
+	}
+	
+	// 적립금지급내역 등록
+	public void addMileageList(BranchMileage branchMileage) {
+		
+		log.info("적립금내역 insert 전 branchMileage: {}", branchMileage);
+		branchMileageMapper.addMileageList(branchMileage);
+		log.info("적립금내역 insert 후 branchMileage: {}", branchMileage);
+	}
+	
+	// 특정코드로 적립금지급내역 조회
+	public BranchMileage getMileageListByCode(String mileageListCode) {
+		
+		BranchMileage branchMileage = branchMileageMapper.getMileageListByCode(mileageListCode);
+		
+		return branchMileage;
+	}
+	
+	// 특정코드로 적립금지급내역 수정
+	public void modifyMileageList(BranchMileage branchMileage) {
+		int result = branchMileageMapper.modifyMileageList(branchMileage);
+		if(result > 0) log.info("적립금지급내역 수정완료");
 	}
 	
 	// 적립금지급내역 지급받은아이디 검색(모달)

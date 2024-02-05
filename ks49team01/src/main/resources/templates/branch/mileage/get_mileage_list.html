@@ -317,7 +317,8 @@
 					alert('한개만 선택해주세요.')
 					return;
 				}
-				
+				const mileageListCode = $('.check:checked').data('mileageListCode');
+				location.href = `/branch/mileage/modifyMileageList?mileageListCode=${mileageListCode}`;								
 			});
 			
 			

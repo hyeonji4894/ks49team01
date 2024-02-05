@@ -165,22 +165,54 @@ public class AdminCouponController {
 		return "admin/coupon/get_coupon_list";
 	}
 	
-	// 쿠폰지급내역 등록
+	// 쿠폰지급내역 등록화면
 	@GetMapping("/addCouponList")
 	public String addCouponList(Model model) {
 		
 		log.info("title", "쿠폰지급내역 등록");
+		
+		model.addAttribute("title", "쿠폰지급내역 등록");
+		
+		return "admin/coupon/add_coupon_list";
+	}
+	
+	// 쿠폰지급내역 등록
+	@PostMapping("/addCouponList")
+	public String addCouponList(AdminCoupon adminCoupon, HttpSession session) {
+		
+		log.info("쿠폰지급내역 등록 adminCoupon: {}", adminCoupon);
+		
+		adminCouponService.addCouponList(adminCoupon);
+		
+		return "redirect:/admin/coupon/getCouponList";
+	}
+	
 
-		return "admin/coupon/addCouponList";
+	// 쿠폰지급내역 수정
+	@GetMapping("/modifyCouponList")
+	public String modifyCouponList(@RequestParam(value="couponListCode")String couponListCode
+									,Model model) {
+		
+		log.info("쿠폰지급내역 수정 couponListCode: {}", couponListCode);
+		
+		// 특정코드 조회
+		AdminCoupon adminCoupon = adminCouponService.getCouponListByCode(couponListCode);
+		
+		model.addAttribute("adminCoupon", adminCoupon);
+		
+		return "admin/coupon/modify_coupon_list";
 	}
 	
 	// 쿠폰지급내역 수정
-	@GetMapping("/modifyCouponList")
-	public String modifyCouponList(Model model) {
+	@PostMapping("/modifyCouponList")
+	public String modifyCouponList(AdminCoupon adminCoupon, HttpSession session) {
 		
-		log.info("title", "쿠폰지급내역 수정");
+		log.info("쿠폰지급내역 수정: {}", adminCoupon);
+	
+		// 특정코드로 수정
+		adminCouponService.modifyCouponList(adminCoupon);
 		
-		return "admin/coupon/modifyCouponList";
+		return "redirect:/admin/coupon/getCouponList";
 	}
 	
 	// 쿠폰지급내역 삭제

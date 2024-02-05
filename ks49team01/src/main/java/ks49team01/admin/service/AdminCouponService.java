@@ -71,6 +71,28 @@ public class AdminCouponService {
 		return adminCouponMapper.getCouponList();
 	}
 	
+	// 쿠폰지급내역 등록
+	public void addCouponList(AdminCoupon adminCoupon) {
+		
+		log.info("쿠폰지급내역 insert 전 adminCoupon: {}", adminCoupon);
+		adminCouponMapper.addCouponList(adminCoupon);
+		log.info("쿠폰지급내역 insert 후 adminCoupon: {}", adminCoupon);
+	}
+	
+	// 특정코드로 쿠폰지급내역 조회
+	public AdminCoupon getCouponListByCode(String couponListCode) {
+		
+		AdminCoupon adminCoupon = adminCouponMapper.getCouponListByCode(couponListCode);
+		
+		return adminCoupon;
+	}
+	
+	// 특정코드로 쿠폰지급내역 수정
+	public void modifyCouponList(AdminCoupon adminCoupon) {
+		int result = adminCouponMapper.modifyCouponList(adminCoupon);
+		if(result > 0) log.info("쿠폰지급내역 수정완료");
+	}
+	
 	// 쿠폰지급내역 지급받은아이디 검색(모달)
 		public List<AdminCoupon> getSearchCouponId(String memberId){
 			

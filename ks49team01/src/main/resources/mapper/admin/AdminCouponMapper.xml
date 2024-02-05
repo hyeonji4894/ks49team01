@@ -149,14 +149,13 @@
 	</resultMap>
 	
 	
-	
-	
 	<!-- 쿠폰지급내역 조회 -->
  	<select id="getCouponList" resultMap="couponListResultMap">
 		SELECT
 			cl.coupon_list_code,
 			cl.coupon_give_id,
 			cl.member_id,
+			cl.coupon_code,
 			eck.coupon_name,
 			eck.coupon_price,
 			cl.coupon_give_date,
@@ -169,6 +168,75 @@
 			ON
 			cl.coupon_code = eck.coupon_code;	
  	</select>
+	
+	<!-- 쿠폰지급내역 등록 -->
+	<insert id="addCouponList" parameterType="AdminCoupon">
+		<selectKey keyProperty="couponListCode" resultType="String" order="BEFORE">
+			/* coupon_list_code 자동증가 */
+			SELECT
+				CASE
+				WHEN COUNT(cl.coupon_list_code) = 0 THEN 'coupon_list_code1'
+				ELSE
+					CONCAT('coupon_list_code',(MAX(CAST(SUBSTRING_INDEX(cl.coupon_list_code, 'coupon_list_code', -1) AS UNSIGNED))+1))
+				END AS couponListCode
+			FROM
+				coupon_list AS cl
+		</selectKey>
+			/* 쿠폰지급내역 등록 */
+			INSERT INTO coupon_list
+			(coupon_list_code, coupon_give_id, member_id, coupon_code, coupon_name, coupon_price, coupon_give_date, coupon_expire_date, coupon_list_register_date)
+			VALUES
+			(#{couponListCode}, #{couponGiveId}, #{memberId}, #{couponCode}, #{couponName}, #{couponPrice}, CURDATE(), #{couponExpireDate}, CURDATE())
+	</insert>
+	
+	<!-- 특정코드로 쿠폰지급내역 조회 -->
+	<select id="getCouponListByCode" parameterType="String" resultMap="couponListResultMap">
+	
+		/* 특정코드로 쿠폰지급내역 조회*/
+		SELECT
+			cl.coupon_list_code,
+			cl.coupon_give_id,
+			cl.member_id,
+			cl.coupon_code,
+			eck.coupon_name,
+			eck.coupon_price,
+			cl.coupon_give_date,
+			cl.coupon_expire_date,
+			cl.coupon_list_register_date
+		FROM
+			coupon_list AS cl
+			INNER JOIN
+			event_coupon_kind AS eck
+			ON
+			cl.coupon_code = eck.coupon_code
+		WHERE	
+			cl.coupon_list_code = #{couponListCode};
+	</select>
+	
+	
+ 	<!-- 특정코드로 쿠폰지급내역 수정 -->
+ 	<update id="modifyCouponList" parameterType="AdminCoupon">
+		/* 특정코드로 쿠폰지급내역 수정*/
+		UPDATE coupon_list
+		<set>
+			<if test="memberId != null and memberId != ''">	
+				member_id=#{memberId},
+			</if>
+			<if test="couponName != null and couponName != ''">
+				coupon_name=#{couponName},
+			</if>
+			<if test="couponPrice != null and couponPrice != ''">
+				coupon_price=#{couponPrice},
+			</if>
+			<if test="couponExpireDate != null and couponExpireDate != ''">
+				coupon_expire_date=#{couponExpireDate},
+			</if>
+		</set>
+			WHERE
+				coupon_list_code=#{couponListCode};
+	</update>	
+	
+	
 	
 	<!-- 쿠폰지급내역 아이디 검색 (모달)-->
 	<select id="getSearchCouponId" resultMap="couponListResultMap" parameterType="String">
@@ -195,6 +263,7 @@
 			cl.coupon_list_code,
 			cl.coupon_give_id,
 			cl.member_id,
+			cl.coupon_code,
 			eck.coupon_name,
 			eck.coupon_price,
 			cl.coupon_give_date,
@@ -205,7 +274,7 @@
 			INNER JOIN
 			event_coupon_kind AS eck
 			ON
-			cl.coupon_code = eck.coupon_code	
+			cl.coupon_code = eck.coupon_code;		
 		<where>
 			<foreach collection="paramList" item="item">
 				<if test="item.searchKey != null and item.searchKey != ''">						

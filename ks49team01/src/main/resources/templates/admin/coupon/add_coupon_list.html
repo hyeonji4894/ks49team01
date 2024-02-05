@@ -51,32 +51,56 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">적립금관리</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">쿠폰관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted h4">리뷰적립금 기준</a>
+			<a th:href="@{#}" class="text-muted h4">쿠폰 지급내역</a>
 		</li>
 		<li class="breadcrumb-item text-muted active h4" aria-current="page">등록하기</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<form id="addReviewMileageForm" method="post" th:action="@{/admin/mileage/addReviewMileageCriteria}">	
+		<form id="addCouponListForm" method="post" th:action="@{/admin/coupon/addCouponList}">	
 		<div class="card mb-4">
 			<div class="card-body ml-4 mr-4">
 				<div class="row border add-form">
-					<div class="col-2 add-form-label border-end">리뷰적립금 종류</div>
+					<div class="col-2 add-form-label border-end">쿠폰지급한아이디</div>
 					<div class="col-10">
-						<input type="text" class="form-control" name="mileageKind" id="mileageKind">
+						<input type="text" class="form-control" name="couponGiveId" id="couponGiveId">
 					</div>
-				</div>				
+				</div>
 				<div class="row border add-form">
-					<div class="col-2 add-form-label border-end">리뷰적립금 금액</div>
+					<div class="col-2 add-form-label border-end">쿠폰지급받은아이디</div>
 					<div class="col-10">
-						<input type="text" class="form-control" name="mileageAmount" id="mileageAmount">
+						<input type="text" class="form-control" name="memberId" id="memberId">
+					</div>
+				</div>
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">쿠폰코드</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponCode" id="couponCode">
+					</div>
+				</div>
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">쿠폰이름</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponName" id="couponName">
+					</div>
+				</div>					
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">쿠폰 금액</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponPrice" id="couponPrice">
+					</div>
+				</div>
+				<div class="row border add-form">
+					<div class="col-2 add-form-label border-end">쿠폰만료날짜</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="couponExpireDate" id="couponExpireDate">
 					</div>
 				</div>																			
 			</div>
@@ -84,7 +108,7 @@
 					<div class="col-sm-3"></div>
 					<div class="col-sm-9">
 				   		<div class="btn-list text-right">
-		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/mileage/getReviewMileageCriteria}"><i class=" fas fa-clipboard-list"></i>
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/coupon/getCouponList}"><i class=" fas fa-clipboard-list"></i>
 		                        목록</a>
 		                    <button type="button" class="btn btn-outline-success" id="addBtn"><i class="fas fas fa-pencil-alt"></i>
 		                        등록</button>
@@ -99,33 +123,29 @@
 	
 	
 	<th:block layout:fragment="customJs">
-	  	  <script th:inline="javascript">
-	  	  	 $('#addBtn').click(function(){
-	  	  		 let isValid = true;
-	  	  		 
-	  	  		 $('#addReviewMileageForm input').each(function(idx, item){
-	  	  			 const value = $(item).val();
-	  	  			 if(value == null || value == ''){
-	  	  				isValid = false;
-	  	  				
-	  	  				const cate = $(item).closest('.add-form').find('.add-form-label').text();
-	  	  				let msg = `${cate} 필수 입력항목입니다.`;
-	  	  				console.log(`${cate}`);
-	  	  				if(`${cate}` == '리뷰적립금 기준 등록일자'){
-	  	  					isValid = true;
-		  	  				return true;
-	  	  				} else {
-		  	  				alert(msg);
-		  	  				$(item).focus();
-		  	  				return false;
-	  	  				}
-	  	  			 }
-	  	  		 })
-	  	  		 if(isValid) $('#addReviewMileageForm').submit();
-	  	  	 });	  	  
+  		<script th:inline="javascript">
+		  	$('#addBtn').click(function(){
+	 	  		 let isValid = true;
+	 	  		
+	 	        
+	 	        $('#addCouponListForm input').each(function(idx, item){
+	 	            const value = $(item).val();
+	 	            if(value == null || value == ''){
+	 	                isValid = false;
+	 	                
+	 	                const cate = $(item).closest('.add-form').find('.add-form-label').text();
+	 	                let msg = `${cate} 필수 입력항목입니다.`;
+	 	                alert(msg);
+	 	                $(item).focus();
+	 	                return false;
+	 	            }
+	 	        });
+	
+	 	        if(isValid) $('#addCouponListForm').submit();
+	 	    });
+		  	  
 	  	  
-	  	  
-	  	  </script>
+  		</script>
 	</th:block>
 	
 </html>

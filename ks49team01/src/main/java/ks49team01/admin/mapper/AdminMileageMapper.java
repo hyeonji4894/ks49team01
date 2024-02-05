@@ -50,7 +50,7 @@ public interface AdminMileageMapper {
 	// 적립금지급내역 등록
 	int addMileageList(AdminMileage adminMileage);
 	
-	// 특정코드 조회
+	// 특정코드로 적립금지급내역 조회
 	public AdminMileage getMileageListByCode(String mileageListCode);
 	
 	// 특정코드로 적립금지급내역 수정
