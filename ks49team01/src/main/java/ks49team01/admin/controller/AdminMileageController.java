@@ -194,7 +194,6 @@ public class AdminMileageController {
 	
 	
 	
-	
 	// 적립금 지급 목록 조회	
 	@GetMapping("/getMileageList")
 	public String getMileageList(Model model) {
@@ -208,6 +207,55 @@ public class AdminMileageController {
 		
 		return "admin/mileage/get_mileage_list";
 	}
+	
+	// 적립금 지급내역 등록
+	@GetMapping("/addMileageList")
+	public String addMileageList(Model model){
+		
+		log.info("적립금지급내역 등록");
+		
+		model.addAttribute("title", "적립금지급내역 등록");
+		
+		return "admin/mileage/add_mileage_list";
+	}
+	
+	// 적립금 지급내역 등록
+	@PostMapping("/addMileageList")
+	public String addMileageList(AdminMileage adminMileage, HttpSession session){
+		
+		log.info("리뷰적립금기준 등록 adminMileage: {}", adminMileage);
+		
+		adminMileageService.addMileageList(adminMileage);
+		
+		return "redirect:/admin/mileage/getMileageList";
+	}	
+	
+	// 적립금지급내역 수정
+	@GetMapping("/modifyMileageList")
+	public String modifyMileageList(@RequestParam(value = "mileageListCode")String mileageListCode
+											,Model model){
+		
+		log.info("적립금지급내역 수정화면 mileageListCode : {}", mileageListCode);
+		
+		// 특정코드 조회
+		 AdminMileage adminMileage = adminMileageService.getMileageListByCode(mileageListCode);
+		
+		model.addAttribute("adminMileage", adminMileage);
+		
+		return "admin/mileage/modify_mileage_list";
+	}
+		
+	// 적립금지급내역 수정
+	@PostMapping("/modifyMileageList")
+	public String modifyMileageList(AdminMileage adminMileage, HttpSession session) {
+		log.info("적립금지급내역 수정: {}", adminMileage);
+		
+		// 특정코드로 수정
+		adminMileageService.modifyMileageList(adminMileage);
+		
+		return "redirect:/admin/mileage/getMileageList";
+	}	
+	
 	
 	// 적립금지급받은 회원아이디 검색(모달)
 	@PostMapping("/getSearchMileageId")

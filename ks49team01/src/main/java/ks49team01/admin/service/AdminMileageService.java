@@ -90,11 +90,33 @@ public class AdminMileageService {
 	
 	
 	
-	// 적립금목록 조회
+	// 적립금지급내역 목록조회
 	public List<AdminMileage> getMileageList(){
 		
 		return adminMileageMapper.getMileageList();
 				
+	}
+	
+	// 적립금지급내역 등록
+	public void addMileageList(AdminMileage adminMileage) {
+		
+		log.info("적립금내역 insert 전 adminMileage: {}", adminMileage);
+		adminMileageMapper.addMileageList(adminMileage);
+		log.info("적립금내역 insert 후 adminMileage: {}", adminMileage);
+	}
+	
+	// 특정코드로 적립금지급내역 조회
+	public AdminMileage getMileageListByCode(String mileageListCode) {
+		
+		AdminMileage adminMileage = adminMileageMapper.getMileageListByCode(mileageListCode);
+		
+		return adminMileage;
+	}
+	
+	// 특정코드로 적립금지급내역 수정
+	public void modifyMileageList(AdminMileage adminMileage) {
+		int result = adminMileageMapper.modifyMileageList(adminMileage);
+		if(result > 0) log.info("적립금지급내역 수정완료");
 	}
 	
 	// 적립금지급내역 지급받은아이디 검색(모달)

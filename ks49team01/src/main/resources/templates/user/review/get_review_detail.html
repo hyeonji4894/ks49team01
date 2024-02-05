@@ -41,14 +41,8 @@
 				                            <li class="hover-up" >
 				                               <a href="#">숙소가 깨끗해요 ✨</a>
 				                            </li>
-				              				<li class="hover-up">
-				                               <a href="#">온수가 잘나와요 💦</a>
-				                            </li>
 				                            <li class="hover-up">
 				                               <a href="#">침구가 좋아요 👍</a>
-				                            </li>
-				                            <li class="hover-up mr-0">
-				                               <a href="#">방음이 잘돼요 💤</a>
 				                            </li>
 				                            <li class="hover-up">
 				                               <a href="#">벌레 걱정 없어요 🦟❌</a>
@@ -60,9 +54,6 @@
 				                           <li class="hover-up">
 				                               <a href="#">사진이 잘 나와요 📸</a>
 				                           </li>
-				              				<li class="hover-up">
-				                               <a href="#">뷰가 좋아요 🌅</a>
-				                           </li>
 				                           <li class="hover-up">
 				                               <a href="#">조용히 쉬기 좋아요 🌳</a>
 				                           </li>
@@ -73,9 +64,29 @@
 				                               <a href="#">친절해요 😄</a>
 				                           </li>
 			                       	   </ul>
-			                       </div>
+			                       </div><br>
 	                       		</div>
 		        			</form>
+		        			<div class="col-lg-12 col-md-12">
+	                           	<div class="row">
+	                               	<div class="col-12">
+	                                	<form th:action="@{/user/review/getReview}" method="post">
+	                                		<table>
+	                                			<tr>
+	                                				<td>
+	                                					<img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="review image" />
+	                                				</td>
+	                                			</tr>
+	                                     		<tr class="form-group">
+		                                     		<td>
+		                                         		<textarea class="form-control w-100" name="reviewContext" id="reviewContext" cols="30" rows="9" readonly='readonly'>강아지가 뛰어놀 수 있어서 좋아요</textarea>
+		                                         	</td>
+	                                         	</tr>
+	                                 		 </table>
+	                        	 		</form>
+	                   				</div>
+	           				 	</div>
+	                		</div>
 		    		</div>               
                   </div>
                </div>

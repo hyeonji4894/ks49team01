@@ -25,11 +25,11 @@ public interface AdminReviewMapper {
 	//카테고리 종류 검색
 	List<AdminReviewCategory> getSearchCategory(List<Map<String, Object>> paramList);
 
-	//특정코드로 카테고리 종류 수정
-	public int modifyReviewCategory(AdminReviewCategory adminReviewCategory);
-	
 	//특정코드 조회
 	public AdminReviewCategory getReviewCategoryByCode(String categoryCode);
+	
+	//특정코드로 카테고리 종류 수정
+	public int modifyReviewCategory(AdminReviewCategory adminReviewCategory);
 	
 	
 	

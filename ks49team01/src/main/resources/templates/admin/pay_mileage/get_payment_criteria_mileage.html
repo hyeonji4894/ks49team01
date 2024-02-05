@@ -37,10 +37,10 @@
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
        	 
-		  <div class="card mb-4">
-		    <div class="card-body">
-		    	<div class="row mb-3">
-		    		<div class="col-sm-3 d-flex align-items-end">		    		
+ 		<div class="card mb-4">
+    		<div class="card-body">
+	    		<div class="row mb-3">
+	    			<div class="col-sm-3 d-flex align-items-end">		    		
 				    	<h5 class="card-title">
 					    	[ 전체 &nbsp;
 					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(paymentCriteriaMileage)}"></label> 건
@@ -60,35 +60,34 @@
                        </div>
 			    	</div>
 		    	</div>
-		    	
 		    	<table class="table table-bordered table-hover text-center search-result">
-                  <thead class="h5 text-dark">
-                      <tr>
-                      	  <th style="width: 5%;">
-                            <input type="checkbox" id="allCheck">
-                      	  </th>
-                          <th class="font-weight-bolder">결제적립금 코드</th>
-                          <th class="font-weight-bolder">적립금등급 이름</th>
-                          <th class="font-weight-bolder">결제기준 적립비율</th>
-                          <th class="font-weight-bolder">등급 업그레이드 기준</th>
-                          <th class="font-weight-bolder">등록자 아이디</th>
-                          <th class="font-weight-bolder">결제적립금 기준 등록일자</th>
-                      </tr>
-                  </thead>
-                  <tbody class="border text-dark" >
-		              <tr th:if="${paymentCriteriaMileage != null and not #lists.isEmpty(paymentCriteriaMileage)}"
-		            	  th:each="l : ${paymentCriteriaMileage}">
-	                 	<td style="width: 5%;">
-	                    	<input type="checkbox" name="check" class="check" th:data-roompay-mileage-rate-code="${l.roompayMileageRateCode}">
-	                  	</td>			              
-		                <td th:text="${l.roompayMileageRateCode}"></td>
-		                <td th:text="${l.mileageGradeName}"></td>
-		                <td th:text="${l.paymentCriteriaMileagePercent}"></td>
-		                <td th:text="${l.paymentCriteriaUpgrade}"></td>
-		                <td th:text="${l.memberId}"></td>
-		                <td th:text="${l.mileageRateRegisterDate}"></td>
-                      </tr>
-                  </tbody>
+	                <thead class="h5 text-dark">
+	                    <tr>
+	                    	  <th style="width: 5%;">
+	                          <input type="checkbox" id="allCheck">
+	                    	  </th>
+	                        <th class="font-weight-bolder">결제적립금 코드</th>
+	                        <th class="font-weight-bolder">적립금등급 이름</th>
+	                        <th class="font-weight-bolder">결제기준 적립비율</th>
+	                        <th class="font-weight-bolder">등급 업그레이드 기준</th>
+	                        <th class="font-weight-bolder">등록자 아이디</th>
+	                        <th class="font-weight-bolder">결제적립금 기준 등록일자</th>
+	                    </tr>
+	                </thead>
+	                <tbody class="border text-dark" >
+	              		<tr th:if="${paymentCriteriaMileage != null and not #lists.isEmpty(paymentCriteriaMileage)}"
+		            	  	th:each="l : ${paymentCriteriaMileage}">
+			               	<td style="width: 5%;">
+			                  	<input type="checkbox" name="check" class="check" th:data-roompay-mileage-rate-code="${l.roompayMileageRateCode}">
+			                	</td>			              
+			                <td th:text="${l.roompayMileageRateCode}"></td>
+			                <td th:text="${l.mileageGradeName}"></td>
+			                <td th:text="${l.paymentCriteriaMileagePercent}"></td>
+			                <td th:text="${l.paymentCriteriaUpgrade}"></td>
+			                <td th:text="${l.memberId}"></td>
+			                <td th:text="${l.mileageRateRegisterDate}"></td>
+	                    </tr>
+	              	</tbody>
                 </table>
 			    <div class="row justify-content-center mt-5">
 			    	<div class="col-10">			    	
@@ -113,7 +112,7 @@
 			    	</div>
 			    </div>
 		    </div>
-		  </div>
+  		</div>
 	</th:block>
 	
 	
@@ -136,10 +135,6 @@
 				const roompayMileageRateCode = $('.check:checked').data('roompayMileageRateCode')
 				location.href = `/admin/mileage/modifyPaymentCriteriaMileage?roompayMileageRateCode=${roompayMileageRateCode}`;								
 			});
-			
-			
-			
-				
 			
 		</script>
 	</th:block>

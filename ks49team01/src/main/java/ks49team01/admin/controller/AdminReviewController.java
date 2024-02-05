@@ -54,6 +54,21 @@ public class AdminReviewController {
 		return "redirect:/admin/review/getReviewCategory";
 	}
 	
+	// 리뷰 카테고리 수정화면
+	@GetMapping("/modifyReviewCategory")
+	public String modifyReviewCategory(@RequestParam(value = "categoryCode")String categoryCode
+			,Model model){
+		
+		log.info("카테고리 수정화면 categoryCode : {}", categoryCode);
+		
+		// 특정코드 조회
+		AdminReviewCategory adminReviewCategory = adminReviewService.getReviewCategoryByCode(categoryCode);
+		
+		model.addAttribute("adminReviewCategory", adminReviewCategory);
+		
+		return "admin/review_category/modify_review_category";
+	}
+	
 	// 리뷰카테고리 수정
 	@PostMapping("/modifyReviewCategory")
 	public String modifyReviewCategory(AdminReviewCategory adminReviewCategory, HttpSession session) {
@@ -65,22 +80,6 @@ public class AdminReviewController {
 		return "redirect:/admin/review/getReviewCategory";
 	}	
 	
-	
-	
-	// 리뷰 카테고리 수정화면
-	@GetMapping("/modifyReviewCategory")
-	public String modifyReviewCategory(@RequestParam(value = "categoryCode")String categoryCode
-										,Model model){
-
-	log.info("카테고리 수정화면 categoryCode : {}", categoryCode);
-	
-	// 특정코드 조회
-	AdminReviewCategory adminReviewCategory = adminReviewService.getReviewCategoryByCode(categoryCode);
-	
-	model.addAttribute("adminReviewCategory", adminReviewCategory);
-	
-	return "admin/review_category/modify_review_category";
-}
 	
 
 	//리뷰카테고리 삭제

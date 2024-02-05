@@ -47,6 +47,15 @@ public interface AdminMileageMapper {
 	// 적립금지급내역 목록조회
 	List<AdminMileage> getMileageList();
 	
+	// 적립금지급내역 등록
+	int addMileageList(AdminMileage adminMileage);
+	
+	// 특정코드 조회
+	public AdminMileage getMileageListByCode(String mileageListCode);
+	
+	// 특정코드로 적립금지급내역 수정
+	public int modifyMileageList(AdminMileage adminMileage);
+	
 	// 적립금지급내역 지급받은아이디 검색(모달)
 	List<AdminMileage> getSearchMileageId(String memberId);
 	
