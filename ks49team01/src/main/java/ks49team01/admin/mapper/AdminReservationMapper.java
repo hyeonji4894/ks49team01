@@ -12,4 +12,7 @@ public interface AdminReservationMapper {
 
 	// 객실조회
 	List<AdminReservationUser> getReservationUserList();
+	
+	// search 예약자아이디
+	List<AdminReservationUser> getMemberIdSearch(String searchMemberId);
 }

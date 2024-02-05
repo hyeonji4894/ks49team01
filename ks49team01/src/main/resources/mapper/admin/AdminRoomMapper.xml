@@ -48,6 +48,7 @@
 	</insert>
 	
 	<select id="getRoomInfoSearch" resultMap="roomResultMap" parameterType="String">
+		/* 모달 검색 */
 		SELECT
 			ri.room_code,
 			ri.branch_code,
@@ -73,6 +74,7 @@
 		</where>
 	</select>
 	<select id="getRoomInfoList" resultMap="roomResultMap">
+	/*  객실조회 */
 		SELECT
 			ri.room_code,
 			ri.branch_code,
@@ -93,6 +95,7 @@
 			ri.branch_code = bm.branch_code;
 	</select>
 	<select id="getSearchByRoom" resultMap="roomResultMap" parameterType="list"> 
+		/* 최종검색 */
 		SELECT
 			ri.room_code,
 			ri.branch_code,

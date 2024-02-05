@@ -21,6 +21,21 @@
 		</style>
 	</head>
 	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실정보</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">객실</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">객실정보</a>
+		</li>
+	</th:block>
+	
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
        	  <div class="card mb-4">
@@ -337,40 +352,6 @@
 				location.href = `/branch/room/modifyRoomInfo?roomCode=${roomCode}`;
 				
 			});
-			
-			// 삭제 버튼			
-			$(document).on('click', '#delBtn', function(){
-				const checkLength = $('.check:checked').length;
-				
-				if(checkLength == 0) {
-					alert('한개이상 선택해주세요.')
-					return;
-				}
-				var chkArr = $('input:checkbox[name="check"]'); 
-				var newChkArr=[];
-				
-				for(var i=0; chkArr.length > i; i++){
-					if($(chkArr[i]).is(":checked")){
-						newChkArr.push($(chkArr[i]).data('roomCode'));
-					}
-				}
-				console.log(newChkArr);	
-				const request = $.ajax({
-					url : '/branch/room/removeRoomInfo',
-					method : 'POST',
-					contentType : 'application/json; charset=UTF-8',
-					data: JSON.stringify(newChkArr),
-					dataType: 'JSON'
-				});
-				request.done(function(res){
-					console.log(res)
-								
-					
-				});
-				request.fail(function(jQXHR, textStatus, error){
-					console.log(error);
-				});
-			})
 			
 			
 		</script>
