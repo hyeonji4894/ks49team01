@@ -832,6 +832,11 @@ button {
 .tml{
 	text-align : center;
 }
+.small {
+	font-size : 18px;
+	font-weight: bold;
+	color: gray;
+}
 /*------parksiowoo--------*/
 b {
   font-weight: 500;
