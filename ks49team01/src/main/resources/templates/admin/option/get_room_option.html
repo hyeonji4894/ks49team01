@@ -115,7 +115,7 @@
                         <td th:text="${o.roomOptionNumber}"></td>
                         <td th:text="${o.roomOptionCate}"></td>
 	                 	<td th:text="${o.roomOptionName}"></td>
-	                  	<td th:text="${o.roomOptionPrice}"></td>
+	                  	<td th:text="|₩ ${#numbers.formatInteger(o.roomOptionPrice, 0, 'COMMA')}|"></td>
 	                 	<td th:text="${o.roomOptionRegistrationDate}"></td>
 	                 	<td th:text="${o.roomOptionRegistrationId}"></td>
                     <tr th:unless="${optionList != null and not #lists.isEmpty(optionList)}">
