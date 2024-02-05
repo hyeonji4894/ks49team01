@@ -32,35 +32,31 @@
 	                        <h4 class="mb-30">옵션 선택</h4>
 			                    <div class="table-responsive shopping-summery">
 		                        	<table class="table table-wishlist">
-		                            <thead>
-		                                <tr class="main-heading">
-		                                    <th class="custome-checkbox start pl-30">
-		                                        <input class="form-check-input" type="checkbox" name="checkbox" id="allCheck" value="">
-		                                        <label class="form-check-label" for="exampleCheckbox11"></label>
-		                                    </th>
-		                                    <th scope="col">카테고리</th>
-		                                    <th scope="col">옵션명</th>
-		                                    <th scope="col">금액</th>
-		                                    <th scope="col">수량</th>
-		                                    <th scope="col" class="end">합계</th>
-		                                </tr>
-		                            </thead>
+			                            <thead>
+			                                <tr class="main-heading">
+			                                    <th class="custome-checkbox start pl-30">
+			                                        <input class="form-check-input" type="checkbox" id="allCheck" value="">
+			                                        <label class="form-check-label" for="exampleCheckbox11"></label>
+			                                    </th>
+			                                    <th scope="col">카테고리</th>
+			                                    <th scope="col">옵션명</th>
+			                                    <th scope="col">금액</th>
+			                                    <th scope="col">수량</th>
+			                                    <th scope="col" class="end">합계</th>
+			                                </tr>
+			                            </thead>
 		                            <tbody>
 		                                <tr th:if="${roomOptionList != null and not #lists.isEmpty(roomOptionList)}"
                          					th:each="o : ${roomOptionList}" class="pt-30">
 		                                    <td class="custome-checkbox pl-30">
-		                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
+		                                        <input class="form-check-input check" type="checkbox" name="check" id="exampleCheckbox1" value="">
 		                                        <label class="form-check-label" for="exampleCheckbox1"></label>
 		                                    </td>
-		                                    <td class="product-des product-name">
-		                                        <h6 class="mb-5"><a class="product-name mb-10 text-heading" th:text="${o.roomOptionCate}">카테고리</a></h6>
-		                                        <div class="product-rate-cover">
-		                                        </div>
+		                                    <td>
+		                                        <h6 class="mb-5" th:text="${o.roomOptionCate}">카테고리</h6>
 		                                    </td>
-		                                    <td class="product-des product-name">
-		                                        <h6 class="mb-5"><a class="product-name mb-10 text-heading" th:text="${o.roomOptionName}">옵션명</a></h6>
-		                                        <div class="product-rate-cover">
-		                                        </div>
+		                                    <td>
+		                                        <h6 class="mb-5" th:text="${o.roomOptionName}">옵션명</h6>
 		                                    </td>
 		                                    <td class="price" data-title="Price">
 		                                        <h4 class="text-body" th:text="|₩ ${#numbers.formatInteger(o.roomOptionPrice, 0, 'COMMA')}|"> 옵션금액 </h4>
@@ -96,13 +92,13 @@
 	                        <div class="d-flex align-items-end justify-content-between mb-30">
 	                            <h4>예약 내역</h4>
 	                        </div>
-	                         <div class="table-responsive order_table checkout">
+	                        <div class="table-responsive order_table checkout">
 	                            <table class="table no-border">
 	                                <tbody>
 	                                    <tr>
-	                                        <td class="image product-thumbnail"><img src="assets/imgs/shop/product-3-1.jpg" alt="#">가맹점 명</td>
+	                                        <td class="image product-thumbnail"><img src="user/assets/imgs/shop/product-3-1.jpg" alt="#">가맹점 명</td>
 	                                        <td>
-	                                            <h6 class="w-160 mb-5"><a href="shop-product-full.html" class="text-heading">객실명 </a></h6></span>
+	                                            <h6 class="w-160 mb-5">객실명</h6>
 	                                        </td>
 	                                    </tr>
 	                                </tbody>
@@ -169,10 +165,10 @@
 	                            </div>
 	                        </div>
 	                        <div class="payment-logo d-flex">
-	                            <img class="mr-15" src="assets/imgs/theme/icons/payment-paypal.svg" alt="">
-	                            <img class="mr-15" src="assets/imgs/theme/icons/payment-visa.svg" alt="">
-	                            <img class="mr-15" src="assets/imgs/theme/icons/payment-master.svg" alt="">
-	                            <img src="assets/imgs/theme/icons/payment-zapper.svg" alt="">
+	                            <img class="mr-15" src="user/assets/imgs/theme/icons/payment-paypal.svg" alt="">
+	                            <img class="mr-15" src="user/assets/imgs/theme/icons/payment-visa.svg" alt="">
+	                            <img class="mr-15" src="user/assets/imgs/theme/icons/payment-master.svg" alt="">
+	                            <img src="user/assets/imgs/theme/icons/payment-zapper.svg" alt="">
 	                        </div>
 	                        <a href="#" class="btn btn-fill-out btn-block mt-30">Place an Order<i class="fi-rs-sign-out ml-15"></i></a>
 	                    </div>
@@ -210,10 +206,16 @@
 			*/
 			
 			// 옵션 체크 박스
-			$(document).on('click', '#allCheck', function(){
-				const isChecked = $(this).prop('checked');
-				$('.check').prop('checked', isChecked);
-			});
+			
+			// 전체 체크
+			
+			$(document).ready(function() {
+		        $('#allCheck').click(function() {
+		            $('.check').prop('checked', this.checked);
+		        });
+		    });	
+			
+		
 			
 		</script>	
 	</th:block>

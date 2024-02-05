@@ -23,7 +23,7 @@ public class UserRoomService {
 	
 	public List<UserRoomOption> getRoomOptionList(){
 		
-		return userRoomOptionMapper.getRoomOptionList();
+		return userRoomOptionMapper.getOptionList();
 	}
 	
 	//roomCode로 객실 불러오기

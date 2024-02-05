@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks49team01.admin.dto.AdminAnswerBoard;
 import ks49team01.admin.service.AdminAnswerBoardService;
-import ks49team01.admin.service.AdminInquiryBoardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
