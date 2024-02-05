@@ -20,6 +20,18 @@
 			ol.room_option_registration_date
 		FROM
 			room_option_list AS ol
+	</select>
+	
+	<select id="getOptionByPersonnel" resultMap="optionResultMap">
+		SELECT
+			ol.room_option_number,
+			ol.room_option_registration_id,
+			ol.room_option_cate,
+			ol.room_option_name,
+			ol.room_option_price,
+			ol.room_option_registration_date
+		FROM
+			room_option_list AS ol
 		WHERE 
 			ol.room_option_number = #{roomOptionNumber};
 	</select>

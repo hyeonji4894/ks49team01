@@ -54,9 +54,13 @@ public class UserRoomController {
 	@GetMapping("/roomTotalAmount")
 	public String roomTotalAmount(Model model) {
 		
+		List<UserRoomOption> roomOptionList = optionService.getOptionLis();
+		log.info("roomOptionList :{}",roomOptionList);
+		
 		log.info("선택정보및총금액확인");
 		
 		model.addAttribute("title", "선택정보및총금액확인");
+		model.addAttribute("roomOptionList",roomOptionList);
 		
 		return "user/room/confirm_room_total_amount";
 	}
@@ -83,11 +87,11 @@ public class UserRoomController {
 		log.info("roomInfo: {}", roomInfo);
 		
 		// 인원추가 옵션
-		List<UserRoomOption> roomOptionList = optionService.getRoomOptionLis();
-		log.info("roomOptionList :{}",roomOptionList);
+		//List<UserRoomOption> roomOptionByPersonnel = optionService.getOptionByPersonnel();
+		//log.info("roomOptionByPersonnel :{}",roomOptionByPersonnel);
 		
 		model.addAttribute("roomInfo", roomInfo);
-		model.addAttribute("roomOptionList", roomOptionList);
+		//model.addAttribute("roomOptionByPersonnel", roomOptionByPersonnel);
 		
 		return "user/room/room_Detail_veiw";
 	}

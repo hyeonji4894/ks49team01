@@ -31,11 +31,6 @@
 	                        		<span class="hide-menu"> 객실 옵션 목록 확인 </span>
 	                        	</a>
 	                        </li>
-	                        <li class="sidebar-item">
-	                        	<a th:href="@{/branch/surcharge/surchargeList}" class="sidebar-link">
-	                        		<span class="hide-menu"> 시즌 추가금 등록 </span>
-	                        	</a>
-	                        </li>
 	                    </ul>
 	                </li>
 	                <li class="sidebar-item"> 
@@ -49,7 +44,7 @@
 								</a>
 	                        </li>
 	                        <li class="sidebar-item">
-	                        	<a th:href="@{/branch/reservation/reservationCancelUser}" class="sidebar-link">
+	                        	<a th:href="@{#}" class="sidebar-link">
 	                        		<span class="hide-menu"> 객실 예약 취소</span>
 	                        	</a>
 	                        </li>
@@ -219,20 +214,20 @@
 	                	<span class="hide-menu">Authentication</span>
                 	</li>
 	                <li class="sidebar-item"> 
-	                	<a class="sidebar-link sidebar-link" href="authentication-login1.html" aria-expanded="false">
+	                	<a class="sidebar-link sidebar-link" th:href="@{#}" aria-expanded="false">
 		                	<i data-feather="lock" class="feather-icon"></i>
 		                	<span class="hide-menu">Login</span>
 	                	</a>
 	                </li>
 	                <li class="sidebar-item"> 
-	                	<a class="sidebar-link sidebar-link" href="authentication-register1.html" aria-expanded="false">
+	                	<a class="sidebar-link sidebar-link" th:href="@{#}" aria-expanded="false">
 	                		<i data-feather="lock" class="feather-icon"></i>
 	                		<span class="hide-menu">Register</span>
 	                	</a>
 	                </li>
 	                
 	                <li class="sidebar-item"> 
-	                	<a class="sidebar-link sidebar-link" href="authentication-login1.html" aria-expanded="false">
+	                	<a class="sidebar-link sidebar-link" th:href="@{#}" aria-expanded="false">
 	                		<i data-feather="log-out" class="feather-icon"></i>
 	                		<span class="hide-menu">Logout</span>
 	                	</a>

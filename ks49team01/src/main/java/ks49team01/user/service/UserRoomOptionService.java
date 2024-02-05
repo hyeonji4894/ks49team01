@@ -16,9 +16,16 @@ public class UserRoomOptionService {
 	
 	private final UserRoomOptionMapper userRoomOptionMapper;
 	
-	public List<UserRoomOption> getRoomOptionLis(){
+	//옵션리스트
+	public List<UserRoomOption> getOptionLis(){
 		
-		return userRoomOptionMapper.getRoomOptionList();
+		return userRoomOptionMapper.getOptionList();
+	}
+	
+	// 조건옵션 인원추가
+	public List<UserRoomOption> getOptionByPersonnel(){
+		
+		return userRoomOptionMapper.getOptionByPersonnel();
 	}
 
 }
