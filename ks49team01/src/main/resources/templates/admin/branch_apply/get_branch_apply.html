@@ -358,18 +358,17 @@
 			});	
 			
 			// 수정버튼
-			$(document).on('click', '#modifyBtn', function(){
+ 			$(document).on('click', '#modifyBtn', function(){
 				const checkLength = $('.check:checked').length;
-				if(checkLength > 1) {
+				
+				if(checkLength != 1) {
 					alert('한개만 선택해주세요.')
 					return;
-				} else if(checkLength == 0){
-					alert('한 개 이상의 목록을 선택해주세요')
-					return;
-				};
-				
-				$('#centermodal').modal('show');
-			});
+				}
+				const closeSchoolName = $('.check:checked').data('closeSchoolName')
+				location.href = `/admin/closeSchool/modifyCloseSchoolInfo?closeSchoolName=${closeSchoolName}`;
+
+			});			
 			// searchItem1 검색한 값이 있는지 확인하고 표시
 			$(document).on('click','#schoolSearch',function(){
 				let searchValue = $('#searchSchool').val();
@@ -433,7 +432,7 @@
 				}
 				$(searchTotal).each(function(idx, item){
 					const newTr = $('<tr />');
-					const checkBox = $('<input />', { type:'checkbox', class:'check'});
+					const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-close-school-name' : item.closeSchoolName});
 					const newTdCheckBox = 						$('<td />').html(checkBox);
 					const newTdcloseSchoolName = 				$('<td />').text(item.closeSchoolName);
 					const newTdcloseSchoolImg = 				$('<td />').text(item.closeSchoolImg);
