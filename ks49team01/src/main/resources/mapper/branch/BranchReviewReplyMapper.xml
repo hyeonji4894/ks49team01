@@ -2,26 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks49team01.branch.mapper.BranchReviewMapper">
 
-	<resultMap type="BranchReviewReply" id="branchReviewReplyResultMap">
+	<resultMap type="BranchReviewReply" id="reviewReplyResultMap">
 		<id column="reply_code" 						property="replyCode"/>
 		<result column="member_id" 						property="memberId"/>
 		<result column="review_num" 					property="reviewNum"/>
 		<result column="review_reply_num" 				property="reviewReplyNum"/>
 		<result column="review_reply_context" 			property="reviewReplyContext"/>
-		<result column="review_reply_name" 				property="reviewReplyName"/>
 		<result column="review_reply_register_time" 	property="reviewReplyRegisterTime"/>
 	</resultMap>
 	
- 	<select id="getBranchReviewReply" resultMap="branchReviewReplyResultMap">
+	
+	<!-- 리뷰댓글 목록조회 -->
+ 	<select id="getBranchReviewReply" resultMap="reviewReplyResultMap">
 		SELECT
 			rr.reply_code,
 			rr.member_id,
 			rr.review_num,
 			rr.review_reply_num,
 			rr.review_reply_context,
-			rr.review_reply_name,
 			rr.review_reply_register_time
 		FROM
 			review_reply AS rr;
  	</select>
+ 	
+ 	<!-- 리뷰댓글 내용에 따른 검색(모달) -->
+  	<select id="getSearchReviewReplyContext" parameterType="String" resultMap="reviewReplyResultMap">
+		SELECT
+			rr.review_num,
+			rr.review_reply_context,
+			rr.member_id
+		FROM
+			review_reply AS rr
+		<where>
+			<if test="searchReviewReplyContext != null and searchReviewReplyContext != ''">
+				rr.review_reply_context LIKE CONCAT('%', #{searchReviewReplyContext}, '%')
+			</if>
+		</where>				
+ 	</select> 	 
+ 	 	
+ 	<!-- 리뷰댓글 목록 최종검색 -->
+   	<select id="getSearchByReviewReply" resultMap="reviewReplyResultMap" parameterType="list">
+		SELECT
+			rr.reply_code,
+			rr.member_id,
+			rr.review_num,
+			rr.review_reply_num,
+			rr.review_reply_context,
+			rr.review_reply_register_time
+		FROM
+			review_reply AS rr
+		<where>
+			<foreach collection="paramList" item="item">
+				<if test="item.searchKey != null and item.searchKey != ''">						
+					AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue},'%')										
+				</if>
+			</foreach>
+		</where>			
+ 	</select>  	
+ 	
+ 	
+ 	
+ 	
 </mapper>

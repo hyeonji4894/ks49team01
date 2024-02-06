@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.branch.mapper.BranchMileageMapper">
+
+	<resultMap type="BranchPaymentCriteriaMileage" id="PaymentMileageResultMap">
+		<id column="roompay_mileage_rate_code" 				property="roompayMileageRateCode"/>
+		<result column="member_id" 							property="memberId"/>
+		<result column="mileage_grade_name" 				property="mileageGradeName"/>
+		<result column="payment_criteria_mileage_percent" 	property="paymentCriteriaMileagePercent"/>
+		<result column="payment_criteria_upgrade" 			property="paymentCriteriaUpgrade"/>
+		<result column="mileage_rate_register_date" 		property="mileageRateRegisterDate"/>
+	</resultMap>
+	
+	
+	<!-- 결제적립금기준 목록조회 -->
+ 	<select id="getBranchPaymentCriteriaMileage" resultMap="PaymentMileageResultMap">
+		SELECT
+			rmr.roompay_mileage_rate_code,
+			rmr.member_id,
+			rmr.mileage_grade_name,
+			rmr.payment_criteria_mileage_percent,
+			rmr.payment_criteria_upgrade,
+			rmr.mileage_rate_register_date
+		FROM
+			roompay_mileage_rate AS rmr;
+ 	</select>
+ 	
+ 	<!-- 결제적립금기준 등록 -->
+	<insert id="addBranchPaymentCriteriaMileage" parameterType="BranchPaymentCriteriaMileage">
+		<selectKey keyProperty="roompayMileageRateCode" resultType="String" order="BEFORE">
+			/* roompay_mileage_rate_code 자동증가 */
+			SELECT
+				CASE
+				WHEN COUNT(rmr.roompay_mileage_rate_code) = 0 THEN 'roompay_mileage01' 
+				ELSE
+					CONCAT('roompay_mileage0',(MAX(CAST(SUBSTRING_INDEX(rmr.roompay_mileage_rate_code,'roompay_mileage', -1) AS UNSIGNED))+1))
+				END AS roompayMileageRateCode
+			FROM
+				roompay_mileage_rate as rmr;
+		</selectKey>
+			/* 결제적립금 기준 등록 */
+			INSERT INTO roompay_mileage_rate
+			(roompay_mileage_rate_code, member_id, mileage_grade_name, payment_criteria_mileage_percent, payment_criteria_upgrade, mileage_rate_register_date)
+			VALUES
+			(#{roompayMileageRateCode}, #{memberId}, #{mileageGradeName}, #{paymentCriteriaMileagePercent}, #{paymentCriteriaUpgrade}, CURDATE())
+	</insert>	
+	 
+	 <!-- 특정코드로 결제적립금기준 조회 -->
+	<select id="getPaymentMileageCriteriaByCode" parameterType="String" resultMap="PaymentMileageResultMap">
+	
+		/* 특정코드로 결제적립금기준 조회*/
+		SELECT
+			rmr.roompay_mileage_rate_code,
+			rmr.member_id,
+			rmr.mileage_grade_name,
+			rmr.payment_criteria_mileage_percent,
+			rmr.payment_criteria_upgrade,
+			rmr.mileage_rate_register_date
+		FROM
+			roompay_mileage_rate AS rmr
+		WHERE	
+			rmr.roompay_mileage_rate_code = #{roompayMileageRateCode};
+	</select>
+	
+	<!-- 특정코드로 결제적립금기준 수정 -->
+	<update id="modifyBranchPaymentCriteriaMileage" parameterType="BranchPaymentCriteriaMileage">
+		/* 특정코드로 결제적립금기준 수정*/
+		UPDATE roompay_mileage_rate
+		<set>
+			<if test="mileageGradeName != null and mileageGradeName != ''">	
+				mileage_grade_name=#{mileageGradeName},
+			</if>
+			<if test="paymentCriteriaMileagePercent != null and paymentCriteriaMileagePercent != ''">
+				payment_criteria_mileage_percent=#{paymentCriteriaMileagePercent},
+			</if>
+			<if test="paymentCriteriaUpgrade != null and paymentCriteriaUpgrade != ''">	
+				payment_criteria_upgrade=#{paymentCriteriaUpgrade},
+			</if>
+		</set>
+			WHERE
+				roompay_mileage_rate_code=#{roompayMileageRateCode};
+	</update>	
+		 
+	 	
+</mapper>

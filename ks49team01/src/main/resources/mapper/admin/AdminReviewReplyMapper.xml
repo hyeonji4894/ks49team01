@@ -10,6 +10,8 @@
 		<result column="review_reply_context" 			property="reviewReplyContext"/>
 		<result column="review_reply_register_time" 	property="reviewReplyRegisterTime"/>
 	</resultMap>
+	
+	
 	<!-- 리뷰댓글 목록조회 -->
  	<select id="getAdminReviewReply" resultMap="reviewReplyResultMap">
 		SELECT

@@ -10,64 +10,24 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">리뷰관리</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">리뷰 관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">리뷰</a>
+			<a th:href="@{/}" class="text-muted"></a>
 		</li>
-		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">삭제하기</a>
-		</li>
+		<li class="breadcrumb-item text-muted active" aria-current="page"></li>
 	</th:block>
-	
+
 	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">	
-			<table class="table">
-			 <thead>
-	            <tr>
-	                <th scope="col">리뷰 (글 순서 번호)</th>
-	                <th scope="col">회원 아이디</th>
-	                <th scope="col">객실 코드</th>
-	                <th scope="col">방문일자</th>
-	                <th scope="col">내용</th>
-	                <th scope="col">작성일시</th>
-	                <th scope="col">조회수</th>
-	                <th scope="col">수정</th>
-	                <th scope="col">삭제</th>                                                                                                                                            
-	            </tr>
-	         </thead>
-	         <tbody>
-	            <tr th:if="${ReviewList != null and not #lists.isEmpty(ReviewList)}"
-	            	th:each="l : ${ReviewList}">
-	                <td th:text="${l.reviewNum}"></td>
-	                <td th:text="${l.memberId}"></td>
-	                <td th:text="${l.roomCode}"></td>
-	                <td th:text="${l.visitDate}"></td>
-	                <td th:text="${l.reviewContext}"></td>
-	                <td th:text="${l.reviewDate}"></td>
-	                <td th:text="${l.reviewViews}"></td>
-	                <td>
-	                	<a th:href="@{/admin/review/removeReview}">삭제</a>
-	                </td>
-	            </tr>
-				<tr th:unless="${ReviewList != null and not #lists.isEmpty(ReviewList)}">
-					<td colspan="9">등록된 리뷰가 없습니다.</td>
-				</tr>                            
-              </tbody>
-            </table>
+	<th:block layout:fragment="customContent">
+       	<div class="row">
+       		<div class="col-6">삭제</div>
+       	</div>
 	</th:block>
 </html>
-
-
-
-
-
-
-
-
 
 
 

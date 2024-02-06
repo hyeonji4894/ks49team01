@@ -99,7 +99,7 @@
 		                </div>
 				   	</div>
 				</div>
-		</div> 
+			</div> 
 		</form>   	
 	</th:block>
 	
@@ -117,7 +117,7 @@
 	  	  				const cate = $(item).closest('.add-form').find('.add-form-label').text();
 	  	  				let msg = `${cate} 필수 입력항목입니다.`;
 	  	  				console.log(`${cate}`);
-	  	  				if(`${cate}` == '결제기준 적립금 등록일자'){
+	  	  				if(`${cate}` == '결제적립금 기준 등록일자'){
 	  	  					isValid = true;
 		  	  				return true;
 	  	  				} else {

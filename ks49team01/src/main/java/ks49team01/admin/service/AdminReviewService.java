@@ -24,29 +24,16 @@ public class AdminReviewService {
 	
 	// 리뷰 카테고리 등록
 	public void addReviewCategory(AdminReviewCategory adminReviewCategory) {
+		
 		log.info("리뷰카테고리 insert 전 adminReviewCategory: {}", adminReviewCategory);
 		adminReviewMapper.addReviewCategory(adminReviewCategory);
 		log.info("리뷰카테고리 insert 후 adminReviewCategory: {}", adminReviewCategory);
-		
 	}
 
 	// 리뷰 카테고리 조회
 	public List<AdminReviewCategory> getReviewCategory(){
 		
 		return adminReviewMapper.getReviewCategory();
-	}
-	
-
-	// 리뷰 카테고리 내용 검색
-	public List<AdminReviewCategory> getSearchCategoryContext(String reviewCategoryContext){
-		
-		return adminReviewMapper.getReviewCategoryContext(reviewCategoryContext);
-	}
-	
-	// 리뷰 카테고리 조건 검색
-	public List<AdminReviewCategory> getSearchCategory(List<Map<String, Object>> paramList){
-		
-		return adminReviewMapper.getSearchCategory(paramList);
 	}
 	
 	// 특정코드로 리뷰카테고리 조회
@@ -63,10 +50,27 @@ public class AdminReviewService {
 		if(result > 0) log.info("리뷰카테고리 수정 완료");
 	}
 	
+	// 리뷰 카테고리 내용 검색
+	public List<AdminReviewCategory> getSearchCategoryContext(String reviewCategoryContext){
+		
+		return adminReviewMapper.getReviewCategoryContext(reviewCategoryContext);
+	}
+	
+	// 리뷰 카테고리 조건 검색
+	public List<AdminReviewCategory> getSearchCategory(List<Map<String, Object>> paramList){
+		
+		return adminReviewMapper.getSearchCategory(paramList);
+	}
 	
 	
 	
 	
+	
+	// 리뷰 목록 조회	
+	public List<AdminReview> getReviewList(){
+		
+		return adminReviewMapper.getReviewList();
+	}
 	
 	// 리뷰 내용 검색(모달)
 	public List<AdminReview> getSearchReviewContext(String reviewContext){
@@ -74,11 +78,6 @@ public class AdminReviewService {
 		return adminReviewMapper.getSearchReviewContext(reviewContext);
 	}
 	
-	// 리뷰 목록 조회	
-	public List<AdminReview> getReviewList(){
-		
-		return adminReviewMapper.getReviewList();
-	}
 
 	// 조건에 따른 리뷰검색(최종)
 	public List<AdminReview> getSearchByReview(List<Map<String, Object>> paramList){
@@ -90,16 +89,16 @@ public class AdminReviewService {
 	
 	
 	
-	// 리뷰댓글 내용 검색(모달)
-	public List<AdminReviewReply> getSearchReviewReplyContext(String reviewReplyContext){
-		
-		return adminReviewMapper.getSearchReviewReplyContext(reviewReplyContext);
-	}
-	
 	// 리뷰 댓글 조회
 	public List<AdminReviewReply> getAdminReviewReply(){
 		
 		return adminReviewMapper.getAdminReviewReply();
+	}
+	
+	// 리뷰댓글 내용 검색(모달)
+	public List<AdminReviewReply> getSearchReviewReplyContext(String reviewReplyContext){
+		
+		return adminReviewMapper.getSearchReviewReplyContext(reviewReplyContext);
 	}
 	
 	// 조건에 따른 리뷰 검색(최종)

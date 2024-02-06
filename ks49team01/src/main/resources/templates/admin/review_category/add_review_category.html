@@ -65,24 +65,24 @@
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
 		<form id="addCategoryForm" method="post" th:action="@{/admin/review/addReviewCategory}">	
-		<div class="card mb-4">
-			<div class="card-body ml-4 mr-4">
-				<div class="row border add-form">
-					<div class="col-2 add-form-label border-end">카테고리</div>
-					<div class="col-3">
-						<select class="form-control text-center" name="reviewCategoryKind" id="reviewCategoryKind">
-							<option value="시설">시설</option>
-							<option value="분위기">분위기</option>
-						</select>
-					</div>
-				</div>			
-				<div class="row border add-form">
-					<div class="col-2 add-form-label border-end">카테고리 내용</div>
-					<div class="col-10">
-						<input type="text" class="form-control" name="reviewCategoryContext" id="reviewCategoryContext">
-					</div>
-				</div>														
-			</div>
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">카테고리</div>
+						<div class="col-3">
+							<select class="form-control text-center" name="reviewCategoryKind" id="reviewCategoryKind">
+								<option value="시설">시설</option>
+								<option value="분위기">분위기</option>
+							</select>
+						</div>
+					</div>			
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">카테고리 내용</div>
+						<div class="col-10">
+							<input type="text" class="form-control" name="reviewCategoryContext" id="reviewCategoryContext">
+						</div>
+					</div>														
+				</div>
 				<div class="row mb-3">
 					<div class="col-sm-3"></div>
 					<div class="col-sm-9">
@@ -96,7 +96,7 @@
 		                </div>
 				   	</div>
 				</div>
-		</div> 
+			</div> 
 		</form>   	
 	</th:block>
 	

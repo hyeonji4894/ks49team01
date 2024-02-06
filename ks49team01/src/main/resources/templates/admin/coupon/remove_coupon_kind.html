@@ -18,36 +18,16 @@
 		<li class="breadcrumb-item">
 			<a th:href="@{/}" class="text-muted">쿠폰종류</a>
 		</li>
-		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">삭제하기</a>
-		</li>
+		<li class="breadcrumb-item text-muted active" aria-current="page"></li>
 	</th:block>
-	
+
 	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">	
-			<table class="table">
-			 <thead>
-	            <tr>
-	                <th scope="col">쿠폰이름</th>                                                                                                                                          
-	            </tr>
-	         </thead>
-	         <tbody>
-	            <tr th:if="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}"
-	            	th:each="l : ${adminCouponKind}">
-            		<td class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1"></label>
-                    </td>
-	                <td th:text="${l.couponName}"></td>            	
-	            </tr>
-				<tr th:unless="${adminCouponKind != null and not #lists.isEmpty(adminCouponKind)}">
-					<td colspan="9">등록된 쿠폰이 없습니다.</td>
-				</tr>                            
-              </tbody>
-            </table>
+	<th:block layout:fragment="customContent">
+       	<div class="row">
+       		<div class="col-6">삭제</div>
+       	</div>
 	</th:block>
 </html>
-
 
 
 
