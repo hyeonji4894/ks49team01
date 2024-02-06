@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks49team01.admin.dto.AdminInquiryBoard;
 import ks49team01.admin.service.AdminInquiryBoardService;
-import ks49team01.admin.service.AdminNoticeBoardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
@@ -20,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminInquiryBoardController {
 
 	private AdminInquiryBoardService adminInquiryBoardService;
+	
 	@GetMapping("/getInquiryBoard")
 	public String getInquiryBoard(Model model) {
 		
