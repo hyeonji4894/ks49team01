@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     
     <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="x-	ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:title" content="">
@@ -67,31 +67,31 @@
         <table class="table table-bordered table-hover text-center search-result">
                   <thead class="h5 text-dark">
                      <tr>
-	                    <th scope="col">가맹점 코드</th>
-	                    <th scope="col">가맹점 아이디</th>
-	                    <th scope="col">매장명</th>
-	                    <th scope="col">주소</th>	                
-	                    <th scope="col">전화번호</th>
-	                    <th scope="col">가맹점대표</th>
-	                    <th scope="col">영업 시작일</th>
-	                    <th scope="col">영업 종료일</th>	                
-	                    <th scope="col">영업 시작 후 실사 이미지</th>	                
+	                     <th scope="col">가맹 모집 코드</th>
+	                    <th scope="col">폐교 코드</th>
+	                    <th scope="col">본사 아이디</th>
+	                    <th scope="col">지역</th>	                
+	                    <th scope="col">년도</th>
+	                    <th scope="col">모집 회차</th>
+	                    <th scope="col">모집공고 등록 일자</th>
+	                    <th scope="col">모집기한</th>	                
+	                    <th scope="col">모집 진행 상황</th>		                
 	                </tr>
                   </thead>
                   <tbody id="tbody">
-					<tr th:if="${adminBranchManagement != null and not #lists.isEmpty(adminBranchManagement)}"
-					th:each="e : ${adminBranchManagement}">
-					<td th:text="${e.branchCode}"></td>
+					<tr th:if="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}"
+					th:each="e : ${adminBranchRecruitAnnouncement}">
+					<td th:text="${e.branchRecruitCode}"></td>
+					<td th:text="${e.closeSchoolCode}"></td>
 					<td th:text="${e.memberId}"></td>
-					<td th:text="${e.branchName}"></td>
-					<td th:text="${e.branchAddr}"></td>
-					<td th:text="${e.branchPhone}"></td>
-					<td th:text="${e.branchRepresentative}"></td>
-					<td th:text="${e.branchStartDate}"></td>
-					<td th:text="${e.branchEndDate}"></td>
-					<td th:text="${e.branchImage}"></td>
+					<td th:text="${e.branchRecruitReligion}"></td>
+					<td th:text="${e.branchRecruitYear}"></td>
+					<td th:text="${e.branchRecruitmentRound}"></td>
+					<td th:text="${e.branchRegistrationDate}"></td>
+					<td th:text="${e.branchRecruitmentPeriod}"></td>
+					<td th:text="${e.recruitmentProgressStatus}"></td>
 					</tr>
-					<tr th:unless="${adminBranchManagement != null and not #lists.isEmpty(adminBranchManagement)}">
+					<tr th:unless="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}">
 					<td colspan="12">조회된 리스트가 없습니다</td>
 					</tr>
 					</tbody>
@@ -163,34 +163,34 @@
                              <table class="table table-bordered table-hover text-center">
                                 <thead class="text-dark font-weight-bolder">
                                    <tr>
-					                    <th scope="col">가맹점 코드</th>
-					                    <th scope="col">가맹점 아이디</th>
-					                    <th scope="col">매장명</th>
-					                    <th scope="col">주소</th>	                
-					                    <th scope="col">전화번호</th>
-					                    <th scope="col">가맹점대표</th>
-					                    <th scope="col">영업 시작일</th>
-					                    <th scope="col">영업 종료일</th>	                
-					                    <th scope="col">영업 시작 후 실사 이미지</th>	                
+					                    <th scope="col">가맹 모집 코드</th>
+					                    <th scope="col">폐교 코드</th>
+					                    <th scope="col">본사 아이디</th>
+					                    <th scope="col">지역</th>	                
+					                    <th scope="col">년도</th>
+					                    <th scope="col">모집 회차</th>
+					                    <th scope="col">모집공고 등록 일자</th>
+					                    <th scope="col">모집기한</th>	                
+					                    <th scope="col">모집 진행 상황</th>	                
 					                </tr>
                                 </thead>
                                 <tbody id="tbody">
-									<tr th:if="${adminBranchManagement != null and not #lists.isEmpty(adminBranchManagement)}"
-									th:each="e : ${adminBranchManagement}">
-									<td th:text="${e.branchCode}"></td>
+									<tr th:if="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}"
+									th:each="e : ${adminBranchRecruitAnnouncement}">
+									<td th:text="${e.branchRecruitCode}"></td>
+									<td th:text="${e.closeSchoolCode}"></td>
 									<td th:text="${e.memberId}"></td>
-									<td th:text="${e.branchName}"></td>
-									<td th:text="${e.branchAddr}"></td>
-									<td th:text="${e.branchPhone}"></td>
-									<td th:text="${e.branchRepresentative}"></td>
-									<td th:text="${e.branchStartDate}"></td>
-									<td th:text="${e.branchEndDate}"></td>
-									<td th:text="${e.branchImage}"></td>
+									<td th:text="${e.branchRecruitReligion}"></td>
+									<td th:text="${e.branchRecruitYear}"></td>
+									<td th:text="${e.branchRecruitmentRound}"></td>
+									<td th:text="${e.branchRegistrationDate}"></td>
+									<td th:text="${e.branchRecruitmentPeriod}"></td>
+									<td th:text="${e.recruitmentProgressStatus}"></td>
 									</tr>
-									<tr th:unless="${adminBranchManagement != null and not #lists.isEmpty(adminBranchManagement)}">
+									<tr th:unless="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}">
 									<td colspan="12">조회된 리스트가 없습니다</td>
 									</tr>
-									</tbody>
+								</tbody>
 			                </table>
                           </div>
                       </div>
@@ -575,4 +575,5 @@
     <!-- This Page JS Script -->
     
 
-	</body></html>
+	</body>
+</html>
