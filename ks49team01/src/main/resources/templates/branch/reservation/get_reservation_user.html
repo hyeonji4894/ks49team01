@@ -36,7 +36,7 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	  <div class="card mb-4">
+       	  <!-- <div class="card mb-4">
 		    <div class="card-body">
 		      <div class="row">
 		        <div class="col-lg-10">
@@ -90,23 +90,23 @@
 		        </div>
 		      </div>
 		    </div>
-		  </div>
+		  </div> -->
 		  <div class="card mb-4">
 		    <div class="card-body">
 		    	<div class="row mb-3">
 		    		<div class="col-sm-3 d-flex align-items-end">		    		
 				    	<h5 class="card-title">
 					    	[ 전체 &nbsp;
-					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(reservationUserList)}">100</label> 건
 					    	&nbsp;|&nbsp;  
-					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
+					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(reservationUserList)}">10</label> 건
 					    	]
 				    	</h5>
 		    		</div>	    	
 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
-                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
-                               수정</button>
+                           <!-- <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+                               수정</button> -->
                            <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
                                삭제</button>
                        </div>
