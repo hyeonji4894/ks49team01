@@ -190,7 +190,7 @@
 				let searchMileageId = $('#searchMileageId').val();
 				searchMileageId??'';
 				const request = $.ajax({
-					url:'/admin/mileage/searchForMileageId',
+					url:'/admin/mileage/getSearchMileageId',
 					method:'POST',
 					data:{'searchMileageId' : searchMileageId},
 					dataType:'json',
@@ -235,7 +235,7 @@
 				console.log(searchArr);
 				
 				const request = $.ajax({
-					url : '/admin/mileage/getSearchMileageId',
+					url : '/admin/mileage/getSearchMileageList',
 					method : 'POST',
 					contentType : 'application/json; charset=UTF-8',
 					data: JSON.stringify(searchArr),
@@ -253,14 +253,15 @@
 						return;
 					}
 					$(searchList).each(function(idx, item){
-						const newTr = 								$('<tr />');
-						const checkBox = 							$('<input />', { type:'checkbox', class:'check', 'data-mileage-list-code' : item.mileageListCode});
-						const newTdCheckBox = 						$('<td />').html(checkBox);
-						const newTdmileageListCode = 				$('<td />').text(item.mileageListCode);
-						const newTdmemberId = 						$('<td />').text(item.memberId);
-						const newTdmileageKind = 					$('<td />').text(item.mileageKind);
-						const newTdmileageSavePrice = 				$('<td />').text(item.mileageSavePrice);
-						const newTdmileageListRegisterDate = 		$('<td />').text(item.mileageListRegisterDate);
+						const newTr = $('<tr />');
+						const memberId = item.memberId;	
+						const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-mileage-list-code' : item.mileageListCode});
+						const newTdCheckBox = 					$('<td />').html(checkBox);
+						const newTdmileageListCode = 			$('<td />').text(item.mileageListCode);
+						const newTdmemberId = 					$('<td />').text(item.memberId);
+						const newTdmileageKind = 				$('<td />').text(item.mileageKind);
+						const newTdmileageSavePrice = 			$('<td />').text(item.mileageSavePrice);
+						const newTdmileageListRegisterDate = 	$('<td />').text(item.mileageListRegisterDate);
 						
 						newTr.append(newTdCheckBox,
 									 newTdmileageListCode,
@@ -316,7 +317,8 @@
 					alert('한개만 선택해주세요.')
 					return;
 				}
-				
+				const mileageListCode = $('.check:checked').data('mileageListCode');
+				location.href = `/admin/mileage/modifyMileageList?mileageListCode=${mileageListCode}`;								
 			});
 			
 			

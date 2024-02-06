@@ -23,9 +23,9 @@ public class UserRoomOptionService {
 	}
 	
 	// 조건옵션 인원추가
-	public List<UserRoomOption> getOptionByPersonnel(){
+	public UserRoomOption getOptionByPersonnel(String roomOptionNumber){
 		
-		return userRoomOptionMapper.getOptionByPersonnel();
+		return userRoomOptionMapper.getOptionByPersonnel(roomOptionNumber);
 	}
 
 }

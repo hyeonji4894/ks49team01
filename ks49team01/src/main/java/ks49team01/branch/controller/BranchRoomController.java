@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
 import ks49team01.branch.dto.BranchRoom;
@@ -73,7 +75,9 @@ public class BranchRoomController {
 	}
 	
 	@PostMapping("/addRoomInfo")
-	public String addRoomInfo(BranchRoom branchRoom, HttpSession session) {
+	public String addRoomInfo(BranchRoom branchRoom
+							, HttpSession session
+							, @RequestPart(value = "uploadFile", required = false) MultipartFile[] uploadfile) {
 		
 		log.info("객실등록 branchRoom: {}", branchRoom);
 		
@@ -82,7 +86,7 @@ public class BranchRoomController {
 		
 		branchRoom.setRegistrantId("id001");
 		
-		roomService.addRoom(branchRoom);
+		roomService.addRoom(branchRoom, uploadfile);
 		
 		return "redirect:/branch/room/roomInfo";
 	}

@@ -13,7 +13,20 @@
 		<result column="room_max_personnel"	 	property="roomMaxPersonnel"/>
 		<result column="available_dog_types"	property="availableDogTypes"/>
 		<result column="room_basic_price" 		property="roomBasicPrice"/>
-		<result column="room_registration_date" property="roomRegistrationDate"/>		
+		<result column="room_registration_date" property="roomRegistrationDate"/>
+		<result column="room_subtotal_amount" property="roomSubtotalAmount"/>
+		<result column="check_in" property="checkIn"/>
+		<result column="check_out" property="checkOut"/>
+		<result column="number_of_stays" property="numberOfStays"/>
+		<collection property="roomImgFileList" ofType="RoomImgFileDto">
+			<id 	property="roomImgIdx" 				column="room_img_idx"/>
+			<result property="registrantId" 			column="registrant_id"/>
+			<result property="roomFileOriginalName" 	column="room_file_original_name"/>
+			<result property="roomFileNewName" 			column="room_file_new_name"/>
+			<result property="roomFileSize" 			column="room_file_size"/>
+			<result property="roomFilePath" 			column="room_file_path"/>
+			<result property="roomRegistrationDate" 	column="room_registration_date"/>
+		</collection>		
 	</resultMap>
 	
 
@@ -45,7 +58,7 @@
 	</select>
 	
 	<select id="getRoomInfoByCode" parameterType="String" resultMap="roomResultMap">
-	/* 특정 코드로 객실 조회*/
+		/* 특정 코드로 객실 조회*/
 		SELECT
 			ri.room_code,
 			bm.branch_name,
@@ -54,13 +67,28 @@
 			ri.room_basic_personnel,
 			ri.room_max_personnel,
 			ri.available_dog_types,
-			ri.room_basic_price
+			ri.room_basic_price,
+			rif.room_img_idx,
+			rif.registrant_id,
+			rif.room_file_original_name,
+			rif.room_file_new_name,
+			rif.room_file_size,
+			rif.room_file_path,
+			rif.room_registration_date
 		FROM
 			room_information AS ri
 			INNER JOIN
 			branch_management AS bm
 			ON 
 			ri.branch_code = bm.branch_code
+			LEFT JOIN 
+			room_img_file_relation AS rifr
+			ON 
+			ri.room_code = rifr.room_code
+			LEFT JOIN 
+			room_img_file AS rif
+			ON 
+			rifr.room_img_idx = rif.room_img_idx
 		WHERE	
 			ri.room_code = #{roomCode};
 	</select>
@@ -91,6 +119,44 @@
 			</if>
 		</where>
 		ORDER BY room_registration_date DESC;
+	</select>
+	
+	<select id="getRoomResevationList" resultMap="roomResultMap">
+		/* 객실예약화면 선택 내역 */
+		SELECT
+			ri.room_code,
+			bm.branch_name,
+			ri.room_name,
+			ri.room_basic_price,
+			SUM(rr.room_subtotal_amount) AS total_room_subtotal_amount,
+			sp.check_in,
+			sp.check_out,
+			sp.number_of_stays,
+			rr.member_id
+		FROM
+			room_reservation AS rr
+			INNER JOIN
+			set_stay_period AS sp
+			ON
+			rr.stay_period_code = sp.stay_period_code
+			INNER JOIN 
+			room_information AS ri
+			ON 
+			rr.room_code = ri.room_code
+			INNER join
+			branch_management AS bm
+			ON 
+			bm.branch_code = ri.branch_code
+		WHERE	
+			ri.room_code = #{roomCode};
+		GROUP BY
+		    bm.branch_name,
+		    ri.room_name,
+		    ri.room_basic_price,
+		    sp.check_in,
+		    sp.check_out,
+		    sp.number_of_stays,
+		    rr.member_id;		
 	</select>
 
 </mapper>

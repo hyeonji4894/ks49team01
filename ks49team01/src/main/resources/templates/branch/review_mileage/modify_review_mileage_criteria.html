@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{branch/layout/default}">
+	  
+	<!-- css file import head태그 안에 추가  -->
+	<head>
+		<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
+	</head>
+	
+	<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">적립금관리</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted h4">리뷰적립금 기준</a>
+		</li> 
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">수정하기</li>
+	</th:block>
+
+	<!-- Start Page Content -->
+	<th:block layout:fragment="customContent">
+		<form id="addReviewMileageForm" method="post" th:action="@{/branch/mileage/modifyReviewMileageCriteria}" th:object="${branchReviewMileageCriteria}">	
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">적립금등급 이름</div>
+						<div class="col-10">
+							<input type="text" class="form-control" name="mileageKind" id="mileageKind" th:value="*{mileageKind}">
+							<input type="hidden" class="form-control" name="mileageCriteriaCode" id="mileageCriteriaCode" th:value="*{mileageCriteriaCode}">						
+						</div>
+					</div>				
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">적립금 금액</div>
+						<div class="col-10">
+							<input type="text" class="form-control" name="mileageAmount" id="mileageAmount" th:value="*{mileageAmount}">
+						</div>
+					</div>															
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/branch/mileage/getReviewMileageCriteria}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="submit" class="btn btn-outline-success" id="modifyBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        수정</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>&emsp;
+		                </div>
+				  	</div>
+				</div>
+			</div>
+		</form>   	
+	</th:block>
+	
+	
+	<th:block layout:fragment="customJs">
+	  	  <script th:inline="javascript">
+	  	  
+	  	  </script>
+	</th:block>
+</html>
+
+
+
+
+
+
+
+
+
+

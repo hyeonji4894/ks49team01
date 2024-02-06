@@ -54,6 +54,21 @@ public class AdminReviewController {
 		return "redirect:/admin/review/getReviewCategory";
 	}
 	
+	// 리뷰 카테고리 수정화면
+	@GetMapping("/modifyReviewCategory")
+	public String modifyReviewCategory(@RequestParam(value = "categoryCode")String categoryCode
+			,Model model){
+		
+		log.info("카테고리 수정화면 categoryCode : {}", categoryCode);
+		
+		// 특정코드 조회
+		AdminReviewCategory adminReviewCategory = adminReviewService.getReviewCategoryByCode(categoryCode);
+		
+		model.addAttribute("adminReviewCategory", adminReviewCategory);
+		
+		return "admin/review_category/modify_review_category";
+	}
+	
 	// 리뷰카테고리 수정
 	@PostMapping("/modifyReviewCategory")
 	public String modifyReviewCategory(AdminReviewCategory adminReviewCategory, HttpSession session) {
@@ -65,22 +80,6 @@ public class AdminReviewController {
 		return "redirect:/admin/review/getReviewCategory";
 	}	
 	
-	
-	
-	// 리뷰 카테고리 수정화면
-	@GetMapping("/modifyReviewCategory")
-	public String modifyReviewCategory(@RequestParam(value = "categoryCode")String categoryCode
-										,Model model){
-
-	log.info("카테고리 수정화면 categoryCode : {}", categoryCode);
-	
-	// 특정코드 조회
-	AdminReviewCategory adminReviewCategory = adminReviewService.getReviewCategoryByCode(categoryCode);
-	
-	model.addAttribute("adminReviewCategory", adminReviewCategory);
-	
-	return "admin/review_category/modify_review_category";
-}
 	
 
 	//리뷰카테고리 삭제
@@ -141,16 +140,6 @@ public class AdminReviewController {
 	
 	
 	
-	// 리뷰 삭제
-	@GetMapping("/removeReview")
-	public String removeReview(Model model){
-		
-		log.info("리뷰 삭제");
-		
-		model.addAttribute("title", "리뷰 삭제");
-		
-	return "admin/review/remove_review";
-	}
 	 
 	// 리뷰 목록 조회
 	@GetMapping("/getReviewList")
@@ -164,6 +153,17 @@ public class AdminReviewController {
 		model.addAttribute("adminReviewList", adminReviewList);
 		
 	return "admin/review/get_review_list";
+	}
+	
+	// 리뷰 삭제
+	@GetMapping("/removeReview")
+	public String removeReview(Model model){
+		
+		log.info("리뷰 삭제");
+		
+		model.addAttribute("title", "리뷰 삭제");
+		
+		return "admin/review/remove_review";
 	}
 	
 	// 리뷰 내용 검색(모달)
@@ -208,6 +208,20 @@ public class AdminReviewController {
 	
 	
 	
+	// 리뷰 댓글 조회
+	@GetMapping("/getReviewReply")
+	public String getReviewReply(Model model){
+		
+		List<AdminReviewReply> adminReviewReply = adminReviewService.getAdminReviewReply();
+		
+		log.info("adminReviewReply: {}", adminReviewReply);
+		
+		model.addAttribute("title", "리뷰 댓글 조회");
+		model.addAttribute("adminReviewReply", adminReviewReply);
+		
+		return "admin/review_reply/get_review_reply";
+	}
+	
 	
 	// 리뷰 댓글 등록
 	@GetMapping("/addReviewReply")
@@ -243,19 +257,6 @@ public class AdminReviewController {
 	return "admin/review_reply/remove_review_reply";
 	}
 	
-	// 리뷰 댓글 조회
-	@GetMapping("/getReviewReply")
-	public String getReviewReply(Model model){
-		
-		List<AdminReviewReply> adminReviewReply = adminReviewService.getAdminReviewReply();
-		
-		log.info("adminReviewReply: {}", adminReviewReply);
-		
-		model.addAttribute("title", "리뷰 댓글 조회");
-		model.addAttribute("adminReviewReply", adminReviewReply);
-		
-	return "admin/review_reply/get_review_reply";
-	}
 	
 	// 리뷰댓글 내용 검색(모달)
 	@PostMapping("/getSearchReviewReplyContext")

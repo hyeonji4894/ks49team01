@@ -9,6 +9,7 @@ import ks49team01.user.dto.UserRoom;
 @Mapper
 public interface UserRoomMapper {
 	
+	
 	// 지역 카테고리 검색
 	public List<String> getLocationList();
 	

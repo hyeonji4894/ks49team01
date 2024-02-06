@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.branch.mapper.BranchRoomFileMapper">
+	<resultMap type="RoomImgFileDto" id="RoomImgFileResultMap">
+		<id property="roomImgIdx" 					column="room_img_idx"/>
+		<result property="registrantId" 			column="registrant_id"/>
+		<result property="roomFileOriginalName" 	column="room_file_original_name"/>
+		<result property="roomFileNewName" 			column="room_file_new_name"/>
+		<result property="roomFileSize" 			column="room_file_size"/>
+		<result property="roomFilePath" 			column="room_file_path"/>
+		<result property="roomRegistrationDate" 	column="room_registration_date"/>
+	</resultMap>
+	
+	<delete id="deleteRoomImgFileByIdx" parameterType="String">
+		DELETE
+		FROM 
+			room_img_file
+		WHERE
+			room_img_idx = #{roomImgIdx}
+	</delete>
+	
+	<insert id="addRoomImgFile" parameterType="list">
+		INSERT INTO room_img_file
+		(
+			room_img_idx, 
+			registrant_id, 
+			room_file_original_name, 
+			room_file_new_name, 
+			room_file_size, 
+			room_file_path, 
+			room_registration_date
+		)VALUES
+		<foreach collection="list" item="data" separator=",">
+		( 
+		
+			 #{data.roomImgIdx},
+			 #{data.registrantId},
+			 #{data.roomFileOriginalName},
+			 #{data.roomFileNewName},
+			 #{data.roomFileSize},
+			 #{data.roomFilePath},
+			 CURDATE()
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="addRoomImgFileRelation" parameterType="list">
+		/* 파일 릴레이션 테이블 삽입 */
+		INSERT INTO room_img_file_relation
+		(room_code, room_img_idx)
+		VALUES
+		<foreach collection="list" item="data" separator=",">
+		( 
+			 #{data.roomCode}
+			,#{data.roomImgIdx}
+		)
+		</foreach>
+	</insert>
+	
+	<select id="getRoomImgFileList" resultMap="RoomImgFileResultMap">
+		SELECT 
+			room_img_idx, 
+			registrant_id, 
+			room_file_original_name, 
+			room_file_new_name, 
+			room_file_size, 
+			room_file_path, 
+			room_registration_date
+		FROM 
+			room_img_file
+	</select>
+
+	<select id="getRoomImgFileInfoByIdx" parameterType="string" resultMap="RoomImgFileResultMap">
+		SELECT 
+			room_img_idx, 
+			registrant_id, 
+			room_file_original_name, 
+			room_file_new_name, 
+			room_file_size, 
+			room_file_path, 
+			room_registration_date
+		FROM 
+			room_img_file
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="roomImgIdx != null and roomImgIdx != ''">
+				room_img_idx = #{roomImgIdx}
+			</if>
+		</trim>
+	</select>
+</mapper>

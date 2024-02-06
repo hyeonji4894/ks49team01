@@ -1,6 +1,7 @@
 package ks49team01.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +22,18 @@ public class AdminMileageService {
 	private final AdminMileageMapper adminMileageMapper;
 	
 	
+	// 결제적립금 기준 조회
+	public List<AdminPaymentCriteriaMileage> getAdminPaymentCriteriaMileage(){
+		
+		return adminMileageMapper.getAdminPaymentCriteriaMileage();
+	}
+	
 	//결제적립금 기준 등록
 	public void addAdminPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage) {
 		log.info("결제적립금 기준 insert 전 adminPaymentCriteriaMileage: {}", adminPaymentCriteriaMileage);
 		adminMileageMapper.addAdminPaymentCriteriaMileage(adminPaymentCriteriaMileage);
-		log.info("결제적립금 기준 insert 전 adminPaymentCriteriaMileage: {}", adminPaymentCriteriaMileage);
-		
+		log.info("결제적립금 기준 insert 후 adminPaymentCriteriaMileage: {}", adminPaymentCriteriaMileage);	
 	}	
-	
 	
 	// 특정코드로 결제적립금 기준 조회
 	public AdminPaymentCriteriaMileage getPaymentMileageCriteriaByCode(String roompayMileageRateCode) {
@@ -39,17 +44,17 @@ public class AdminMileageService {
 	}
 	
 	// 특정코드로 결제적립금기준 수정
-	public void modifyPaymentMileageCriteria(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage) {
+	public void modifyAdminPaymentCriteriaMileage(AdminPaymentCriteriaMileage adminPaymentCriteriaMileage) {
 		int result = adminMileageMapper.modifyAdminPaymentCriteriaMileage(adminPaymentCriteriaMileage);
 		if(result > 0) log.info("결제적립금 기준 수정완료");
 	}
 	
 	
-	// 결제적립금 기준 조회
-	public List<AdminPaymentCriteriaMileage> getAdminPaymentCriteriaMileage(){
-		
-		return adminMileageMapper.getAdminPaymentCriteriaMileage();
-	}
+	
+	
+	
+	
+	
 	
 	// 리뷰적립금 기준 조회
 	public List<AdminReviewMileageCriteria> getAdminReviewMileageCriteria(){
@@ -57,16 +62,72 @@ public class AdminMileageService {
 		return adminMileageMapper.getAdminReviewMileageCriteria();
 	}
 	
-	// 적립금목록 조회
+	//리뷰적립금 기준 등록
+	public void addAdminReviewMileageCriteria(AdminReviewMileageCriteria adminReviewMileageCriteria) {
+		log.info("리뷰적립금 기준 inser 전 adminReviewMileageCriteria: {}", adminReviewMileageCriteria);
+		adminMileageMapper.addAdminReviewMileageCriteria(adminReviewMileageCriteria);
+		log.info("리뷰적립금 기준 inser 후 adminReviewMileageCriteria: {}", adminReviewMileageCriteria);
+	}
+	
+	// 특정코드로 리뷰적립금기준 조회
+		public AdminReviewMileageCriteria getReviewMileageCriteriaByCode(String mileageCriteriaCode) {
+			
+			AdminReviewMileageCriteria adminReviewMileageCriteria = adminMileageMapper.getReviewMileageCriteriaByCode(mileageCriteriaCode);
+			
+			return adminReviewMileageCriteria;
+		}
+		
+		// 특정코드로 리뷰적립금기준 수정
+		public void modifyAdminReviewMileageCriteria(AdminReviewMileageCriteria adminReviewMileageCriteria) {
+			int result = adminMileageMapper.modifyAdminReviewMileageCriteria(adminReviewMileageCriteria);
+			if(result > 0) log.info("리뷰적립금 기준 수정완료");
+		}
+		
+	
+	
+	
+	
+	
+	
+	
+	// 적립금지급내역 목록조회
 	public List<AdminMileage> getMileageList(){
 		
 		return adminMileageMapper.getMileageList();
 				
 	}
 	
-	// 적립금지급내역 지급받은아이디 검색
+	// 적립금지급내역 등록
+	public void addMileageList(AdminMileage adminMileage) {
+		
+		log.info("적립금내역 insert 전 adminMileage: {}", adminMileage);
+		adminMileageMapper.addMileageList(adminMileage);
+		log.info("적립금내역 insert 후 adminMileage: {}", adminMileage);
+	}
+	
+	// 특정코드로 적립금지급내역 조회
+	public AdminMileage getMileageListByCode(String mileageListCode) {
+		
+		AdminMileage adminMileage = adminMileageMapper.getMileageListByCode(mileageListCode);
+		
+		return adminMileage;
+	}
+	
+	// 특정코드로 적립금지급내역 수정
+	public void modifyMileageList(AdminMileage adminMileage) {
+		int result = adminMileageMapper.modifyMileageList(adminMileage);
+		if(result > 0) log.info("적립금지급내역 수정완료");
+	}
+	
+	// 적립금지급내역 지급받은아이디 검색(모달)
 	public List<AdminMileage> getSearchMileageId(String memberId){
 		
 		return adminMileageMapper.getSearchMileageId(memberId);
+	}
+	
+	// 조건에 따른 적립금 목록 검색(최종)
+	public List<AdminMileage> getSearchMileageList(List<Map<String, Object>> paramList){
+		
+		return adminMileageMapper.getSearchMileageList(paramList);
 	}
 }
