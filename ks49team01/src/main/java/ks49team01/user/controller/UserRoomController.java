@@ -93,19 +93,10 @@ public class UserRoomController {
 		model.addAttribute("roomInfo", roomInfo);
 		model.addAttribute("roomOptionByPersonnel", roomOptionByPersonnel);
 		
-		return "user/room/room_Detail_veiw";
+		return "user/room/room_detail_veiw";
 	}
 	
 	
-	@GetMapping("/selectReservDate")
-	public String selectReservDate(Model model) {
-		
-		model.addAttribute("title", "예약날짜선택");
-		
-		model.addAttribute("title", "예약날짜선택");
-		
-		return "user/room/reserv_date_select";
-	}
 	
 	@GetMapping("/selectReservRoom")
 	public String selectReservRoom(Model model,@RequestParam(value="location", required = false)
@@ -123,5 +114,15 @@ public class UserRoomController {
 		return "user/room/room_reserv_select";
 	}
 	
+	
+	@GetMapping("/selectReservDate")
+	public String selectReservDate(Model model) {
+		
+		model.addAttribute("title", "예약날짜선택");
+		
+		model.addAttribute("title", "예약날짜선택");
+		
+		return "user/room/reserv_date_select";
+	}
 	
 }

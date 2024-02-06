@@ -28,7 +28,7 @@
 	                <div class="col-lg-4-5">
 	                    <div class="shop-product-fillter">
 	                        <div class="totall-product">
-	                            <p><strong class="text-brand" th:text="${#lists.size(roomList)}">29</strong>개의 숙소를 발견했습니다!</p>
+	                            <p><strong class="text-brand" th:text="${#lists.size(roomList)}">29</strong>개의 숙소가 있습니다!</p>
 	                        </div>
 	                        <div class="sort-by-product-area">
 	                            <div class="sort-by-cover">
@@ -62,6 +62,9 @@
                                     </div>
 	                            </div>
 	                            <div class="product-content-wrap">
+	                            	<div class="product-category">
+                                    	<a th:href="@{/user/room/roomDetailView(roomCode=${r.roomCode})}" id="branchName" th:text="${r.branchName}"></a>
+                               		</div>
 	                                <h2><a class="click-items" th:href="@{/user/room/roomDetailView(roomCode=${r.roomCode})}" id="roomName" th:text="${r.roomName}"></a></h2>
 	                               <div class="product-price">
 	                                    <span th:text="|₩ ${#numbers.formatInteger(r.roomBasicPrice, 3, 'COMMA')}|"></span>
