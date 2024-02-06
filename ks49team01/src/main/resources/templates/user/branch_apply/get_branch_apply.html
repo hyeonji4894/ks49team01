@@ -62,6 +62,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="header-bottom header-bottom-bg-color sticky-bar">
             <div class="container">
                 <div class="header-wrap header-space-between position-relative justify-content-center">
@@ -464,6 +465,54 @@
             </div>
         </section>
     </footer>   
-	
 	</body>
+	<th:block layout:fragment="customJs">
+		<script>
+		$(document).on('click', '.searchTb1 tr', function(){
+			const branchName = $(this).children().eq(1).text();
+			$('#branchName').val(branchName);
+			$('#search1-modal').modal('hide');
+		});
+		
+		$(document).on('click', '.searchTb2 tr', function(){
+			const code = $(this).children().eq(0).text();
+			const name= $(this).children().eq(1).text();
+			$('#goodsName').val(name);
+			$('#goodsCode').val(code);
+			$('#search2-modal').modal('hide');
+		});
+		
+		$(document).on('click', '.search-result tbody ty', function(e){
+			e.stopPropagation();
+			const isChecked = $(this).find('.check').prop('checked');
+			$(this).find('.check').prop('checked', !isChecked);
+			if($('.check').length == $('.checked', true).length){
+				$('#allCheck').prop('checked', true);
+			}else{
+				$('#allCheck').prop('checked', false);
+			}
+		});
+		
+		$(document).on('click', '.check', function(e){
+			e.stopPropagation();
+			if($('.check').length == $('.check:checked').length){
+				$('#allCheck').prop('checked', true);
+			}else{
+				$('#allCheck').prop('checked', false);
+			}
+		});
+		
+		$(document)
+		
+		
+		</script>
+	</th:block>
+	
 </html>
+
+
+
+
+
+
+

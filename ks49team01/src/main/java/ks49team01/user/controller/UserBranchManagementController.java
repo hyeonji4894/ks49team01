@@ -25,7 +25,7 @@ public class UserBranchManagementController {
 		
 		List<UserBranchManagement> userBranchManagement = userBranchManagementService.getUserBranchManagementList();
 		log.info("가맹점 조회");
-		log.info("userBranchManagement",userBranchManagement);
+		log.info("userBranchManagement: {}",userBranchManagement);
 		
 		model.addAttribute("title", "가맹점 조회");
 		model.addAttribute("userBranchManagement", userBranchManagement);
