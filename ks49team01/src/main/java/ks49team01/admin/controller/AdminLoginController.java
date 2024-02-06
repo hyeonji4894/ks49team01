@@ -27,7 +27,7 @@ public class AdminLoginController {
 		List<AdminLogin> loginList = loginService.getLoginList();
 		
 		log.info("loginList {}", loginList);
-		model.addAttribute("title", "로그인관리");
+		model.addAttribute("title", "로그인 기록");
 		model.addAttribute("loginList", loginList);
 		
 		
