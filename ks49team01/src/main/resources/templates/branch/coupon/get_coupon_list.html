@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{branch/layout/default2}">
+	  layout:decorate="~{branch/layout/default}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
@@ -36,7 +36,7 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	  <div class="card mb-4">
+       	  <!-- <div class="card mb-4">
 		    <div class="card-body">
 		      <div class="row">
 		        <div class="col-lg-10">
@@ -61,7 +61,7 @@
 		        </div>
 		      </div>
 		    </div>
-		  </div>
+		  </div> -->
 		  <div class="card mb-4">
 		    <div class="card-body">
 		    	<div class="row mb-3">
@@ -74,7 +74,7 @@
 					    	]
 				    	</h5>
 		    		</div>	    	
-			    	<div class="col-sm-9">
+<!-- 			    	<div class="col-sm-9">
 			    		<div class="btn-list text-right">
                            <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{#}"><i class="fas fas fa-pencil-alt"></i>
                                등록</a>
@@ -83,7 +83,7 @@
                            <button type="button" class="btn btn-outline-danger" id="delBtn" th:href="@{#}"><i class="fas fa-trash-alt"></i>
                                삭제</button>
                        </div>
-			    	</div>
+			    	</div> -->
 		    	</div>
 		    	
 		    	<table class="table table-bordered table-hover text-center search-result">
