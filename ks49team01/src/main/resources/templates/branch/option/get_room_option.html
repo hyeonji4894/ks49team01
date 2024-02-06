@@ -85,6 +85,8 @@
 		    	<table class="table table-bordered table-hover text-center search-result">
                   <thead class="h5 text-dark">
                       <tr>
+	                      <th style="width: 5%;">
+	                      	<input type="checkbox" id="allCheck">
                           <th class="font-weight-bolder">옵션번호</th>
                           <th class="font-weight-bolder">카테고리</th>
                           <th class="font-weight-bolder">옵션 명</th>
@@ -94,8 +96,11 @@
                       </tr>
                   </thead>
                   <tbody class="border text-dark" id="searchOptionTbody">
-                  	<tr th:if="${optionList != null and not #lists.isEmpty(optionList)}"
+                  	<tr th:if="${optionList != null and not #lists.isEmpty(optionList)}"                  	
                          th:each="o : ${optionList}">
+                         <td style="width: 5%;">
+                        	<input type="checkbox" name="check" class="check" th:data-room-option-number="${o.roomOptionNumber}">
+                      	</td>
                         <td th:text="${o.roomOptionNumber}"></td>
                         <td th:text="${o.roomOptionCate}"></td>
 	                 	<td th:text="${o.roomOptionName}"></td>

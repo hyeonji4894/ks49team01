@@ -35,35 +35,56 @@
 	                    <div class="product-detail accordion-detail">
 	                        <div class="row mb-50 mt-30">
 	                            <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
-	                                <div class="detail-gallery">
-	                                    <!-- MAIN SLIDES -->
-	                                    <div class="product-image-slider">
-	                                        <figure class="border-radius-10">
-	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
-	                                        </figure>
-	                                        <figure class="border-radius-10">
-	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2b85e0d1.jpg}" alt="product image" />
-	                                        </figure>
-	                                        <figure class="border-radius-10">
-	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2b8af8a6.jpg}" alt="product image" />
-	                                        </figure>
-	                                        <figure class="border-radius-10">
-	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2bad666d.jpg}" alt="product image" />
-	                                        </figure>
-	                                         <figure class="border-radius-10">
-	                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c540c4c.jpg}" alt="product image" />
-	                                        </figure>
-	                                    </div>
-	                                    <!-- THUMBNAILS -->
-	                                    <div class="slider-nav-thumbnails">
-	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
-	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2b85e0d1.jpg}" alt="product image" /></div>
-	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2b8af8a6.jpg}" alt="product image" /></div>
-	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2bad666d.jpg}" alt="product image" /></div>
-	                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c540c4c.jpg}" alt="product image" /></div>
-	                                    </div>
-	                                </div>
-	                                <!-- End Gallery -->
+	                            	<th:block th:if="${roomInfo.roomImgFileList != null}">
+	                            		<div class="detail-gallery">
+		                                    <!-- MAIN SLIDES -->
+		                                    <div class="product-image-slider">
+		                                    	<th:block th:each="gl : ${roomInfo.roomImgFileList}">
+		                                    		<figure class="border-radius-10">
+			                                            <img th:src="@{|/${gl.roomFilePath}|}" th:alt="${gl.roomFileOriginalName}" />
+			                                        </figure>
+		                                    	</th:block>
+		                                    </div>
+		                                    <!-- THUMBNAILS -->
+		                                    <div class="slider-nav-thumbnails">
+		                                    	<th:block th:each="gl : ${roomInfo.roomImgFileList}">
+			                                        <div><img th:src="@{|/${gl.roomFilePath}|}" th:alt="${gl.roomFileOriginalName}" /></div>
+		                                    	</th:block>
+		                                    </div>
+		                                </div>
+		                                <!-- End Gallery -->
+	                            	</th:block>
+	                            	<th:block th:unless="${roomInfo.roomImgFileList != null}">
+		                                <div class="detail-gallery">
+		                                    <!-- MAIN SLIDES -->
+		                                    <div class="product-image-slider">
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
+		                                        </figure>
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2b85e0d1.jpg}" alt="product image" />
+		                                        </figure>
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2b8af8a6.jpg}" alt="product image" />
+		                                        </figure>
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2bad666d.jpg}" alt="product image" />
+		                                        </figure>
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c540c4c.jpg}" alt="product image" />
+		                                        </figure>
+		                                    </div>
+		                                    <!-- THUMBNAILS -->
+		                                    <div class="slider-nav-thumbnails">
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2b85e0d1.jpg}" alt="product image" /></div>
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2b8af8a6.jpg}" alt="product image" /></div>
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2bad666d.jpg}" alt="product image" /></div>
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c540c4c.jpg}" alt="product image" /></div>
+		                                    </div>
+		                                </div>
+		                                <!-- End Gallery -->
+	                            	</th:block>
 	                            </div>
 	                            <div class="col-md-6 col-sm-12 col-xs-12">
                                         <div class="detail-info pr-30 pl-30" th:object="${roomInfo}">
@@ -371,7 +392,7 @@
 	                $('#startDate').val(startDate);
 	                $('#endDate').val(endDate);
 	                
-	                const optionPrice = [[${20000}]];
+	                const optionPrice = [[${roomOptionByPersonnel.roomOptionPrice}]];
 	                const cntPerson = (Number($('#countSelect').val()) - 2) <= 0 ? 0 : (Number($('#countSelect').val()) - 2);
 	                // 인원수에 따른 금액
 	                const pricePerPerson = Number($('#roomPrice').data('roomPrice')) + (cntPerson * optionPrice);
@@ -402,7 +423,7 @@
 	                const diff = moment(endDate).diff(startDate, 'days');
 	                
 	                // 인원수에 따른 금액
-	                const optionPrice = [[${20000}]];
+	                const optionPrice = [[${roomOptionByPersonnel.roomOptionPrice}]];
 	                const cntPerson = (Number($(this).val()) - 2) <= 0 ? 0 : (Number($(this).val()) - 2);
 	                
 	                const pricePerPerson = Number($('#roomPrice').data('roomPrice')) + (cntPerson * optionPrice);
