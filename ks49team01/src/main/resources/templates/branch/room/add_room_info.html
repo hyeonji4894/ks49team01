@@ -5,11 +5,52 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실등록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -24,40 +65,101 @@
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<table class="table">
-	        <thead>
-	            <tr>
-	                <th>객실명</th>
-	                <th>객실크기</th>
-	                <th>객실기본인원</th>
-	                <th>객실최대인원</th>
-	                <th>객실이용가능견종</th>
-	                <th>객실기본가격</th>
-	                <th>객실이미지</th>
-	                <th>추가</th>
-	                <th>삭제</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td>
-	    				<a th:href="@{/branch/room/addRomInfo}">추가</a>
-	                </td>
-	                <td>
-	    				<a th:href="@{/branch/room/removeRoomInfo}">삭제</a>
-	                </td>
-	            </tr>
-	        </tbody>
-	     </table>
-	     <div style="float: right;">
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/branch/room/roomOptionList}">등록</a>
-	     </div>
+		<form id="addRoomForm" method="post" th:action="@{/branch/room/addRoomInfo}" enctype="multipart/form-data">		
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end" >가맹점</div>
+						<div class="col-8 ">
+							<select class="form-control text-center" name="branchCode" id="branchCode">
+								<th:block th:each="l : ${branchList}">								
+									<option th:value="${l.branchCode}" th:text="${l.branchName}"></option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end" >객실명</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomName" name="roomName">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실크기</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomSize" name="roomSize">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실기본인원</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomBasicPersonnel" name="roomBasicPersonnel">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실최대인원</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomMaxPersonnel" name="roomMaxPersonnel">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실이용가능견종</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="availableDogTypes" name="availableDogTypes">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실기본가격</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomBasicPrice" name="roomBasicPrice">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">파일</div>
+						<div class="col-8">
+							<input type="file" name="uploadFile" id="uploadFile" multiple="multiple">
+						    
+						</div>
+					</div>
+				</div>
+			<div class="row mb-3">s
+				<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/branch/room/roomInfo}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="button" class="btn btn-outline-success" id="addBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        등록</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>
+		                </div>
+				   	</div>
+				</div>	
+			</div>
+		</form>
+	  </th:block>
+	  
+	  <th:block layout:fragment="customJs">
+	  	  <script th:inline="javascript">
+	  	  	 $('#addBtn').click(function(){
+	  	  		 let isValid = true;
+	  	  		 
+	  	  		 $('#addRoomForm input').each(function(idx, item){
+	  	  			 const value = $(item).val();
+	  	  			 if(value == null || value == ''){
+	  	  				isValid = false;
+	  	  				
+	  	  				const cate = $(item).closest('.add-form').find('.add-form-label').text();
+	  	  				let msg = `${cate} 필수 입력항목입니다.`;
+	  	  				alert(msg);
+	  	  				$(item).focus();
+	  	  				return false;
+	  	  			 }
+	  	  		 })
+	  	  		 if(isValid) $('#addRoomForm').submit();
+	  	  	 });	  	  
+	  	  
+	  	  
+	  	  </script>
 	  </th:block>
 </html>

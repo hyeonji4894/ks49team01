@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.user.mapper.UserRoomMapper">
+
+	<resultMap type="UserRoom" id="roomResultMap">
+		<id column="room_code" 			property="roomCode"/>
+		<result column="branch_code" 	property="branchCode"/>
+		<result column="registrant_id" 	property="registrantId"/>
+		<result column="branch_name" 	property="branchName"/>
+		<result column="room_name"		property="roomName"/>
+		<result column="room_size" 		property="roomSize"/>
+		<result column="room_basic_personnel" 	property="roomBasicPersonnel"/>
+		<result column="room_max_personnel"	 	property="roomMaxPersonnel"/>
+		<result column="available_dog_types"	property="availableDogTypes"/>
+		<result column="room_basic_price" 		property="roomBasicPrice"/>
+		<result column="room_registration_date" property="roomRegistrationDate"/>
+		<result column="room_subtotal_amount" property="roomSubtotalAmount"/>
+		<result column="check_in" property="checkIn"/>
+		<result column="check_out" property="checkOut"/>
+		<result column="number_of_stays" property="numberOfStays"/>
+		<collection property="roomImgFileList" ofType="RoomImgFileDto">
+			<id 	property="roomImgIdx" 				column="room_img_idx"/>
+			<result property="registrantId" 			column="registrant_id"/>
+			<result property="roomFileOriginalName" 	column="room_file_original_name"/>
+			<result property="roomFileNewName" 			column="room_file_new_name"/>
+			<result property="roomFileSize" 			column="room_file_size"/>
+			<result property="roomFilePath" 			column="room_file_path"/>
+			<result property="roomRegistrationDate" 	column="room_registration_date"/>
+		</collection>		
+	</resultMap>
+	
+
+	<select id="getLocationList" resultType="String">
+		/* 지역 카테고리 */
+		 <![CDATA[
+		SELECT
+			(CASE 
+			 WHEN FIELD(SUBSTR(bm.branch_addr,1,2), '서울', '부산', '대구', '인천', '광주', '대전', '울산') < 1 
+			 THEN CONCAT(SUBSTR(bm.branch_addr,1,2),'도') 
+			 ELSE
+			 	 SUBSTR(bm.branch_addr,1,2)
+			 END) AS branchAddr
+		FROM
+			branch_management AS bm
+		GROUP BY SUBSTR(bm.branch_addr,1,2)
+		ORDER BY FIELD(branch_addr, '서울', '부산', '대구', '인천', '광주', '대전', '울산', '강원도', '충청도', '전라도', '경상도', '제주도')
+		]]>
+	</select>
+	
+	<select id="getBranchList" resultType="map">
+		/* 가맹점 목록 */
+		SELECT 
+			branch_code 	AS branchCode, 
+			member_id 		AS memberId, 
+			branch_name 	AS branchName
+		FROM 
+			branch_management;
+	</select>
+	
+	<select id="getRoomInfoByCode" parameterType="String" resultMap="roomResultMap">
+		/* 특정 코드로 객실 조회*/
+		SELECT
+			ri.room_code,
+			bm.branch_name,
+			ri.room_name,
+			ri.room_size,
+			ri.room_basic_personnel,
+			ri.room_max_personnel,
+			ri.available_dog_types,
+			ri.room_basic_price,
+			rif.room_img_idx,
+			rif.registrant_id,
+			rif.room_file_original_name,
+			rif.room_file_new_name,
+			rif.room_file_size,
+			rif.room_file_path,
+			rif.room_registration_date
+		FROM
+			room_information AS ri
+			INNER JOIN
+			branch_management AS bm
+			ON 
+			ri.branch_code = bm.branch_code
+			LEFT JOIN 
+			room_img_file_relation AS rifr
+			ON 
+			ri.room_code = rifr.room_code
+			LEFT JOIN 
+			room_img_file AS rif
+			ON 
+			rifr.room_img_idx = rif.room_img_idx
+		WHERE	
+			ri.room_code = #{roomCode};
+	</select>
+	
+	<select id="getRoomList" resultMap="roomResultMap">
+	/* 객실 정보*/
+		SELECT
+			ri.room_code,
+			ri.branch_code,
+			ri.registrant_id,
+			bm.branch_name,
+			ri.room_name,
+			ri.room_size,
+			ri.room_basic_personnel,
+			ri.room_max_personnel,
+			ri.available_dog_types,
+			ri.room_basic_price,
+			ri.room_registration_date
+		FROM
+			room_information AS ri
+			INNER JOIN
+			branch_management AS bm
+			ON 
+			ri.branch_code = bm.branch_code 
+		<where>
+			<if test="location != null and location != ''">
+				SUBSTR(bm.branch_addr, 1, 2) = SUBSTR(#{location}, 1, 2)
+			</if>
+		</where>
+		ORDER BY room_registration_date DESC;
+	</select>
+	
+	<select id="getRoomResevationList" resultMap="roomResultMap">
+		/* 객실예약화면 선택 내역 */
+		SELECT
+			ri.room_code,
+			bm.branch_name,
+			ri.room_name,
+			ri.room_basic_price,
+			SUM(rr.room_subtotal_amount) AS total_room_subtotal_amount,
+			sp.check_in,
+			sp.check_out,
+			sp.number_of_stays,
+			rr.member_id
+		FROM
+			room_reservation AS rr
+			INNER JOIN
+			set_stay_period AS sp
+			ON
+			rr.stay_period_code = sp.stay_period_code
+			INNER JOIN 
+			room_information AS ri
+			ON 
+			rr.room_code = ri.room_code
+			INNER join
+			branch_management AS bm
+			ON 
+			bm.branch_code = ri.branch_code
+		WHERE	
+			ri.room_code = #{roomCode};
+		GROUP BY
+		    bm.branch_name,
+		    ri.room_name,
+		    ri.room_basic_price,
+		    sp.check_in,
+		    sp.check_out,
+		    sp.number_of_stays,
+		    rr.member_id;		
+	</select>
+
+</mapper>

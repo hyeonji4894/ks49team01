@@ -5,29 +5,191 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
-		<!-- This Page CSS -->
+		<style>
+			table{
+				border : 1px solid black;
+				width : 700px;
+				table-layout : auto;
+				text-align : center;
+			}
+			th {
+				border : 1px solid black;
+				background-color: cornflowerblue;
+				color : azure;
+				height: 30px;
+			}
+			td {
+				border: 1px solid black;
+				height: 30px;
+			}
+			.search {
+				margin-bottom: 15px;
+			}
+			#minPrice, #maxPrice{
+				text-align: right;
+			}
+			input::-webkit-inner-spin-button {
+				margin-left: 8px;
+			}
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹신청목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">가맹평가질문등록목록</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">가맹신청추가관리</a>
+			<a th:href="@{/}" class="text-muted">가맹평가질문등록조회</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹신청목록</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">가맹평가질문등록목록</li>
 	</th:block>
-
-	<!-- Start Page Content -->
+	
+	<!-- content html 태그 -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">가맹신청추가1</div>
-       		<div class="col-6">가맹신청추가2</div>
-       	</div>
+		<form id="addBranchEvaluationQuestionsForm" method="post" th:action="@{/branch_evaluation/add_branch_evaluation_questions}">
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<label for="questionCode" >질문 코드</label>
+						</td>
+						<td>
+							<input type="text" id="questionCode" name="questionCode"
+									placeholder="질문 코드를 입력해주세요" />
+							<p id="checkAlert"></p>		
+						</td>
+						<td>
+							<button type="button" id="checkCodeBtn">중복코드체크</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="memberId">본사 아이디</label>
+						</td>
+						<td colspan="2">
+							<input type="text" id="memberId" name="memberId"
+									placeholder="본사 아이디를 입력해주세요"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="branchEvaluationRegisterDate">평가 질문 등록 일자</label>
+						</td>
+						<td colspan="2">
+							<input type="text" id="branchEvaluationRegisterDate" name="branchEvaluationRegisterDate"
+									placeholder="평가 질문 등록 일자를 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="listOfBranchEvaluationQuestions">가맹평가 질문 리스트</label>
+						</td>
+						<td colspan="2">
+							<input type="text" id="listOfBranchEvaluationQuestions" name="listOfBranchEvaluationQuestions"
+									placeholder="가맹평가 질문 리스트를 입력해주세요"/>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3">
+						<button id="registerButton" onclick="location.href='/edit/'+'<%= posts[i]._id %>' " class="btn btn-danger add">등록</button>
+							<button type="button" id="addBranchEvaluationQuestionsBtn">본사 1차 가맹 질문</button>
+							<button type="reset" id="resetBtn">초기화</button>
+						</td>	
+					</tr>
+				</tfoot>
+			</table>
+		</form>
 	</th:block>
+	
+	<!-- 이 페이지에서 사용될 js file 경로 -->
+	<th:block layout:fragment="customJsFile">
+		<script th:src="@{/js/jquery-3.7.1.js}"></script>
+	</th:block>
+	
+	<!-- 이 페이지에서 사용될 스크립트 작성 -->
+	<th:block layout:fragment="customJs">
+		<script>
+			// 아이디 중복체크
+			$('#checkIdBtn').click(function(){
+				const memberId = $('#memberId').val();
+				if(memberId == null || memberId == ''){
+					alert('회원아이디를 입력해주세요');
+					$('#memberId').focus();
+					return;
+				}
+				// 중복아이디 체크
+				const request = $.ajax({
+					url : '/branch_evaluation/checkId',
+					method : 'POST',
+					data : {'memberId' : memberId},
+					dataType : 'JSON'
+				});
+				request.done(function(res){
+					const isDuplicate = res;
+					console.log(isDuplicate);
+				
+					if(isDuplicate){
+						alert('입력하신 아이디로 회원가입이 불가합니다.');
+						$('#memberId').focus();
+						return;
+					}
+					$('#addBranchEvaluationQuestionsForm input').prop('disabled', false);
+					$('#addBranchEvaluationQuestionsForm button').prop('disabled', false);
+					$('#addBranchEvaluationQuestionsForm select').prop('disabled', false);
+					$('#checkAlert').text('');
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+				
+			});
+			
+			//아이디 변경 이벤트
+			$('#memberId').change(function(){
+				$('#addBranchEvaluationQuestionsForm input').not('#memberId').prop('disabled', true);
+				$('#addBranchEvaluationQuestionsForm button').not('#checkIdBtn').prop('disabled', true);
+				$('#addBranchEvaluationQuestionsForm select').prop('disabled', true);
+				$('#checkAlert').text('중복아이디체크를 클릭해주세요');	
+			});
+			
+			//초기화버튼 이벤트
+			$('#resetBtn').click(function(e){
+				e.preventDefault();
+				$('#addBranchEvaluationQuestionsForm input').not('#memberId').prop('disabled', true);
+				$('#addBranchEvaluationQuestionsForm button').not('#checkIdBtn').prop('disabled', true);
+				$('#addBranchEvaluationQuestionsForm select').prop('disabled', true);
+				$('#checkAlert').text('');	
+				$('#addBranchEvaluationQuestionsForm input').val('');
+			});
+			
+			//유효성검사
+			$('#addBranchEvaluationQuestionsBtn').click(function(){
+				let isValid = true;
+			
+				$('#addBranchEvaluationQuestionsForm input, #addBranchEvaluationQuestions select').each(function(idx, item){
+					const value = $(item).val();
+					if(value == null || value == ''){
+						isValid = false;
+						const cate = $(`label[for="${item.id}"]`).text();
+						let msg = `${cate} 필수 입력항목입니다.`;
+						alert(msg);
+						$(item).focus();
+						return false;
+					}
+				})
+			
+				if(isValid) $('#addBranchEvaluationQuestionsForm').submit();
+			});
+			
+			
+		</script>
+	</th:block>
+	
 </html>
 
 
@@ -38,4 +200,3 @@
 
 
 
-ㄴ

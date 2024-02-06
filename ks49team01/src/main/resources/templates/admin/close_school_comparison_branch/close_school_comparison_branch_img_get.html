@@ -1,42 +1,92 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/default}">
+	  layout:decorate="~{admin/layout/default2}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
-	</head>
-	
-	<!-- This Page breadcrumbTitle -->
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}
+		</style>
+	</head>	    
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">폐교와 가맹점 지도</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
-	<th:block layout:fragment="customBreadcrumb">	
-		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
-		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록</li>
+	<th:block layout:fragment="customBreadcrumb">
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">조회</li>
 	</th:block>
-
-	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">
-      <table class="table">
-			 <thead>
-	            <tr>
-	                <th scope="col"></th>
-	                <th scope="col">폐교 면적</th>
-	                <th scope="col">위치</th>
-	                <th scope="col">가맹 계약 현황</th>
-	                <th scope="col">매입 금액</th>
-	                <th scope="col">시스템 등록 일자</th>
-	                <th scope="col">최종 수정날짜</th>
-	                <th scope="col">폐교 조감도 이미지</th>
-	                <th scope="col">등록자 아이디</th>
-	            </tr>
-	        </thead>
-	     </table>
+		<th:block layout:fragment="customContent">
+    		<table class="table table-bordered table-hover text-center search-result">
+                <thead class="h5 text-dark">
+                    <tr>
+                    	<th class="font-weight-bolder">지도 코드</th>
+                    	<th class="font-weight-bolder">폐교 코드</th>
+                    	<th class="font-weight-bolder">등록자 아이디</th>
+                    	<th class="font-weight-bolder">가맹점 코드</th>
+	               		<th class="font-weight-bolder">시스템 등록 일자</th>
+	               		<th class="font-weight-bolder">최종 수정날짜</th>
+	               		<th class="font-weight-bolder">폐교 이미지</th>
+	               		<th class="font-weight-bolder">가맹점 이미지</th>
+	               		<th class="font-weight-bolder">폐교 조감도 이미지</th>
+                   	</tr>
+                </thead>
+                <tbody class="border text-dark" id="searchResult">
+                   <tr th:if="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}"
+				th:each="l : ${closeSchoolComparisonBranchList}">
+			
+		          		<td th:text="${l.totalMap}"></td>
+		          		<td th:text="${l.closeSchoolCode}"></td>
+		          		<td th:text="${l.memberId}"></td>
+		          		<td th:text="${l.branchCode}"></td>
+						<td th:text="${l.changeDate}"></td>
+						<td th:text="${l.firstDate}"></td> 
+						<td th:text="${l.closeSchoolImg}">  </td>
+						<td th:text="${l.branchImage}"></td>
+						<td th:text="${l.viewMapImg}"></td>
+					</tr>
+			<tr th:unless="${closeSchoolComparisonBranchList != null and not #lists.isEmpty(closeSchoolComparisonBranchList)}">
+				<td colspan="9">등록된 폐교가 없습니다.</td>
+			</tr>
+                </tbody>
+              </table>
+	    <div class="row justify-content-center mt-5">
+	    	<div class="col-10">			    	
+		    	<ul class="pagination justify-content-center">
+                   <li class="page-item disabled">
+                       <a class="page-link" href="#" tabindex="-1">Previous</a>
+                   </li>
+                   <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                   <li class="page-item"><a class="page-link" href="#">2</a></li>
+                   <li class="page-item"><a class="page-link" href="#">3</a></li>
+                   <li class="page-item"><a class="page-link" href="#">4</a></li>
+                   <li class="page-item"><a class="page-link" href="#">5</a></li>
+                   <li class="page-item"><a class="page-link" href="#">6</a></li>
+                   <li class="page-item"><a class="page-link" href="#">7</a></li>
+                   <li class="page-item"><a class="page-link" href="#">8</a></li>
+                   <li class="page-item"><a class="page-link" href="#">9</a></li>
+                   <li class="page-item"><a class="page-link" href="#">10</a></li>
+                   <li class="page-item">
+                       <a class="page-link" href="#">Next</a>
+                   </li>
+               </ul>
+	    	</div>
+	    </div>
+	</th:block>    
+	<th:block layout:fragment="customJs">
+		<script>
+			
+		</script>
 	</th:block>
 </html>

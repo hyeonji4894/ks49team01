@@ -5,30 +5,187 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
-		<!-- This Page CSS -->
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}
+		</style>
+		<script src="https://js.tosspayments.com/v1/payment-widget"></script>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">최종 결제금액</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{/}" class="text-muted">결제</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록</li>
+		<li class="breadcrumb-item text-muted active" th:text="${page}">-</li>
 	</th:block>
 
-	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<table class="table">
+		<div class="modal fade" id="centermodal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="width: 80%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myCenterModalLabel">Center modal</h4>
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                    </div>
+   
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+       	  <div class="card mb-4">
+		    <div class="card-body">
+		      <div class="row">
+		        <div class="col-lg-10">
+		          <div class="row mb-3">
+		            <div class="col-lg-4">
+		                <label class="form-label card-title font-weight-bolder">결제 코드</label>
+		                <div class="input-group">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="closeSchoolName">
+		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
+		                </div>
+		            </div>
+		            <div class="col-lg-4">
+		              <label class="form-label card-title font-weight-bolder"></label>
+		              <div class="row">
+		                <div class="col-12">
+		                  <div class="input-group">
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-lg-2 align-self-center">
+		          <div class="row justify-content-center">
+		            <div class="col-8">
+		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;" id="totalCloseChoolSearchBtn">
+		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
+		              </button>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>	
+			<table class="table table-bordered table-hover text-center search-result">
 			 <thead>
 	            <tr>
-	                <th scope="col">최종 결제 금액</th>
+	            	<td>
+          				결제 체크
+       				</td>
+	                <th class="font-weight-bolder">결제 코드</th>
+	                <th class="font-weight-bolder">회원 아이디</th>
+	                <th class="font-weight-bolder">숙박 기간 코드</th>
+	                <th class="font-weight-bolder">결제 예약 코드</th>
+	                <th class="font-weight-bolder">가맹점 코드</th>
+	                <th class="font-weight-bolder">쿠폰 지급 내역 코드</th>
+	                <th class="font-weight-bolder">결제 예정 금액 합계</th>
+	                <th class="font-weight-bolder">적립금 사용</th>
+	                <th class="font-weight-bolder">쿠폰 사용</th>
+	                <th class="font-weight-bolder">최종 결제 금액</th>
+	                <th class="font-weight-bolder">적립금 적립</th>
+	                <th class="font-weight-bolder">최종 결제 상태</th>
 	            </tr>
 	        </thead>
-	     </table>
+				<tbody>
+					<tr th:if="${getBranchTotalPrice != null and not #lists.isEmpty(getBranchTotalPrice)}"
+						th:each="l : ${getBranchTotalPrice}">
+						<td>
+          					 <input type="checkbox" class="paymentCheck" id="paymentCheck" th:data-payment-amount="${l.finalPayment}"/>
+       					</td>
+						<td th:text="${l.paymentsDueCode}"></td>
+						<td th:text="${l.memberId}"></td>
+						<td th:text="${l.stayPeriodCode}"></td>
+						<td th:text="${l.reservationCode}"></td>
+						<td th:text="${l.branchCode}"></td>
+						<td th:text="${l.couponListCode}"></td>
+						<td th:text="${l.dueToPayPriceTotal}"></td>
+						<td th:text="${l.useMilage}"></td>
+						<td th:text="${l.useCoupon}"></td>
+						<td th:text="${l.finalPayment}"></td>
+						<td th:text="${l.mileageSave}"></td>
+						<td th:text="${l.finalPaymentState}"></td>
+					</tr>
+					<tr th:unless="${getBranchTotalPrice != null and not #lists.isEmpty(getBranchTotalPrice)}">
+						<td colspan="9">결제 내역이 없습니다.</td>
+					</tr>
+				</tbody>
+			</table>
+		<div class="card mb-4">
+			<div class="card-body ml-4 mr-4">
+				<div class="row mb-3">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="paymentBtn"><i class=" fas fa-clipboard-list"></i>
+		                        결제</a>
+		                    <button type="button" class="btn btn-outline-success" id="addBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        등록</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>
+		                </div>
+				   	</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	<th:block layout:fragment="customJs">
+		<script>
+			$('#paymentBtn').click(function(){
+				const clientKey = 'test_ck_6BYq7GWPVvGpLWXY6ay7rNE5vbo1' // 테스트용 클라이언트 키
+				    
+					const paymentAmount = $('[data-payment-amount]:checked').data('payment-amount');
+				
+					const customerKey = 'pomA-AP-1f3cPkuRzCDjf' // 내 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID
+					
+				    
+				    // 2. 결제위젯 SDK 초기화
+				    const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제
+				    // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
+				    
+				    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+					  '#payment-method',
+					  {
+					    value: paymentAmount,
+					    currency: 'KRW',
+					    country: 'KR',
+					  },
+					  { variantKey: 'widgetA' }
+					);	
+					
+					  paymentWidget.requestPayment({
+					  orderId: 'AD8aZDpbzXs4EQa-UkIX6',
+					  orderName: '애견글램핑 1호실',
+					  successUrl: 'http://localhost/admin/finalTotalPrice/getFinalTotalPrice',
+					  failUrl: 'http://localhost:8080/fail',
+					  customerEmail: 'customer123@gmail.com',
+					  customerName: '김토스',
+					});
+			});
+		    
+  		</script>
 	</th:block>
 </html>
+
+
+
+
+
+
+
+
+

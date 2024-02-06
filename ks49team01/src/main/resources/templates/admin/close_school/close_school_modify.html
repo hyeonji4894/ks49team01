@@ -4,46 +4,153 @@
 	  layout:decorate="~{admin/layout/default}">
 	  
 	<!-- css file import head태그 안에 추가  -->
-	<head>
+	<head>	
 		<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">폐교 관리</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">폐교 수정</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">폐교</a>
+			<a th:href="@{/admin/closeSchool/closeSchoolList}" class="text-muted">폐교</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교목록 수정</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">-</a>
+		</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-    	 <table class="table">
-			 <thead>
-	            <tr>
-	                <th scope="col">폐교 면적</th>
-	                <th scope="col">위치</th>
-	                <th scope="col">가맹 계약 현황</th>
-	                <th scope="col">매입 금액</th>
-	                <th scope="col">시스템 등록 일자</th>
-	                <th scope="col">최종 수정날짜</th>
-	                <th scope="col">등록자 아이디</th>
-	            </tr>
-	        </thead>
-	     </table>
-	</th:block>
+		<form id="modifyCloseSchoolForm" method="POST" th:action="@{/admin/closeSchool/modifyCloseSchoolInfo}" th:object="${closeSchoolInfo}">		
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end" >폐교 명</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="closeSchoolName" name="closeSchoolName" th:value="*{closeSchoolName}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">폐교 이미지</div>
+						<div class="col-8 ">
+							<input type="file" name="closeSchoolImg" id="closeSchoolImg" multiple="multiple">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">폐교 면적</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="closeSchoolArea" name="closeSchoolArea" th:value="*{closeSchoolArea}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">위치</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roadAddress" name="roadAddress" th:value="*{roadAddress}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">상세 위치</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roadAddressDetail" name="roadAddressDetail" th:value="*{roadAddressDetail}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">가맹계약현황</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="branchCurrentSituation" name="branchCurrentSituation" th:value="*{branchCurrentSituation}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">매입가격</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="purchaseAmount" name="purchaseAmount" th:value="*{purchaseAmount}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">시스템등록일자</div>
+						<div class="col-8 ">
+							<input type="datetime-local" class="form-control" id="systemRegistrationDate" name="systemRegistrationDate" th:value="*{systemRegistrationDate}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">최종 수정일자</div>
+						<div class="col-8 ">
+							<input type="datetime-local" class="form-control" id="lastModifiedDate" name="lastModifiedDate" th:value="*{lastModifiedDate}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">폐교 조감도 이미지</div>
+						<div class="col-8 ">
+							<input type="file" name="viewMapImg" id="viewMapImg" multiple="multiple">
+						</div>
+					</div>
+				</div>
+			<div class="row mb-3">
+				<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="col-sm-12">
+					   		<div class="btn-list text-right">
+			                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/closeSchool/getCloseSchool}"><i class=" fas fa-clipboard-list"></i>
+			                        목록</a>
+			                     <button type="submit" class="btn btn-outline-success" id="modifyBtn"><i class="fas fas fa-pencil-alt"></i>
+			                        등록</button>
+			                     <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
+		                     	 	재설정</button>
+			                </div>
+						</div>
+				   	</div>
+				</div>	
+			</div>
+		</form>
+	  </th:block>
+	  
+	  <th:block layout:fragment="customJs">
+	  	  <script th:inline="javascript">
+	  	  </script>
+	  </th:block>
 </html>
-
-
-
-
-
-
-
-
-

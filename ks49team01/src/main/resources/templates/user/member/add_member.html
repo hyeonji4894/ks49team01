@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/default}">
+<head>
+	<style>
+	
+	</style>
+</head>
+<body>
+	<!-- header start -->
+	<header th:replace="~{user/fragments/header :: headerFragment}"></header>
+	<!-- header end -->
+	<!-- mobile header start -->
+	<div th:replace="~{user/fragments/mobileHeader :: mobileHeaderFragment}"></div>
+	<!-- mobile header end -->
+	<!-- contents start -->
+<th:block layout:fragment="customContents">
+	<main class="main pages">
+      <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                    <span></span> Pages <span></span> My Account
+                </div>
+            </div>
+        </div>
+         <div class="page-content pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-10 col-mㅋd-12 m-auto">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-8">
+                                <div class="login_wrap widget-taber-content background-white">
+                                    <div class="padding_eight_all bg-white">
+                                        <div class="heading_s1">
+                                            <h1 class="mb-5">너 내 도도독...</h1>
+                                            <p class="mb-30">이미 회원이시라면? <a th:href="@{/user/member/login}">로그인 화면</a></p>
+                                        </div>
+                                        <form id="addMemberForm" method="post" th:action="@{/user/member/addMember}">
+                                           <div class="form-group">
+                                           		<div class="row">
+												    <p class="small">아이디</p>
+												    <div class="col-lg-10">
+												        <input class="form-control" type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요" />
+												    </div>	
+											        <div class="input-group-append col-lg-2 col">
+											            <button class="btn waves-effect waves-light btn-success" type="button" id="checkIdBtn">중복아이디체크</button>
+											        </div>
+										        </div>
+											</div>
+											<div class="form-grou">
+                                            <div class="form-group"><p class="small">비밀번호</p>
+                                            	<div class="row">
+	                                        		<div class="col-lg-6">
+	                                                	<input class="form-control" type="password" id="memberPw" name="memberPw" placeholder="비밀번호를 입력해주세요" />	
+	                                           		</div>
+	                                           		<div class="col-lg-6">
+	                                                	<input class="form-control" type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 한번 입력해주세요"/>
+	                                           		<div id="passwordMatchMessage"></div>
+	                                           		</div>
+                                            	</div>
+                                            </div>
+                                            </div>
+                                           	<div class="form-group">
+											    <div class="form-group ">
+											    	<div class="row">
+											        	<p class="small col-lg-6">이름</p>
+											        	<p class="small col-lg-6">이메일</p>
+											       	</div>
+											        <div class="row">
+											            <div class="col-lg-6">
+											                <input type="text" name="memberName" id="memberName" placeholder="이름을 입력해주세요" />
+											            </div>
+											            <div class="col-lg-6">
+											                <input type="email" name="memberEmail" id="memberEmail" placeholder="이메일을 입력해주세요" />
+											            </div>
+											        </div>
+											        <div class="row">
+											        	<p class="small col-lg-6">전화번호</p> <p class="small col-lg-6">생년월일</p>
+											        </div>	
+											        <div class="row">
+											        	<div class="col-lg-6">
+											        		<input type="text" name="memberPhone" id="memberPhone" placeholder="전화번호를 입력해주세요" />
+											        	</div>
+											        	<div class="col-lg-6">
+											        		<input type="date" id="memberBirth" name="memberBirth">	
+											        	</div>
+											        </div>
+											    </div>
+											</div>
+											<div class="form-group">
+												<div class="row">
+													<p class="small col-lg-6">주소</p>
+													<p class="small col-lg-6">상세주소</p>
+												</div>
+												<div class="row">
+													<div class="col-lg-4">
+														<input disabled type="text" class="form-control" name="memberAddr" id="memberAddr">
+													</div>	
+													<div class="col-lg-2">
+														<button class="btn waves-effect waves-light btn-success" type="button" id="addressBtn">&ensp;주소검색</button>
+													</div>
+													<div class="col-lg-6">
+														<input type="text" class="form-control" name="member_addr_detail" id="member_addr_detail" placeholder="상세주소를 입력해주세요.">
+													</div>
+												</div>	
+											</div>
+											<div class="form-group">
+												<div class="col-2 add-form-label">회원등급</div>
+												<div class="col-4">
+													<select class="form-control text-center" id="mem_level_code" name="mem_level_code" >
+														<option value="">회원등급을 선택해주세요</option>
+														<th:block th:if="${addMember != null and not #lists.isEmpty(addMember)}"
+																  th:each="l : ${addMember}">
+															<option th:value="${l.mem_level_code}" th:text="${l.membership_rating}"></option>
+													</select>
+												</div>
+											</div>
+                                            <div class="payment_option mb-50">
+											    <div class="form-group">
+											        <div class="row">
+											            <p class="small col-lg-8">성별</p>
+											        </div>
+											        <br>
+											        <div class="row">
+											            <div class="custome-radio col-lg-8">
+											                <input class="form-check-input" type="radio" id="memberMale" name="memberGender" value="남성" checked/>
+											                <label class="form-check-label" for="memberMale">남성</label>
+											            </div>
+											            <div class="custome-radio col-lg-8">
+											                <input class="form-check-input" type="radio" id="memberFemale" name="memberGender" value="여성"/>
+											                <label class="form-check-label" for="memberFemale">여성</label>
+											            </div>
+											            <div class="form-group col-lg-4 d-flex justify-content-end">
+											                <button type="button" class="btn btn-fill-out btn-block hover-up font-weight-bold btn-lg" id="addMemberBtn">회원가입</button>
+											            </div>
+											        </div>
+											    </div>
+											</div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</th:block>
+
+<th:block layout:fragment="customJs">
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js">
+</script>
+
+
+<script>
+document.getElementById('confirmPassword').addEventListener('input', function() {
+    // 비밀번호와 비밀번호 확인 값 비교
+    var password = document.getElementById('memberPw').value;
+    var confirmPassword = this.value;
+
+    // 비밀번호 일치 여부에 따라 메시지 표시
+    var messageElement = document.getElementById('passwordMatchMessage');
+    if (password === confirmPassword) {
+        messageElement.textContent = '비밀번호가 일치합니다.';
+        messageElement.style.color = 'green';
+    } else {
+        messageElement.textContent = '비밀번호가 일치하지 않습니다.';
+        messageElement.style.color = 'red';
+    }
+});
+		
+// 전화번호 입력 필드에 사용자가 키를 누를 때마다 실행되는 함수
+$('#memberPhone').on('input', function() {
+// 현재 입력된 전화번호
+var inputPhone = $(this).val();
+
+// 숫자만 남기고 나머지는 제거
+var cleanedPhone = inputPhone.replace(/[^0-9]/g, '');
+
+// 전화번호를 형식에 맞게 나누기 (예: 010-1234-5678)
+var formattedPhone = cleanedPhone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+
+// 형식이 적용된 전화번호를 다시 입력 필드에 설정
+$(this).val(formattedPhone);
+
+// 전화번호 길이 체크 (예: 13자리 초과 시 팝업 메시지 표시)
+if (cleanedPhone.length > 13) {
+    // 길이가 13자 초과일 경우 입력을 제한하고 팝업 메시지 표시
+    $(this).val(formattedPhone.slice(0, 13)); // 13자 이후의 문자 제거
+    alert('전화번호는 13자리를 초과할 수 없습니다.');
+}
+});
+
+
+
+
+		
+		$('#addressBtn').click(function(){    
+const width = 500; // 팝업의 너비
+const height = 600; // 팝업의 높이
+new daum.Postcode({
+    oncomplete: function(data) {
+        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+        // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        var roadAddr = data.roadAddress; // 도로명 주소 변수
+        var extraRoadAddr = ''; // 참고 항목 변수
+
+        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+            extraRoadAddr += data.bname;
+        }
+        // 건물명이 있고, 공동주택일 경우 추가한다.
+        if(data.buildingName !== '' && data.apartment === 'Y'){
+            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+        }
+        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+        if(extraRoadAddr !== ''){
+            extraRoadAddr = ' (' + extraRoadAddr + ')';
+        }
+
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+        document.getElementById('memberAddr').value = data.zonecode;
+
+        document.getElementById('memberAddr').value = roadAddr; // 여기를 memberAddr로 수정
+    }
+}).open({
+    left: (window.screen.width / 2) - (width / 2),
+    top: (window.screen.height / 2) - (height / 2)
+});
+});
+
+	
+	$(document).ready(function () {
+	    // HTML 문서가 완전히 로드되면 실행되는 함수
+
+	    // 아이디 중복 체크 버튼이 클릭되면 실행되는 함수
+	    $('#checkIdBtn').click(function () {
+	        // 입력된 회원 아이디를 가져옴
+	        const memberId = $('#memberId').val();
+	        if (memberId == null || memberId === '') {
+	            // 회원 아이디가 비어있으면 경고 메시지 출력
+	            alert('회원 아이디를 입력해주세요');
+	            $('#memberId').focus();
+	            return;
+	        }
+	        if(memberId.length < 4){
+	        	alert('5 이상의 문자로 입력해주세요');
+	        	 return;
+	        }
+
+	        // 중복 아이디 체크를 위한 AJAX 요청
+	        const request = $.ajax({
+	            url: '/admin/member/checkId',
+	            method: 'POST',
+	            data: {'memberId': memberId},
+	            dataType: 'JSON'
+	        });
+
+	        // AJAX 요청이 성공했을 때 실행되는 함수
+	        request.done(function (res) {
+	            // 서버에서 받은 응답 데이터를 isDuplicate 변수에 저장
+	            const isDuplicate = res;
+	            console.log(isDuplicate);
+
+	            // 중복된 아이디가 존재하는 경우
+	            if (isDuplicate) {
+	                // 경고 메시지 출력 및 포커스 설정
+	                alert('입력하신 아이디가 중복됩니다.');
+					$('#memberId').focus();
+					return;
+				}else if(!isDuplicate){
+					alert('입력하신 아이디를 사용할 수 있습니다.')
+					/* var isDisabled = $('#memberId').attr("disabled");
+					$("#memberId").attr("disabled", true);
+					$("#memberId").attr("disabled", false); */
+					
+				}
+				$('#addMemberForm input').prop('disabled', false);
+				$('#addMemberForm button').prop('disabled', false);
+				$('#addMemberForm select').prop('disabled', false);
+				$('#checkAlert').text('');
+			});
+
+	        // AJAX 요청이 실패했을 때 실행되는 함수
+	        request.fail(function (jQXHR, textStatus, error) {
+	            console.log(error);
+	        });
+	    });
+	});
+
+		// 초기화버튼 이벤트
+		$('#resetBtn').click(function(e){
+			e.preventDefault();
+			$('#addMemberForm input').not('#memberId').prop('disabled', true);
+			$('#addMemberForm button').not('#checkIdBtn').prop('disabled', true);
+			$('#addMemberForm select').prop('disabled', true);
+			$('#checkAlert').text('');
+			$('#addMemberForm input').val('');
+		});
+		
+		// 유효성검사
+	$('#addMemberBtn').click(function(){
+		let isValid = true;
+		
+		$('#addMemberForm input, #addMemberForm select').each(function(idx, item){
+			const value = $(item).val();
+			if(value == null || value == ''){
+				isValid = false;
+				const cate = $(`label[for="${item.id}"]`).text();
+				let msg = `${cate} 필수 입력항목입니다.`;
+				alert(msg);
+				$(item).focus();
+				return false;
+			}
+		})
+		if(isValid) $('#addMemberForm').submit();
+	});
+</script>
+</html>

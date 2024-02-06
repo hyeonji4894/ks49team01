@@ -10,7 +10,7 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실삭제</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -18,9 +18,7 @@
 		<li class="breadcrumb-item">
 			<a th:href="@{/admin/room/roomInfoList}" class="text-muted">객실</a>
 		</li>
-		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">객실정보수정</a>
-		</li>
+		<li class="breadcrumb-item text-muted active" aria-current="page" >객실삭제</li>
 	</th:block>
 
 	<!-- Start Page Content -->
@@ -35,13 +33,17 @@
 	        <tbody>
 	            <tr>
 	            </tr>
-	            <tr>
+	            <tr  th:if="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}"
+	            	 th:each="r : ${roomInfoList}">
 	            	<td class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                         <label class="custom-control-label" for="customCheck1"></label>
                     </td>
-	                <td>글램핑 1호</td>
+	                <td th:text="${r.roomName}"></td>
 	            </tr>
+	            <tr th:unless="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}">
+					<td colspan="12">등록된 객실이 없습니다</td>
+				</tr>
 	        </tbody>
 	     </table>
 	     <div style="float: right;">

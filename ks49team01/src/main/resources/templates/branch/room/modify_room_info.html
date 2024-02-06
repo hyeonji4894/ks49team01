@@ -5,11 +5,53 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
+		<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실정보수정</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -22,37 +64,90 @@
 		</li>
 	</th:block>
 
+<!-- This Page breadcrumbTitle -->
+	<th:block layout:fragment="customBreadcrumbTitle">
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실정보수정</h4>
+	</th:block>
+	
+	<!-- This Page breadcrumb -->
+	<th:block layout:fragment="customBreadcrumb">	
+		<li class="breadcrumb-item">
+			<a th:href="@{/admin/room/roomInfoList}" class="text-muted">객실</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{#}" class="text-muted">객실정보수정</a>
+		</li>
+	</th:block>
+
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<table class="table">
-	        <thead>
-	            <tr>	               
-	                <th>객실명</th>
-	                <th>객실크기</th>
-	                <th>객실기본인원</th>
-	                <th>객실최대인원</th>
-	                <th>객실이용가능견종</th>
-	                <th>객실기본가격</th>
-	                <th>객실이미지</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr>
-	            </tr>
-	            <tr>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	            </tr>
-	        </tbody>
-	     </table>
-	     <div style="float: right;">
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/branch/room/roomInfo}">수정</a>
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/branch/room/roomInfo}">취소</a>
-	     </div>
+		<form id="modifyRoomForm" method="post" th:action="@{/admin/room/modifyRoomInfo}" th:object="${roomInfo}">		
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end" >객실명</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomName" name="roomName" th:value="*{roomName}">
+							<input type="hidden" class="form-control" id="roomCode" name="roomCode" th:value="*{roomCode}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실크기</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomSize" name="roomSize" th:value="*{roomSize}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실기본인원</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomBasicPersonnel" name="roomBasicPersonnel" th:value="*{roomBasicPersonnel}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실최대인원</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomMaxPersonnel" name="roomMaxPersonnel" th:value="*{roomMaxPersonnel}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실이용가능견종</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="availableDogTypes" name="availableDogTypes" th:value="*{availableDogTypes}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">객실기본가격</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomBasicPrice" name="roomBasicPrice" th:value="*{roomBasicPrice}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">파일</div>
+						<div class="col-8">
+							<input type="file" name="fileData" id="upFile" multiple="multiple">
+						    
+						</div>
+					</div>
+				</div>
+			<div class="row mb-3">
+				<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/room/roomInfo}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="submit" class="btn btn-outline-success" id="modifyBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        수정</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>
+		                </div>
+				   	</div>
+				</div>	
+			</div>
+		</form>
+	  </th:block>
+	  
+	  <th:block layout:fragment="customJs">
+	  	  <script th:inline="javascript">
+	  	  </script>
 	  </th:block>
 </html>

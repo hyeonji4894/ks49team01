@@ -5,76 +5,109 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
+		<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">옵션수정</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/admin/room/roomOptionList}" class="text-muted">객실옵션</a>
+			<a th:href="@{/admin/option/roomOptionList}" class="text-muted">객실옵션</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">객실옵션수정</a>
+			<a th:href="@{#}" class="text-muted">옵션수정</a>
 		</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<table class="table">
-	        <thead>
-	            <tr>
-	                <th scope="col" colspan="6" align="center">옵션 및 부가서비스</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr>
-	                <th scope="row">옵션</th>
-	                <td>인원추가(침구류포함)</td>
-	                <td>가격</td>
-	                <td>
-				        <input type="text" id="example-input-small" name="example-input-small"
-				             class="form-control form-control-sm" placeholder="수정금액">
-					</td>
-	            </tr>
-	            <tr>
-	                <th scope="row">옵션</th>
-	                <td>바베큐</td>
-	                <td>가격</td>
-	                <td>
-				        <input type="text" id="example-input-small" name="example-input-small"
-				             class="form-control form-control-sm" placeholder="수정금액">
-					</td>
-	            </tr>
-	            <tr>
-	                <th scope="row">옵션</th>
-	                <td>불멍 장작세트</td>
-	                <td>가격</td>
-	                <td>
-				        <input type="text" id="example-input-small" name="example-input-small"
-				             class="form-control form-control-sm" placeholder="수정금액">
-					</td>
-	            </tr>
-	            <tr>
-	                <th scope="row">부가서비스</th>
-	                <td>애견 유모차</td>
-	                <td>가격</td>
-	                <td>0</td>
-	            </tr>
-	            <tr>
-	                <th scope="row">부가서비스</th>
-	                <td>픽업 서비스</td>
-	                <td>가격</td>
-	                <td>0</td>
-	            </tr>
-	        </tbody>
-	     </table>
-	     <div style="float: right;">
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/modifyRoomOption}">수정</a>
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/modifyRoomOption}">취소</a>
-	     </div>
+		<form id="modifyRoomForm" method="post" th:action="@{/admin/option/modifyRoomOption}" th:object="${optionInfo}">		
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end" >카테고리</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomOptionCate" name="roomOptionCate" th:value="*{roomOptionCate}">
+							<input type="hidden" class="form-control" id="roomOptionNumber" name="roomOptionNumber" th:value="*{roomOptionNumber}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">옵션명</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomOptionName" name="roomOptionName" th:value="*{roomOptionName}">
+						</div>
+					</div>
+					<div class="row border add-form">
+						<div class="col-4 add-form-label border-end">가격</div>
+						<div class="col-8 ">
+							<input type="text" class="form-control" id="roomOptionPrice" name="roomOptionPrice" th:value="*{roomOptionPrice}">
+						</div>
+					</div>
+				</div>
+			<div class="row mb-3">
+				<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/option/roomOptionList}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="submit" class="btn btn-outline-success" id="modifyBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        수정</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>
+		                </div>
+				   	</div>
+				</div>	
+			</div>
+		</form>
+	  </th:block>
+	  
+	  <th:block layout:fragment="customJs">
+	  	  <script th:inline="javascript">
+	  	  </script>
 	  </th:block>
 </html>

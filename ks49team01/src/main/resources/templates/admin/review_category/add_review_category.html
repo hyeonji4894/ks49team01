@@ -1,40 +1,129 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/default}">
+	  layout:decorate="~{admin/layout/default2}">
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
+		<style>
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			.add-form{
+				align-items: center;
+			}
+			.add-form-label{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 50px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.textarea-form{	
+				background-color: #dfe4fa !important;
+				display : flex;
+				justify-content: center;
+				align-items: center;
+				color: #4b026e;
+				height: 150px;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			.row .add-form {
+				margin-top: 0;
+			}
+			.border-start{
+				border-left : 1px solid  #bac6d0 !important; 
+			}
+			.border-end{
+				border-right : 1px solid  #bac6d0 !important; 
+			}
+			textarea[class="form-control"] {
+				height: 135px;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">리뷰 카테고리 관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{#}" class="text-muted h4">리뷰 카테고리</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">등록하기</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">리뷰 카테고리 등록</div>
-       		<div class="col-6">4564565</div>
-       	</div>
+		<form id="addCategoryForm" method="post" th:action="@{/admin/review/addReviewCategory}">	
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">카테고리</div>
+						<div class="col-3">
+							<select class="form-control text-center" name="reviewCategoryKind" id="reviewCategoryKind">
+								<option value="시설">시설</option>
+								<option value="분위기">분위기</option>
+							</select>
+						</div>
+					</div>			
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">카테고리 내용</div>
+						<div class="col-10">
+							<input type="text" class="form-control" name="reviewCategoryContext" id="reviewCategoryContext">
+						</div>
+					</div>														
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-9">
+				   		<div class="btn-list text-right">
+		                    <a type="button" class="btn btn-outline-info" id="listBtn" th:href="@{/admin/review/getReviewCategory}"><i class=" fas fa-clipboard-list"></i>
+		                        목록</a>
+		                    <button type="button" class="btn btn-outline-success" id="addBtn"><i class="fas fas fa-pencil-alt"></i>
+		                        등록</button>
+		                    <button type="reset" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+		                        재설정</button>&emsp;
+		                </div>
+				   	</div>
+				</div>
+			</div> 
+		</form>   	
 	</th:block>
+	
+	
+	<th:block layout:fragment="customJs">
+	  	  <script th:inline="javascript">
+	  	  	 $('#addBtn').click(function(){
+	  	  		 let isValid = true;
+	  	  		
+	  	        
+	  	        $('#addCategoryForm input').each(function(idx, item){
+	  	            const value = $(item).val();
+	  	            if(value == null || value == ''){
+	  	                isValid = false;
+	  	                
+	  	                const cate = $(item).closest('.add-form').find('.add-form-label').text();
+	  	                let msg = `${cate} 필수 입력항목입니다.`;
+	  	                alert(msg);
+	  	                $(item).focus();
+	  	                return false;
+	  	            }
+	  	        });
+
+	  	        if(isValid) $('#addCategoryForm').submit();
+	  	    });
+	  	</script>
+	</th:block>
+	
 </html>
-
-
-
-
-
-
-
-
 

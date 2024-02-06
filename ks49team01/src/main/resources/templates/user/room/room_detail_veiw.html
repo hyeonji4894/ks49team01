@@ -5,7 +5,17 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
-		<!-- This Page CSS -->
+		<!-- This Page CSS -->		
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	    
+	    <style>
+	        .daterangepicker .drp-calendar {
+	            max-width: 425px !important;
+	        }
+	        .custom_select .select2-container--default .select2-selection--single .select2-selection__rendered{
+	            font-size: 20px !important;
+	        }
+	    </style>
 	</head>
 	
 		<!-- Start Page Content -->
@@ -14,294 +24,233 @@
 	        <div class="page-header breadcrumb-wrap">
 	            <div class="container">
 	                <div class="breadcrumb">
-	                    <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-	                    <span></span> <a href="shop-grid-right.html">Vegetables & tubers</a> <span></span> Seeds of Change Organic
+	                    <a th:href="@{/user}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+	                    <span></span> <a th:href="@{/user/room/selectReservRoom}">객실</a> <span></span>글램핑1호점
 	                </div>
 	            </div>
 	        </div>
-	        <div class="container mb-30">
+	        <div class="container mb-30" >
 	            <div class="row">
 	                <div class="col-xl-10 col-lg-12 m-auto">
 	                    <div class="product-detail accordion-detail">
 	                        <div class="row mb-50 mt-30">
 	                            <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
-	                                <div class="detail-gallery">
-	                                    <span class="zoom-icon"><i class="fi-rs-search"></i></span>
-	                                    <!-- MAIN SLIDES -->
-	                                    <div class="product-image-slider">
-	                                        <figure class="border-radius-10">
-	                                            <img src="assets/imgs/shop/product-16-2.jpg" alt="product image" />
-	                                        </figure>
-	                                        <figure class="border-radius-10">
-	                                            <img src="assets/imgs/shop/product-16-1.jpg" alt="product image" />
-	                                        </figure>
-	                                        <figure class="border-radius-10">
-	                                            <img src="assets/imgs/shop/product-16-3.jpg" alt="product image" />
-	                                        </figure>
-	                                        <figure class="border-radius-10">
-	                                            <img src="assets/imgs/shop/product-16-4.jpg" alt="product image" />
-	                                        </figure>
-	                                        <figure class="border-radius-10">
-	                                            <img src="assets/imgs/shop/product-16-5.jpg" alt="product image" />
-	                                        </figure>
-	                                        <figure class="border-radius-10">
-	                                            <img src="assets/imgs/shop/product-16-6.jpg" alt="product image" />
-	                                        </figure>
-	                                        <figure class="border-radius-10">
-	                                            <img src="assets/imgs/shop/product-16-7.jpg" alt="product image" />
-	                                        </figure>
-	                                    </div>
-	                                    <!-- THUMBNAILS -->
-	                                    <div class="slider-nav-thumbnails">
-	                                        <div><img src="assets/imgs/shop/thumbnail-3.jpg" alt="product image" /></div>
-	                                        <div><img src="assets/imgs/shop/thumbnail-4.jpg" alt="product image" /></div>
-	                                        <div><img src="assets/imgs/shop/thumbnail-5.jpg" alt="product image" /></div>
-	                                        <div><img src="assets/imgs/shop/thumbnail-6.jpg" alt="product image" /></div>
-	                                        <div><img src="assets/imgs/shop/thumbnail-7.jpg" alt="product image" /></div>
-	                                        <div><img src="assets/imgs/shop/thumbnail-8.jpg" alt="product image" /></div>
-	                                        <div><img src="assets/imgs/shop/thumbnail-9.jpg" alt="product image" /></div>
-	                                    </div>
-	                                </div>
-	                                <!-- End Gallery -->
+	                            	<th:block th:if="${roomInfo.roomImgFileList != null}">
+	                            		<div class="detail-gallery">
+		                                    <!-- MAIN SLIDES -->
+		                                    <div class="product-image-slider">
+		                                    	<th:block th:each="gl : ${roomInfo.roomImgFileList}">
+		                                    		<figure class="border-radius-10">
+			                                            <img th:src="@{|/${gl.roomFilePath}|}" th:alt="${gl.roomFileOriginalName}" />
+			                                        </figure>
+		                                    	</th:block>
+		                                    </div>
+		                                    <!-- THUMBNAILS -->
+		                                    <div class="slider-nav-thumbnails">
+		                                    	<th:block th:each="gl : ${roomInfo.roomImgFileList}">
+			                                        <div><img th:src="@{|/${gl.roomFilePath}|}" th:alt="${gl.roomFileOriginalName}" /></div>
+		                                    	</th:block>
+		                                    </div>
+		                                </div>
+		                                <!-- End Gallery -->
+	                            	</th:block>
+	                            	<th:block th:unless="${roomInfo.roomImgFileList != null}">
+		                                <div class="detail-gallery">
+		                                    <!-- MAIN SLIDES -->
+		                                    <div class="product-image-slider">
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" />
+		                                        </figure>
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2b85e0d1.jpg}" alt="product image" />
+		                                        </figure>
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2b8af8a6.jpg}" alt="product image" />
+		                                        </figure>
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2bad666d.jpg}" alt="product image" />
+		                                        </figure>
+		                                        <figure class="border-radius-10">
+		                                            <img th:src="@{/user/assets/imgs/shop/64b8f2c540c4c.jpg}" alt="product image" />
+		                                        </figure>
+		                                    </div>
+		                                    <!-- THUMBNAILS -->
+		                                    <div class="slider-nav-thumbnails">
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c3358d3.jpg}" alt="product image" /></div>
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2b85e0d1.jpg}" alt="product image" /></div>
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2b8af8a6.jpg}" alt="product image" /></div>
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2bad666d.jpg}" alt="product image" /></div>
+		                                        <div><img th:src="@{/user/assets/imgs/shop/64b8f2c540c4c.jpg}" alt="product image" /></div>
+		                                    </div>
+		                                </div>
+		                                <!-- End Gallery -->
+	                            	</th:block>
 	                            </div>
 	                            <div class="col-md-6 col-sm-12 col-xs-12">
-	                                <div class="detail-info pr-30 pl-30">
-	                                    <span class="stock-status out-stock"> Sale Off </span>
-	                                    <h2 class="title-detail">Seeds of Change Organic Quinoa, Brown</h2>
-	                                    <div class="product-detail-rating">
-	                                        <div class="product-rate-cover text-end">
-	                                            <div class="product-rate d-inline-block">
-	                                                <div class="product-rating" style="width: 90%"></div>
-	                                            </div>
-	                                            <span class="font-small ml-5 text-muted"> (32 reviews)</span>
-	                                        </div>
-	                                    </div>
-	                                    <div class="clearfix product-price-cover">
-	                                        <div class="product-price primary-color float-left">
-	                                            <span class="current-price text-brand">$38</span>
-	                                            <span>
-	                                                <span class="save-price font-md color3 ml-15">26% Off</span>
-	                                                <span class="old-price font-md ml-15">$52</span>
-	                                            </span>
-	                                        </div>
-	                                    </div>
-	                                    <div class="short-desc mb-30">
-	                                        <p class="font-lg">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi.</p>
-	                                    </div>
-	                                    <div class="attr-detail attr-size mb-30">
-	                                        <strong class="mr-10">Size / Weight: </strong>
-	                                        <ul class="list-filter size-filter font-small">
-	                                            <li><a href="#">50g</a></li>
-	                                            <li class="active"><a href="#">60g</a></li>
-	                                            <li><a href="#">80g</a></li>
-	                                            <li><a href="#">100g</a></li>
-	                                            <li><a href="#">150g</a></li>
-	                                        </ul>
-	                                    </div>
-	                                    <div class="detail-extralink mb-50">
-	                                        <div class="detail-qty border radius">
-	                                            <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-	                                            <input type="text" name="quantity" class="qty-val" value="1" min="1">
-	                                            <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
-	                                        </div>
-	                                        <div class="product-extra-link2">
-	                                            <button type="submit" class="button button-add-to-cart"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
-	                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-	                                            <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-	                                        </div>
-	                                    </div>
-	                                    <div class="font-xs">
-	                                        <ul class="mr-50 float-start">
-	                                            <li class="mb-5">Type: <span class="text-brand">Organic</span></li>
-	                                            <li class="mb-5">MFG:<span class="text-brand"> Jun 4.2022</span></li>
-	                                            <li>LIFE: <span class="text-brand">70 days</span></li>
-	                                        </ul>
-	                                        <ul class="float-start">
-	                                            <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
-	                                            <li class="mb-5">Tags: <a href="#" rel="tag">Snack</a>, <a href="#" rel="tag">Organic</a>, <a href="#" rel="tag">Brown</a></li>
-	                                            <li>Stock:<span class="in-stock text-brand ml-5">8 Items In Stock</span></li>
-	                                        </ul>
-	                                    </div>
-	                                </div>
-	                                <!-- Detail Info -->
-	                            </div>
+                                        <div class="detail-info pr-30 pl-30" th:object="${roomInfo}">
+                                            <h2 class="title-detail mt-20" th:text="*{roomName}">객실 : 스위트 룸</h2>
+                                            
+                                            <div class="short-desc mb-30">
+                                                <div class="row mt-15">
+                                                    <div class="col-lg-12">
+                                                        <div class="calculate-shiping p-10 mb-10" >
+                                                            <div class="clearfix product-price-cover">
+                                                                <div class="product-price primary-color float-left">
+                                                                    <span class="current-price text-brand" id="roomPrice" th:data-room-price="*{roomBasicPrice}" th:text="|₩ ${#numbers.formatInteger(roomInfo.roomBasicPrice, 3, 'COMMA')}|">₩ 120,000</span>
+                                                                    <span class="mt-15">
+                                                                        <span class="font-md ml-10 text-dark font-weight-bold" style="font-size: 20px;">/ 박</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <span class="font-weight-bold ml-10 mt-10" style="font-size: 21px;">Check in - Check out</span>
+                                                            <div class="d-flex">
+                												<input type="text" id="checkInOut" style="font-size: 20px;"/>
+                                                                <input type="hidden" id="startDate" name="startDate" />
+                                                                <input type="hidden" id="endDate" name="endDate" />
+                                                            </div>
+                                                            <div class="field_form shipping_calculator">
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-lg-12">
+                                                                        <div class="custom_select">
+                                                                            <select class="form-control select-active w-100" id="countSelect">
+                                                                                <option value="1">인원수: 1 명</option>
+                                                                                <option value="2">인원수: 2 명</option>
+                                                                                <option value="3">인원수: 3 명</option>
+                                                                                <option value="4">인원수: 4 명</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group col-lg-12 mt-20">
+                                                                        <button type="button" class="btn w-100" style="height: 60px; font-size: 25px;" name="roomTotalAmount"
+                                                                         id="ReservationBtn" th:href="@{user/room/roomTotalAmount}">예약하기</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <p class="mb-40 text-center"><span class="font-lg text-success">예약 확정 전에는 요금이 청구되지 않습니다.</span></p>
+                                                            <p class="mb-30">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <span class="font-lg text-dark font-weight-bold" style="font-size: 21px;">₩&nbsp
+                                                                            <strong class="text-brand" id="pricePerPerson">120,000</strong>
+                                                                            &nbsp;x&nbsp;
+                                                                            <strong class="text-brand" id="days">1</strong>
+                                                                            &nbsp;박
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="col-6 text-end">
+                                                                        <span class="font-lg text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            ₩&nbsp;&nbsp;<strong class="text-brand" id="calcAmount">120,000</strong>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </p>
+                                                            <p class="mb-30">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <span class="font-lg style text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            수수료
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="col-6 text-end">
+                                                                        <span class="font-lg text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            ₩&nbsp;&nbsp;<strong class="text-brand" id="charge">120,000</strong>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </p>
+                                                            <hr />
+                                                            <p class="mb-30">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <span class="font-lg style text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            총합계
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="col-6 text-end">
+                                                                        <span class="font-lg text-dark font-weight-bold" style="font-size: 21px;">
+                                                                            ₩&nbsp;&nbsp;<strong class="text-brand" id="total">120,000</strong>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Detail Info -->
+                            		</div>
 	                        </div>
 	                        <div class="product-info">
 	                            <div class="tab-style3">
 	                                <ul class="nav nav-tabs text-uppercase">
 	                                    <li class="nav-item">
-	                                        <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">Description</a>
+	                                        <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">객실소개</a>
 	                                    </li>
 	                                    <li class="nav-item">
-	                                        <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">Additional info</a>
+	                                        <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">추가 정보</a>
 	                                    </li>
 	                                    <li class="nav-item">
-	                                        <a class="nav-link" id="Vendor-info-tab" data-bs-toggle="tab" href="#Vendor-info">Vendor</a>
-	                                    </li>
-	                                    <li class="nav-item">
-	                                        <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Reviews (3)</a>
+	                                        <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">리뷰</a>
 	                                    </li>
 	                                </ul>
 	                                <div class="tab-content shop_info_tab entry-main-content">
 	                                    <div class="tab-pane fade show active" id="Description">
 	                                        <div class="">
-	                                            <p>Uninhibited carnally hired played in whimpered dear gorilla koala depending and much yikes off far quetzal goodness and from for grimaced goodness unaccountably and meadowlark near unblushingly crucial scallop tightly neurotic hungrily some and dear furiously this apart.</p>
-	                                            <p>Spluttered narrowly yikes left moth in yikes bowed this that grizzly much hello on spoon-fed that alas rethought much decently richly and wow against the frequent fluidly at formidable acceptably flapped besides and much circa far over the bucolically hey precarious goldfinch mastodon goodness gnashed a jellyfish and one however because.</p>
-	                                            <ul class="product-more-infor mt-30">
-	                                                <li><span>Type Of Packing</span> Bottle</li>
-	                                                <li><span>Color</span> Green, Pink, Powder Blue, Purple</li>
-	                                                <li><span>Quantity Per Case</span> 100ml</li>
-	                                                <li><span>Ethyl Alcohol</span> 70%</li>
-	                                                <li><span>Piece In One</span> Carton</li>
+	                                        	<hr class="wp-block-separator is-style-dots" />
+	                                        	<h4 class="mt-30">기본 정보</h4>
+	                                            <ul class="product-more-infor mt-30" th:object="${roomInfo}">
+	                                                <li id="rommSize" th:text="*{roomSize}"><span>객실사이즈</span> </li>
+	                                                <li id="roomBasicPersonnel" th:text="*{roomBasicPersonnel}"><span>객실 기본인원</span></li>
+	                                                <li id="roomMaxPersonnel" th:text="*{roomMaxPersonnel}"><span>객실 최대인원</span></li>
+	                                                <li id="availableDogTypes" th:text="*{availableDogTypes}"><span>객실이용 가능 견종</span></li>
 	                                            </ul>
 	                                            <hr class="wp-block-separator is-style-dots" />
-	                                            <p>Laconic overheard dear woodchuck wow this outrageously taut beaver hey hello far meadowlark imitatively egregiously hugged that yikes minimally unanimous pouted flirtatiously as beaver beheld above forward energetic across this jeepers beneficently cockily less a the raucously that magic upheld far so the this where crud then below after jeez enchanting drunkenly more much wow callously irrespective limpet.</p>
-	                                            <h4 class="mt-30">Packaging & Delivery</h4>
-	                                            <hr class="wp-block-separator is-style-wide" />
-	                                            <p>Less lion goodness that euphemistically robin expeditiously bluebird smugly scratched far while thus cackled sheepishly rigid after due one assenting regarding censorious while occasional or this more crane went more as this less much amid overhung anathematic because much held one exuberantly sheep goodness so where rat wry well concomitantly.</p>
-	                                            <p>Scallop or far crud plain remarkably far by thus far iguana lewd precociously and and less rattlesnake contrary caustic wow this near alas and next and pled the yikes articulate about as less cackled dalmatian in much less well jeering for the thanks blindly sentimental whimpered less across objectively fanciful grimaced wildly some wow and rose jeepers outgrew lugubrious luridly irrationally attractively dachshund.</p>
-	                                            <h4 class="mt-30">Suggested Use</h4>
-	                                            <ul class="product-more-infor mt-30">
-	                                                <li>Refrigeration not necessary.</li>
-	                                                <li>Stir before serving</li>
-	                                            </ul>
-	                                            <h4 class="mt-30">Other Ingredients</h4>
-	                                            <ul class="product-more-infor mt-30">
-	                                                <li>Organic raw pecans, organic raw cashews.</li>
-	                                                <li>This butter was produced using a LTG (Low Temperature Grinding) process</li>
-	                                                <li>Made in machinery that processes tree nuts but does not process peanuts, gluten, dairy or soy</li>
-	                                            </ul>
-	                                            <h4 class="mt-30">Warnings</h4>
-	                                            <ul class="product-more-infor mt-30">
-	                                                <li>Oil separation occurs naturally. May contain pieces of shell.</li>
-	                                            </ul>
+	                                            <h4 class="mt-30">편의시설 및 서비스</h4> <br/>
+	                                            <p> TV, 에어컨, 침대1개, 헤어드라이기, 식탁, 조리도구, 수건, 휴지, 치약, 비누, 바디워시, 샴푸, 애견식기세트, 배변판, 배변패드, 배변봉투, 먼지제거기, WI-FI</p>
+	                                            <p> 매점 운영시간 : 09:00 ~ 19:30 </p>
+	                                            <p> 주차가능 </p>
+	                                            <hr class="wp-block-separator is-style-dots" />
+	                                            <h4 class="mt-30">주의 사항</h4> <br/>
+	                                            <p> 입실시간은 15시 이후, 퇴실시간은 11시까지 입니다.(조기 입실 및 퇴실시간 연장 불가) </p>
+	                                            <p> 최대 인원 초과 시 입실이 불가능할 수 있으며, 해당 사유로 환불 받을 수 없습니다. </p>
+	                                            <p> 개인 소지품 및 귀중품, 현금등의 불실 및 파손은 숙박업소에서 책임지지 않습니다. </p>
+	                                            <p> 숙박 업소는 법적으로 청소년 혼숙이 금지되어 있습니다. 또한 미성년자의 예약 및 이용은 숙소 규정에 따라 결정되며 해당 사유로 환불 받을 수 없습니다. </p>
+	                                            <p> 퇴실시 음식물을 비롯한 모든 쓰레기는 분리수거해 주시고, 사용하신 주방용품은 다음 손님을 위해 꼭 세척해주시기 바랍니다. </p>
+	                                            <p> 원칙적으로 택배 및 퀵은 받지 않으며, 택배를 배송할 경우 분실 및 파손에 대한 책임을 지지 않습니다. </p>
+	                                            <p> 다른 이용객에게 피해를 줄 수 있는 무분별한 오락, 음주, 고성방가는 삼가주시기 바랍니다. </p>
 	                                        </div>
 	                                    </div>
 	                                    <div class="tab-pane fade" id="Additional-info">
 	                                        <table class="font-md">
 	                                            <tbody>
 	                                                <tr class="stand-up">
-	                                                    <th>Stand Up</th>
+	                                                    <th>환불규정</th>
 	                                                    <td>
-	                                                        <p>35″L x 24″W x 37-45″H(front to back wheel)</p>
+	                                                        <p>예약 후에는 취소/환불 규정이 적용되어, 예약 당일에도 방문 예정일에 따라 취소 수수료가 부과 되오니 신중히 예약 해주시기 바랍니다.</p>
 	                                                    </td>
 	                                                </tr>
 	                                                <tr class="folded-wo-wheels">
-	                                                    <th>Folded (w/o wheels)</th>
+	                                                    <th>취소 수수료</th>
 	                                                    <td>
-	                                                        <p>32.5″L x 18.5″W x 16.5″H</p>
+	                                                    	<ul class="product-more-infor mt-10">
+				                                                <li><span>9일전 취소</span> 90% 환불</li>
+				                                                <li><span>5일전 취소</span> 50% 환불</li>
+				                                                <li><span>3일전 취소</span> 30% 환불</li>
+				                                                <li><span>1일전 취소</span> 0% 환불</li>				                                            
+	                                                    	</ul>
 	                                                    </td>
 	                                                </tr>
-	                                                <tr class="folded-w-wheels">
-	                                                    <th>Folded (w/ wheels)</th>
+	                                                 <tr class="folded-wo-wheels">
+	                                                    <th>주의 사항</th>
 	                                                    <td>
-	                                                        <p>32.5″L x 24″W x 18.5″H</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="door-pass-through">
-	                                                    <th>Door Pass Through</th>
-	                                                    <td>
-	                                                        <p>24</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="frame">
-	                                                    <th>Frame</th>
-	                                                    <td>
-	                                                        <p>Aluminum</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="weight-wo-wheels">
-	                                                    <th>Weight (w/o wheels)</th>
-	                                                    <td>
-	                                                        <p>20 LBS</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="weight-capacity">
-	                                                    <th>Weight Capacity</th>
-	                                                    <td>
-	                                                        <p>60 LBS</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="width">
-	                                                    <th>Width</th>
-	                                                    <td>
-	                                                        <p>24″</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="handle-height-ground-to-handle">
-	                                                    <th>Handle height (ground to handle)</th>
-	                                                    <td>
-	                                                        <p>37-45″</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="wheels">
-	                                                    <th>Wheels</th>
-	                                                    <td>
-	                                                        <p>12″ air / wide track slick tread</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="seat-back-height">
-	                                                    <th>Seat back height</th>
-	                                                    <td>
-	                                                        <p>21.5″</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="head-room-inside-canopy">
-	                                                    <th>Head room (inside canopy)</th>
-	                                                    <td>
-	                                                        <p>25″</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="pa_color">
-	                                                    <th>Color</th>
-	                                                    <td>
-	                                                        <p>Black, Blue, Red, White</p>
-	                                                    </td>
-	                                                </tr>
-	                                                <tr class="pa_size">
-	                                                    <th>Size</th>
-	                                                    <td>
-	                                                        <p>M, S</p>
+	                                                        <p>개인 소지품 및 귀중품, 현금등의 불실 및 파손은 숙박업소에서 책임지지 않습니다.</p>
 	                                                    </td>
 	                                                </tr>
 	                                            </tbody>
 	                                        </table>
 	                                    </div>
-	                                    <div class="tab-pane fade" id="Vendor-info">
-	                                        <div class="vendor-logo d-flex mb-30">
-	                                            <img src="assets/imgs/vendor/vendor-18.svg" alt="" />
-	                                            <div class="vendor-name ml-15">
-	                                                <h6>
-	                                                    <a href="vendor-details-2.html">Noodles Co.</a>
-	                                                </h6>
-	                                                <div class="product-rate-cover text-end">
-	                                                    <div class="product-rate d-inline-block">
-	                                                        <div class="product-rating" style="width: 90%"></div>
-	                                                    </div>
-	                                                    <span class="font-small ml-5 text-muted"> (32 reviews)</span>
-	                                                </div>
-	                                            </div>
-	                                        </div>
-	                                        <ul class="contact-infor mb-50">
-	                                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
-	                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Contact Seller:</strong><span>(+91) - 540-025-553</span></li>
-	                                        </ul>
-	                                        <div class="d-flex mb-55">
-	                                            <div class="mr-30">
-	                                                <p class="text-brand font-xs">Rating</p>
-	                                                <h4 class="mb-0">92%</h4>
-	                                            </div>
-	                                            <div class="mr-30">
-	                                                <p class="text-brand font-xs">Ship on time</p>
-	                                                <h4 class="mb-0">100%</h4>
-	                                            </div>
-	                                            <div>
-	                                                <p class="text-brand font-xs">Chat response</p>
-	                                                <h4 class="mb-0">89%</h4>
-	                                            </div>
-	                                        </div>
-	                                        <p>Noodles & Company is an American fast-casual restaurant that offers international and American noodle dishes and pasta in addition to soups and salads. Noodles & Company was founded in 1995 by Aaron Kennedy and is headquartered in Broomfield, Colorado. The company went public in 2013 and recorded a $457 million revenue in 2017.In late 2018, there were 460 Noodles & Company locations across 29 states and Washington, D.C.</p>
-	                                    </div>
+	                                    <!-- 다운 review start  -->
 	                                    <div class="tab-pane fade" id="Reviews">
 	                                        <!--Comments-->
 	                                        <div class="comments-area">
@@ -312,7 +261,7 @@
 	                                                        <div class="single-comment justify-content-between d-flex mb-30">
 	                                                            <div class="user justify-content-between d-flex">
 	                                                                <div class="thumb text-center">
-	                                                                    <img src="assets/imgs/blog/author-2.png" alt="" />
+	                                                                    <img src="/user/assets/imgs/blog/author-2.png" alt="" />
 	                                                                    <a href="#" class="font-heading text-brand">Sienna</a>
 	                                                                </div>
 	                                                                <div class="desc">
@@ -331,7 +280,7 @@
 	                                                        <div class="single-comment justify-content-between d-flex mb-30 ml-30">
 	                                                            <div class="user justify-content-between d-flex">
 	                                                                <div class="thumb text-center">
-	                                                                    <img src="assets/imgs/blog/author-3.png" alt="" />
+	                                                                    <img src="/user/assets/imgs/blog/author-3.png" alt="" />
 	                                                                    <a href="#" class="font-heading text-brand">Brenna</a>
 	                                                                </div>
 	                                                                <div class="desc">
@@ -350,7 +299,7 @@
 	                                                        <div class="single-comment justify-content-between d-flex">
 	                                                            <div class="user justify-content-between d-flex">
 	                                                                <div class="thumb text-center">
-	                                                                    <img src="assets/imgs/blog/author-4.png" alt="" />
+	                                                                    <img src="/user/assets/imgs/blog/author-4.png" alt="" />
 	                                                                    <a href="#" class="font-heading text-brand">Gemma</a>
 	                                                                </div>
 	                                                                <div class="desc">
@@ -401,178 +350,103 @@
 	                                            </div>
 	                                        </div>
 	                                        <!--comment form-->
-	                                        <div class="comment-form">
-	                                            <h4 class="mb-15">Add a review</h4>
-	                                            <div class="product-rate d-inline-block mb-30"></div>
-	                                            <div class="row">
-	                                                <div class="col-lg-8 col-md-12">
-	                                                    <form class="form-contact comment_form" action="#" id="commentForm">
-	                                                        <div class="row">
-	                                                            <div class="col-12">
-	                                                                <div class="form-group">
-	                                                                    <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
-	                                                                </div>
-	                                                            </div>
-	                                                            <div class="col-sm-6">
-	                                                                <div class="form-group">
-	                                                                    <input class="form-control" name="name" id="name" type="text" placeholder="Name" />
-	                                                                </div>
-	                                                            </div>
-	                                                            <div class="col-sm-6">
-	                                                                <div class="form-group">
-	                                                                    <input class="form-control" name="email" id="email" type="email" placeholder="Email" />
-	                                                                </div>
-	                                                            </div>
-	                                                            <div class="col-12">
-	                                                                <div class="form-group">
-	                                                                    <input class="form-control" name="website" id="website" type="text" placeholder="Website" />
-	                                                                </div>
-	                                                            </div>
-	                                                        </div>
-	                                                        <div class="form-group">
-	                                                            <button type="submit" class="button button-contactForm">Submit Review</button>
-	                                                        </div>
-	                                                    </form>
-	                                                </div>
-	                                            </div>
-	                                        </div>
 	                                    </div>
+	                                    <!-- 다운 review end  -->
 	                                </div>
 	                            </div>
-	                        </div>
-	                        <div class="row mt-60">
-	                            <div class="col-12">
-	                                <h2 class="section-title style-1 mb-30">Related products</h2>
-	                            </div>
-	                            <div class="col-12">
-	                                <div class="row related-products">
-	                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-	                                        <div class="product-cart-wrap hover-up">
-	                                            <div class="product-img-action-wrap">
-	                                                <div class="product-img product-img-zoom">
-	                                                    <a href="shop-product-right.html" tabindex="0">
-	                                                        <img class="default-img" src="assets/imgs/shop/product-2-1.jpg" alt="" />
-	                                                        <img class="hover-img" src="assets/imgs/shop/product-2-2.jpg" alt="" />
-	                                                    </a>
-	                                                </div>
-	                                                <div class="product-action-1">
-	                                                    <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-	                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-	                                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-	                                                </div>
-	                                                <div class="product-badges product-badges-position product-badges-mrg">
-	                                                    <span class="hot">Hot</span>
-	                                                </div>
-	                                            </div>
-	                                            <div class="product-content-wrap">
-	                                                <h2><a href="shop-product-right.html" tabindex="0">Ulstra Bass Headphone</a></h2>
-	                                                <div class="rating-result" title="90%">
-	                                                    <span> </span>
-	                                                </div>
-	                                                <div class="product-price">
-	                                                    <span>$238.85 </span>
-	                                                    <span class="old-price">$245.8</span>
-	                                                </div>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-	                                        <div class="product-cart-wrap hover-up">
-	                                            <div class="product-img-action-wrap">
-	                                                <div class="product-img product-img-zoom">
-	                                                    <a href="shop-product-right.html" tabindex="0">
-	                                                        <img class="default-img" src="assets/imgs/shop/product-3-1.jpg" alt="" />
-	                                                        <img class="hover-img" src="assets/imgs/shop/product-4-2.jpg" alt="" />
-	                                                    </a>
-	                                                </div>
-	                                                <div class="product-action-1">
-	                                                    <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-	                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-	                                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-	                                                </div>
-	                                                <div class="product-badges product-badges-position product-badges-mrg">
-	                                                    <span class="sale">-12%</span>
-	                                                </div>
-	                                            </div>
-	                                            <div class="product-content-wrap">
-	                                                <h2><a href="shop-product-right.html" tabindex="0">Smart Bluetooth Speaker</a></h2>
-	                                                <div class="rating-result" title="90%">
-	                                                    <span> </span>
-	                                                </div>
-	                                                <div class="product-price">
-	                                                    <span>$138.85 </span>
-	                                                    <span class="old-price">$145.8</span>
-	                                                </div>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-	                                        <div class="product-cart-wrap hover-up">
-	                                            <div class="product-img-action-wrap">
-	                                                <div class="product-img product-img-zoom">
-	                                                    <a href="shop-product-right.html" tabindex="0">
-	                                                        <img class="default-img" src="assets/imgs/shop/product-4-1.jpg" alt="" />
-	                                                        <img class="hover-img" src="assets/imgs/shop/product-4-2.jpg" alt="" />
-	                                                    </a>
-	                                                </div>
-	                                                <div class="product-action-1">
-	                                                    <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-	                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-	                                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-	                                                </div>
-	                                                <div class="product-badges product-badges-position product-badges-mrg">
-	                                                    <span class="new">New</span>
-	                                                </div>
-	                                            </div>
-	                                            <div class="product-content-wrap">
-	                                                <h2><a href="shop-product-right.html" tabindex="0">HomeSpeak 12UEA Goole</a></h2>
-	                                                <div class="rating-result" title="90%">
-	                                                    <span> </span>
-	                                                </div>
-	                                                <div class="product-price">
-	                                                    <span>$738.85 </span>
-	                                                    <span class="old-price">$1245.8</span>
-	                                                </div>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6 d-lg-block d-none">
-	                                        <div class="product-cart-wrap hover-up mb-0">
-	                                            <div class="product-img-action-wrap">
-	                                                <div class="product-img product-img-zoom">
-	                                                    <a href="shop-product-right.html" tabindex="0">
-	                                                        <img class="default-img" src="assets/imgs/shop/product-5-1.jpg" alt="" />
-	                                                        <img class="hover-img" src="assets/imgs/shop/product-3-2.jpg" alt="" />
-	                                                    </a>
-	                                                </div>
-	                                                <div class="product-action-1">
-	                                                    <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-	                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-	                                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-	                                                </div>
-	                                                <div class="product-badges product-badges-position product-badges-mrg">
-	                                                    <span class="hot">Hot</span>
-	                                                </div>
-	                                            </div>
-	                                            <div class="product-content-wrap">
-	                                                <h2><a href="shop-product-right.html" tabindex="0">Dadua Camera 4K 2022EF</a></h2>
-	                                                <div class="rating-result" title="90%">
-	                                                    <span> </span>
-	                                                </div>
-	                                                <div class="product-price">
-	                                                    <span>$89.8 </span>
-	                                                    <span class="old-price">$98.8</span>
-	                                                </div>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
+	                        </div>	                        
 	                    </div>
 	                </div>
 	            </div>
 	        </div>
 	    </main>
 	</th:block>
+	
+	<!-- This Page JS -->
+    <th:block layout:fragment="customJsFile">
+    	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    </th:block>
+    
+    <!-- This Page JS Script -->
+    <th:block layout:fragment="customJs">
+	   	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	    <script th:inline="javascript">
+	        $(function() {
+	            const date = moment();
+	            console.log(moment().format('MM/DD/YYYY'));
+	            
+	            $('#checkInOut').daterangepicker({
+	                opens: 'right',
+	                startDate: moment().format('MM/DD/YYYY'),
+	                endDate: moment().add(1, 'days').format('MM/DD/YYYY')
+	            }, function(start, end, label) {
+	                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+	            });
+	
+	            $('#checkInOut').on('apply.daterangepicker', function(ev, picker) {
+	                const endDate = moment(picker.endDate.format('YYYY-MM-DD'));
+	                const startDate = moment(picker.startDate.format('YYYY-MM-DD'));
+	                const diff = endDate.diff(startDate, 'days');
+	                $('#startDate').val(startDate);
+	                $('#endDate').val(endDate);
+	                
+	                const optionPrice = [[${roomOptionByPersonnel.roomOptionPrice}]];
+	                const cntPerson = (Number($('#countSelect').val()) - 2) <= 0 ? 0 : (Number($('#countSelect').val()) - 2);
+	                // 인원수에 따른 금액
+	                const pricePerPerson = Number($('#roomPrice').data('roomPrice')) + (cntPerson * optionPrice);
+	                $('#pricePerPerson').text(pricePerPerson.toLocaleString('ko-KR'));
+	                
+	                // 몇박 
+	                $('#days').text(diff);
+	                
+	                // 중간 계산
+	                const calcAmount = pricePerPerson * diff;
+	                $('#calcAmount').text(calcAmount.toLocaleString('ko-KR'));
+	                
+	                // 수수료
+	                const charge = calcAmount * 0.1;
+	                $('#charge').text(charge.toLocaleString('ko-KR'));
+	                // 총합계
+	                const total = calcAmount + charge;
+	                $('#total').text(total.toLocaleString('ko-KR'));
+	                
+	
+	                console.log(picker.startDate.format('YYYY-MM-DD'));
+	                console.log(picker.endDate.format('YYYY-MM-DD'));
+	            });
+	
+	            $('#countSelect').on('change', function(){
+	                const startDate = $('#checkInOut').data('daterangepicker').startDate.format('YYYY-MM-DD');
+	                const endDate = $('#checkInOut').data('daterangepicker').endDate.format('YYYY-MM-DD');
+	                const diff = moment(endDate).diff(startDate, 'days');
+	                
+	                // 인원수에 따른 금액
+	                const optionPrice = [[${roomOptionByPersonnel.roomOptionPrice}]];
+	                const cntPerson = (Number($(this).val()) - 2) <= 0 ? 0 : (Number($(this).val()) - 2);
+	                
+	                const pricePerPerson = Number($('#roomPrice').data('roomPrice')) + (cntPerson * optionPrice);
+	                $('#pricePerPerson').text(pricePerPerson.toLocaleString('ko-KR'));
+	                
+	                // 몇박 
+	                $('#days').text(diff);
+	                
+	                // 중간 계산
+	                const calcAmount = pricePerPerson * diff;
+	                $('#calcAmount').text(calcAmount.toLocaleString('ko-KR'));
+	                
+	                // 수수료
+	                const charge = calcAmount * 0.1;
+	                $('#charge').text(charge.toLocaleString('ko-KR'));
+	                // 총합계
+	                const total = calcAmount + charge;
+	                $('#total').text(total.toLocaleString('ko-KR'));
+	            });
+	
+	            $('#countSelect').select2({	minimumResultsForSearch: Infinity});
+	        });
+	
+	    </script>
+    </th:block>
 </html>

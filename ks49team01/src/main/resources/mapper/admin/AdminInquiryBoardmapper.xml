@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminInquiryBoardmapper">
+
+<resultMap type="AdminInquiryBoard" id="usersResultMap">
+<!-- <id column="" property=""/>
+<id column="" property=""/>
+<id column="" property=""/>
+<id column="" property=""/>
+<id column="" property=""/>
+<id column="" property=""/>
+<id column="" property=""/> -->
+<id column="inquiry_board_code" property="inquiry_board_code"/>
+<id column="branch_code" property="branch_code" />
+<id column="member_id" property="member_id"/>
+<id column="inquiry_board_title" property="inquiry_board_title"/>
+<id column="inquiry_board_content" property="inquiry_board_content"/>
+<id column="inquiry_board_reg_time" property="inquiry_board_reg_time"/>
+
+</resultMap>
+
+<select id="getInquiryBoard" resultMap="usersResultMap">
+SELECT
+inquiry_board_code,
+branch_code,
+member_id,
+inquiry_board_title,
+inquiry_board_content,
+inquiry_board_reg_time
+FROM
+	inquiry_board
+</select>
+</mapper>

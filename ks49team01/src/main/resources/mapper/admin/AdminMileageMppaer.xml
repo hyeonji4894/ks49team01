@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.admin.mapper.AdminMileageMapper">
+
+	<resultMap type="AdminMileage" id="mileageResultMap">
+		<id column="mileage_list_code" 					property="mileageListCode"/>
+		<result column="member_id" 						property="memberId"/>
+		<result column="payments_due_code" 				property="paymentsDueCode"/>
+		<result column="mileage_kind" 					property="mileageKind"/>
+		<result column="mileage_save_price" 			property="mileageSavePrice"/>
+		<result column="mileage_list_register_date" 	property="mileageListRegisterDate"/>
+	</resultMap>
+	
+	<!-- 적립금지급내역 등록 -->
+	<insert id="addMileageList" parameterType="AdminMileage">
+		<selectKey keyProperty="mileageListCode" resultType="String" order="BEFORE">
+			/* mileage_list_code 자동증가 */
+			SELECT
+				CASE
+				WHEN COUNT(ml.mileage_list_code) = 0 THEN 'mileage_list_code1' 
+				ELSE
+					CONCAT('mileage_list_code',(MAX(CAST(SUBSTRING_INDEX(ml.mileage_list_code,'mileage_list_code', -1) AS UNSIGNED))+1))
+				END AS mileageListCode
+			FROM
+				mileage_list AS ml
+		</selectKey>
+			/* 적립금지급내역 등록 */
+			INSERT INTO mileage_list
+			(mileage_list_code, member_id, mileage_kind, mileage_save_price, mileage_list_register_date)
+			VALUES
+			(#{mileageListCode}, #{memberId}, #{mileageKind}, #{mileageSavePrice}, CURDATE())
+	</insert>	
+	
+		<!-- 특정코드로 적립금지급내역 조회 -->
+	<select id="getMileageListByCode" parameterType="String" resultMap="mileageResultMap">
+	
+		/* 특정코드로 적립금지급내역 조회*/
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.payments_due_code,
+			ml.mileage_kind,
+			ml.mileage_save_price,
+			ml.mileage_list_register_date
+		FROM
+			mileage_list AS ml
+		WHERE	
+			ml.mileage_list_code = #{mileageListCode};
+	</select>
+	
+ 	<!-- 특정코드로 적립금지급내역 수정 -->
+ 	<update id="modifyMileageList" parameterType="AdminMileage">
+		/* 특정코드로 적립금지급내역 수정*/
+		UPDATE mileage_list
+		<set>
+			<if test="memberId != null and memberId != ''">	
+				member_id=#{memberId},
+			</if>
+			<if test="mileageKind != null and mileageKind != ''">
+				mileage_kind=#{mileageKind},
+			</if>
+			<if test="mileageSavePrice != null and mileageSavePrice != ''">
+				mileage_save_price=#{mileageSavePrice},
+			</if>
+		</set>
+			WHERE
+				mileage_list_code=#{mileageListCode};
+	</update>	
+	
+		
+	<!-- 적립금지급내역 조회 -->
+ 	<select id="getMileageList" resultMap="mileageResultMap">
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.mileage_kind,
+			ml.mileage_save_price,
+			ml.mileage_list_register_date
+		FROM
+			mileage_list AS ml;
+ 	</select>
+ 	
+ 	<!-- 적립금지급내역 아이디 검색 (모달)-->
+	<select id="getSearchMileageId" resultMap="mileageResultMap" parameterType="String">
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.mileage_kind
+		FROM
+			mileage_list as ml
+		<where>
+			<if test="memberId != null and memberId != ''">
+				ml.member_id LIKE CONCAT('%', #{memberId}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 적립금지급내역 최종검색 -->
+   	<select id="getSearchMileageList" resultMap="mileageResultMap" parameterType="list">
+		SELECT
+			ml.mileage_list_code,
+			ml.member_id,
+			ml.mileage_kind,
+			ml.mileage_save_price,
+			ml.mileage_list_register_date
+		FROM
+			mileage_list AS ml
+		<where>
+			<foreach collection="paramList" item="item">
+				<if test="item.searchKey != null and item.searchKey != ''">						
+					AND ${item.searchKey} LIKE CONCAT('%', #{item.searchValue},'%')										
+				</if>
+			</foreach>
+		</where>			
+ 	</select>  		
+		
+</mapper>

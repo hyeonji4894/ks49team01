@@ -6,7 +6,21 @@
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
+			<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			
+		</style>
 	</head>
+	
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
@@ -21,41 +35,259 @@
 		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
 	</th:block>
 
+	
 	<!-- Start Page Content -->
+	
 	<th:block layout:fragment="customContent">
-		<div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">회원 아이디</th>
-                                            <th scope="col">회원 비번</th>
-                                            <th scope="col">회원 이름</th>
-                                            <th scope="col">회원 생년월일</th>
-                                            <th scope="col">회원 이메일</th>
-                                            <th scope="col">회원 성별</th>
-                                            <th scope="col">회원 전화번호</th>
-                                            <th scope="col">회원 주소</th>
-                                            <th scope="col">회원 마일리지</th>
-                                            <th scope="col">회원 등록시간</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                     
-                                          <tr th:if="${userList != null and not #lists.isEmpty(userList)}"
-												th:each="l : ${userList}">
-												<td th:text="${l.memberId}"></td>
-												<td th:text="${l.memberPW}"></td>
-												<td th:text="${l.memberName}"></td>
-												<td th:text="${l.memberBirth}"></td>
-												<td th:text="${l.memberEmail}"></td>
-												<td th:text="${l.memberGender}"></td>
-												<td th:text="${l.memberPhone}"></td>
-												<td th:text="${l.memberAddr}"></td>
-												<td th:text="${l.memberMileage}"></td>
-												<td th:text="${l.memberRegDate}"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+       	  <!-- <div class="card mb-4">
+		    <div class="card-body">
+		      <div class="row">
+		        <div class="col-lg-10">
+		          <div class="row mb-3">
+		          	<div class="col-lg-6">
+		              <label class="form-label card-title font-weight-bolder">카테고리 검색</label>
+		              <div class="row">
+		                <div class="col-12">
+		                  <div class="input-group" id="search">
+		                    <select class="form-control text-center" id="searchKey">
+		                      	<option value="memberId">회원 아이디</option>
+								<option value="memberName">회원 이름</option>
+								<option value="memberBirth">회원 생년월일</option>
+								<option value="memberEmail">회원 이메일</option>
+		                    </select>		                    
+				            <div class="col-lg-8">
+				                <div class="input-group">
+				                  <input placeholder="검색어를 입력해주세요" type="text" class="form-control" id="searchValue">
+				            	</div>
+				            </div>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>		            
+		          </div>
+		        </div>
+		        <div class="col-lg-2 align-self-center">
+		          <div class="row justify-content-center">
+		            <div class="col-8">
+		              <button class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" id="searchBtn" type="button" style="height: 120px;">
+		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
+		              </button>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div> -->
+		  <div class="card mb-4">
+		    <div class="card-body">
+		    	<div class="row mb-3">
+		    		<div class="col-sm-3 d-flex align-items-end">		    		
+				    	<h5 class="card-title">
+					    	[ 전체 &nbsp;
+					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	&nbsp;|&nbsp;  
+					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
+					    	]
+				    	</h5>
+		    		</div>	    	
+			    	<div class="col-sm-9">
+			    		<div class="btn-list text-right">
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/common/page2}"><i class="fas fas fa-pencil-alt"></i>
+                               등록</a>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+                               수정</button>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
+                               삭제</button>
+                       </div>
+			    	</div>
+		    	</div>
+		    	
+		    	<table class="table table-bordered table-hover text-center search-result">
+                  <thead class="h5 text-dark">
+                      <tr>
+                      	  <th style="width: 5%;">
+                            <input type="checkbox" id="allCheck">
+                      	  </th>
+                          <th class="font-weight-bolder">아이디</th>
+                          <th class="font-weight-bolder">이름</th>
+                          <th class="font-weight-bolder">생년월일</th>
+                          <th class="font-weight-bolder">이메일</th>
+                          <th class="font-weight-bolder">성별</th>
+                          <th class="font-weight-bolder">전화번호</th>
+                          <th class="font-weight-bolder">주소</th>
+                          <th class="font-weight-bolder">보유 마일리지</th>
+                          <th class="font-weight-bolder">등록일자</th>
+                      </tr>
+                  </thead>
+                  <tbody class="border text-dark">
+                  	<tr th:if="${userList != null and not #lists.isEmpty(userList)}"
+						  th:each="l : ${userList}">
+                  		<td style="width: 5%;">
+                            <input type="checkbox" class="check">
+                      	</td>
+                        <td th:text="${l.memberId}"></td>
+						<td th:text="${l.memberName}"></td>
+						<td th:text="${l.memberBirth}"></td>
+						<td th:text="${l.memberEmail}"></td>
+						<td th:text="${l.memberGender}"></td>
+						<td th:text="${l.memberPhone}"></td>
+						<td th:text="${l.memberAddr}"></td>
+						<td th:text="${l.memberMileage}"></td>
+						<td th:text="${l.memberRegDate}"></td>
+                      </tr>
+                      <tr th:unless="${userList != null and not #lists.isEmpty(userList)}">
+						<td colspan="10">등록된 회원의 정보가 없습니다.</td>
+					  </tr>
+                  </tbody>
+                </table>
+			    <div class="row justify-content-center mt-5">
+			    	<div class="col-10">			    	
+				    	<ul class="pagination justify-content-center">
+		                   <li class="page-item disabled">
+		                       <a class="page-link" href="#" tabindex="-1">Previous</a>
+		                   </li>
+		                   <li class="page-item active"><a class="page-link" href="#">1</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">2</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">3</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">4</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">5</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">6</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">7</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">8</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">9</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">10</a></li>
+		                   <li class="page-item">
+		                       <a class="page-link" href="#">Next</a>
+		                   </li>
+		               </ul>
+			    	</div>
+			    </div>
+		    </div>
+		  </div>		
 	</th:block>
+	
+	<th:block layout:fragment="customJs">
+		<script>		
+			
+			// 검색결과 tbody 이벤트
+			$(document).on('click', '.search-result tbody tr', function(e){
+				e.stopPropagation();
+				const isChecked = $(this).find('.check').prop('checked');
+				$(this).find('.check').prop('checked', !isChecked);
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 검색결과 tbody check box 이벤트
+			$(document).on('click', '.check', function(e){
+				e.stopPropagation();
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 전체체크
+			$(document).on('click', '#allCheck', function(){
+				const isChecked = $(this).prop('checked');
+				$('.check').prop('checked', isChecked);
+			});	
+			
+			// 수정버튼
+			$(document).on('click', '#modifyBtn', function(){
+				const checkLength = $('.check:checked').length;
+				if(checkLength > 1) {
+					alert('한개만 선택해주세요.')
+					return;
+				}
+				
+			});
+			
+			// 수정 사항 
+			
+			// model 객체 데이터(msg) 바인딩
+			let msg = [[${msg}]];
+			if(msg) alert(msg);
+			
+			$('#searchBtn').click(function(){
+				const searchValue = $('#searchValue').val();
+				
+				if(searchValue == null || searchValue == '') return;
+				
+				// 검색 객체 생성
+				//const searchArr = [];
+				const searchObj = {};
+				// 검색 항목 객체 속성 동적 삽입
+				$('.search select, .search input').each(function(idx, item){
+					//const searchObj = {};
+					searchObj[item.id] = $(item).val();
+					//searchArr.push(searchObj);
+				});
+				
+				console.log(searchObj);
+				//console.log(searchArr);
+				
+				const request = $.ajax({
+					url : '/admin/member/searchForUserList',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(searchObj),
+					//data: JSON.stringify(searchArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+					const searchList = res;
+					$('#tbody').html(''); // tbody 초기화
+					
+					// 검색항목에 일치된 목록이 없을 경우
+					if(searchList == null || searchList.length < 1){
+						const newTr = $('<tr />');
+						const newTd = $('<td />',{'colspan': 10}).text('검색에 일치되는 내용이 없습니다.');
+						newTr.append(newTd);
+						$('#tbody').append(newTr);
+						return ;
+					}
+					
+					// 검색항목에 일치된 목록이 있을 경우
+					$(searchList).each(function(idx, item){
+						const newTr = $('<tr />');
+						const memberId = item.memberId;
+						const newTdMemberId 	 = $('<td />').text(item.memberId);
+						const newTdMemberName 	 = $('<td />').text(item.memberName);
+						const newTdmemberBirth 	 = $('<td />').text(item.memberBirth);
+						const newTdMemberEmail 	 = $('<td />').text(item.memberEmail);
+						const newTdmemberGender	 = $('<td />').text(item.memberGender);
+						const newTdmemberPhone	 = $('<td />').text(item.memberPhone);
+						const newTdMemberAddr 	 = $('<td />').text(item.memberAddr);
+						const newTdmemberMileage	 = $('<td />').text(item.memberMileage);
+						const newTdMemberRegDate = $('<td />').text(item.memberRegDate);						
+						
+					
+						newTr.append(newTdMemberId,
+									 newTdMemberName, 
+									 newTdmemberBirth, 
+									 newTdMemberEmail, 
+									 newTdmemberGender, 
+									 newTdmemberPhone, 
+									 newTdMemberAddr, 
+									 newTdmemberMileage,  
+									 newTdMemberRegDate);
+						
+						$('#tbody').append(newTr);
+					});
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			});
+			
+		</script>
+	</th:block>	
+	
 </html>

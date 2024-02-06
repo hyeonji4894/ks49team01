@@ -10,25 +10,321 @@
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">결제</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
-		</li>
-		<li class="breadcrumb-item text-muted active" th:text="${page}">폐교 목록</li>
+			<a th:href="@{/}" class="text-muted">결제</a>
 	</th:block>
 
 	<!-- Start Page Content -->
-	<th:block layout:fragment="customContent">
-       	<table class="table">
-			 <thead>
-	            <tr>
-	                <th scope="col">최종 결제 금액</th>
-	            </tr>
-	        </thead>
-	     </table>
+	<th:block layout:fragment="customContents">
+      	<div class="page-header breadcrumb-wrap">
+           <div class="container">
+                <div class="breadcrumb">
+                    <a th:href="@{/user}"><i class="fi-rs-home mr-5"></i>Home</a>
+                    <span></span> 객실
+					<span></span> 결제
+				</div>
+			</div>
+		</div>
+			<div class="container mb-80 mt-50" style="background-color:#f4f7fb;">
+				<div class="row justify-content-center">
+					<div class="col-lg-9 mb-40">
+	                	<div class="card mb-20 mt-20">
+	                		<div class="font-lg text-left">
+		                		<div class="row justify-content-center">
+				                <div class="col-lg-12">
+				                    <div class="table-responsive shopping-summery">
+				                        <p class="basic">숙소</p>	
+				                        <table class="table table-wishlist">
+				                            <thead class="ml-20">
+				                                <tr class="main-heading">
+				                                    <th scope="col" class="start pl-30">객실 명</th>
+				                                    <th scope="col">상품 가격</th>
+				                                    <th scope="col">Quantity</th>
+				                                    <th scope="col">결제 예정 금액</th>
+				                                    <th scope="col" class="mb-10">쿠폰 사용</th>
+				                                    <th scope="col" >취소	</th>
+				                                </tr>
+				                            </thead>
+				                            <tbody>
+				                                <tr class="pt-30 ">
+				                                   <!--  <td class="image product-thumbnail pt-40"><img src="assets/imgs/shop/product-1-1.jpg" alt="#"></td> --> <!-- 원래 이미지 들어가던 곳 -->
+				                                    <td class="product-des product-name pl-30">
+				                                        <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">여기에 결제 상품 명</a></h6>
+				                                        <div class="product-rate-cover">
+				                                            <div class="product-rate d-inline-block">
+				                                                <div class="product-rating" style="width:90%">
+				                                                </div>
+				                                            </div>
+				                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-body">상품 가격 들어가는 곳</h4>
+				                                    </td>
+				                                    <td class="text-center detail-info" data-title="Stock">
+				                                        <div class="detail-extralink mr-15">
+				                                            <div class="detail-qty border radius">
+				                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+				                                                <input type="text" name="quantity" class="qty-val" value="1" min="1">
+				                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+				                                            </div>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-brand">$2.51 </h4>
+				                                    </td>
+				                                    <td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a></td>
+				                                </tr>
+				                                <tr>
+				                                    <td class="product-des product-name pl-30">
+				                                        <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">여기에 결제 상품명</a></h6>
+				                                        <div class="product-rate-cover">
+				                                            <div class="product-rate d-inline-block">
+				                                                <div class="product-rating" style="width:90%">
+				                                                </div>
+				                                            </div>
+				                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-body">$3.2 </h4>
+				                                    </td>
+				                                    <td class="text-center detail-info" data-title="Stock">
+				                                        <div class="detail-extralink mr-15">
+				                                            <div class="detail-qty border radius">
+				                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+				                                                <input type="text" name="quantity" class="qty-val" value="1" min="1">
+				                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+				                                            </div>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-brand">$3.2 </h4>
+				                                    </td>
+				                                    <td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a></td>
+				                                </tr>
+				                                <tr>
+				                                    <!-- <td class="image product-thumbnail"><img src="assets/imgs/shop/product-3-1.jpg" alt="#"></td> --> <!-- 원래 이미지 들어가는 곳 -->
+				                                    <td class="product-des product-name pl-30">
+				                                        <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">여기에 결제 상품명</a></h6>
+				                                        <div class="product-rate-cover">
+				                                            <div class="product-rate d-inline-block">
+				                                                <div class="product-rating" style="width:90%">
+				                                                </div>
+				                                            </div>
+				                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-body">$2.43 </h4>
+				                                    </td>
+				                                    <td class="text-center detail-info" data-title="Stock">
+				                                        <div class="detail-extralink mr-15">
+				                                            <div class="detail-qty border radius">
+				                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+				                                              		<input type="text" name="quantity" class="qty-val" value="1" min="1">
+				                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+				                                            </div>
+				                                        </div>
+				                                    	</td>
+				                                    	<td class="price" data-title="Price">
+				                                        	<h4 class="text-brand">$2.43 </h4>
+				                                    	</td>
+				                                	<td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a></td>
+				                            	</tr>
+				                            </tbody>
+				                        </table>
+				                    </div>
+				                </div>
+				            </div>
+		                		
+		                	</div>
+	                	</div>
+	                	<div class="card">
+		                		<div class="card-body text-center">
+	                    			<div class="product-detail accordion-detail">
+                                		<div class="row mb-50 mt-30 justify-content-center">
+                                    		<div class="col-md-6 col-sm-12 col-xs-12">
+                                       			 <div class="detail-info pr-30 pl-30">
+                                           		 <P class="title-detail"></P>
+                                           		 <div class="product-detail-rating">
+                                          		 </div>
+                                            	<div class="clearfix product-price-cover">
+	                                                <div class="product-price primary-color float-left">
+	                                                    <span class="current-price text-brand">가격 연동</span>
+		                                                    <span>
+		                                                        <span class="save-price font-md color3 ml-15"></span>
+		                                                        <span class="old-price font-md ml-15">$52</span>
+		                                                    </span>
+	                                                 </div>
+                                           		</div>
+                                            <div class="short-desc mb-30">
+                                                <p class="font-lg">객실 설명?</p>
+                                            </div>
+                                            <div class="attr-detail attr-size mb-30">
+                                                <strong class="mr-10">Size / Weight: </strong>
+                                                <ul class="list-filter size-filter font-small">
+                                                    <li><a href="#">50g</a></li>
+                                                    <li class="active"><a href="#">60g</a></li>
+                                                    <li><a href="#">80g</a></li>
+                                                    <li><a href="#">100g</a></li>
+                                                    <li><a href="#">150g</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- Detail Info -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+							<div class="p-40">
+						    	<h3 class="heading-2 mb-10">쿠폰 선택</h3>
+						    		<div class="row justify-content-center">
+					                	<div class="d-flex col-lg-12 pl-25 pr-25 justify-content-between">
+				                    		<input class="font-medium mr-10 coupon" name="Coupon" placeholder="쿠폰을 선택해주세요">
+				                    			<select id=couponCheck name="couponCheck">
+				                    				<option></option>
+				                    				<option></option>
+				                    				<option></option>
+				                    				<option></option>
+				                    				<option></option>
+				                    			</select>
+										</div>
+									</div>
+								</div>
+							</div>
+				            <div class="row justify-content-center">
+				                <div class="col-lg-11">
+				                    <div class="table-responsive shopping-summery">
+				                        <table class="table table-wishlist">
+				                            <thead>
+				                                <tr class="main-heading">
+				                                    <th class="custome-checkbox start pl-30">
+				                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
+				                                        <label class="form-check-label" for="exampleCheckbox11"></label>
+				                                    </th>
+				                                    <th scope="col" colspan="2">객실 명</th>
+				                                    <th scope="col">상품 가격</th>
+				                                    <th scope="col">Quantity</th>
+				                                    <th scope="col">결제 예정 금액</th>
+				                                    <th scope="col" class="mb-10">쿠폰 사용</th>
+				                                    <th scope="col" class="end">취소	</th>
+				                                </tr>
+				                            </thead>
+				                            <tbody>
+				                                <tr class="pt-30">
+				                                    <td class="custome-checkbox pl-30">
+				                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
+				                                        <label class="form-check-label" for="exampleCheckbox1"></label>
+				                                    </td>
+				                                   <!--  <td class="image product-thumbnail pt-40"><img src="assets/imgs/shop/product-1-1.jpg" alt="#"></td> --> <!-- 원래 이미지 들어가던 곳 -->
+				                                    <td class="product-des product-name">
+				                                        <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">여기에 결제 상품 명</a></h6>
+				                                        <div class="product-rate-cover">
+				                                            <div class="product-rate d-inline-block">
+				                                                <div class="product-rating" style="width:90%">
+				                                                </div>
+				                                            </div>
+				                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-body">상품 가격 들어가는 곳</h4>
+				                                    </td>
+				                                    <td class="text-center detail-info" data-title="Stock">
+				                                        <div class="detail-extralink mr-15">
+				                                            <div class="detail-qty border radius">
+				                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+				                                                <input type="text" name="quantity" class="qty-val" value="1" min="1">
+				                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+				                                            </div>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-brand">$2.51 </h4>
+				                                    </td>
+				                                    <td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a></td>
+				                                </tr>
+				                                <tr>
+				                                    <td class="custome-checkbox pl-30">
+				                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="">
+				                                        <label class="form-check-label" for="exampleCheckbox2"></label>
+				                                    </td>
+				                                   <!--  <td class="image product-thumbnail"><img src="assets/imgs/shop/product-2-1.jpg" alt="#"></td> --> <!-- 원래 이미지 들어가는 곳 -->
+				                                    <td class="product-des product-name">
+				                                        <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">여기에 결제 상품명</a></h6>
+				                                        <div class="product-rate-cover">
+				                                            <div class="product-rate d-inline-block">
+				                                                <div class="product-rating" style="width:90%">
+				                                                </div>
+				                                            </div>
+				                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-body">$3.2 </h4>
+				                                    </td>
+				                                    <td class="text-center detail-info" data-title="Stock">
+				                                        <div class="detail-extralink mr-15">
+				                                            <div class="detail-qty border radius">
+				                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+				                                                <input type="text" name="quantity" class="qty-val" value="1" min="1">
+				                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+				                                            </div>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-brand">$3.2 </h4>
+				                                    </td>
+				                                    <td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a></td>
+				                                </tr>
+				                                <tr>
+				                                    <td class="custome-checkbox pl-30">
+				                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="">
+				                                        <label class="form-check-label" for="exampleCheckbox3"></label>
+				                                    </td>
+				                                    <!-- <td class="image product-thumbnail"><img src="assets/imgs/shop/product-3-1.jpg" alt="#"></td> --> <!-- 원래 이미지 들어가는 곳 -->
+				                                    <td class="product-des product-name">
+				                                        <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">여기에 결제 상품명</a></h6>
+				                                        <div class="product-rate-cover">
+				                                            <div class="product-rate d-inline-block">
+				                                                <div class="product-rating" style="width:90%">
+				                                                </div>
+				                                            </div>
+				                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+				                                        </div>
+				                                    </td>
+				                                    <td class="price" data-title="Price">
+				                                        <h4 class="text-body">$2.43 </h4>
+				                                    </td>
+				                                    <td class="text-center detail-info" data-title="Stock">
+				                                        <div class="detail-extralink mr-15">
+				                                            <div class="detail-qty border radius">
+				                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+				                                              		<input type="text" name="quantity" class="qty-val" value="1" min="1">
+				                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+				                                            </div>
+				                                        </div>
+				                                    	</td>
+				                                    	<td class="price" data-title="Price">
+				                                        	<h4 class="text-brand">$2.43 </h4>
+				                                    	</td>
+				                                	<td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a></td>
+				                            	</tr>
+				                            </tbody>
+				                        </table>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+					</div>
+				</div>	                    
+			</div>
+		</div>
 	</th:block>
 </html>

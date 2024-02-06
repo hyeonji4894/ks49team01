@@ -5,65 +5,389 @@
 	  
 	<!-- css file import head태그 안에 추가  -->
 	<head>
-	
+		<!-- This Page CSS -->
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1"></h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">객실정보</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">시즌추가금</a>
+			<a th:href="@{#}" class="text-muted">객실</a>
 		</li>
 		<li class="breadcrumb-item">
-			<a th:href="@{#}" class="text-muted">시즌추가금목록</a>
+			<a th:href="@{#}" class="text-muted">객실정보</a>
 		</li>
 	</th:block>
-
+	
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-		<table class="table">
-	        <thead>
-	            <tr>
-	                <th>매장명</th>
-	                <th>객실명</th>
-	                <th>객실크기</th>
-	                <th>객실기본인원</th>
-	                <th>객실최대인원</th>
-	                <th>객실이용가능견종</th>
-	                <th>객실기본가격</th>
-	                <th>객실등록일자</th>
-	                <th>등록인ID</th>
-	                <th>수정</th>
-	                <th>삭제</th>
-	                
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td>
-	    				<a th:href="@{/admin/room/addRoomInfo}">수정</a>
-	                </td>
-	                <td>
-	    				<a th:href="@{/admin/room/removeSurchargeList}">삭제</a>
-	                </td>
-	            </tr>
-	        </tbody>
-	     </table>
-	     <div style="float: right;">
-	    	<a class="btn waves-effect waves-light btn-dark" th:href="@{/admin/room/addRoomInfo}">추가</a>
-	     </div>
+       	  <div class="card mb-4">
+		    <div class="card-body">
+		      <div class="row">
+		        <div class="col-lg-10">
+		          <div class="row mb-3">
+		            <div class="col-lg-5">
+		                <label class="form-label card-title font-weight-bolder">매장명</label>
+		                <div class="input-group">
+		                    <input type="text" class="form-control search-items" name="branchName" id="branchName" readonly="readonly">
+		                    <button class="btn btn-info bg" data-toggle="modal" data-target="#branch-modal" type="button"><i class="fas fa-search"></i></button>
+		                
+		                </div>
+		            </div>
+		            <div class="col-lg-5">
+		                <label class="form-label card-title font-weight-bolder">가격</label>
+		                <div class="input-group">
+		                  <input type="text" class="form-control search-items" name="roomPrice" id="roomPrice"> &ensp; 이하
+		                </div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-lg-2 align-self-center">
+		          <div class="row justify-content-center">
+		            <div class="col-8">
+		              <button id="searchBtn2" class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 100px;">
+		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
+		              </button>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="card mb-4">
+		    <div class="card-body">
+		    	<div class="row mb-3">
+		    		<div class="col-sm-3 d-flex align-items-end">		    		
+				    	<h5 class="card-title">
+					    	[ 전체 &nbsp;
+					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(roomInfoList)}"></label> 건
+					    	&nbsp;|&nbsp;  
+					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(roomInfoList)}"></label> 건
+					    	]
+				    	</h5>
+		    		</div>	    	
+			    	<div class="col-sm-9">
+			    		<div class="btn-list text-right">
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/branch/room/addRoomInfo}"><i class="fas fas fa-pencil-alt"></i>
+                               등록</a>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn" th:href="@{/branch/room/modifyRoomInfo}"><i class="fas fa-undo"></i>
+                               수정</button>
+                           <button type="submit" class="btn btn-outline-danger" id="delBtn" th:href="@{/branch/room/removeRoomInfo}"><i class="fas fa-trash-alt"></i>
+                               삭제</button>
+                       </div>
+			    	</div>
+		    	</div>
+				<table class="table table-bordered table-hover text-center search-result">
+                  <thead class="h5 text-dark">
+                      <tr>
+                      	  <th style="width: 5%;">
+                            <input type="checkbox" id="allCheck">
+                      	  </th>
+                         	<th>매장명</th>
+			                <th>객실명</th>
+			                <th>객실크기</th>
+			                <th>객실기본인원</th>
+			                <th>객실최대인원</th>
+			                <th>객실이용가능견종</th>
+			                <th>객실기본가격</th>
+			                <th>객실등록일자</th>
+			                <th>등록인ID</th>
+                      </tr>
+                  </thead>
+                  <tbody class="border text-dark" id="searchRoomTbody">
+                  	<tr th:if="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}"
+	            	 	  th:each="r : ${roomInfoList}">
+                      	 <td style="width: 5%;">
+                            <input type="checkbox" name="check" class="check" th:data-room-code="${r.roomCode}">
+                      	 </td>
+                         <td th:text="${r.branchName}"></td>
+		                 <td th:text="${r.roomName}"></td>
+		                 <td th:text="${r.roomSize}"></td>
+		                 <td th:text="${r.roomBasicPersonnel}"></td>
+		                 <td th:text="${r.roomMaxPersonnel}"></td>
+		                 <td th:text="${r.availableDogTypes}"></td>
+		                 <td th:text="|₩ ${#numbers.formatInteger(r.roomBasicPrice, 3, 'COMMA')}|"></td>
+		                 <td th:text="${r.roomRegistrationDate}"></td>
+	               		 <td th:text="${r.registrantId}"></td>
+	              	</tr>
+                  </tbody>
+                </table>
+			    <div class="row justify-content-center mt-5">
+			    	<div class="col-10">			    	
+				    	<ul class="pagination justify-content-center">
+		                   <li class="page-item disabled">
+		                       <a class="page-link" href="#" tabindex="-1">Previous</a>
+		                   </li>
+		                   <li class="page-item active"><a class="page-link" href="#">1</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">2</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">3</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">4</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">5</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">6</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">7</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">8</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">9</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">10</a></li>
+		                   <li class="page-item">
+		                       <a class="page-link" href="#">Next</a>
+		                   </li>
+		               </ul>
+			    	</div>
+			    </div>
+		    </div>
+		  </div>
+		  
+		  <!-- search1 modal content -->
+          <div id="branch-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                  	  <div class="modal-header">
+                          <h4 class="modal-title" id="modalTitle1">매장검색</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      </div>
+                      <div class="modal-body">
+                         <div class="form-group row justify-content-center">                         	 
+                            <label for="searchItem1" class="col-sm-2 col-form-label card-title font-weight-bolder">매장명</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="searchBranchName" placeholder="검색어를 입력해주세요">
+                            </div>
+                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button" id="searchBtn">
+                            	<i class="fas fa-search">&ensp;검색</i>
+                            </button>
+                         </div>
+                      </div>
+                      <div class="modal-footer">
+                      	 <div class="table-responsive">
+                             <table class="table table-bordered table-hover text-center">
+                                <thead class="text-dark font-weight-bolder">
+                                    <tr>
+                                        <th>매장명</th>
+                                        <th>등록자ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="border border-dark searchTb1">
+                                    <tr th:if="${roomInfoList != null and not #lists.isEmpty(roomInfoList)}"
+	            	 	  				th:each="r : ${roomInfoList}">
+                                        <td th:text="${r.branchName}"></td>
+                                        <td th:text="${r.registrantId}"></td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->	
 	  </th:block>
+	  
+	 <th:block layout:fragment="customJs">
+		<script th:inline="javascript">
+		
+		
+						
+			//searchBtn click
+			$(document).on('click', '#searchBtn', function(){
+				let searchBranchName = $('#searchBranchName').val();
+				searchBranchName??'';
+				const request = $.ajax({
+					url: '/branch/room/searchRoomName',
+					method: 'POST',
+					data: {'searchBranchName' : searchBranchName},
+					dataType: 'json',
+				});
+				request.done(function(res){
+					console.log(res);
+					$('.searchTb1').html('');
+					let contents = '';
+					$(res).each(function(idx, item){
+						contents += `<tr>`;
+						contents += `	<td>${item.branchName}</td>`;
+						contents += `	<td>${item.registrantId}</td>`;
+						contents += `</tr>`;
+					});
+					
+					$('.searchTb1').html(contents);
+					
+				});
+				request.fail(function( jQXHR, textStatus, err){
+					console.log(err);
+				});
+			});
+		
+			// modal searchTb1 처리
+			$(document).on('click', '.searchTb1 tr', function(){
+				const branchName = $(this).children().eq(0).text();
+								
+				$('#branchName').val(branchName);
+				$('#branch-modal').modal('hide');
+			});
+			
+			
+			
+			// 최종 검색 버튼
+			$(document).on('click','#searchBtn2', function(){
+				//const searchValue = $('#searchValue').val();
+				const searchArr = [];
+				$('.search-items').each(function(idx, item){
+					const searchObj = {};
+					searchObj.searchKey = item.id;
+					searchObj.searchValue = item.value;
+					searchArr.push(searchObj);
+				});
+				console.log(searchArr);
+				
+				const request = $.ajax({
+					url : '/branch/room/searchRoomInfo',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(searchArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+					const searchList = res;
+					$('#searchRoomTbody').html('');
+					if(searchList == null || searchList.length < 1){
+						const newTr = $('<tr />');
+						const newTd = $('<td />',{'colspan': 10}).text('검색에 일치되는 내용이 없습니다.');
+						newTr.append(newTd);
+						$('#searchRoomTbody').append(newTr);
+						return;
+					}
+					$(searchList).each(function(idx, item){
+						const newTr = $('<tr />');
+						const branchName = item.branchName;
+						const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-room-code' : item.roomCode});
+						const newTdCheckBox = 				$('<td />').html(checkBox);
+						//const newTdroomCode = 				$('<td />').text(item.roomCode);
+						const newTdbranchName = 			$('<td />').text(item.branchName);
+						const newTdroomName = 				$('<td />').text(item.roomName);
+						const newTdroomSize = 				$('<td />').text(item.roomSize);
+						const newTdroomBasicPersonnel = 	$('<td />').text(item.roomBasicPersonnel);
+						const newTdbroomMaxPersonnel = 		$('<td />').text(item.roomMaxPersonnel);
+						const newTdbavailableDogTypes = 	$('<td />').text(item.availableDogTypes);
+						const newTdbroomBasicPrice = 		$('<td />').text(
+																				Number(item.roomBasicPrice).toLocaleString("ko-KR", { style: "currency", currency: "KRW" }),
+																			);
+						const newTdbroomRegistrationDate = 	$('<td />').text(item.roomRegistrationDate);
+						const newTdregistrantId = 			$('<td />').text(item.registrantId);
+						
+						newTr.append(newTdCheckBox,
+									 //newTdroomCode,
+									 newTdbranchName,
+									 newTdroomName,
+									 newTdroomSize,
+									 newTdroomBasicPersonnel,
+									 newTdbroomMaxPersonnel,
+									 newTdbavailableDogTypes,
+									 newTdbroomBasicPrice,
+									 newTdbroomRegistrationDate,
+									 newTdregistrantId);
+						
+						$('#searchRoomTbody').append(newTr);
+					});					
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+				
+			});
+			
+			
+			// 검색결과 tbody 이벤트
+			$(document).on('click', '.search-result tbody tr', function(e){
+				e.stopPropagation();
+				const isChecked = $(this).find('.check').prop('checked');
+				$(this).find('.check').prop('checked', !isChecked);
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 검색결과 tbody check box 이벤트
+			$(document).on('click', '.check', function(e){
+				e.stopPropagation();
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 전체체크
+			$(document).on('click', '#allCheck', function(){
+				const isChecked = $(this).prop('checked');
+				$('.check').prop('checked', isChecked);
+			});	
+			
+			// 수정버튼
+			$(document).on('click', '#modifyBtn', function(){
+				const checkLength = $('.check:checked').length;
+				
+				if(checkLength != 1) {
+					alert('한개만 선택해주세요.')
+					return;
+				}
+				const roomCode = $('.check:checked').data('roomCode')
+				location.href = `/branch/room/modifyRoomInfo?roomCode=${roomCode}`;
+				
+			});
+			
+			// 삭제 버튼			
+			$(document).on('click', '#delBtn', function(){
+				const checkLength = $('.check:checked').length;
+				
+				if(checkLength == 0) {
+					alert('한개이상 선택해주세요.')
+					return;
+				}
+				var chkArr = $('input:checkbox[name="check"]'); 
+				var newChkArr=[];
+				
+				for(var i=0; chkArr.length > i; i++){
+					if($(chkArr[i]).is(":checked")){
+						newChkArr.push($(chkArr[i]).data('roomCode'));
+					}
+				}
+				console.log(newChkArr);	
+				const request = $.ajax({
+					url : '/branch/room/removeRoomInfo',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(newChkArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+								
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			})
+			
+			
+		</script>
+	</th:block> 
 </html>

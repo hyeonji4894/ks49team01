@@ -6,35 +6,338 @@
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}
+			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-3 h2">리뷰 관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
 	<th:block layout:fragment="customBreadcrumb">	
 		<li class="breadcrumb-item">
-			<a th:href="@{/}" class="text-muted">회원관리</a>
+			<a th:href="@{#}" class="text-muted h4">리뷰 목록</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item text-muted active h4" aria-current="page">조회하기</li>
 	</th:block>
 
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	<div class="row">
-       		<div class="col-6">리뷰 목록 조회</div>
-       		<div class="col-6">4564565</div>
-       	</div>
+       	  <div class="card mb-4">
+		    <div class="card-body">
+		      <div class="row">
+		        <div class="col-lg-10">
+		          <div class="row mb-3">
+		            <div class="col-lg-4">
+		                <label class="form-label card-title font-weight-bolder">리뷰내용 키워드 검색</label>
+		                <div class="input-group">
+		                  <input type="text" class="form-control search-items" readonly="readonly" id="reviewContext" name="reviewContext">
+		                  <button class="btn btn-info bg" type="button" data-toggle="modal" data-target="#search1-modal"><i class="fas fa-search"></i></button>
+		                </div>
+		            </div>&emsp;&emsp;&emsp;
+		          </div>
+		        </div>
+		        <div class="col-lg-2 align-self-center">
+		          <div class="row justify-content-center">
+		            <div class="col-8">
+		              <button id="searchBtn2" class="btn btn-primary bg col-12 justify-content-center font-weight-bold display-2" type="button" style="height: 120px;">
+		                <i class="fas fa-search mr-20" style="font-size: 25px;">&ensp;검색</i>
+		              </button>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="card mb-4">
+		    <div class="card-body">
+		    	<div class="row mb-3">
+		    		<div class="col-sm-3 d-flex align-items-end">		    		
+				    	<h5 class="card-title">
+					    	[ 전체 &nbsp;
+					    	<label id="listCnt" class="text-info mb-0" th:text="${#lists.size(branchReviewList)}"></label> 건
+					    	&nbsp;|&nbsp;  
+					    	<label id="pageCnt" class="text-info mb-0" th:text="${#lists.size(branchReviewList)}"></label> 건
+					    	]
+				    	</h5>
+		    		</div>	    	
+			    	<div class="col-sm-9">
+			    		<div class="btn-list text-right">
+                           <button type="button" class="btn btn-outline-danger" id="delBtn" th:href="@{/branch/review/removeReview}"><i class="fas fa-trash-alt"></i>
+                               삭제</button>
+                       </div>
+			    	</div>
+		    	</div>
+		    	
+		    	<table class="table table-bordered table-hover text-center search-result">
+                  <thead class="h5 text-dark">
+                      <tr>
+                      	  <th style="width: 5%;">
+                            <input type="checkbox" id="allCheck">
+                      	  </th>
+                          <th class="font-weight-bolder">리뷰 번호</th>
+                          <th class="font-weight-bolder">등록자 아이디</th>
+                          <th class="font-weight-bolder">리뷰 내용</th>
+                          <th class="font-weight-bolder">리뷰 첨부파일</th>
+                          <th class="font-weight-bolder">리뷰 작성일자</th>
+                          <th class="font-weight-bolder">조회수</th>
+                      </tr>
+                  </thead>
+                  <tbody class="border text-dark" id="searchReviewTbodys">
+		              <tr th:if="${branchReviewList != null and not #lists.isEmpty(branchReviewList)}"
+		            	  th:each="l : ${branchReviewList}">
+	                 	<td style="width: 5%;">
+	                    	<input type="checkbox" class="check">
+	                  	</td>			              
+		                <td th:text="${l.reviewNum}"></td>
+		                <td th:text="${l.memberId}"></td>
+		                <td th:text="${l.reviewContext}"></td>
+		                <td th:text="${l.fileAttribute}"></td>
+		                <td th:text="${l.reviewDate}"></td>
+		                <td th:text="${l.reviewViews}"></td>
+                      </tr>
+                  </tbody>                  
+                </table>
+			    <div class="row justify-content-center mt-5">
+			    	<div class="col-10">			    	
+				    	<ul class="pagination justify-content-center">
+		                   <li class="page-item disabled">
+		                       <a class="page-link" href="#" tabindex="-1">Previous</a>
+		                   </li>
+		                   <li class="page-item active"><a class="page-link" href="#">1</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">2</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">3</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">4</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">5</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">6</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">7</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">8</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">9</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">10</a></li>
+		                   <li class="page-item">
+		                       <a class="page-link" href="#">Next</a>
+		                   </li>
+		               </ul>
+			    	</div>
+			    </div>
+		    </div>
+		  </div>
+		  
+		  <!-- search1 modal content -->
+          <div id="search1-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                  	  <div class="modal-header">
+                          <h4 class="modal-title" id="modalTitle1">리뷰키워드 검색</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      </div>
+                      <div class="modal-body">
+                         <div class="form-group row justify-content-center">                         	 
+                            <label for="searchItem1" class="col-sm-3 col-form-label card-title font-weight-bolder">리뷰키워드</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="searchReviewContext" placeholder="검색어를 입력해주세요">
+                            </div>
+                            <button class="btn btn-primary form-control col-sm-2 font-weight-bold" type="button" id="reviewSearchBtn">
+                            	<i class="fas fa-search">&ensp;검색</i>
+                            </button>
+                         </div>
+                      </div>
+                      <div class="modal-footer">
+                      	 <div class="table-responsive">
+                             <table class="table table-bordered table-hover text-center">
+                                <thead class="text-dark font-weight-bolder">
+                                    <tr>
+                                        <th>리뷰번호</th>
+                                        <th>리뷰내용</th>
+                                        <th>등록자아이디</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="border border-dark searchTb1">
+	          		 	 			<tr th:if="${branchReviewList != null and not #lists.isEmpty(branchReviewList)}"
+			            	 			th:each="l : ${branchReviewList}">
+                                        <td th:text="${l.reviewNum}"></td>
+						                <td th:text="${l.reviewContext}"></td>
+						                <td th:text="${l.memberId}"></td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
 	</th:block>
+	<th:block layout:fragment="customJs">
+		<script th:inline="javascript">		
+		
+			//reviewSearchBtn click
+			$(document).on('click', '#reviewSearchBtn', function(){
+				let searchReviewContext = $('#searchReviewContext').val();
+				searchReviewContext??'';
+				const request = $.ajax({
+					url:'/branch/review/getSearchReviewContext',
+					method:'POST',
+					data:{'searchReviewContext' : searchReviewContext},
+					dataType:'json',
+				});
+				request.done(function(res){
+					console.log(res);
+					$('.searchTb1').html('');
+					let content = '';
+					$(res).each(function(idx, item){						
+						content += `<tr>`;
+						content += `	<td>${item.reviewNum}</td>`;
+						content += `	<td>${item.reviewContext}</td>`;
+						content += `	<td>${item.memberId}</td>`;
+						content += `</tr>`;						
+					});
+					$('.searchTb1').html(content);
+					
+				});
+				request.fail(function( jQXHR, textStatus, err){
+					console.log(err);
+				})
+			});
+		
+			// modal searchTb1 처리
+			$(document).on('click', '.searchTb1 tr', function(){
+				
+				const reviewContext = $(this).children().eq(1).text();
+				$('#reviewContext').val(reviewContext);
+				$('#search1-modal').modal('hide');
+			});
+			
+			// 최종 검색 버튼
+			$(document).on('click','#searchBtn2', function(){
+				const searchArr = [];
+				$('.search-items').each(function(idx, item){
+					const searchObj = {};
+					searchObj.searchKey = item.id;
+					searchObj.searchValue = item.value;
+					searchArr.push(searchObj);
+				});
+				console.log(searchArr);			
+				
+				const request = $.ajax({
+					url : '/branch/review/searchReviewList',
+					method : 'POST',
+					contentType : 'application/json; charset=UTF-8',
+					data: JSON.stringify(searchArr),
+					dataType: 'JSON'
+				});
+				request.done(function(res){
+					console.log(res)
+					const searchList = res;
+					$('#searchReviewTbodys').html('');
+					if(searchList == null || searchList.length < 1){
+						const newTr = $('<tr />');
+						const newTd = $('<td />',{'colspan': 7}).text('검색에 일치되는 내용이 없습니다.');
+						newTr.append(newTd);
+						$('#searchReviewTbodys').append(newTr);
+						return;
+					}
+					$(searchList).each(function(idx, item){
+						const newTr = $('<tr />');
+						const checkBox = $('<input />', { type:'checkbox', class:'check', 'data-review-num' : item.reviewNum});
+						const newTdCheckBox = 					$('<td />').html(checkBox);
+						const newTdreviewNum = 					$('<td />').text(item.reviewNum);
+						const newTdmemberId = 					$('<td />').text(item.memberId);
+						const newTdreviewContext = 				$('<td />').text(item.reviewContext);
+						const newTdfileAttribute = 				$('<td />').text(item.fileAttribute);
+						const newTdreviewDate = 				$('<td />').text(item.reviewDate);
+						const newTdreviewViews = 				$('<td />').text(item.reviewViews);
+						
+						newTr.append(newTdCheckBox,
+									 newTdreviewNum,
+									 newTdmemberId,
+									 newTdreviewContext,
+									 newTdfileAttribute,
+									 newTdreviewDate,
+									 newTdreviewViews);
+						
+						$('#searchReviewTbodys').append(newTr);
+					});					
+					
+				});
+				request.fail(function(jQXHR, textStatus, error){
+					console.log(error);
+				});
+			
+			});
+			
+			
+			
+			// 검색결과 tbody 이벤트
+			$(document).on('click', '.search-result tbody tr', function(e){
+				e.stopPropagation();
+				const isChecked = $(this).find('.check').prop('checked');
+				$(this).find('.check').prop('checked', !isChecked);
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 검색결과 tbody check box 이벤트
+			$(document).on('click', '.check', function(e){
+				e.stopPropagation();
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 전체체크
+			$(document).on('click', '#allCheck', function(){
+				const isChecked = $(this).prop('checked');
+				$('.check').prop('checked', isChecked);
+			});	
+			
+	
+				
+			
+		</script>
+	</th:block>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </html>
-
-
-
-
-
-
-
-
-
