@@ -64,41 +64,389 @@
             </div>
         </div>
         
-        <table class="table table-bordered table-hover text-center search-result">
-                  <thead class="h5 text-dark">
-                     <tr>
-	                     <th scope="col">가맹 모집 코드</th>
-	                    <th scope="col">폐교 코드</th>
-	                    <th scope="col">본사 아이디</th>
-	                    <th scope="col">지역</th>	                
-	                    <th scope="col">년도</th>
-	                    <th scope="col">모집 회차</th>
-	                    <th scope="col">모집공고 등록 일자</th>
-	                    <th scope="col">모집기한</th>	                
-	                    <th scope="col">모집 진행 상황</th>		                
-	                </tr>
-                  </thead>
-                  <tbody id="tbody">
-					<tr th:if="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}"
-					th:each="e : ${adminBranchRecruitAnnouncement}">
-					<td th:text="${e.branchRecruitCode}"></td>
-					<td th:text="${e.closeSchoolCode}"></td>
-					<td th:text="${e.memberId}"></td>
-					<td th:text="${e.branchRecruitReligion}"></td>
-					<td th:text="${e.branchRecruitYear}"></td>
-					<td th:text="${e.branchRecruitmentRound}"></td>
-					<td th:text="${e.branchRegistrationDate}"></td>
-					<td th:text="${e.branchRecruitmentPeriod}"></td>
-					<td th:text="${e.recruitmentProgressStatus}"></td>
-					</tr>
-					<tr th:unless="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}">
-					<td colspan="12">조회된 리스트가 없습니다</td>
-					</tr>
-					</tbody>
-                </table>
-        
         <div class="header-bottom header-bottom-bg-color sticky-bar">
             <div class="container">
+                <div class="archive-header-2 text-center">
+                    <h1 class="display-2 mb-50">가맹점 관리</h1>
+                    <div class="row">
+                        <div class="col-lg-5 mx-auto">
+                            <div class="sidebar-widget-2 widget_search mb-50">
+                                <div class="search-form">
+                                    <form action="#">
+                                        <input type="text" placeholder="Search vendors (by name or ID)...">
+                                        <button type="submit"><i class="fi-rs-search"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-50">
+                    <div class="col-12 col-lg-8 mx-auto">
+                        <div class="shop-product-fillter">
+                            <div class="totall-product">
+                                <p>We have <strong class="text-brand">780</strong> vendors now</p>
+                            </div>
+                            <div class="sort-by-product-area">
+                                <div class="sort-by-cover mr-10">
+                                    <div class="sort-by-product-wrap">
+                                        <div class="sort-by">
+                                            <span><i class="fi-rs-apps"></i>Show:</span>
+                                        </div>
+                                        <div class="sort-by-dropdown-wrap">
+                                            <span> 50 <i class="fi-rs-angle-small-down"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="sort-by-dropdown">
+                                        <ul>
+                                            <li><a class="active" href="#">50</a></li>
+                                            <li><a href="#">100</a></li>
+                                            <li><a href="#">150</a></li>
+                                            <li><a href="#">200</a></li>
+                                            <li><a href="#">All</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="sort-by-cover">
+                                    <div class="sort-by-product-wrap">
+                                        <div class="sort-by">
+                                            <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
+                                        </div>
+                                        <div class="sort-by-dropdown-wrap">
+                                            <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="sort-by-dropdown">
+                                        <ul>
+                                            <li><a class="active" href="#">Mall</a></li>
+                                            <li><a href="#">Featured</a></li>
+                                            <li><a href="#">Preferred</a></li>
+                                            <li><a href="#">Total items</a></li>
+                                            <li><a href="#">Avg. Rating</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row vendor-grid">
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+                        <div class="vendor-wrap style-2 mb-40">
+                            <div class="product-badges product-badges-position product-badges-mrg">
+                                <span class="hot">Mall</span>
+                            </div>
+                            <div class="vendor-img-action-wrap">
+                                <div class="vendor-img">
+                                    <a href="vendor-details-1.html">
+                                        <img class="default-img" src="assets/imgs/vendor/vendor-1.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="font-small total-product">380 products</span>
+                                </div>
+                            </div>
+                            <div class="vendor-content-wrap">
+                                <div class="mb-30">
+                                    <div class="product-category">
+                                        <span class="text-muted">Since 2012</span>
+                                    </div>
+                                    <h4 class="mb-5"><a href="vendor-details-1.html">객실</a></h4>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                                        <ul class="contact-infor text-muted">
+                                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
+                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
+                                        </ul>
+                                        <a href="vendor-details-1.html" class="btn btn-xs">Visit Store <i class="fi-rs-arrow-small-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end vendor card-->
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+                        <div class="vendor-wrap style-2 mb-40">
+                            <div class="product-badges product-badges-position product-badges-mrg">
+                                <span class="best">Preferred</span>
+                            </div>
+                            <div class="vendor-img-action-wrap">
+                                <div class="vendor-img">
+                                    <a href="vendor-details-1.html">
+                                        <img class="default-img" src="assets/imgs/vendor/vendor-7.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="font-small total-product">233 products</span>
+                                </div>
+                            </div>
+                            <div class="vendor-content-wrap">
+                                <div class="mb-30">
+                                    <div class="product-category">
+                                        <span class="text-muted">Since 2012</span>
+                                    </div>
+                                    <h4 class="mb-5"><a href="vendor-details-1.html">예약하기</a></h4>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                                        <ul class="contact-infor text-muted">
+                                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
+                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
+                                        </ul>
+                                        <a href="vendor-details-1.html" class="btn btn-xs">Visit Store <i class="fi-rs-arrow-small-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end vendor card-->
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+                        <div class="vendor-wrap style-2 mb-40">
+                            <div class="vendor-img-action-wrap">
+                                <div class="vendor-img">
+                                    <a href="vendor-details-1.html">
+                                        <img class="default-img" src="assets/imgs/vendor/vendor-8.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="font-small total-product">143 products</span>
+                                </div>
+                            </div>
+                            <div class="vendor-content-wrap">
+                                <div class="mb-30">
+                                    <div class="product-category">
+                                        <span class="text-muted">Since 2012</span>
+                                    </div>
+                                    <h4 class="mb-5"><a href="vendor-details-1.html">리뷰관리</a></h4>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                                        <ul class="contact-infor text-muted">
+                                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
+                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
+                                        </ul>
+                                        <a href="vendor-details-1.html" class="btn btn-xs">Visit Store <i class="fi-rs-arrow-small-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end vendor card-->
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+                        <div class="vendor-wrap style-2 mb-40">
+                            <div class="product-badges product-badges-position product-badges-mrg">
+                                <span class="hot">Mall</span>
+                            </div>
+                            <div class="vendor-img-action-wrap">
+                                <div class="vendor-img">
+                                    <a href="vendor-details-1.html">
+                                        <img class="default-img" src="assets/imgs/vendor/vendor-2.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="font-small total-product">56 products</span>
+                                </div>
+                            </div>
+                            <div class="vendor-content-wrap">
+                                <div class="mb-30">
+                                    <div class="product-category">
+                                        <span class="text-muted">Since 2012</span>
+                                    </div>
+                                    <h4 class="mb-5"><a href="vendor-details-1.html">지도</a></h4>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                                        <ul class="contact-infor text-muted">
+                                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
+                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
+                                        </ul>
+                                        <a href="vendor-details-1.html" class="btn btn-xs">Visit Store <i class="fi-rs-arrow-small-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end vendor card-->
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+                        <div class="vendor-wrap style-2 mb-40">
+                            <div class="vendor-img-action-wrap">
+                                <div class="vendor-img">
+                                    <a href="vendor-details-1.html">
+                                        <img class="default-img" src="assets/imgs/vendor/vendor-3.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="font-small total-product">87 products</span>
+                                </div>
+                            </div>
+                            <div class="vendor-content-wrap">
+                                <div class="mb-30">
+                                    <div class="product-category">
+                                        <span class="text-muted">Since 2012</span>
+                                    </div>
+                                    <h4 class="mb-5"><a href="vendor-details-1.html">Maruchan Ram</a></h4>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                                        <ul class="contact-infor text-muted">
+                                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
+                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
+                                        </ul>
+                                        <a href="vendor-details-1.html" class="btn btn-xs">Visit Store <i class="fi-rs-arrow-small-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end vendor card-->
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+                        <div class="vendor-wrap style-2 mb-40">
+                            <div class="vendor-img-action-wrap">
+                                <div class="vendor-img">
+                                    <a href="vendor-details-1.html">
+                                        <img class="default-img" src="assets/imgs/vendor/vendor-9.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="font-small total-product">89 products</span>
+                                </div>
+                            </div>
+                            <div class="vendor-content-wrap">
+                                <div class="mb-30">
+                                    <div class="product-category">
+                                        <span class="text-muted">Since 2012</span>
+                                    </div>
+                                    <h4 class="mb-5"><a href="vendor-details-1.html">Totino's Pizza</a></h4>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                                        <ul class="contact-infor text-muted">
+                                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
+                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
+                                        </ul>
+                                        <a href="vendor-details-1.html" class="btn btn-xs">Visit Store <i class="fi-rs-arrow-small-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end vendor card-->
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+                        <div class="vendor-wrap style-2 mb-40">
+                            <div class="vendor-img-action-wrap">
+                                <div class="vendor-img">
+                                    <a href="vendor-details-1.html">
+                                        <img class="default-img" src="assets/imgs/vendor/vendor-10.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="font-small total-product">322 products</span>
+                                </div>
+                            </div>
+                            <div class="vendor-content-wrap">
+                                <div class="mb-30">
+                                    <div class="product-category">
+                                        <span class="text-muted">Since 2012</span>
+                                    </div>
+                                    <h4 class="mb-5"><a href="vendor-details-1.html">Hambger Hel</a></h4>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                                        <ul class="contact-infor text-muted">
+                                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
+                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
+                                        </ul>
+                                        <a href="vendor-details-1.html" class="btn btn-xs">Visit Store <i class="fi-rs-arrow-small-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end vendor card-->
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+                        <div class="vendor-wrap style-2 mb-40">
+                            <div class="vendor-img-action-wrap">
+                                <div class="vendor-img">
+                                    <a href="vendor-details-1.html">
+                                        <img class="default-img" src="assets/imgs/vendor/vendor-4.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="font-small total-product">152 products</span>
+                                </div>
+                            </div>
+                            <div class="vendor-content-wrap">
+                                <div class="mb-30">
+                                    <div class="product-category">
+                                        <span class="text-muted">Since 2012</span>
+                                    </div>
+                                    <h4 class="mb-5"><a href="vendor-details-1.html">Country Crock</a></h4>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                                        <ul class="contact-infor text-muted">
+                                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
+                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
+                                        </ul>
+                                        <a href="vendor-details-1.html" class="btn btn-xs">Visit Store <i class="fi-rs-arrow-small-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end vendor card-->
+                </div>
+                <div class="pagination-area mt-20 mb-20">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="fi-rs-arrow-small-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
                 <div class="header-wrap header-space-between position-relative justify-content-center">
                     <div class="logo logo-width-1 d-block d-lg-none">
                         <a href="index.html"><img src="/user/assets/imgs/theme/logo.svg" alt="logo"></a>
@@ -157,43 +505,6 @@
                             </nav>
                         </div>
                     </div>
-                    
-                     <div class="modal-footer">
-                      	 <div class="table-responsive">
-                             <table class="table table-bordered table-hover text-center">
-                                <thead class="text-dark font-weight-bolder">
-                                   <tr>
-					                    <th scope="col">가맹 모집 코드</th>
-					                    <th scope="col">폐교 코드</th>
-					                    <th scope="col">본사 아이디</th>
-					                    <th scope="col">지역</th>	                
-					                    <th scope="col">년도</th>
-					                    <th scope="col">모집 회차</th>
-					                    <th scope="col">모집공고 등록 일자</th>
-					                    <th scope="col">모집기한</th>	                
-					                    <th scope="col">모집 진행 상황</th>	                
-					                </tr>
-                                </thead>
-                                <tbody id="tbody">
-									<tr th:if="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}"
-									th:each="e : ${adminBranchRecruitAnnouncement}">
-									<td th:text="${e.branchRecruitCode}"></td>
-									<td th:text="${e.closeSchoolCode}"></td>
-									<td th:text="${e.memberId}"></td>
-									<td th:text="${e.branchRecruitReligion}"></td>
-									<td th:text="${e.branchRecruitYear}"></td>
-									<td th:text="${e.branchRecruitmentRound}"></td>
-									<td th:text="${e.branchRegistrationDate}"></td>
-									<td th:text="${e.branchRecruitmentPeriod}"></td>
-									<td th:text="${e.recruitmentProgressStatus}"></td>
-									</tr>
-									<tr th:unless="${adminBranchRecruitAnnouncement != null and not #lists.isEmpty(adminBranchRecruitAnnouncement)}">
-									<td colspan="12">조회된 리스트가 없습니다</td>
-									</tr>
-								</tbody>
-			                </table>
-                          </div>
-                      </div>
                     
                     <div class="header-action-icon-2 d-block d-lg-none">
                         <div class="burger-icon burger-icon-white">
@@ -545,35 +856,6 @@
             </div>
         </section>
     </footer>   
-	<!-- footer end -->
-    <!-- Vendor JS-->
-    <script src="/user/assets/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="/user/assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="/user/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="/user/assets/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="/user/assets/js/plugins/slick.js"></script>
-    <script src="/user/assets/js/plugins/jquery.syotimer.min.js"></script>
-    <script src="/user/assets/js/plugins/wow.js"></script>
-    <script src="/user/assets/js/plugins/slider-range.js"></script>
-    <script src="/user/assets/js/plugins/perfect-scrollbar.js"></script>
-    <script src="/user/assets/js/plugins/magnific-popup.js"></script>
-    <script src="/user/assets/js/plugins/select2.min.js"></script>
-    <script src="/user/assets/js/plugins/waypoints.js"></script>
-    <script src="/user/assets/js/plugins/counterup.js"></script>
-    <script src="/user/assets/js/plugins/jquery.countdown.min.js"></script>
-    <script src="/user/assets/js/plugins/images-loaded.js"></script>
-    <script src="/user/assets/js/plugins/isotope.js"></script>
-    <script src="/user/assets/js/plugins/scrollup.js"></script>
-    <script src="/user/assets/js/plugins/jquery.vticker-min.js"></script>
-    <script src="/user/assets/js/plugins/jquery.theia.sticky.js"></script>
-    <script src="/user/assets/js/plugins/jquery.elevatezoom.js"></script>
-    <!-- Template  JS -->
-    <script src="/user/assets/js/main.js?v=5.6"></script><a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: none;"><i class="fi-rs-arrow-small-up"></i></a>
-    <script src="/user/assets/js/shop.js?v=5.6"></script>
-	<!-- This Page JS -->
-    
-    <!-- This Page JS Script -->
-    
 
 	</body>
 </html>
