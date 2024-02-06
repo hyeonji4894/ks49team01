@@ -6,11 +6,23 @@
 	<!-- css file import head태그 안에 추가  -->
 	<head>
 		<!-- This Page CSS -->
+		<style>
+			.table-bordered, .table-bordered td, .table-bordered th {
+				border-color: #bac6d0 !important;
+			}
+			.table-bordered thead{
+				background-color: #dfe4fa !important;
+				border-color: #bac6d0;
+			}
+			.border{
+				border-color: #bac6d0 !important;
+			}			
+		</style>
 	</head>
 	
 	<!-- This Page breadcrumbTitle -->
 	<th:block layout:fragment="customBreadcrumbTitle">
-		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원목록</h4>
+		<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">로그인관리</h4>
 	</th:block>
 	
 	<!-- This Page breadcrumb -->
@@ -18,34 +30,144 @@
 		<li class="breadcrumb-item">
 			<a th:href="@{/}" class="text-muted">회원관리</a>
 		</li>
-		<li class="breadcrumb-item text-muted active" aria-current="page">회원목록</li>
+		<li class="breadcrumb-item text-muted active" aria-current="page">로그인관리</li>
 	</th:block>
-
+	
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
-       	  <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">회원 로그인코드</th>
-                                            <th scope="col">회원 아이디</th>
-                                            <th scope="col">회원 로그인</th>
-                                            <th scope="col">회원 로그아웃</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbody">
-                                          <tr th:if="${loginList != null and not #lists.isEmpty(loginList)}"
-												th:each="l : ${loginList}">
-												<td th:text="${l.loginCode}"></td>
-												<td th:text="${l.memberId}"></td>
-												<td th:text="${l.logDate}"></td>
-												<td th:text="${l.logoutDate}"></td>
-				         </tr>
-                                        <tr th:unless="${loginList != null and not #lists.isEmpty(loginList)}">
-											<td colspan="12">등록된 회원의 정보가 없습니다.</td>
-										</tr>
-                                    </tbody>
-                                </table>
-                                	</th:block>
+		  <div class="card mb-4">
+		    <div class="card-body">
+		    	<div class="row mb-3">
+		    		<div class="col-sm-3 d-flex align-items-end">		    		
+				    	<h5 class="card-title">
+					    	[ 전체 &nbsp;
+					    	<label id="listCnt" class="text-info mb-0">100</label> 건
+					    	&nbsp;|&nbsp;  
+					    	<label id="pageCnt" class="text-info mb-0">10</label> 건
+					    	]
+				    	</h5>
+		    		</div>	    	
+			    	<div class="col-sm-9">
+			    		<div class="btn-list text-right">
+                           <a type="button" class="btn btn-outline-success" id="addBtn" th:href="@{/common/page2}"><i class="fas fas fa-pencil-alt"></i>
+                               등록</a>
+                           <button type="button" class="btn btn-outline-warning" id="modifyBtn"><i class="fas fa-undo"></i>
+                               수정</button>
+                           <button type="button" class="btn btn-outline-danger" id="delBtn"><i class="fas fa-trash-alt"></i>
+                               삭제</button>
+                       </div>
+			    	</div>
+		    	</div>
+		    	
+		    	<table class="table table-bordered table-hover text-center search-result">
+                  <thead class="h5 text-dark">
+                      <tr>
+                          <th class="font-weight-bolder">로그인 코드</th>
+                          <th class="font-weight-bolder">아이디</th>
+                          <th class="font-weight-bolder">로그인 시간</th>
+                          <th class="font-weight-bolder">로그아웃 시간</th>
+                      </tr>
+                  </thead>
+                  <tbody class="border text-dark">
+                  	<tr th:if="${loginList != null and not #lists.isEmpty(loginList)}"
+						  th:each="l : ${loginList}">
+						<td th:text="${l.loginCode}"></td>
+						<td th:text="${l.memberId}"></td>
+						<td th:text="${l.logDate}"></td>
+						<td th:text="${l.logoutDate}"></td>
+	     		 	</tr>
+	                <tr th:unless="${loginList != null and not #lists.isEmpty(loginList)}">
+						<td colspan="12">등록된 회원의 정보가 없습니다.</td>
+					</tr>
+                  </tbody>
+                </table>
+			    <div class="row justify-content-center mt-5">
+			    	<div class="col-10">			    	
+				    	<ul class="pagination justify-content-center">
+		                   <li class="page-item disabled">
+		                       <a class="page-link" href="#" tabindex="-1">Previous</a>
+		                   </li>
+		                   <li class="page-item active"><a class="page-link" href="#">1</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">2</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">3</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">4</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">5</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">6</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">7</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">8</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">9</a></li>
+		                   <li class="page-item"><a class="page-link" href="#">10</a></li>
+		                   <li class="page-item">
+		                       <a class="page-link" href="#">Next</a>
+		                   </li>
+		               </ul>
+			    	</div>
+			    </div>
+		    </div>
+		  </div>
+	</th:block>
+	
+	<th:block layout:fragment="customJs">
+		<script>		
+			// modal searchTb1 처리
+			$(document).on('click', '.searchTb1 tr', function(){
+				const code = $(this).children().eq(0).text();
+				const name = $(this).children().eq(1).text();
+				$('#search1Name').val(name);
+				$('#search1Code').val(code);
+				$('#search1-modal').modal('hide');
+			});
+			
+			// modal searchTb2 처리
+			$(document).on('click', '.searchTb2 tr', function(){
+				const code = $(this).children().eq(0).text();
+				const name = $(this).children().eq(1).text();
+				$('#goodsName').val(name);
+				$('#goodsCode').val(code);
+				$('#search2-modal').modal('hide');
+			});
+			
+			// 검색결과 tbody 이벤트
+			$(document).on('click', '.search-result tbody tr', function(e){
+				e.stopPropagation();
+				const isChecked = $(this).find('.check').prop('checked');
+				$(this).find('.check').prop('checked', !isChecked);
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 검색결과 tbody check box 이벤트
+			$(document).on('click', '.check', function(e){
+				e.stopPropagation();
+				if($('.check').length == $('.check:checked').length){
+					$('#allCheck').prop('checked', true);
+				}else{
+					$('#allCheck').prop('checked', false);
+				}
+			});
+			
+			// 전체체크
+			$(document).on('click', '#allCheck', function(){
+				const isChecked = $(this).prop('checked');
+				$('.check').prop('checked', isChecked);
+			});	
+			
+			// 수정버튼
+			$(document).on('click', '#modifyBtn', function(){
+				const checkLength = $('.check:checked').length;
+				if(checkLength > 1) {
+					alert('한개만 선택해주세요.')
+					return;
+				}
+				
+			});
+			
+		</script>
+	</th:block>
+
 </html>
 
 

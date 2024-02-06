@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks49team01.admin.dto.AdminNoticeBoard;
 import ks49team01.admin.service.AdminNoticeBoardService;
-import ks49team01.admin.service.AdminUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 @AllArgsConstructor
 @RequestMapping("/admin/noticeBoard")
 @Controller
