@@ -2,6 +2,7 @@ package ks49team01.user.dto;
 
 import java.util.List;
 
+import ks49team01.branch.dto.RoomImgFileDto;
 import lombok.Data;
 
 @Data
@@ -19,5 +20,12 @@ public class UserRoom {
 	private int roomBasicPrice;
 	private String roomRegistrationDate;
 	
+	private String roomSubtotalAmount;
+	private String checkIn;
+	private String checkOut;
+	private String numberOfStays;
+	
 	private List<UserRoomOption> roomOptionList;
+	
+	private List<RoomImgFileDto> roomImgFileList;
 }

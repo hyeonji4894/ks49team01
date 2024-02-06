@@ -59,18 +59,18 @@
 		                                        <h6 class="mb-5" th:text="${o.roomOptionName}">옵션명</h6>
 		                                    </td>
 		                                    <td class="price" data-title="Price">
-		                                        <h4 class="text-body" th:text="|₩ ${#numbers.formatInteger(o.roomOptionPrice, 0, 'COMMA')}|"> 옵션금액 </h4>
+		                                        <h4 class="text-body" th:text="|₩ ${#numbers.formatInteger(o.roomOptionPrice, 0, 'COMMA')}|" id="optionPrice"> 옵션금액 </h4>
 		                                    </td>
 		                                    <td class="text-center detail-info" data-title="Stock">
 		                                        <div class="detail-extralink mr-15">
 		                                            <div class="detail-qty border radius">
-		                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-		                                                <input type="text" name="quantity" class="qty-val" value="1" min="1">
-		                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+		                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down" id="minusSelec"></i></a>
+		                                                <input type="text" name="quantity" class="qty-val" value="0" min="0" id="optionSelecNum">
+		                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up" id="plusSelec"></i></a>
 		                                            </div>
 		                                        </div>
 	                                    	</td>
-	                                    	<td class="price" data-title="Price">
+	                                    	<td class="price" data-title="Price" id="result">
 	                                        <h4 class="text-brand" >0</h4>
 	                                    	</td>
 	                                	</tr>
@@ -84,7 +84,7 @@
 	                        <div class="col-lg-12">
 	                            <form method="post" class="apply-coupon">
 	                                <input type="text" placeholder="Enter Coupon Code..." id="searchCoupon" >
-	                                <button class="btn btn-md" name="coupon" type="button" data-toggle="modal" data-target="#search1-modal">쿠폰 검색</button>
+	                                <button class="btn btn-md" name="coupon" type="button" data-toggle="modal" data-target="#coupon-modal">쿠폰 검색</button>
 	                            </form>
 	                        </div>
 	                    </div>
@@ -176,9 +176,26 @@
 	            </div>
 	        </div>
 	    </main>
-	    
 	    <!-- coupon modal -->
-	    <div id="search1-modal" class="col-lg-5" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+	    <div id="coupon-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                  	  <div class="modal-header">
+                          <h4 class="modal-title" id="modalTitle2">쿠폰 선택</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      </div>
+                      <div class="modal-body">
+                         <div class="custome-radio">
+			                <input class="form-check-input" required="" type="radio" name="payment_option" id="couponName" checked="">
+			                <label class="form-check-label" for="searchItem1" data-bs-toggle="modal" data-target="#bankTranfer" aria-controls="bankTranfer">쿠폰 명</label>
+		                </div>
+                      </div>
+                      
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+	    <!-- coupon modal -->
+	    <!-- <div id="search1-modal" class="col-lg-5" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
 		    <div class="border p-40 cart-totals ml-30 mb-50">
 		        <div class="d-flex align-items-end justify-content-between mb-30 modal-header">
 		            <h4 class="modal-title" id="modalTitle2">쿠폰 선택</h4>
@@ -186,16 +203,22 @@
 		        <div class="modal-body">
 		        	<div class="custome-radio">
 		                <input class="form-check-input" required="" type="radio" name="payment_option" id="couponName" checked="">
-		                <label class="form-check-label" for="searchItem1" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">쿠폰 명</label>
+		                <label class="form-check-label" for="searchItem1" data-bs-toggle="modal" data-target="#bankTranfer" aria-controls="bankTranfer">쿠폰 명</label>
 	                </div>
 		        </div>
 		    </div>
-		</div>
+		</div> -->
 	</th:block>
 	
 	<th:block layout:fragment="customJs">
 		<script th:inline="javascript">
+			$('button[name="coupon"]').click(function(){
+				$('#coupon-modal').modal('show');
+			});
 			
+			$('.close').click(function(){
+				$('#coupon-modal').modal('hide');
+			})
 			/* 
 			// 쿠폰 모달
 			$(document).on('click', '.searchCoupon label', function(){
@@ -213,8 +236,18 @@
 		        $('#allCheck').click(function() {
 		            $('.check').prop('checked', this.checked);
 		        });
-		    });	
+		    });
 			
+			
+			$(document).ready(function(){
+				$("#plusSelec").click(function(){
+					
+				const optionPrice = $(#optionPrice).val();
+				const optionSelecNum = $(#optionSelecNum).val();
+				const result = optionPrice * optionSelecNum;
+				$("#result").text("결과: " + result);
+				});
+			});
 		
 			
 		</script>	

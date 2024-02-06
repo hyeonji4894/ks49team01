@@ -87,11 +87,11 @@ public class UserRoomController {
 		log.info("roomInfo: {}", roomInfo);
 		
 		// 인원추가 옵션
-		//List<UserRoomOption> roomOptionByPersonnel = optionService.getOptionByPersonnel();
-		//log.info("roomOptionByPersonnel :{}",roomOptionByPersonnel);
+		UserRoomOption roomOptionByPersonnel = optionService.getOptionByPersonnel("option_01");
+		log.info("roomOptionByPersonnel :{}",roomOptionByPersonnel);
 		
 		model.addAttribute("roomInfo", roomInfo);
-		//model.addAttribute("roomOptionByPersonnel", roomOptionByPersonnel);
+		model.addAttribute("roomOptionByPersonnel", roomOptionByPersonnel);
 		
 		return "user/room/room_Detail_veiw";
 	}
