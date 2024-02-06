@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks49team01.user.mapper.UserReviewMapper">
+
+	<resultMap type="UserReview" id="reviewResultMap">
+		<id column="review_num" 				property="reviewNum"/>
+		<result column="review_list_num" 		property="reviewListNum"/>
+		<result column="member_id" 				property="memberId"/>
+		<result column="branch_code" 			property="branchCode"/>
+		<result column="payments_due_code" 		property="paymentsDueCode"/>
+		<result column="stay_period_code" 		property="stayPeriodCode"/>
+		<result column="room_code" 				property="roomCode"/>
+		<result column="review_context" 		property="reviewContext"/>
+		<result column="review_date" 			property="reviewDate"/>
+		<result column="review_views" 			property="reviewViews"/>
+		<result column="review_file_code" 		property="reviewFileCode"/>
+		<result column="file_attribute" 		property="fileAttribute"/>
+		<result column="room_name" 				property="roomName"/>
+		<result column="branch_name" 			property="branchName"/>
+	</resultMap>
+	
+	<!-- 리뷰 목록 조회 -->
+	<select id="getUserReviewList" resultMap="reviewResultMap">
+		SELECT
+			r.review_num,
+			r.review_list_num,
+			r.member_id,
+			r.review_context,
+			r.review_date,
+			r.review_views,
+			bm.branch_name,
+			ri.room_name
+		FROM
+			review AS r
+			INNER JOIN
+			branch_management AS bm
+			ON
+			r.branch_code = bm.branch_code
+			INNER JOIN
+			room_information AS ri
+			ON
+			r.room_code = ri.room_code;	
+	</select>
+	
+	<!-- 특정코드로 리뷰자세히보기 -->
+	<select id="getReviewDetailByNum" resultMap="reviewResultMap" parameterType="String">
+	/*특정코드로 리뷰조회*/
+	SELECT
+		r.review_num,
+		r.member_id,
+		bm.branch_name,
+		ri.room_name,
+		ssp.check_in,
+		ssp.check_out,
+		r.review_date,
+		r.review_context,
+		fmrc.chosen_category,
+		r.review_file_code
+	FROM
+		review AS r
+		INNER JOIN
+		branch_management AS bm
+		ON
+		r.branch_code = bm.branch_code
+		INNER JOIN
+		room_information AS ri
+		ON
+		r.room_code = ri.room_code
+		INNER JOIN
+		set_stay_period AS ssp
+		ON
+		r.stay_period_code = ssp.stay_period_code
+		INNER JOIN
+		facility_mood_review_choice AS fmrc
+		ON
+		r.review_num = fmrc.review_num
+	WHERE
+		r.review_num = #{reviewNum};	
+	</select>
+	
+	
+	<!-- 리뷰 자세히보기 -->
+	<select id="getReviewDetail" resultMap="reviewResultMap">
+	SELECT
+		r.review_num,
+		r.member_id,
+		bm.branch_name,
+		ri.room_name,
+		ssp.check_in,
+		ssp.check_out,
+		r.review_date,
+		r.review_context,
+		fmrc.chosen_category,
+		r.review_file_code
+	FROM
+		review AS r
+		INNER JOIN
+		branch_management AS bm
+		ON
+		r.branch_code = bm.branch_code
+		INNER JOIN
+		room_information AS ri
+		ON
+		r.room_code = ri.room_code
+		INNER JOIN
+		set_stay_period AS ssp
+		ON
+		r.stay_period_code = ssp.stay_period_code
+		INNER JOIN
+		facility_mood_review_choice AS fmrc
+		ON
+		r.review_num = fmrc.review_num
+	WHERE
+		r.review_num = #{reviewNum};
+	</select>
+	
+</mapper>

@@ -65,28 +65,28 @@
 	<!-- Start Page Content -->
 	<th:block layout:fragment="customContent">
 		<form id="addPaymentMileageForm" method="post" th:action="@{/admin/mileage/modifyPaymentCriteriaMileage}" th:object="${adminPaymentCriteriaMileage}">	
-		<div class="card mb-4">
-			<div class="card-body ml-4 mr-4">
-				<div class="row border add-form">
-					<div class="col-2 add-form-label border-end">적립금등급 이름</div>
-					<div class="col-10">
-						<input type="text" class="form-control" name="mileageGradeName" id="mileageGradeName" th:value="*{mileageGradeName}">
-						<input type="hidden" class="form-control" id="roompayMileageRateCode" name="roompayMileageRateCode" th:value="*{roompayMileageRateCode}">						
-					</div>
-				</div>				
-				<div class="row border add-form">
-					<div class="col-2 add-form-label border-end">결제기준 적립비율</div>
-					<div class="col-10">
-						<input type="text" class="form-control" name="paymentCriteriaMileagePercent" id="paymentCriteriaMileagePercent" th:value="*{paymentCriteriaMileagePercent}">
-					</div>
-				</div>					
-				<div class="row border add-form">
-					<div class="col-2 add-form-label border-end">등급기준 누적결제금액</div>
-					<div class="col-10">
-						<input type="text" class="form-control" name="paymentCriteriaUpgrade" id="paymentCriteriaUpgrade" th:value="*{paymentCriteriaUpgrade}">
-					</div>
-				</div>																
-			</div>
+			<div class="card mb-4">
+				<div class="card-body ml-4 mr-4">
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">적립금등급 이름</div>
+						<div class="col-10">
+							<input type="text" class="form-control" name="mileageGradeName" id="mileageGradeName" th:value="*{mileageGradeName}">
+							<input type="hidden" class="form-control" id="roompayMileageRateCode" name="roompayMileageRateCode" th:value="*{roompayMileageRateCode}">						
+						</div>
+					</div>				
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">결제기준 적립비율</div>
+						<div class="col-10">
+							<input type="text" class="form-control" name="paymentCriteriaMileagePercent" id="paymentCriteriaMileagePercent" th:value="*{paymentCriteriaMileagePercent}">
+						</div>
+					</div>					
+					<div class="row border add-form">
+						<div class="col-2 add-form-label border-end">등급기준 누적결제금액</div>
+						<div class="col-10">
+							<input type="text" class="form-control" name="paymentCriteriaUpgrade" id="paymentCriteriaUpgrade" th:value="*{paymentCriteriaUpgrade}">
+						</div>
+					</div>																
+				</div>
 				<div class="row mb-3">
 					<div class="col-sm-3"></div>
 					<div class="col-sm-9">
@@ -97,10 +97,10 @@
 		                        수정</button>
 		                    <button type="reset" class="btn btn-outline-warning" id="resetBtn"><i class="fas fa-undo"></i>
 		                        재설정</button>&emsp;
-		                </div>
-				   	</div>
+					  	</div>
+					</div>
 				</div>
-		</div> 
+			</div> 
 		</form>   	
 	</th:block>
 	
