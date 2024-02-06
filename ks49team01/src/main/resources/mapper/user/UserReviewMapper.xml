@@ -42,8 +42,8 @@
 			r.room_code = ri.room_code;	
 	</select>
 	
-	<!-- 특정코드로 리뷰조회 -->
-	<select id="getReviewByNum" resultMap="reviewResultMap" parameterType="String">
+	<!-- 특정코드로 리뷰자세히보기 -->
+	<select id="getReviewDetailByNum" resultMap="reviewResultMap" parameterType="String">
 	/*특정코드로 리뷰조회*/
 	SELECT
 		r.review_num,

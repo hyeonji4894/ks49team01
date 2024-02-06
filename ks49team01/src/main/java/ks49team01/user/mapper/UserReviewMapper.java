@@ -19,7 +19,7 @@ public interface UserReviewMapper {
 	public UserReview getReviewDetail(String reviewNum);
 	
 	// reviewNum에 따른 자세한리뷰조회
-	public UserReview getReviewByNum(String reviewNum);
+	public UserReview getReviewDetailByNum(String reviewNum);
 	
 	// 리뷰수정
 	public int modifyReview(UserReview userReview);

@@ -21,8 +21,15 @@
 				border-color: green;
 				font-size: 17px;
 				margin: 10px;
-				
 			}
+			.selected{
+				background-color: yellow;
+				border-color: green;
+				font-size: 17px;
+				margin: 10px;
+				color: blue;
+			}
+			
 			
 		</style>
 	</head>
@@ -38,7 +45,7 @@
 	            </div>
     		</div>
        	</div>
-       	<div class="page-content mb-50">
+   		<div class="page-content mb-50">
            	<div class="container">
                 <div class="col-xl-11 col-lg-12 m-auto">
                     <div class="row justify-content-center">
@@ -51,74 +58,87 @@
                            				<div class="product-info">
                    							<form class="tab-style3">
 	     										<h5 class="section-title style-1 mb-30">카테고리 선택</h5>
-				                					<ol class="nav nav-tabs text-uppercase">
-								                       	<li class="nav-item">
-								                        	<a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">시설</a>
-								                       	</li>
-								                       	<li class="nav-item">
-								                        	<a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">분위기</a>
-							                        	</li>
-			                   						</ol>
-		       					   				<div class="tab-content shop_info_tab">
-					               					<div class="tab-pane fade show active content-header" id="Description">
-						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">숙소가 깨끗해요 ✨</button>
-						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">온수가 잘나와요 💦</button>
-						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">침구가 좋아요 👍</button> 
-						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">방음이 잘돼요 💤</button>
-						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">벌레 걱정 없어요 🦟❌</button>
-					               					</div>
-				                        			<div class="tab-pane fade" id="Additional-info">
-							                        	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">사진이 잘 나와요 📸</button>
-						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">뷰가 좋아요 🌅</button>
-						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">조용히 쉬기 좋아요 🌳</button> 
-						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">인테리어가 멋져요 ❗</button>
-						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn">친절해요 😄</button>
-				                      				</div>
-		                       					</div>
-			        						</form>
-       									</div>       
-                         			</div>
-                                   	<div class="row">
-                                     	<div class="col-lg-12 col-md-12">
-                                         	<div class="row">
-                                             	<div class="col-12">
-                                                 	<form th:action="@{/user/review/getReview}" method="post">
-	                                                 	<table>
-	                                                   		<tr>
-	                                                   			<td>
-	                              									<input type="file" name="reviewFile" id="reviewFile" alt="리뷰이미지">  
-	                             								</td>
-	                                                      	<tr class="form-group">
-	                                                      		<td>
-	                                                          		<textarea class="form-control w-100" name="reviewContext" id="reviewContext" cols="30" rows="9" placeholder="리뷰내용을 입력하세요"></textarea>
-	                                                          	</td>
-	                                                        </tr>
-	                                                    	<tr class="form-group">
-		                                                    	<td>
-		                                                    		<button type="submit" class="button button-contactForm addReviewBtn" >리뷰등록</button>
-		                                                    	</td>
-	                                                   		</tr>
-	                                                   	</table>
-                                         	 		</form>
-                             					</div>
-                         				 	</div>
-                                 		</div>
-                             		</div>
-	                       		</div>
-	                   		</div>
-            			</div>
+			                					<ol class="nav nav-tabs text-uppercase">
+							                       	<li class="nav-item">
+							                        	<a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">시설</a>
+							                       	</li>
+							                       	<li class="nav-item">
+							                        	<a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">분위기</a>
+						                        	</li>
+		                   						</ol>
+	       					   					<div class="tab-content shop_info_tab">
+				               						<div class="tab-pane fade show active content-header" id="Description">
+						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="숙소가 깨끗해요 ✨">숙소가 깨끗해요 ✨</button>
+						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="온수가 잘나와요 💦">온수가 잘나와요 💦</button>
+						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="침구가 좋아요 👍">침구가 좋아요 👍</button> 
+						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="방음이 잘돼요 💤">방음이 잘돼요 💤</button>
+						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="벌레 걱정 없어요 🦟❌">벌레 걱정 없어요 🦟❌</button>
+				               						</div>
+			                        				<div class="tab-pane fade" id="Additional-info">
+							                        	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="사진이 잘 나와요 📸">사진이 잘 나와요 📸</button>
+						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="뷰가 좋아요 🌅">뷰가 좋아요 🌅</button>
+						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="조용히 쉬기 좋아요 🌳">조용히 쉬기 좋아요 🌳</button> 
+						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="인테리어가 멋져요 ❗">인테리어가 멋져요 ❗</button>
+						                            	<button class="btn btn-light rounded font-sm mr-5 text-body hover-up cateBtn" value="친절해요 😄">친절해요 😄</button>
+			                      					</div>
+	                       						</div>
+                               					<div class="row">
+                                   					<div class="col-lg-12 col-md-12">
+                                       					<div class="row">
+                                           					<div class="col-12">
+                                                				<table>
+		                                                   			<tr>
+			                                                   			<td>
+			                              									<input type="file" name="reviewFile" id="reviewFile" alt="리뷰이미지">  
+			                             								</td>
+		                                                      		<tr class="form-group">
+			                                                      		<td>
+			                                                          		<textarea class="form-control w-100" name="reviewContext" id="reviewContext" cols="30" rows="9" placeholder="리뷰내용을 입력하세요"></textarea>
+			                                                          	</td>
+		                                                        	</tr>
+                                                    				<tr class="form-group">
+		                                                    			<td>
+		                                                    			<button type="submit" class="button button-contactForm addReviewBtn" >리뷰등록</button>
+		                                                    			</td>
+                                                  					</tr>
+                                               					</table>
+                                               				</div>
+		                                        		</div>       
+		                         					</div>
+                           						</div>
+		                                  	</form>	
+                       				 	</div>
+                               		</div>
+                           		</div>
+                       		</div>
+                   		</div>
            			</div>
        			</div>
    			</div>
-        </div>
+		</div>
 	</th:block>
+	
 	<th:block layout:fragment="customJs">
 	<script th:inline="javascript">	
-	$('#tags-list').click(function(){
-		
-	})
+	function change_btn(e) {
+		  var btns = document.querySelectorAll(".cateBtn");
+		  btns.forEach(function (btn, i) {
+		    if (e.currentTarget == btn) {
+		      btn.classList.add("bg-warning");
+		    } else {
+		      btn.classList.remove("bg-warning");
+		    }
+		  });
+		  console.log(e.currentTarget);
+		}
 	
-	
+		$('.cateBtn').click(function(e){
+			e.preventDefault();
+			$(this).toggleClass('selected');
+			$(this).toggleClass('text-body');
+			
+			$(this).blur();
+		});
 	
 	</script>
 	</th:block>

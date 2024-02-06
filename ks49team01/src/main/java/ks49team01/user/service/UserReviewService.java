@@ -45,15 +45,13 @@ public class UserReviewService {
 		return reviewDetail;
 	}
 	
-	// 리뷰코드에 따른 리뷰 조회
-	public UserReview getReviewByNum(String reviewNum) {
+	// reviewNum으로 리뷰자세히보기 조회
+	public UserReview getReviewDetailByCode(String reviewNum) {
 		
-		UserReview userReview = userReviewMapper.getReviewByNum(reviewNum);
-		
-		log.info("userReview: {}", userReview);
-		
-		return userReview;
+		UserReview reviewDetail = userReviewMapper.getReviewDetailByNum(reviewNum);
+		return reviewDetail;
 	}
+	
 
 	// 리뷰 수정
 	public void modifyReview(UserReview userReview) {

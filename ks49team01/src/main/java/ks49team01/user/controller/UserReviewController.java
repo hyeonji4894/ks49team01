@@ -37,12 +37,12 @@ public class UserReviewController {
 		return "user/review/get_review";
 	}
 	
-	// 자세한 리뷰 조회
+	// reviewNum에 따른 자세한 리뷰 조회
 	@GetMapping("/getReviewDetail")
 	public String getReviewDetail(@RequestParam(value="reviewNum", required = false)String reviewNum
 								,Model model) {
 
-		UserReview reviewDetail = userReviewService.getReviewByNum(reviewNum);
+		UserReview reviewDetail = userReviewService.getReviewDetailByCode(reviewNum);
 		
 		log.info("reviewDetail: {}", reviewDetail);
 		
@@ -62,12 +62,19 @@ public class UserReviewController {
 		
 		return "user/review/add_review";
 	}
+	
+	// 리뷰등록
+	@PostMapping("/addReview")
+	public String addReview() {
 		
+		
+		return "redirect:/user/review/getReviewDetail"; 
+	}
+	
+	
 	// 리뷰 수정
 	@PostMapping("/modifyReview")
-	public String modifyReview(UserReview userReview
-								,@RequestParam(name="reviewNum", required=false)String reviewNum
-								, Model model) {
+	public String modifyReview(Model model) {
 		
 		
 		
