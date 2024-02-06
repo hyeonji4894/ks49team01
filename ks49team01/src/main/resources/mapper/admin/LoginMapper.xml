@@ -18,5 +18,13 @@ FROM
 login AS l
 
 	</select>
+	
+	<select id="findByUsernameAndPassword" resultMap="usersResultMap">
+    SELECT *
+    FROM member
+    WHERE member_id = #{memberId}
+    AND member_pw = #{memberPw}
+    </select>
+	
 </mapper>
 

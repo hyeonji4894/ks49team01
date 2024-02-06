@@ -7,14 +7,13 @@
 
 </head>
 <body>
-	<main class="main">
+	<main class="main pages">
 		<th:block layout:fragment="customContents">
-		<main class="main pages">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-                    <span></span> Pages <span></span> My Account
+                    <span></span> Pages <span></span> My Account 
                 </div>
             </div>
         </div>
@@ -32,23 +31,23 @@
                                         <div class="heading_s1">
                                             <h1 class="mb-5">Login</h1>
                                         </div>
-										  <form th:action="@{/user/member/login}" method="post" th:object="${adminUser}">
+										  <form id="loginForm" th:action="@{/user/member/login}" method="post">
                                             <div class="form-group" >
-        									<input placeholder="아이디를 입력해주세요" type="text" id="memberId" name="memberId" th:field="*{memberId}" required>
+        									<input placeholder="아이디를 입력해주세요" type="text" id="memberId" name="memberId" required>
                                             </div>
                                             <div class="form-group">
-        									<input  placeholder="비밀번호를 입력해주세요" type="password" id="memberPw" name="memberPw" th:field="*{memberPw}" required>
+        									<input  placeholder="비밀번호를 입력해주세요" type="password" id="memberPw" name="memberPw" required>
                                             </div>
                                           
                                             <div class="form-group d-flex justify-content-end">
-                                                <button type="submit" class="col-12 btn btn-heading btn-block hover-up" name="login">Log in</button>
+                                                <button type="button" class="col-12 btn btn-heading btn-block hover-up" id="checkBtn" name="checkBtn">Log in</button>
                                             </div>
                                                   <div class="col-12 mt-3">
 							                    <button class="col-12 btn btn-heading btn-block hover-up" type="button" th:onclick="window.location.href='/user/member/addMember'">
 							                        회원가입
 							                    </button>
 							                </div> 
-                					</form>
+                						</form>
                                     </div>
                                 </div>
                             </div>
@@ -58,38 +57,47 @@
             </div>
         </div>
     </main>
-		</th:block>
-	</main>
-	<!-- contents end -->
-	<!-- footer start -->
-	   <footer th:replace="~{user/fragments/footer :: footerFragment}"></footer>   
-	<!-- footer end -->
-    <!-- Vendor JS-->
-    <script th:src="@{/user/assets/js/vendor/modernizr-3.6.0.min.js}"></script>
-    <script th:src="@{/user/assets/js/vendor/jquery-3.6.0.min.js}"></script>
-    <script th:src="@{/user/assets/js/vendor/jquery-migrate-3.3.0.min.js}"></script>
-    <script th:src="@{/user/assets/js/vendor/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/slick.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/jquery.syotimer.min.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/wow.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/perfect-scrollbar.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/magnific-popup.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/select2.min.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/waypoints.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/counterup.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/jquery.countdown.min.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/images-loaded.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/isotope.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/scrollup.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/jquery.vticker-min.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/jquery.theia.sticky.js}"></script>
-    <script th:src="@{/user/assets/js/plugins/jquery.elevatezoom.js}"></script>
-    <!-- Template  JS -->
-    <script th:src="@{/user/assets/js/main.js?v=5.6}"></script>
-    <script th:src="@{/user/assets/js/shop.js?v=5.6}"></script>
-	<!-- This Page JS -->
-    <th:block layout:fragment="customJsFile"></th:block>
-    <!-- This Page JS Script -->
-    <th:block layout:fragment="customJs"></th:block>
-</body>
+</th:block>
+    <th:block layout:fragment="customJs">
+    	<script th:inline="javascript">
+    		$(function(){
+    			let msg = [[${msg}]];
+    			if(msg) alert(msg)
+    			
+    			$(document).on('click','#checkBtn',function(){
+        			const memberId = $('#memberId').val();
+        			const memberPw = $('#memberPw').val();
+        			if(memberId == null || memberId == ''){
+    					alert('아이디를 입력해주세요');
+    					$('#memberId').focus();
+    					return;
+    				}else if(memberPw == null || memberPw ==''){
+    					alert('비밀번호를 입력해주세요');
+    					$('#memberPw').focus();
+    					return;	
+    				}
+        			const request = $.ajax({
+    					url : '/user/member/confirm',
+    					method : 'POST',
+    					data : {'memberId' : memberId},
+    					dataType : 'JSON'
+    				});
+        			request.done(function(res){
+    	    			const isDuplicate = res;
+    	    			console.log(isDuplicate);
+    	    			if(!isDuplicate){
+    	    				alert('입력하신 회원의 정보가 없습니다.');
+    	    				return;
+    	    			}
+    	    			$('#loginForm').submit();
+        			});
+        			request.fail(function(jQXHR, textStatus, error){
+    					console.log(error);
+        			});
+        		});
+    		});
+    		
+	
+    	</script>
+	</th:block>
 </html>

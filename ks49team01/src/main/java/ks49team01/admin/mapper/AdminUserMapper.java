@@ -13,7 +13,7 @@ import ks49team01.user.dto.RoompayMileageRate;
 @Mapper
 public interface AdminUserMapper {
 	
-    AdminUser findByUsernameAndPassword(@Param("memberId") String memberId, @Param("memberPw") String memberPw);
+    	AdminUser findByUsernameAndPassword(String memberId, String memberPw);
     	
     
 		public int removeMemberById(String memberId);

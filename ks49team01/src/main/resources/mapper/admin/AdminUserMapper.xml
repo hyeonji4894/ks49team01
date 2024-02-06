@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks49team01.admin.mapper.AdminUserMapper">
-
-
-
 	<resultMap type="AdminUser" id="usersResultMap">
 		<id 	column="member_id" 		property="memberId" />
 		<result column="member_pw" 		property="memberPw"/>
@@ -103,29 +100,29 @@
 	<select id="getMemberInfoById" parameterType="String" resultMap="usersResultMap">
 		/* 특정회원 조회 */
 		SELECT 
-	member_id, 
-	roompay_mileage_rate_code,
-	mem_level_code, 
-	member_pw, 
-	member_email, 
-	member_name, 
-	member_birth, 
-	member_gender, 
-	member_phone, 
-	member_addr, 
-	member_regdate, 
-	member_addr_detail, 
-	final_mileage, 
-	accumulated_payment_amount, 
-	memberState
-FROM 
-	member
-				WHERE
+			member_id, 
+			roompay_mileage_rate_code,
+			mem_level_code, 
+			member_pw, 
+			member_email, 
+			member_name, 
+			member_birth, 
+			member_gender, 
+			member_phone, 
+			member_addr, 
+			member_regdate, 
+			member_addr_detail, 
+			final_mileage, 
+			accumulated_payment_amount, 
+			memberState
+		FROM 
+			member
+		WHERE
 			member_id = #{memberId};
 	</select>
 
 	
-	     <select id="checkId" resultType="java.lang.Boolean">
+<!-- 	     <select id="checkId" resultType="java.lang.Boolean">
 		/* 회원아이디 중복체크 */
 		SELECT
 			COUNT(m.member_id)
@@ -135,7 +132,7 @@ FROM
 			m.member_id = #{memberId};
 	</select>
 	
-	
+	 -->
 	
 	
 	<select id="memberLevelList" resultMap="usersResultMap">
@@ -182,17 +179,17 @@ FROM
 		</where>
 	</select>
 
-<insert id="addMember" parameterType="AdminUser">
-    <!-- 회원가입 -->
-    INSERT INTO member
-    (member_id, mem_level_code,roompay_mileage_rate_code, member_pw, member_email, member_name, member_birth,
-    member_gender, member_phone, member_addr,member_addr_detail, member_regdate, final_mileage,
-    accumulated_payment_amount, memberState)
-    VALUES
-    (#{memberId}, #{mem_level_code},#{roompay_mileage_rate_code}, #{memberPw}, #{memberEmail}, #{memberName},
-    #{memberBirth}, #{memberGender}, #{memberPhone}, #{memberAddr}, #{member_addr_detail},CURDATE(), <!-- #{final_mileage} -->0,
-    <!-- #{accumulated_payment_amount} -->0,<!--  #{memberState} -->'정상회원');
-</insert>
+	<insert id="addMember" parameterType="AdminUser">
+	    <!-- 회원가입 -->
+	    INSERT INTO member
+	    (member_id, mem_level_code, roompay_mileage_rate_code, member_pw, member_email, member_name, member_birth,
+	    member_gender, member_phone, member_addr, member_addr_detail, member_regdate, final_mileage,
+	    accumulated_payment_amount, memberState)
+	    VALUES
+	    (#{memberId}, #{mem_level_code}, IFNULL(#{roompay_mileage_rate_code},'roompay_mileage03'), #{memberPw}, #{memberEmail}, #{memberName}, #{memberBirth},
+	     #{memberGender}, #{memberPhone}, #{memberAddr}, #{member_addr_detail}, CURDATE(), 0,
+	     0, '정상회원');
+	</insert>
 
 	
 	<select id="getuserList" resultMap="usersResultMap">
@@ -223,6 +220,21 @@ FROM
 			m.member_name
 		FROM
 			member AS m-->
+	</select>
+	<select id="findByUsernameAndPassword" resultMap="usersResultMap">
+	    SELECT *
+	    FROM member
+	    WHERE member_id = #{memberId}
+	    AND member_pw = #{memberPw}
+	</select>
+	<select id="checkId" parameterType="String" resultType="boolean">
+		/* 회원아이디 중복체크 */
+		SELECT
+			COUNT(m.member_id)
+		FROM
+			member AS m
+		WHERE
+			m.member_id = #{memberId};
 	</select>
 </mapper>
 	
