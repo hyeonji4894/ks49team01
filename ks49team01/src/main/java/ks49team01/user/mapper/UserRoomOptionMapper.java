@@ -13,5 +13,5 @@ public interface UserRoomOptionMapper {
 	public List<UserRoomOption> getOptionList();
 	
 	// 인원 추가 옵션 조건
-	public List<UserRoomOption> getOptionByPersonnel();
+	public UserRoomOption getOptionByPersonnel(String roomOptionNumber);
 }

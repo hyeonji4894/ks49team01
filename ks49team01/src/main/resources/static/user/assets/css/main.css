@@ -814,6 +814,30 @@ button {
   cursor: pointer;
 }
 
+.font-lg.text-left {
+  margin: 80px; /* 원하는 값으로 조정 가능 */
+}
+/*------parksiwoo------*/
+.mgb{
+	margin-bottom:	30px;
+}
+.mgt{
+	margin-top: 30px;
+}
+.basic {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+.tml{
+	text-align : center;
+}
+.small {
+	font-size : 18px;
+	font-weight: bold;
+	color: gray;
+}
+/*------parksiowoo--------*/
 b {
   font-weight: 500;
 }

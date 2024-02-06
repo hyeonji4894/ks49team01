@@ -4,13 +4,23 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import ks49team01.admin.dto.AdminUser;
 import ks49team01.admin.dto.AdminUserLevel;
+import ks49team01.user.dto.RoompayMileageRate;
 
 @Mapper
 public interface AdminUserMapper {
 	
+    	AdminUser findByUsernameAndPassword(String memberId, String memberPw);
+    	
+    
+		public int removeMemberById(String memberId);
+
+    
+    	// 회원 적립등급 조회
+    	public List<RoompayMileageRate>memberMileageList();
 		// 특정회원 조회
 		public AdminUser getMemberInfoById(String memberId);
 	
