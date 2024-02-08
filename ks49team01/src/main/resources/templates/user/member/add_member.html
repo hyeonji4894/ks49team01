@@ -34,17 +34,17 @@
                                 <div class="login_wrap widget-taber-content background-white">
                                     <div class="padding_eight_all bg-white">
                                         <div class="heading_s1">
-                                            <h1 class="mb-5">너 내 도도독...</h1>
-                                            <p class="mb-30">이미 회원이시라면? <a th:href="@{/user/member/login}">로그인 화면</a></p>
+                                            <h1 class="mb-5">회원가입</h1>
+                                            <p class="mb-30">이미 회원이신가요? <a th:href="@{/user/member/login}">로그인 화면</a></p>
                                         </div>
                                         <form id="addMemberForm" method="post" th:action="@{/user/member/addMember}">
                                            <div class="form-group">
                                            		<div class="row">
 												    <p class="small">아이디</p>
-												    <div class="col-lg-10">
+												    <div class="col-lg-9">
 												        <input class="form-control" type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요" />
 												    </div>	
-											        <div class="input-group-append col-lg-2 col">
+											        <div class="input-group-append col-lg-3 col">
 											            <button class="btn waves-effect waves-light btn-success" type="button" id="checkIdBtn">중복아이디체크</button>
 											        </div>
 										        </div>
