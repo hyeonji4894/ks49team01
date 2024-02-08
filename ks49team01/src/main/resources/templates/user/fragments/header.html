@@ -27,7 +27,7 @@
                                         <img class="svgInject" alt="Nest" th:src="@{/user/assets/imgs/theme/icons/icon-user.svg}" />
                                     </a>
 
-                                    <a th:href="@{#}"><span class="lable ml-0">Account</span></a>
+                                    <a th:href="@{/user/account/myPage}"><span class="lable ml-0">Account</span></a>
 
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
@@ -40,7 +40,7 @@
 										    <li th:unless="${session.SNAME != null}">
 										        <a th:href="@{/user/member/login}"><i class="fi fi-rs-label mr-10"></i>login</a>
 										    </li>
-										    <li><a href="page-account.html"><i class="fi fi-rs-label mr-10"></i>My Voucher</a></li>
+										    <li><a th:href="@{/user/account/myPage}"><i class="fi fi-rs-label mr-10"></i>My Page</a></li>
 										    <li><a href="shop-wishlist.html"><i class="fi fi-rs-heart mr-10"></i>My Wishlist</a></li>
 										    <li><a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>Setting</a></li>
 										    <li th:if="${session.SNAME != null}">
@@ -85,23 +85,7 @@
                                             <li><a th:href="@{#}">모집공고</a></li>
                                             <li><a th:href="@{#}">가맹신청</a></li>
                                         </ul>
-                                    </li>
-                                    <li>
-                                        <a th:href="@{#}">Pages <i class="fi-rs-angle-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a th:href="@{#}">About Us</a></li>
-                                            <li><a th:href="@{#}">Contact</a></li>
-                                            <li><a th:href="@{#}">My Account</a></li>
-                                            <li><a th:href="@{user/member/login}">Login</a></li>
-                                            <li><a th:href="@{#}">Register</a></li>
-                                            <li><a th:href="@{#}">Forgot password</a></li>
-                                            <li><a th:href="@{#}">Reset password</a></li>
-                                            <li><a th:href="@{#}">Purchase Guide</a></li>
-                                            <li><a th:href="@{#}">Privacy Policy</a></li>
-                                            <li><a th:href="@{#}">Terms of Service</a></li>
-                                            <li><a th:href="@{#}">404 Page</a></li>
-                                        </ul>
-                                    </li>
+                                    </li>                                    
                                     <li>
                                         <a th:href="@{#}">Contact</a>
                                     </li>
